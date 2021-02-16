@@ -1,0 +1,293 @@
+﻿@page "/Drivers"
+@inject IJSRuntime JSRuntime
+@inject HttpClient Http
+<!--begin::Subheader-->
+<div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
+    <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+        <!--begin::Details-->
+        <div class="d-flex align-items-center flex-wrap mr-2">
+            <!--begin::Title-->
+            <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">FMS Drivers</h5>
+            <!--end::Title-->
+            <!--begin::Separator-->
+            <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-5 bg-gray-200"></div>
+            <!--end::Separator-->
+            <!--begin::Breadcrumb-->
+            <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+                <li class="breadcrumb-item">
+                    <a class="text-muted">Management</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a data-toggle="tab" class="text-muted">History</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a data-toggle="tab" class="text-muted">Summery</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a class="text-muted">Scorecard</a>
+                </li>
+            </ul>
+            <!--end::Breadcrumb-->
+        </div>
+        <!--end::Details-->
+        <div class="d-flex align-items-center">
+            <ul class="nav nav-light-fms nav-bold nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#kt_tab_pane_4_1">
+                        <span class="nav-icon"><i class="flaticon2-dashboard"></i></span>
+                        <span class="nav-text">Driver Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_4_2">
+                        <span class="nav-icon"><i class="flaticon2-information"></i></span>
+                        <span class="nav-text">Accidental History</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_4_3">
+                        <span class="nav-icon"><i class="flaticon2-sheet"></i></span>
+                        <span class="nav-text">Vehicle Summery</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_4_4">
+                        <span class="nav-icon"><i class="flaticon2-add-square"></i></span>
+                        <span class="nav-text">Scorecard</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--end::Subheader-->
+
+<div class="d-flex flex-column-fluid">
+    <!--begin::Container-->
+    <div class="container-fluid">
+        <!--begin::Card-->
+        <div class="card card-custom card-stretch">
+            <!--begin::Body-->
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="kt_tab_pane_4_1" role="tabpanel" aria-labelledby="kt_tab_pane_4_1">
+                        @if (DriversList != null)
+                        {
+                            <div class="col-lg-12 control-section">
+                                <div class="content-wrapper">
+                                    <div class="row">
+                                        <div id="container">
+                                            <SfGrid ID="DriversGrid" @ref="DriversGrid" DataSource="@DriversList"
+                                                    AllowPaging="true" AllowSorting="true" AllowFiltering="true"
+                                                    Height="650" RowHeight="38"
+                                                    Toolbar="@(new List<string>() { "ExcelExport", "CsvExport", "PdfExport" })"
+                                                    AllowExcelExport="true" AllowPdfExport="true">
+                                                <GridPageSettings PageCount="5" PageSize="10" PageSizes="new int[]{ 5, 10, 20, 50, 100 }"></GridPageSettings>
+                                                <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Menu"></GridFilterSettings>
+                                                <GridSelectionSettings CheckboxOnly="true" PersistSelection="true" Type="SelectionType.Multiple"></GridSelectionSettings><GridEvents OnToolbarClick="VehicleToolbarClick" TValue="FMSDriverVM"></GridEvents>
+                                                <GridColumns>
+                                                    <GridColumn Field=@nameof(FMSDriverVM.DriverName) HeaderText="Name" Width="130">
+                                                        <HeaderTemplate>
+                                                            <div>
+                                                                <span class="pl-2"></span> Driver Name
+                                                            </div>
+                                                        </HeaderTemplate>
+                                                    </GridColumn>
+                                                    <GridColumn Field=@nameof(FMSDriverVM.TotalTrips) HeaderText="Total Trips" Width="130"></GridColumn>
+                                                    <GridColumn Field=@nameof(FMSDriverVM.Station) HeaderText="Station" Width="130"></GridColumn>
+                                                    <GridColumn Field=@nameof(FMSDriverVM.Location) HeaderText="Location" Width="130"></GridColumn>
+                                                    <GridColumn Field=@nameof(FMSDriverVM.Status) HeaderText="Status" Width="130">
+                                                        <Template>
+                                                            @{
+                                                                var driverdata = (context as FMSDriverVM);
+                                                                if (driverdata.Status == "OnDuty")
+                                                                {
+                                                                    <a class="btn btn-success btn-sm btn-shadow font-weight-bold mr-2">On Duty</a>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <a class="btn btn-danger btn-shadow font-weight-bold mr-2">Off Duty</a>
+                                                                }
+                                                            }
+                                                        </Template>
+                                                    </GridColumn>
+                                                    <GridColumn Field=@nameof(FMSDriverVM.JoiningDate) HeaderText="Joining Date" Width="130"></GridColumn>
+                                                </GridColumns>
+                                            </SfGrid>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <h5>Loading.....</h5>
+                        }
+                    </div>
+                    <div class="tab-pane fade" id="kt_tab_pane_4_2" role="tabpanel" aria-labelledby="kt_tab_pane_4_2">
+                        @if (AccidentsList != null)
+                        {
+                            <div class="col-lg-12 control-section">
+                                <div class="content-wrapper">
+                                    <div class="row">
+                                        <div id="container">
+                                            <SfGrid ID="AccidentsGrid" @ref="AccidentsGrid" DataSource="@AccidentsList" AllowSelection="true" AllowSorting="true" AllowFiltering="true" EnableVirtualization="true" EnableHover="false" Height="600" RowHeight="38" Toolbar="@(new List<string>() { "ExcelExport", "CsvExport", "PdfExport" })" AllowExcelExport="true" AllowPdfExport="true">
+                                                <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Menu"></GridFilterSettings>
+                                                <GridPageSettings PageCount="5" PageSize="20" PageSizes="new int[]{ 5, 10, 20, 50, 100 }"></GridPageSettings>
+                                                <GridSelectionSettings CheckboxOnly="true" PersistSelection="true" Type="SelectionType.Multiple"></GridSelectionSettings>
+                                                <GridEvents OnToolbarClick="AccidentToolbarClick" TValue="FMSVehicleAccidentVM"></GridEvents>
+                                                <GridColumns>
+                                                    <GridColumn Field=@nameof(FMSVehicleAccidentVM.VehicleNumber) HeaderText="Vehicle Number" Width="130">
+                                                        <HeaderTemplate>
+                                                            <div>
+                                                                <span class="pl-2"></span> Vehicle Number
+                                                            </div>
+                                                        </HeaderTemplate>
+                                                    </GridColumn>
+                                                    <GridColumn Field=@nameof(FMSVehicleAccidentVM.DriverName) HeaderText="Driver Name" Width="130"></GridColumn>
+                                                    <GridColumn Field=@nameof(FMSVehicleAccidentVM.TimeStamp) HeaderText="Date" Width="130"></GridColumn>
+                                                    <GridColumn Field=@nameof(FMSVehicleAccidentVM.Description) HeaderText="Description" Width="130"></GridColumn>
+                                                </GridColumns>
+                                            </SfGrid>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <h5>Loading.....</h5>
+                        }
+                    </div>
+                    <div class="tab-pane fade" id="kt_tab_pane_4_3" role="tabpanel" aria-labelledby="kt_tab_pane_4_3">
+                        <h5>Loading.....</h5>
+                    </div>
+                    <div class="tab-pane fade" id="kt_tab_pane_4_4" role="tabpanel" aria-labelledby="kt_tab_pane_4_4">
+                        @if (DriversList != null)
+                        {
+                            <div class="col-lg-12 control-section">
+                                <div class="content-wrapper">
+                                    <div class="row">
+                                        <div id="container">
+                                            <SfGrid ID="ScoreCardsGrid" @ref="ScoreCardsGrid" DataSource="@DriversList"
+                                                    AllowPaging="true" AllowSorting="true" AllowFiltering="true"
+                                                     RowHeight="38"
+                                                    Toolbar="@(new List<string>() { "ExcelExport", "CsvExport", "PdfExport" })"
+                                                    AllowExcelExport="true" AllowPdfExport="true">
+                                                <GridPageSettings PageCount="5" PageSize="10" PageSizes="new int[]{ 5, 10, 20, 50, 100 }"></GridPageSettings>
+                                                <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Menu"></GridFilterSettings>
+                                                <GridSelectionSettings CheckboxOnly="true" PersistSelection="true" Type="SelectionType.Multiple"></GridSelectionSettings><GridEvents OnToolbarClick="VehicleToolbarClick" TValue="FMSDriverVM"></GridEvents>
+                                                <GridColumns>
+                                                    <GridColumn Field=@nameof(FMSDriverVM.DriverName) HeaderText="Name" Width="130">
+                                                        <HeaderTemplate>
+                                                            <div>
+                                                                <span class="pl-2"></span> Driver Name
+                                                            </div>
+                                                        </HeaderTemplate>
+                                                    </GridColumn>
+                                                    <GridColumn Field=@nameof(FMSDriverVM.Violations) HeaderText="Total Violations" Width="130"></GridColumn>
+                                                    <GridColumn Field=@nameof(FMSDriverVM.Inicidents) HeaderText="Total Incidents" Width="130"></GridColumn>
+                                                    <GridColumn Field=@nameof(FMSDriverVM.Score) HeaderText="Score" Width="130"></GridColumn>
+                                                    <GridColumn Field=@nameof(FMSDriverVM.Ranking) HeaderText="Ranking" Width="130"></GridColumn>
+                                                </GridColumns>
+                                            </SfGrid>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <h5>Loading.....</h5>
+                        }
+                    </div>
+                </div>
+            </div>
+            <!--end::Body-->
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Container-->
+</div>
+
+@code {
+    public List<FMSDriverVM> DriversList { get; set; }
+    public List<FMSVehicleAccidentVM> AccidentsList { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        DriversList = await Http.GetFromJsonAsync<List<FMSDriverVM>>("api/Drivers/FMS/All");
+        AccidentsList = await Http.GetFromJsonAsync<List<FMSVehicleAccidentVM>>("api/Vehicles/FMS/Accidents/All");
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    #region Syncfusion
+
+    SfGrid<FMSDriverVM> DriversGrid;
+    SfGrid<FMSVehicleAccidentVM> AccidentsGrid;
+    SfGrid<FMSDriverVM> ScoreCardsGrid;
+
+    public void VehicleToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
+    {
+        if (args.Item.Id == "DriversGrid_pdfexport")
+        {
+            PdfExportProperties Props = new PdfExportProperties();
+            Props.PageOrientation = PageOrientation.Landscape;
+            Props.PageSize = PdfPageSize.A4;
+            this.DriversGrid.PdfExport(Props);
+        }
+        if (args.Item.Id == "DriversGrid_excelexport")
+        {
+            this.DriversGrid.ExcelExport();
+        }
+        if (args.Item.Id == "DriversGrid_csvexport")
+        {
+            this.DriversGrid.CsvExport();
+        }
+    }
+
+    public void AccidentToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
+    {
+        if (args.Item.Id == "AccidentsGrid_pdfexport")
+        {
+            PdfExportProperties Props = new PdfExportProperties();
+            Props.PageOrientation = PageOrientation.Landscape;
+            Props.PageSize = PdfPageSize.A4;
+            this.AccidentsGrid.PdfExport(Props);
+        }
+        if (args.Item.Id == "AccidentsGrid_excelexport")
+        {
+            this.AccidentsGrid.ExcelExport();
+        }
+        if (args.Item.Id == "AccidentsGrid_csvexport")
+        {
+            this.AccidentsGrid.CsvExport();
+        }
+    }
+
+    public void ScoreCardToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
+    {
+        if (args.Item.Id == "ScoreCardsGrid_pdfexport")
+        {
+            PdfExportProperties Props = new PdfExportProperties();
+            Props.PageOrientation = PageOrientation.Landscape;
+            Props.PageSize = PdfPageSize.A4;
+            this.ScoreCardsGrid.PdfExport(Props);
+        }
+        if (args.Item.Id == "ScoreCardsGrid_excelexport")
+        {
+            this.ScoreCardsGrid.ExcelExport();
+        }
+        if (args.Item.Id == "ScoreCardsGrid_csvexport")
+        {
+            this.ScoreCardsGrid.CsvExport();
+        }
+    }
+
+    #endregion
+}

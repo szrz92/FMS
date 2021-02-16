@@ -1,0 +1,13 @@
+﻿@page "/GBMSTestComponent"
+@inject HttpClient Http
+
+<h3>GBMSTestComponent</h3>
+
+@code {
+
+    protected override async Task OnInitializedAsync()
+    {
+        var forecasts = await Http.GetStringAsync("WeatherForecast/GetString");
+    }
+
+}

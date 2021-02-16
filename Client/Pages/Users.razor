@@ -1,0 +1,180 @@
+﻿@page "/Users"
+@inject IJSRuntime JSRuntime
+@inject HttpClient Http
+@using SOS.FMS.Client.Components.Users
+<!--begin::Subheader-->
+<div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
+    <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+        <!--begin::Details-->
+        <div class="d-flex align-items-center flex-wrap mr-2">
+            <!--begin::Title-->
+            <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">FMS</h5>
+            <!--end::Title-->
+            <!--begin::Separator-->
+            <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-5 bg-gray-200"></div>
+            <!--end::Separator-->
+            <!--begin::Breadcrumb-->
+            <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+                <li class="breadcrumb-item">
+                    <a href="/" class="text-muted">Application User Management</a>
+                </li>
+            </ul>
+            <!--end::Breadcrumb-->
+        </div>
+        <!--end::Details-->
+        <div class="d-flex align-items-center">
+            <button class="btn btn-bg-danger text-white mr-2" @onclick="ShowAddUserSideBar">ADD USER</button>
+        </div>
+    </div>
+</div>
+<!--end::Subheader-->
+
+<div class="d-flex flex-column-fluid">
+    <!--begin::Container-->
+    <div class="container-fluid">
+        <!--begin::Card-->
+        <div class="card card-custom card-stretch">
+            <!--begin::Header-->
+            @*<div class="card-header flex-wrap border-0 pt-6 pb-0">
+                    <div class="card-title">
+                        <h3 class="card-label">
+                            Daily
+                            <span class="d-block text-muted pt-2 font-size-sm">All Daily Maintenance</span>
+                        </h3>
+                    </div>
+                </div>*@
+            <!--end::Header-->
+            <!--begin::Body-->
+            <div class="card-body">
+                @if (UsersList != null)
+                {
+                    <div class="col-lg-12 control-section">
+                        <div class="content-wrapper">
+                            <div class="row">
+                                <div id="container">
+                                    <SfGrid ID="UsersGrid" @ref="UsersGrid" DataSource="@UsersList"
+                                            AllowPaging="true" AllowSorting="true" AllowFiltering="true"
+                                            Height="600" RowHeight="38"
+                                            Toolbar="@(new List<string>() { "ExcelExport", "CsvExport", "PdfExport", "Search"})"
+                                            AllowExcelExport="true" AllowPdfExport="true">
+                                        <GridPageSettings PageCount="5" PageSize="20" PageSizes="new int[]{ 5, 10, 20, 50, 100 }"></GridPageSettings>
+                                        <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Menu"></GridFilterSettings>
+                                        <GridSelectionSettings CheckboxOnly="true" PersistSelection="true" Type="SelectionType.Multiple"></GridSelectionSettings>
+                                        <GridEvents OnToolbarClick="UsersToolbarClick" TValue="FMSApplicationUserVM"></GridEvents>
+                                        <GridColumns>
+                                            <GridColumn Field=@nameof(FMSApplicationUserVM.Id) HeaderText="Id" Width="130"></GridColumn>
+                                            <GridColumn Field=@nameof(FMSApplicationUserVM.UserName) HeaderText="User Name" Width="130"></GridColumn>
+                                            <GridColumn Field=@nameof(FMSApplicationUserVM.Email) HeaderText="Email" Width="130"></GridColumn>
+                                            <GridColumn Field=@nameof(FMSApplicationUserVM.FullName) HeaderText="Full Name" Width="130"></GridColumn>
+                                            <GridColumn Field=@nameof(FMSApplicationUserVM.UserRoleNames) HeaderText="Roles" Width="130"></GridColumn>
+                                            <GridColumn HeaderText="Action" AllowFiltering="false" AllowSorting="false" Width="180">
+                                                <Template>
+                                                    @{
+                                                        var UserInfo = (context as FMSApplicationUserVM);
+                                                        <button class="btn btn-sm btn-danger" @onclick="()=>DeleteUser(UserInfo.UserName)">DELETE</button>
+                                                    }
+                                                </Template>
+                                            </GridColumn>
+                                        </GridColumns>
+                                    </SfGrid>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <h5>Loading.....</h5>
+                }
+            </div>
+            <!--end::Body-->
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Container-->
+</div>
+
+<AddUser Visible="AddUserSideBarVisibility" OnVisibilityChanged="OnVisibilityChanged" OnAddSuccess="OnAddSuccess">
+</AddUser>
+@code {
+    public List<FMSApplicationUserVM> UsersList { get; set; }
+    public List<FMSRoleVM> RolesList { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        UsersList = (await Http.GetFromJsonAsync<List<FMSApplicationUserVM>>("api/Auth/RegisteredUsers"))
+                            .ToList();
+        RolesList = (await Http.GetFromJsonAsync<List<FMSRoleVM>>("api/Auth/FMSRoles"))
+                            .ToList();
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    #region Syncfusion
+
+    SfGrid<FMSApplicationUserVM> UsersGrid;
+
+    public void UsersToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
+    {
+        if (args.Item.Id == "UsersGrid_pdfexport")
+        {
+            PdfExportProperties Props = new PdfExportProperties();
+            Props.PageOrientation = PageOrientation.Landscape;
+            Props.PageSize = PdfPageSize.A4;
+            this.UsersGrid.PdfExport(Props);
+        }
+        if (args.Item.Id == "UsersGrid_excelexport")
+        {
+            this.UsersGrid.ExcelExport();
+        }
+        if (args.Item.Id == "UsersGrid_csvexport")
+        {
+            this.UsersGrid.CsvExport();
+        }
+    }
+    #endregion
+
+    #region Add User
+
+    public bool AddUserSideBarVisibility { get; set; } = false;
+
+    public void ShowAddUserSideBar()
+    {
+        OnVisibilityChanged(true);
+    }
+
+    public void OnVisibilityChanged(bool visibilityStatus)
+    {
+        AddUserSideBarVisibility = visibilityStatus;
+    }
+    public async void OnAddSuccess(bool isAdded)
+    {
+        if (isAdded)
+        {
+            UsersList = (await Http.GetFromJsonAsync<List<FMSApplicationUserVM>>("api/Auth/RegisteredUsers"))
+                                .ToList();
+        }
+        //OnVisibilityChanged(false);
+        //StateHasChanged();
+    }
+
+    #endregion
+
+    #region Delete User
+    public async void DeleteUser(string userName)
+    {
+        var deleteResponse = await Http.PostAsJsonAsync("api/Auth/DeleteUser", new ApiRequest() { UserName = userName });
+        if (deleteResponse.IsSuccessStatusCode)
+        {
+            UsersList = (await Http.GetFromJsonAsync<List<FMSApplicationUserVM>>("api/Auth/RegisteredUsers"))
+                                .ToList();
+        }
+        StateHasChanged();
+    }
+    #endregion
+
+}

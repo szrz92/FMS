@@ -1,0 +1,73 @@
+﻿@page "/login"
+@layout AuthLayout
+@inject NavigationManager navigationManager
+@inject CustomStateProvider authStateProvider
+
+@*<h1 class="h2 font-weight-normal login-title">
+    Login
+</h1>*@
+
+<div class="login-signin">
+    <div class="mb-20">
+        <h3>Sign In To FMS Portal</h3>
+        <div class="text-muted font-weight-bold">Enter your details to login to your account:</div>
+    </div>
+    <EditForm class="form-signin" OnValidSubmit="OnSubmit" Model="loginRequest">
+        <DataAnnotationsValidator />
+        <div class="form-group">
+            <InputText id="inputUsername" @bind-Value="loginRequest.UserName" class="form-control h-auto form-control-solid py-4 px-8" type="text" placeholder="User Name" autocomplete="off" />
+            <ValidationMessage For="@(() => loginRequest.UserName)" />
+        </div>
+        <div class="form-group">
+            <InputText id="inputPassword" @bind-Value="loginRequest.Password" class="form-control h-auto form-control-solid py-4 px-8" type="password" placeholder="Password" />
+        </div>
+        <div class="form-group d-flex flex-wrap justify-content-between align-items-center">
+        </div>
+        <div class="form-group text-center mt-10">
+            <button type="submit" class="btn btn-pill btn-secondary opacity-90 px-15 py-3">Sign In</button>
+        </div>
+    </EditForm>
+</div>
+@*<EditForm class="form-signin" OnValidSubmit="OnSubmit" Model="loginRequest">
+    <DataAnnotationsValidator />
+
+    <label for="inputUsername" class="sr-only">User Name</label>
+    <InputText id="inputUsername" class="form-control" @bind-Value="loginRequest.UserName" autofocus placeholder="Username" />
+    <ValidationMessage For="@(() => loginRequest.UserName)" />
+
+    <label for="inputPassword" class="sr-only">Password</label>
+    <InputText type="password" id="inputPassword" class="form-control" placeholder="Password" @bind-Value="loginRequest.Password" />
+    <ValidationMessage For="@(() => loginRequest.Password)" />
+
+    <div class="form-check m-3">
+        <InputCheckbox id="inputRememberMe" class="form-check-input" @bind-Value="@loginRequest.RememberMe" />
+        <label class="form-check-label" for="inputRememberMe">Remember Me</label>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+    <label class="text-danger">@error</label>
+
+    <NavLink href="register">
+        <h6 class="font-weight-normal text-center">Create account</h6>
+    </NavLink>
+</EditForm>*@
+
+@code{
+    LoginRequest loginRequest { get; set; } = new LoginRequest() { UserName = "z.raza@batech.com.pk", Password = "Sa123!@#" };
+    string error { get; set; }
+
+    async Task OnSubmit()
+    {
+        error = null;
+        try
+        {
+            await authStateProvider.Login(loginRequest);
+            navigationManager.NavigateTo("");
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+    }
+}

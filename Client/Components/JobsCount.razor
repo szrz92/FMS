@@ -1,0 +1,44 @@
+﻿
+<div class="col-xl-12">
+    <!--begin::Stats Widget 29-->
+    <div class="d-flex card card-custom bgi-no-repeat card-stretch gutter-b" style="background-position: right top; background-size: 30% auto; background-image: url(assets/media/svg/shapes/abstract-1.svg)">
+        <!--begin::Body-->
+        <div class="card-body">
+            <span class="card-title font-weight-boldest text-dark font-size-h3-xl d-block">
+                <b class="float-left">Total Jobs</b>
+                <b class="float-right">@(Periodic+Accidents+Emergency)</b>
+            </span>
+            <img class="mt-6 d-block" src="icons/job.png" height="24" />
+            <br />
+            <table class="table table-borderless table-responsive text-center overflow-hidden">
+                <tbody>
+                    <tr>
+                        <td class="font-size-sm">Daily</td>
+                        <td class="font-size-sm">Emergency</td>
+                        <td class="font-size-sm">Accident</td>
+                    </tr>
+                    <tr>
+                        <td class="font-size-sm">@Periodic</td>
+                        <td class="font-size-sm">@Emergency</td>
+                        <td class="font-size-sm">@Accidents</td>
+                    </tr>
+                </tbody>
+            </table>
+            <span class="font-weight-bold font-size-sm">Since last month</span>
+        </div>
+        <!--end::Body-->
+    </div>
+    <!--end::Stats Widget 29-->
+
+</div>
+@code {
+    [Parameter]
+    public int Periodic { get; set; }
+
+    [Parameter]
+    public int Accidents { get; set; }
+
+    [Parameter]
+    public int Emergency { get; set; }
+
+}

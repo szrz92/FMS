@@ -1,0 +1,139 @@
+﻿@inject NavigationManager navigationManager
+@inject CustomStateProvider authStateProvider
+
+<style>
+    i {
+        --fa-primary-color: #c22020;
+        --fa-secondary-color: #7a7a7a;
+    }
+
+    .text-danger {
+        color: #EB1B1B !important;
+    }
+
+    .inverse {
+        --fa-primary-color: #7a7a7a !important;
+        --fa-secondary-color: #c22020 !important;
+        --fa-primary-opacity: 0.5;
+        --fa-secondary-opacity: 0.7;
+    }
+    /*.menu-link:hover {
+        color: black !important;
+    }
+
+    .menu-text:hover {
+        color: black !important;
+    }*/
+
+    .menu-item.menu-item-active > .menu-link .menu-text {
+        color: black !important;
+    }
+</style>
+
+<ul class="menu-nav">
+    <AuthorizeView Roles="SA, HMT, MTAM, CIM, CPM, RMTO, RAO">
+        <li class="menu-item" aria-haspopup="true">
+            <NavLink href="/" class="menu-link">
+                <span class="svg-icon menu-icon">
+                    <img src="icons/dashboard.png" />
+                </span>
+                <span class="menu-text">Dashboard</span>
+            </NavLink>
+        </li>
+    </AuthorizeView>
+    <AuthorizeView Roles="SA, HMT, CPM, RAO, RMTO">
+        <li class="menu-item" aria-haspopup="true">
+            <NavLink href="Daily" class="menu-link">
+                <span class="svg-icon menu-icon">
+                    <img src="icons/daily.png" />
+                </span>
+                <span class="menu-text">Daily</span>
+            </NavLink>
+        </li>
+    </AuthorizeView>
+    <AuthorizeView Roles="SA, HMT, CIM, RMTO, RAO">
+        <li class="menu-item" aria-haspopup="true">
+            <NavLink href="Accident" class="menu-link">
+                <span class="svg-icon menu-icon">
+                    <img src="icons/emergency.png" />
+                </span>
+                <span class="menu-text">Accident</span>
+            </NavLink>
+        </li>
+    </AuthorizeView>
+    <AuthorizeView Roles="SA, HMT, CIM, RMTO, RAO">
+        <li class="menu-item" aria-haspopup="true">
+            <NavLink href="Emergency" class="menu-link">
+                <span class="svg-icon menu-icon">
+                    <img src="icons/emergency.png" />
+                </span>
+                <span class="menu-text">Emergency</span>
+            </NavLink>
+        </li>
+    </AuthorizeView>
+    <AuthorizeView Roles="SA, HMT, RMTO, RAO">
+        <li class="menu-item" aria-haspopup="true">
+            <NavLink href="Vehicles" class="menu-link">
+                <span class="svg-icon menu-icon">
+                    <img src="icons/vehicle.png" />
+                </span>
+                <span class="menu-text">Vehicle Managment</span>
+            </NavLink>
+        </li>
+    </AuthorizeView>
+    <AuthorizeView Roles="SA, HMT, RMTO, RAO">
+        <li class="menu-item" aria-haspopup="true">
+            <NavLink href="Drivers" class="menu-link">
+                <span class="svg-icon menu-icon">
+                    <img src="icons/driver.png" />
+                </span>
+                <span class="menu-text">Driver Management</span>
+            </NavLink>
+        </li>
+
+    </AuthorizeView>
+    <AuthorizeView Roles="SA, HMT">
+        <li class="menu-item" aria-haspopup="true">
+            <NavLink href="Users" class="menu-link">
+                <span class="svg-icon menu-icon">
+                    <img src="icons/dashboard.png" />
+                </span>
+                <span class="menu-text">User Management</span>
+            </NavLink>
+        </li>
+    </AuthorizeView>
+    <AuthorizeView Roles="SA, HMT">
+        <li class="menu-item" aria-haspopup="true">
+            <NavLink href="/" class="menu-link">
+                <span class="svg-icon menu-icon">
+                    <img src="icons/prompt.png" />
+                </span>
+                <span class="menu-text">Reporting</span>
+            </NavLink>
+        </li>
+    </AuthorizeView>
+    @{ var assemblyVersion = typeof(SOS.FMS.Client.Program).Assembly.GetName().Version.ToString(); }
+    <li class="menu-item w-100" style="position:absolute;bottom:0;" aria-haspopup="true">
+        <span class="menu-link">
+            <span class="svg-icon menu-icon">
+                <i class="fad fa-info-circle"></i>
+            </span>
+            <span class="menu-text">Version @assemblyVersion.Substring(0, assemblyVersion.Length - 2) </span>
+        </span>
+    </li>
+</ul>
+
+
+@code{
+    [CascadingParameter]
+    Task<AuthenticationState> AuthenticationState { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (!(await AuthenticationState).User.Identity.IsAuthenticated)
+        {
+            navigationManager.NavigateTo("/login");
+        }
+    }
+
+}

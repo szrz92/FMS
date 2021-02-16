@@ -1,0 +1,177 @@
+﻿@inject HttpClient Http
+
+@if (Visible)
+{
+    <div id="kt_quick_cart3" class="offcanvas offcanvas-right p-10 offcanvas-on">
+        <!--begin::Header-->
+        <div class="offcanvas-header d-flex align-items-center justify-content-between pb-7" kt-hidden-height="46" style="">
+            <h4 class="font-weight-bold m-0">Add a new user</h4>
+            <a @onclick="CloseAddUserSideBar" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_cart_close">
+                <i class="ki ki-close icon-xs text-muted"></i>
+            </a>
+        </div>
+        <!--end::Header-->
+        <!--begin::Content-->
+        <div class="offcanvas-content">
+            @if (UsersList.Any() && RolesList.Any())
+            {
+                <div class="offcanvas-wrapper mb-2 scroll-pull scroll ps ps--active-y" style="height: auto;overflow:visible">
+                    <div class="d-flex align-items-center justify-content-between py-4">
+                        <EditForm Model="ApplicationUser" OnValidSubmit="AddApplicationUser" class="form w-100">
+                            <DataAnnotationsValidator />
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>Select User:</label>
+                                    <SfDropDownList TItem="GBMSUserVM" TValue="string" PopupHeight="230px" AllowFiltering="true" Placeholder="Select a user" @bind-Value="@ApplicationUser.Id" DataSource="@UsersList">
+                                        <DropDownListFieldSettings Text="Name" Value="Id"></DropDownListFieldSettings>
+                                        <DropDownListEvents TValue="string" ValueChange="OnNameSelectionChange"></DropDownListEvents>
+                                    </SfDropDownList>
+                                    <span class="form-text text-muted">Please select a user.</span>
+                                    <ValidationMessage For="() => ApplicationUser.Id" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Enter Department:</label>
+                                    <SfTextBox Type="InputType.Text" @bind-Value="ApplicationUser.Department" Placeholder="Enter Department" Readonly="true"></SfTextBox>
+                                    <span class="form-text text-muted">Please enter department.</span>
+                                    <ValidationMessage For="() => ApplicationUser.Department" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Enter Email:</label>
+                                    <SfTextBox Type="InputType.Text" @bind-Value="ApplicationUser.Email" Placeholder="Enter Email"></SfTextBox>
+                                    <span class="form-text text-muted">Please enter email.</span>
+                                    <ValidationMessage For="() => ApplicationUser.Email" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Enter User Name:</label>
+                                    <SfTextBox Type="InputType.Text" @bind-Value="ApplicationUser.Email" Placeholder="Enter User Name" Readonly="true"></SfTextBox>
+                                    <span class="form-text text-muted">Please enter user name.</span>
+                                    <ValidationMessage For="() => ApplicationUser.UserName" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Enter Password:</label>
+                                    <SfTextBox Type="InputType.Password" @bind-Value="ApplicationUser.Password" Placeholder="Enter Password"></SfTextBox>
+                                    <span class="form-text text-muted">Please enter password.</span>
+                                    <ValidationMessage For="() => ApplicationUser.Password" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Confirm Password:</label>
+                                    <SfTextBox Type="InputType.Password" @bind-Value="ApplicationUser.ConfirmPassword" Placeholder="Enter Password"></SfTextBox>
+                                    <span class="form-text text-muted">Please re enter password.</span>
+                                    <ValidationMessage For="() => ApplicationUser.ConfirmPassword" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Select Role:</label>
+                                    <SfMultiSelect TValue="List<string>" Mode="@VisualMode.Box" Placeholder="Please Select" DataSource="@RolesList" @bind-Value="ApplicationUser.Roles">
+                                        <MultiSelectFieldSettings Text="Role" Value="Id"></MultiSelectFieldSettings>
+                                    </SfMultiSelect>
+                                    <span class="form-text text-muted">Select role.</span>
+                                    <ValidationMessage For="() => ApplicationUser.UserRoles" />
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <ValidationSummary/>
+                                <button type="submit" class="btn btn-fms mr-2">Save</button>
+                                <button type="reset" class="btn btn-secondary" @onclick="CloseAddUserSideBar">Cancel</button>
+                            </div>
+                        </EditForm>
+                    </div>
+                </div>
+                <div class="offcanvas-footer" kt-hidden-height="112" style="">
+                </div>
+            }
+            else
+            {
+                <img style="position:fixed;top:50%;left:70%;" src="assets/media/loading.gif" />
+            }
+        </div>
+    </div>
+}
+<SfDialog Target="#target" Width="500px" ShowCloseIcon="true" @bind-Visible="responseDialogVisibility">
+    <DialogTemplates>
+        <Header> @responseHeader </Header>
+        <Content>
+            <p>
+                @responseBody
+            </p>
+        </Content>
+    </DialogTemplates>
+    <DialogEvents Closed="@DialogClose"></DialogEvents>
+    @*<DialogButtons>
+            <DialogButton IsPrimary="true" Content="<a id='newTab' href='https://www.syncfusion.com/company/about-us' target='_blank'>Learn More</a>" OnClick="@OnBtnClick" />
+        </DialogButtons>*@
+</SfDialog>
+
+@code {
+    [Parameter]
+    public bool Visible { get; set; }
+    [Parameter]
+    public EventCallback<bool> OnVisibilityChanged { get; set; }
+    [Parameter]
+    public EventCallback<bool> OnAddSuccess { get; set; }
+    [Parameter]
+    public EventCallback<bool> OnAddFailure { get; set; }
+
+    public FMSApplicationUserVM ApplicationUser = new FMSApplicationUserVM();
+
+    public List<GBMSUserVM> UsersList { get; set; }
+
+    public List<FMSRoleVM> RolesList { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        UsersList = (await Http.GetFromJsonAsync<List<GBMSUserVM>>("api/Users/GBMS/All"))
+                            .ToList();
+        RolesList = (await Http.GetFromJsonAsync<List<FMSRoleVM>>("api/Auth/FMSRoles"))
+                            .ToList();
+        await base.OnInitializedAsync();
+    }
+
+    public async Task AddApplicationUser()
+    {
+        var registerResponse = await Http.PostAsJsonAsync("api/Auth/RegisterUser", ApplicationUser);
+        if (registerResponse.IsSuccessStatusCode)
+        {
+            await OnAddSuccess.InvokeAsync(true);
+
+            responseHeader = "Operation Successful";
+            responseBody = await registerResponse.Content.ReadAsStringAsync();
+            responseDialogVisibility = true;
+        }
+        else
+        {
+            responseHeader = "Operation Failed";
+            responseBody = await registerResponse.Content.ReadAsStringAsync();
+            responseDialogVisibility = true;
+        }
+
+    }
+
+    #region Dialog
+    public bool responseDialogVisibility { get; set; }
+    public string responseHeader { get; set; }
+    public string responseBody { get; set; }
+
+    private void DialogClose(CloseEventArgs args)
+    {
+        CloseAddUserSideBar();
+    }
+    #endregion
+
+
+    public Task CloseAddUserSideBar()
+    {
+        ApplicationUser = new FMSApplicationUserVM();
+        return OnVisibilityChanged.InvokeAsync(false);
+    }
+
+    public void OnNameSelectionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        var user = UsersList.Where(x => x.Id == new Guid(args.Value)).SingleOrDefault();
+        ApplicationUser.Department = user.Department;
+        ApplicationUser.FullName = user.Name;
+        if (!string.IsNullOrEmpty(user.OfficialEmail)) ApplicationUser.Email = user.OfficialEmail;
+        else ApplicationUser.Email = string.Empty;
+        StateHasChanged();
+    }
+
+}
