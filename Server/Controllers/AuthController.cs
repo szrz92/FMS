@@ -91,6 +91,43 @@ namespace SOS.FMS.Server.Controllers
         }
         [Authorize]
         [HttpPost]
+        public async Task<IActionResult> UpdateUser(FMSApplicationUserVM userVM)
+        {
+            try
+            {
+                var fmsuser = await _userManager.FindByNameAsync(userVM.UserName);
+                if (fmsuser != null)
+                {
+                    fmsuser.UserName = userVM.UserName;
+                    fmsuser.Email = userVM.Email;
+                    fmsuser.NormalizedEmail = userVM.Email.ToUpper();
+                    fmsuser.NormalizedUserName = fmsuser.UserName.ToUpper();
+                    fmsuser.EmailConfirmed = true;
+                    fmsuser.Id = userVM.Id;
+                    fmsuser.Name = userVM.FullName;
+                    var result = await _userManager.UpdateAsync(fmsuser);
+                    if (!result.Succeeded) return BadRequest(result.Errors.FirstOrDefault()?.Description);
+                    else
+                    {
+                        fmsuser = await _userManager.FindByNameAsync(userVM.UserName);
+                        List<string> addedroles = (from r in dbContext.UserRoles where r.UserId == fmsuser.Id select r.RoleId).ToList();
+                        await _userManager.RemoveFromRolesAsync(fmsuser, addedroles); 
+                        await _userManager.AddToRolesAsync(fmsuser, userVM.Roles);
+                        return Ok("User is edited successfully.");
+                    }
+                }
+                else
+                {
+                    return BadRequest("User to be edited doesn't exist.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+        [Authorize]
+        [HttpPost]
         public async Task<IActionResult> DeleteUser(ApiRequest request)
         {
             try
@@ -127,7 +164,7 @@ namespace SOS.FMS.Server.Controllers
             await _signInManager.SignOutAsync();
             return Ok();
         }
-        [Authorize(Roles = "SA")]
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> RegisteredUsers()
         {
@@ -140,9 +177,35 @@ namespace SOS.FMS.Server.Controllers
                                                               Email = u.Email,
                                                               FullName = u.Name,
                                                               Id = u.Id,
-                                                              Roles = (from r in dbContext.UserRoles where r.UserId == u.Id select r.RoleId).ToList()
+                                                              Roles = (from r in dbContext.UserRoles where r.UserId == u.Id select r.RoleId).ToList(),
+                                                              Department = (from g in dbContext.GBMSUsers where g.XName == u.Name select g.XDepartmentDescription).SingleOrDefault()
                                                           }).ToListAsync();
                 return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> RegisteredUser(ApiRequest request)
+        {
+            try
+            {
+                FMSApplicationUserVM user = await (from u in dbContext.Users
+                                                   where u.UserName == request.UserName
+                                                   select new FMSApplicationUserVM()
+                                                   {
+                                                       Email = u.Email,
+                                                       FullName = u.Name,
+                                                       Id = u.Id,
+                                                       Roles = (from r in dbContext.UserRoles where r.UserId == u.Id select r.RoleId).ToList(),
+                                                       Department = (from g in dbContext.GBMSUsers where g.XName == u.Name select g.XDepartmentDescription).SingleOrDefault(),
+                                                       Password = "Random123!@#",
+                                                       ConfirmPassword = "Random123!@#"
+                                                   }).SingleOrDefaultAsync();
+                return Ok(user);
             }
             catch (Exception ex)
             {
