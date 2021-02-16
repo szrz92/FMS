@@ -196,7 +196,7 @@ using SOS.FMS.Client.Components.Users;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 99 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Users.razor"
+#line 100 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Users.razor"
        
     public List<FMSApplicationUserVM> UsersList { get; set; }
     public List<FMSRoleVM> RolesList { get; set; }
@@ -245,10 +245,10 @@ using SOS.FMS.Client.Components.Users;
 
     public void ShowAddUserSideBar()
     {
-        OnVisibilityChanged(true);
+        OnAddUserVisibilityChanged(true);
     }
 
-    public void OnVisibilityChanged(bool visibilityStatus)
+    public void OnAddUserVisibilityChanged(bool visibilityStatus)
     {
         AddUserSideBarVisibility = visibilityStatus;
     }
@@ -259,8 +259,6 @@ using SOS.FMS.Client.Components.Users;
             UsersList = (await Http.GetFromJsonAsync<List<FMSApplicationUserVM>>("api/Auth/RegisteredUsers"))
                                 .ToList();
         }
-        //OnVisibilityChanged(false);
-        //StateHasChanged();
     }
 
     #endregion
@@ -275,6 +273,46 @@ using SOS.FMS.Client.Components.Users;
                                 .ToList();
         }
         StateHasChanged();
+    }
+    #endregion
+
+    #region Edit User
+
+    public bool EditUserSideBarVisibility { get; set; } = false;
+    public FMSApplicationUserVM UserToBeEdited { get; set; }
+    public string UserName { get; set; }
+
+    public void ShowEditUserSideBar()
+    {
+        OnEditUserVisibilityChanged(true);
+    }
+
+    public void OnEditUserVisibilityChanged(bool visibilityStatus)
+    {
+        EditUserSideBarVisibility = visibilityStatus;
+    }
+
+    public async void OnEditSuccess(bool isUpdated)
+    {
+        if (isUpdated)
+        {
+            UsersList = (await Http.GetFromJsonAsync<List<FMSApplicationUserVM>>("api/Auth/RegisteredUsers"))
+                                .ToList();
+        }
+    }
+
+    public async void EditUser(string userName)
+    {
+        if (!string.IsNullOrEmpty(userName))
+        {
+            UserToBeEdited = JsonConvert.DeserializeObject<FMSApplicationUserVM>((
+                await Http.PostAsJsonAsync("api/Auth/RegisteredUser",
+                new ApiRequest() { UserName = userName }))
+                .Content.ReadAsStringAsync().Result);
+
+            ShowEditUserSideBar();
+            StateHasChanged();
+        }
     }
     #endregion
 
