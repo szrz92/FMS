@@ -1,11 +1,13 @@
-﻿<div class="col-xl-12">
+﻿@inject HttpClient Http
+
+<div class="col-xl-12">
     <!--begin::Stats Widget 29-->
     <div class="card card-custom bgi-no-repeat card-stretch gutter-b" style="background-position: right top; background-size: 30% auto; background-image: url(assets/media/svg/shapes/abstract-1.svg)">
         <!--begin::Body-->
         <div class="card-body">
             <span class="card-title font-weight-boldest text-dark font-size-h3-xl d-block">
                 <b class="float-left">Completed Jobs</b>
-                <b class="float-right">40</b>
+                <b class="float-right">@Count</b>
             </span>
             <img class="mt-6 d-block" src="icons/job.png" height="32" />
             <br />
@@ -16,5 +18,24 @@
     <!--end::Stats Widget 29-->
 </div>
 @code {
+    public string Count { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await GetCount();
+        if (firstRender)
+        {
+        }
+        await base.OnAfterRenderAsync(firstRender);
+    }
+    public async Task GetCount()
+    {
+        Count = await Http.GetStringAsync("api/Jobs/All/Completed/SinceLastMonth");
+        StateHasChanged();
+    }
 
 }

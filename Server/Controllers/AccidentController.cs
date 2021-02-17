@@ -170,17 +170,19 @@ namespace SOS.FMS.Server.Controllers
 
                 fmsVehicle.Status = "maintained";
 
-                FMSAccident accident = await dbContext.FMSAccidents
-                    .Where(x => x.FMSVehicleId == fmsVehicle.Id && x.MaintenanceStatus == MaintenanceStatus.InProgress)
-                    .SingleOrDefaultAsync();
-                
-                var checkList = await dbContext.FMSAccidentalCheckList.Where(x => x.FMSAccidentId == accident.Id).ToListAsync();
-                checkList.ForEach(u => u.MaintenanceStatus = MaintenanceStatus.Done);
+                List<FMSAccident> accidents = await dbContext.FMSAccidents
+                    .Where(x => x.FMSVehicleId == fmsVehicle.Id && x.MaintenanceStatus == MaintenanceStatus.InProgress).ToListAsync();
 
-                accident.MaintenanceStatus = MaintenanceStatus.Done;
-                accident.CarOperationalTime = PakistanDateTime.Now;
-                accident.JobClosingTime = PakistanDateTime.Now;
-                accident.LastUpdated = PakistanDateTime.Now;
+                foreach (var accident in accidents)
+                {
+                    var checkList = await dbContext.FMSAccidentalCheckList.Where(x => x.FMSAccidentId == accident.Id).ToListAsync();
+                    checkList.ForEach(u => u.MaintenanceStatus = MaintenanceStatus.Done);
+
+                    accident.MaintenanceStatus = MaintenanceStatus.Done;
+                    accident.CarOperationalTime = PakistanDateTime.Now;
+                    accident.JobClosingTime = PakistanDateTime.Now;
+                    accident.LastUpdated = PakistanDateTime.Now;
+                }
 
                 await dbContext.SaveChangesAsync();
 
@@ -247,7 +249,7 @@ namespace SOS.FMS.Server.Controllers
                                             LastUpdated = c.LastUpdated,
                                             FMSUserId = c.FMSUserId,
                                             Mentions = c.Mentions,
-                                            Name = (from u in dbContext.GBMSUsers where u.Id == c.FMSUserId select u.XName).SingleOrDefault(),
+                                            FMSUserName = (from u in dbContext.Users where u.Id == c.FMSUserId.ToString() select u.Name).SingleOrDefault(),
                                             VehicleNumber = c.VehicleNumber
                                         }).OrderByDescending(x => x.LastUpdated).ToListAsync();
                 modal.Images = await (from i in dbContext.FMSAccidentalCheckImages
@@ -301,8 +303,8 @@ namespace SOS.FMS.Server.Controllers
                                             Id = c.Id,
                                             LastUpdated = c.LastUpdated,
                                             FMSUserId =c.FMSUserId,
-                                            Mentions =c.Mentions,
-                                            Name = (from u in dbContext.GBMSUsers where u.Id == c.FMSUserId select u.XName).SingleOrDefault(),
+                                            FMSUserName = (from u in dbContext.Users where u.Id == c.FMSUserId.ToString() select u.Name).SingleOrDefault(),
+                                            Mentions = c.Mentions,
                                             VehicleNumber = c.VehicleNumber
                                         }).ToListAsync();
                 return Ok(Comments);
@@ -317,13 +319,14 @@ namespace SOS.FMS.Server.Controllers
         {
             try
             {
+
                 FMSAccidentalCheckComment newComment = new FMSAccidentalCheckComment()
                 {
                     Id = Guid.NewGuid(),
                     FMSAccidentalCheckId = comment.FMSAccidentalCheckId,
                     FMSAccidentId = comment.FMSAccidentId,
                     Comment = comment.Comment,
-                    FMSUserId = comment.FMSUserId,
+                    FMSUserId = new Guid((from u in dbContext.Users where u.Email == User.Identity.Name select u.Id).SingleOrDefault()),
                     FMSVehicleId = comment.FMSVehicleId,
                     VehicleNumber = comment.VehicleNumber,
                     LastUpdated = DateTime.Now,

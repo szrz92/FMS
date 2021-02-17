@@ -13,7 +13,7 @@ function initialize(dotNetObjectReference, data) {
     setMarkers(dotNetObjectReference, data);
 }
 function setMarkers(dotNetObjectReference, data) {
-    console.log(JSON.stringify(data));
+    //console.log(JSON.stringify(data));
     const legend = document.getElementById("legend");
     map.controls[google.maps.ControlPosition.LEFT_BOTTOM].clear();
     map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(legend);
@@ -44,7 +44,7 @@ function setMarkers(dotNetObjectReference, data) {
     const features = [];
 
     data.forEach((datum) => {
-        console.log(JSON.stringify(datum));
+        //console.log(JSON.stringify(datum));
         const feature = {
             "position": new google.maps.LatLng(datum.latitude, datum.longitude),
             "type": datum.type,
@@ -129,7 +129,7 @@ function updateMarkerPositions(dotNetObjectReference, data) {
     }
 }
 function updateMarkers(dotNetObjectReference, data) {
-    console.log(JSON.stringify(data));
+   // console.log(JSON.stringify(data));
     setMapOnAll(map);
     deleteMarkers();
     const legend = document.getElementById("legend");
@@ -162,7 +162,7 @@ function updateMarkers(dotNetObjectReference, data) {
     const features = [];
 
     data.forEach((datum) => {
-        console.log(JSON.stringify(datum));
+//console.log(JSON.stringify(datum));
         const feature = {
             "position": new google.maps.LatLng(datum.latitude, datum.longitude),
             "type": datum.type,

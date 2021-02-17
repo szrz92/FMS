@@ -190,7 +190,7 @@ using Microsoft.AspNetCore.Components.Authorization;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 669 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Index.razor"
+#line 687 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Index.razor"
  
     private DotNetObjectReference<Index> dotNetObjectReference;
 
@@ -224,7 +224,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 
 
     public List<FMSVehicleVM> vehiclesList { get; set; } = new List<FMSVehicleVM>();
-    public List<FMSUserVM> usersList { get; set; } = new List<FMSUserVM>();
+    public List<GBMSUserVM> usersList { get; set; } = new List<GBMSUserVM>();
     public List<FMSAccidentalCheckCommentVM> commentsList = new List<FMSAccidentalCheckCommentVM>();
 
     public List<FMSAccidentalCheckVM> accidentalCheckList { get; set; }
@@ -278,7 +278,7 @@ using Microsoft.AspNetCore.Components.Authorization;
         regionsList = vehiclesList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         subRegionsList = vehiclesList.GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         filteredVehiclesList = vehiclesList;
-        usersList = await Http.GetFromJsonAsync<List<FMSUserVM>>("api/User/Names/All");
+        usersList = await Http.GetFromJsonAsync<List<GBMSUserVM>>("api/Users/FMS/All");
         CountVehicles(filteredVehiclesList);
         await base.OnInitializedAsync();
     }
@@ -291,6 +291,7 @@ using Microsoft.AspNetCore.Components.Authorization;
         {
             await JSRuntime.InvokeVoidAsync("initialize", dotNetObjectReference, filteredVehiclesList);
         }
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     public void CountVehicles(List<FMSVehicleVM> vehicles)
@@ -459,7 +460,7 @@ using Microsoft.AspNetCore.Components.Authorization;
     #region Timer
     public void StartTimer()
     {
-        Timer.SetTimer(10000);
+        Timer.SetTimer(5000);
         Timer.OnElapsed += TimerElapsedHandler;
         Console.WriteLine("Markers Sync Started.");
     }
@@ -553,6 +554,9 @@ using Microsoft.AspNetCore.Components.Authorization;
             new FMSVehicleVM() { VehicleNumber = accidentalCheckListVehicleNumber });
         if (vehicleResponse.StatusCode == System.Net.HttpStatusCode.OK)
         {
+            responseHeader = "Success";
+            responseBody = "Car has marked as operational.";
+            responseDialogVisibility = true;
             closeSideModals();
         }
         StateHasChanged();
@@ -563,6 +567,9 @@ using Microsoft.AspNetCore.Components.Authorization;
             new FMSVehicleVM() { VehicleNumber = accidentalCheckListVehicleNumber });
         if (vehicleResponse.StatusCode == System.Net.HttpStatusCode.OK)
         {
+            responseHeader = "Success";
+            responseBody = "Job has marked as closed.";
+            responseDialogVisibility = true;
             closeSideModals();
         }
         StateHasChanged();
@@ -584,6 +591,10 @@ using Microsoft.AspNetCore.Components.Authorization;
 
     public async void ShowAccidentalCommentModal(Guid pointId)
     {
+        closeSideModals();
+        commentSideModalHeading = "Comment Box";
+        AccidentalCommentModal = null;
+        accidentalCommentModal = true;
         AccidentalCheckComment = new FMSAccidentalCheckCommentVM();
         var getFMSAccidentalCommentModalResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/FMS/CheckList/Point", new ApiRequest() { FMSAccidentalCheckId = pointId, VehicleNumber = accidentalCheckListVehicleNumber });
 
@@ -600,10 +611,6 @@ using Microsoft.AspNetCore.Components.Authorization;
         {
         }
 
-        closeSideModals();
-        commentSideModalHeading = "Comment Box";
-
-        accidentalCommentModal = true;
 
     }
     public async void MarkAccidentalPointDone(Guid pointId)
@@ -663,14 +670,13 @@ using Microsoft.AspNetCore.Components.Authorization;
     public async void PostAccidentalComment()
     {
         visibleCommentBox = false;
-        AccidentalCheckComment.FMSUserId = new Guid("E7BA5D45-5EAC-4195-AB93-1060DF7EE7AE");
         var postCommentResponse = await Http.PostAsJsonAsync<FMSAccidentalCheckCommentVM>("api/Accident/FMS/CheckList/Point/Comment/Add", AccidentalCheckComment);
         if (postCommentResponse.StatusCode == System.Net.HttpStatusCode.OK)
         {
+            closeSideModals();
             ShowAccidentalCommentModal(AccidentalCheckComment.FMSAccidentalCheckId);
             visibleCommentBox = true;
             StateHasChanged();
-            closeSideModals();
         }
         else
         {
@@ -722,6 +728,17 @@ using Microsoft.AspNetCore.Components.Authorization;
         }
         StateHasChanged();
     }
+
+    #region Dialog
+    public bool responseDialogVisibility { get; set; }
+    public string responseHeader { get; set; }
+    public string responseBody { get; set; }
+
+    private void responseDialogClose(CloseEventArgs args)
+    {
+        //CloseAddUserSideBar();
+    }
+    #endregion
 
 #line default
 #line hidden

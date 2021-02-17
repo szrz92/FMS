@@ -187,6 +187,34 @@ using Microsoft.AspNetCore.Components.Authorization;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 20 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\PendingJobsCount.razor"
+       
+    public string Count { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await GetCount();
+        if (firstRender)
+        {
+        }
+        await base.OnAfterRenderAsync(firstRender);
+    }
+    public async Task GetCount()
+    {
+        Count = await Http.GetStringAsync("api/Jobs/All/Pending/SinceLastMonth");
+        StateHasChanged();
+    }
+
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private HttpClient Http { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private INotificationService NotificationService { get; set; }
     }
 }

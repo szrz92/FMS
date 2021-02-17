@@ -45,5 +45,25 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        [HttpGet("FMS/All")]
+        public async Task<IActionResult> GetFMSUsers()
+        {
+            try
+            {
+                List<string> departments = new List<string>() { "111", "119", "120", "131" };
+                List<GBMSUserVM> users = await (from u in dbContext.Users
+                                                select new GBMSUserVM()
+                                                {
+                                                    Id = new Guid(u.Id),
+                                                    Name = u.Name,
+                                                    OfficialEmail = u.Email
+                                                }).ToListAsync();
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
     }
 }
