@@ -241,80 +241,8 @@
 }
 @if (accidentalCheckListSideModal)
 {
-    <div id="kt_quick_cart2" class="offcanvas offcanvas-right p-10 offcanvas-on" style="width:50%">
-        <!--begin::Header-->
-        <div class="offcanvas-header d-flex align-items-center justify-content-between pb-7" kt-hidden-height="46" style="">
-            <h4 class="font-weight-bold m-0">Accidental Check List for @(accidentalCheckListVehicleNumber ?? "")</h4>
-            <a @onclick="closeSideModals" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_cart_close">
-                <i class="ki ki-close icon-xs text-muted"></i>
-            </a>
-        </div>
-        <!--end::Header-->
-        <!--begin::Content-->
-        <div class="offcanvas-content pr-5 mr-n5 scroll ps ps--active-y">
-
-            <!--begin::Item-->
-            <div class="d-flex align-items-center justify-content-between py-4">
-                @if (accidentalCheckList != null)
-                {
-                    <table class="w-100">
-                        @foreach (var item in accidentalCheckList)
-                        {
-                            <tr class="row px-1 py-2 border-bottom">
-                                <td class="col-6">@item.Description</td>
-                                @if (item.MaintenanceStatus == FMS.Shared.Enums.MaintenanceStatus.InProgress)
-                                {
-                                    <td class="col-2 text-danger">(@(item.MaintenanceStatus))</td>
-                                    <td class="col-2 text-danger"> NA</td>
-                                    <td class="col-2">
-                                        @if (item.CommentCount == 0)
-                                        {
-                                            <label class="checkbox checkbox-disabled pb-2">
-                                                <input type="checkbox" disabled>
-                                                <span></span>
-                                            </label>
-                                        }
-                                        else
-                                        {
-                                            <label class="checkbox checkbox-success pb-2">
-                                                <input type="checkbox" @onclick="() => MarkAccidentalPointDone(item.Id)">
-                                                <span></span>
-                                            </label>
-                                        }
-
-                                        <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowAccidentalCommentModal(item.Id)" />
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td class="col-2 text-success">(@(item.MaintenanceStatus))</td>
-                                    <td class="col-2"> @item.LastUpdated.ToString("dd-MMM-yy")</td>
-                                    <td class="col-2">
-                                        <label class="checkbox checkbox-success pb-2">
-                                            <input type="checkbox" checked="checked" disabled>
-                                            <span></span>
-                                        </label>
-
-                                        <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowAccidentalCommentModal(item.Id)" />
-                                    </td>
-                                }
-                            </tr>
-                        }
-                    </table>
-                }
-                else
-                {
-                    <p>Loading...</p>
-                }
-            </div>
-            <!--end::Content-->
-        </div>
-
-        <div class="offcanvas-footer" kt-hidden-height="112" style="">
-            <button class="btn btn-fms mr-2" @onclick="AccidentalCarOperational">CAR OPERATIONAL</button>
-            <button class="btn btn-secondary" @onclick="AccidentalCloseJob">CLOSE JOB</button>
-        </div>
-    </div>
+    <AccidentalCheckList OnVisibilityChanged="ShowHideAccidentalCheckList" Visible="@accidentalCheckListSideModal" 
+                         VehicleNumber="@accidentalCheckListVehicleNumber" CheckList="@accidentalCheckList" />
 }
 
 @if (dailyCheckListSideModal)
@@ -830,6 +758,11 @@
     {
         Description = null;
         dailyCheckListSideModal = !dailyCheckListSideModal;
+    }
+    public void ShowHideAccidentalCheckList()
+    {
+        Description = null;
+        accidentalCheckListSideModal = !accidentalCheckListSideModal;
     }
 
     public void closeAccidentalCommentModal()

@@ -1,0 +1,186 @@
+﻿@inject HttpClient Http
+
+<div id="kt_quick_cart" class="offcanvas offcanvas-right p-10 offcanvas-on" style="width:50%">
+    @if (AccidentalCommentModal != null)
+    {
+        <!--begin::Header-->
+        <div class="offcanvas-header d-flex align-items-center justify-content-between pb-7" kt-hidden-height="46" style="">
+            <h4 class="font-weight-bold m-0">@AccidentalCommentModal.CheckPointName</h4>
+            <a @onclick="CloseAccidentalCommentModal" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_cart_close">
+                <i class="ki ki-close icon-xs text-muted"></i>
+            </a>
+        </div>
+        <!--end::Header-->
+        <!--begin::Content-->
+        <div class="offcanvas-content pr-5 mr-n5 scroll ps ps--active-y">
+            <div class="d-flex flex-column-fluid">
+                <!--begin::Container-->
+                <div class="container pl-0">
+                    <!--begin::Chat-->
+                    <div class="row">
+                        <div class="col-xl-7">
+                            <div class="container">
+                                <div class="card border border-secondary">
+                                    <div class="card-header">
+                                        <div class="card-title mb-0 font-weight-bolder">Comments</div>
+                                    </div>
+                                    <!--begin::Body-->
+                                    <div class="card-body">
+                                        <div class="scrollable" style="overflow-y: auto; max-height: 300px;">
+                                            <!--begin::Messages-->
+                                            <div class="messages">
+                                                @foreach (var comment in AccidentalCommentModal.Comments)
+                                                {
+                                                    <!--begin::Message In-->
+                                                    <div class="d-flex flex-column mb-5 align-items-start">
+                                                        <div class="d-flex align-items-center">
+                                                            <div>
+                                                                <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">@comment.Name</a>
+                                                                <span class="text-muted font-size-sm">@comment.LastUpdated</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mt-2 rounded p-5 bg-light-secondary text-dark-50 font-weight-bold font-size-sm text-left w-90">@comment.Comment</div>
+                                                    </div>
+                                                    <!--end::Message In-->
+                                                }
+                                            </div>
+                                            <!--end::Messages-->
+                                        </div>
+                                    </div>
+                                    <!--end::Body-->
+                                    <div class="card-footer p-0">
+                                        <div class="input-group p-2">
+                                            <textarea id="@mentionId" class="form-control" placeholder="Type comment here."
+                                                      style="resize: none" rows="3" aria-label="With textarea"></textarea>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text btn btn-fms" @onclick="PostAccidentalComment">Post</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    @*<div class="input-group border border-secondary">
+                                            <textarea id="@mentionId" class="form-control custom-control"
+                                                      style="resize: none" rows="3"></textarea>
+                                        </div>
+                                        <span class="input-group-append btn btn-fms">Comment</span>*@
+                                </div>
+                                @*<div class="row pl-4">
+                                        @foreach (var i in imageDataUrls)
+                                        {
+                                            <div class="col-3 mb-2 p-2">
+                                                <img src="@i" style="width:90%;height:auto;" @onclick="() => DisplayImage(i)" />
+                                            </div>
+                                        }
+                                        <div class="col-3 mb-2 p-2">
+                                            <div class="d-flex" style="display: flex; align-items: flex-start; justify-content: flex-end; width: 100%;">
+                                                <div class="mr-3">
+                                                    <div class="container1">
+                                                        <div class="button-wrap">
+                                                            <label class="btn btn-fms btn-md text-uppercase font-weight-bold chat-send py-8 px-6" for="upload">Upload File</label>
+                                                            <InputFile id="upload" OnChange="@OnInputFileChange" style=" display:none; position: absolute; z-index: -3; top: 15px; left: 20px; font-size: 17px; color: #b8b8b8;" multiple />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>*@
+                            </div>
+                        </div>
+                        <div class="col-xl-5">
+                            <div class="row">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="card-title mb-0 font-weight-bolder">History</div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-xl-4">
+                                                <a href="#" class="btn btn-fms-emergency font-weight-boldest font-size-sm px-2 py-5">EMERGENCY <br /> 15 JOBS</a>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <a href="#" class="btn btn-fms font-weight-boldest font-size-sm px-2 py-5">ACCIDENTAL <br /> 15 JOBS</a>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <a href="#" class="btn btn-fms-daily font-weight-boldest font-size-sm px-5 py-5 w-100">DAILY <br /> 15 JOBS</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="card-title mb-0 font-weight-bolder">Photo Viewer</div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="h-50">
+                                                @*<img src="@displayImage" style="width:99%;height:auto;" />*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Chat-->
+                </div>
+                <!--end::Container-->
+            </div>
+            <!--end::Content-->
+        </div>
+    }
+    else
+    {
+        <img style="position:fixed;top:50%;left:70%;" src="assets/media/loading.gif" />
+    }
+</div>
+@code {
+    [Parameter]
+    public FMSAccidentalCommentModalVM AccidentalCommentModal { get; set; }
+    [Parameter]
+    public ApiRequest CheckPointId { get; set; }
+    [Parameter]
+    public string VehicleNumber { get; set; }
+    [Parameter]
+    public bool Visible { get; set; }
+    [Parameter]
+    public EventCallback<bool> OnVisibilityChanged { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (AccidentalCommentModal == null)
+        {
+            FMSAccidentalCheckCommentVM AccidentalCheckComment = new FMSAccidentalCheckCommentVM();
+            var getFMSAccidentalCommentModalResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/FMS/CheckList/Point", 
+                new ApiRequest() { FMSAccidentalCheckId = CheckPointId.FMSAccidentalCheckId, VehicleNumber = VehicleNumber });
+
+            if (getFMSAccidentalCommentModalResponse.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                string response = await (getFMSAccidentalCommentModalResponse).Content.ReadAsStringAsync();
+                AccidentalCommentModal = JsonConvert.DeserializeObject<FMSAccidentalCommentModalVM>(response);
+                AccidentalCheckComment.FMSAccidentalCheckId = CheckPointId.FMSAccidentalCheckId;
+                AccidentalCheckComment.FMSAccidentId = AccidentalCommentModal.FMSAccidentId;
+                AccidentalCheckComment.FMSVehicleId = AccidentalCommentModal.FMSVehicleId;
+                AccidentalCheckComment.VehicleNumber = AccidentalCommentModal.VehicleNumber;
+            }
+            else
+            {
+            }
+        }
+        await base.OnAfterRenderAsync(firstRender);
+    }
+    public Task CloseAccidentalCommentModal()
+    {
+        return OnVisibilityChanged.InvokeAsync(false);
+    }
+}

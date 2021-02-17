@@ -190,7 +190,7 @@ using Microsoft.AspNetCore.Components.Authorization;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 669 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Index.razor"
+#line 597 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Index.razor"
  
     private DotNetObjectReference<Index> dotNetObjectReference;
 
@@ -355,6 +355,11 @@ using Microsoft.AspNetCore.Components.Authorization;
     {
         Description = null;
         dailyCheckListSideModal = !dailyCheckListSideModal;
+    }
+    public void ShowHideAccidentalCheckList()
+    {
+        Description = null;
+        accidentalCheckListSideModal = !accidentalCheckListSideModal;
     }
 
     public void closeAccidentalCommentModal()
