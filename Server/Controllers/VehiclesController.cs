@@ -204,7 +204,7 @@ namespace SOS.FMS.Server.Controllers
                                                        join r in dbContext.Regions on v.Region equals r.Id
                                                        join sr in dbContext.SubRegions on v.SubRegion equals sr.Id
                                                        select ModelService.FMSVehicleViewModel(v, fv, r, sr)).ToListAsync();
-                if (rbVehicles == null || rbVehicles.Count() < 1)
+                if (rbVehicles == null || rbVehicles.Count < 1)
                 {
                     rbVehicles = new List<FMSVehicleVM>()
                     {
@@ -294,7 +294,7 @@ namespace SOS.FMS.Server.Controllers
                                                                   TimeStamp = a.TimeStamp,
                                                                   Description = a.Description
                                                               }).ToListAsync();
-                if (accidents == null || accidents.Count() < 1)
+                if (accidents == null || accidents.Count < 1)
                 {
                     accidents = new List<FMSVehicleAccidentVM>()
                     {

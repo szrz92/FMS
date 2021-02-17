@@ -190,11 +190,7 @@ using Microsoft.AspNetCore.Components.Authorization;
         }
         #pragma warning restore 1998
 #nullable restore
-<<<<<<< HEAD
-#line 687 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Index.razor"
-=======
 #line 455 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Index.razor"
->>>>>>> accidentalchecklist
  
     private DotNetObjectReference<Index> dotNetObjectReference;
 
@@ -287,7 +283,6 @@ using Microsoft.AspNetCore.Components.Authorization;
         {
             await JSRuntime.InvokeVoidAsync("initialize", dotNetObjectReference, filteredVehiclesList);
         }
-        await base.OnAfterRenderAsync(firstRender);
     }
 
     public void CountVehicles(List<FMSVehicleVM> vehicles)
@@ -460,7 +455,7 @@ using Microsoft.AspNetCore.Components.Authorization;
     #region Timer
     public void StartTimer()
     {
-        Timer.SetTimer(5000);
+        Timer.SetTimer(10000);
         Timer.OnElapsed += TimerElapsedHandler;
         Console.WriteLine("Markers Sync Started.");
     }
@@ -548,35 +543,6 @@ using Microsoft.AspNetCore.Components.Authorization;
     #endregion
 
 
-<<<<<<< HEAD
-    public async void AccidentalCarOperational()
-    {
-        var vehicleResponse = await Http.PostAsJsonAsync("api/Accident/FMS/Demo/CarOperational",
-            new FMSVehicleVM() { VehicleNumber = accidentalCheckListVehicleNumber });
-        if (vehicleResponse.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-            responseHeader = "Success";
-            responseBody = "Car has marked as operational.";
-            responseDialogVisibility = true;
-            closeSideModals();
-        }
-        StateHasChanged();
-    }
-    public async void AccidentalCloseJob()
-    {
-        var vehicleResponse = await Http.PostAsJsonAsync("api/Accident/FMS/Demo/CloseJob",
-            new FMSVehicleVM() { VehicleNumber = accidentalCheckListVehicleNumber });
-        if (vehicleResponse.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-            responseHeader = "Success";
-            responseBody = "Job has marked as closed.";
-            responseDialogVisibility = true;
-            closeSideModals();
-        }
-        StateHasChanged();
-    }
-=======
->>>>>>> accidentalchecklist
 
     public void ShowAccidentalCheckList(List<FMSAccidentalCheckVM> checkVMs)
     {
@@ -590,47 +556,6 @@ using Microsoft.AspNetCore.Components.Authorization;
         emergencyCommentModal = false;
     }
 
-<<<<<<< HEAD
-    public async void ShowAccidentalCommentModal(Guid pointId)
-    {
-        closeSideModals();
-        commentSideModalHeading = "Comment Box";
-        AccidentalCommentModal = null;
-        accidentalCommentModal = true;
-        AccidentalCheckComment = new FMSAccidentalCheckCommentVM();
-        var getFMSAccidentalCommentModalResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/FMS/CheckList/Point", new ApiRequest() { FMSAccidentalCheckId = pointId, VehicleNumber = accidentalCheckListVehicleNumber });
-
-        if (getFMSAccidentalCommentModalResponse.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-            string response = await (getFMSAccidentalCommentModalResponse).Content.ReadAsStringAsync();
-            AccidentalCommentModal = JsonConvert.DeserializeObject<FMSAccidentalCommentModalVM>(response);
-            AccidentalCheckComment.FMSAccidentalCheckId = pointId;
-            AccidentalCheckComment.FMSAccidentId = AccidentalCommentModal.FMSAccidentId;
-            AccidentalCheckComment.FMSVehicleId = AccidentalCommentModal.FMSVehicleId;
-            AccidentalCheckComment.VehicleNumber = AccidentalCommentModal.VehicleNumber;
-        }
-        else
-        {
-        }
-
-
-    }
-    public async void MarkAccidentalPointDone(Guid pointId)
-    {
-        AccidentalCheckComment = new FMSAccidentalCheckCommentVM();
-        var getMarkAccidentalPointDoneResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/FMS/CheckList/Point/MarkDone",
-            new ApiRequest() { FMSAccidentalCheckId = pointId, VehicleNumber = accidentalCheckListVehicleNumber });
-
-        if (getMarkAccidentalPointDoneResponse.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-            Accidental_JSInvoked(accidentalCheckListVehicleNumber);
-        }
-        else
-        {
-        }
-    }
-=======
->>>>>>> accidentalchecklist
     public async void MarkEmergencyPointDone(Guid pointId)
     {
         EmergencyCheckComment = new FMSEmergencyCheckCommentVM();
@@ -671,25 +596,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 
     }
 
-<<<<<<< HEAD
-    public async void PostAccidentalComment()
-    {
-        visibleCommentBox = false;
-        var postCommentResponse = await Http.PostAsJsonAsync<FMSAccidentalCheckCommentVM>("api/Accident/FMS/CheckList/Point/Comment/Add", AccidentalCheckComment);
-        if (postCommentResponse.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-            closeSideModals();
-            ShowAccidentalCommentModal(AccidentalCheckComment.FMSAccidentalCheckId);
-            visibleCommentBox = true;
-            StateHasChanged();
-        }
-        else
-        {
-        }
-
-    }
-=======
->>>>>>> accidentalchecklist
 
     public async void PostEmergencyComment()
     {
@@ -727,17 +633,6 @@ using Microsoft.AspNetCore.Components.Authorization;
         }
         StateHasChanged();
     }
-
-    #region Dialog
-    public bool responseDialogVisibility { get; set; }
-    public string responseHeader { get; set; }
-    public string responseBody { get; set; }
-
-    private void responseDialogClose(CloseEventArgs args)
-    {
-        //CloseAddUserSideBar();
-    }
-    #endregion
 
 #line default
 #line hidden

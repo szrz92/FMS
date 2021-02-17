@@ -36,7 +36,7 @@
                                                     <div class="d-flex flex-column mb-5 align-items-start">
                                                         <div class="d-flex align-items-center">
                                                             <div>
-                                                                <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">@comment.Name</a>
+                                                                <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">@comment.FMSUserName</a>
                                                                 <span class="text-muted font-size-sm">@comment.LastUpdated</span>
                                                             </div>
                                                         </div>
@@ -161,7 +161,7 @@
     protected override async Task OnInitializedAsync()
     {
         dotNetObjectReference = DotNetObjectReference.Create(this);
-        usersList = await Http.GetFromJsonAsync<List<GBMSUserVM>>("api/Users/GBMS/All");
+        usersList = await Http.GetFromJsonAsync<List<GBMSUserVM>>("api/Users/FMS/All");
 
         await base.OnInitializedAsync();
     }

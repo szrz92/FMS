@@ -210,7 +210,7 @@ using Microsoft.AspNetCore.Components.Authorization;
     protected override async Task OnInitializedAsync()
     {
         dotNetObjectReference = DotNetObjectReference.Create(this);
-        usersList = await Http.GetFromJsonAsync<List<GBMSUserVM>>("api/Users/GBMS/All");
+        usersList = await Http.GetFromJsonAsync<List<GBMSUserVM>>("api/Users/FMS/All");
 
         await base.OnInitializedAsync();
     }

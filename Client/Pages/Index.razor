@@ -485,7 +485,7 @@
 
 
     public List<FMSVehicleVM> vehiclesList { get; set; } = new List<FMSVehicleVM>();
-    public List<FMSUserVM> usersList { get; set; } = new List<FMSUserVM>();
+    public List<GBMSUserVM> usersList { get; set; } = new List<GBMSUserVM>();
     public List<FMSAccidentalCheckCommentVM> commentsList = new List<FMSAccidentalCheckCommentVM>();
 
 
@@ -531,7 +531,7 @@
         regionsList = vehiclesList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         subRegionsList = vehiclesList.GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         filteredVehiclesList = vehiclesList;
-        usersList = await Http.GetFromJsonAsync<List<FMSUserVM>>("api/User/Names/All");
+        usersList = await Http.GetFromJsonAsync<List<GBMSUserVM>>("api/Users/FMS/All");
         CountVehicles(filteredVehiclesList);
         await base.OnInitializedAsync();
     }
