@@ -54,7 +54,7 @@
 </EditForm>*@
 
 @code{
-    LoginRequest loginRequest { get; set; } = new LoginRequest() { UserName = "z.raza@batech.com.pk", Password = "Sa123!@#" };
+    LoginRequest loginRequest { get; set; } = new LoginRequest();
     string error { get; set; }
 
     async Task OnSubmit()

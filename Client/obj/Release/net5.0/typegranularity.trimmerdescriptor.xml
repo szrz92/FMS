@@ -1,0 +1,119 @@
+<linker>
+  <assembly fullname="Microsoft.AspNetCore.Antiforgery">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Authentication.Abstractions">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Authentication.Core">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Authorization.Policy">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Authorization">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Components.Authorization">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Components.Forms">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Components.Web">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Components.WebAssembly.Authentication">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Components.WebAssembly">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Components">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Cryptography.Internal">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.DataProtection.Abstractions">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.DataProtection">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Diagnostics.Abstractions">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Hosting.Abstractions">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Hosting.Server.Abstractions">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Html.Abstractions">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Http.Abstractions">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Http.Extensions">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Http.Features">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Http">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.JsonPatch">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Metadata">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Mvc.Abstractions">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Mvc.Core">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Mvc.DataAnnotations">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Mvc.Formatters.Json">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Mvc.Razor.Extensions">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Mvc.Razor">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Mvc.RazorPages">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Mvc.ViewFeatures">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Razor.Language">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Razor.Runtime">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Razor">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.ResponseCaching.Abstractions">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Routing.Abstractions">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.Routing">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.AspNetCore.WebUtilities">
+    <type fullname="*" required="false" preserve="all" />
+  </assembly>
+</linker>
