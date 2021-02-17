@@ -188,7 +188,7 @@ using Microsoft.AspNetCore.Components.Authorization;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 145 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\AccidentalCheckListCommentBox.razor"
+#line 143 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\AccidentalCheckListCommentBox.razor"
        
     [Parameter]
     public FMSAccidentalCommentModalVM AccidentalCommentModal { get; set; }
@@ -201,42 +201,89 @@ using Microsoft.AspNetCore.Components.Authorization;
     [Parameter]
     public EventCallback<bool> OnVisibilityChanged { get; set; }
 
+    private DotNetObjectReference<AccidentalCheckListCommentBox> dotNetObjectReference;
+
+    public List<GBMSUserVM> usersList { get; set; } = new List<GBMSUserVM>();
+
+    FMSAccidentalCheckCommentVM AccidentalCheckComment;
+
     protected override async Task OnInitializedAsync()
     {
+        dotNetObjectReference = DotNetObjectReference.Create(this);
+        usersList = await Http.GetFromJsonAsync<List<GBMSUserVM>>("api/Users/GBMS/All");
+
         await base.OnInitializedAsync();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        if (usersList != null)
+        {
+            await JSRuntime.InvokeVoidAsync("mention", dotNetObjectReference, usersList);
+        }
+
         if (AccidentalCommentModal == null)
         {
-            FMSAccidentalCheckCommentVM AccidentalCheckComment = new FMSAccidentalCheckCommentVM();
-            var getFMSAccidentalCommentModalResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/FMS/CheckList/Point", 
-                new ApiRequest() { FMSAccidentalCheckId = CheckPointId.FMSAccidentalCheckId, VehicleNumber = VehicleNumber });
-
-            if (getFMSAccidentalCommentModalResponse.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                string response = await (getFMSAccidentalCommentModalResponse).Content.ReadAsStringAsync();
-                AccidentalCommentModal = JsonConvert.DeserializeObject<FMSAccidentalCommentModalVM>(response);
-                AccidentalCheckComment.FMSAccidentalCheckId = CheckPointId.FMSAccidentalCheckId;
-                AccidentalCheckComment.FMSAccidentId = AccidentalCommentModal.FMSAccidentId;
-                AccidentalCheckComment.FMSVehicleId = AccidentalCommentModal.FMSVehicleId;
-                AccidentalCheckComment.VehicleNumber = AccidentalCommentModal.VehicleNumber;
-            }
-            else
-            {
-            }
+            await NewCommentModel();
         }
         await base.OnAfterRenderAsync(firstRender);
     }
+
+    public async Task NewCommentModel()
+    {
+        AccidentalCheckComment = new FMSAccidentalCheckCommentVM();
+        var getFMSAccidentalCommentModalResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/FMS/CheckList/Point",
+            new ApiRequest() { FMSAccidentalCheckId = CheckPointId.FMSAccidentalCheckId, VehicleNumber = VehicleNumber });
+
+        if (getFMSAccidentalCommentModalResponse.StatusCode == System.Net.HttpStatusCode.OK)
+        {
+            string response = await(getFMSAccidentalCommentModalResponse).Content.ReadAsStringAsync();
+            AccidentalCommentModal = JsonConvert.DeserializeObject<FMSAccidentalCommentModalVM>(response);
+            AccidentalCheckComment.FMSAccidentalCheckId = CheckPointId.FMSAccidentalCheckId;
+            AccidentalCheckComment.FMSAccidentId = AccidentalCommentModal.FMSAccidentId;
+            AccidentalCheckComment.FMSVehicleId = AccidentalCommentModal.FMSVehicleId;
+            AccidentalCheckComment.VehicleNumber = AccidentalCommentModal.VehicleNumber;
+        }
+        else
+        {
+        }
+    }
+
     public Task CloseAccidentalCommentModal()
     {
         return OnVisibilityChanged.InvokeAsync(false);
     }
 
+    public async void PostAccidentalComment()
+    {
+        var postCommentResponse = await Http.PostAsJsonAsync<FMSAccidentalCheckCommentVM>("api/Accident/FMS/CheckList/Point/Comment/Add", AccidentalCheckComment);
+        if (postCommentResponse.StatusCode == System.Net.HttpStatusCode.OK)
+        {
+            await NewCommentModel();
+            StateHasChanged();
+        }
+        else
+        {
+        }
+
+    }
+
+    [JSInvokable]
+    public void mention_JSInvoked(List<GBMSUserVM> mentionedUsers, string comment)
+    {
+        if (AccidentalCheckComment != null)
+        {
+            AccidentalCheckComment.Comment = comment;
+            AccidentalCheckComment.Mentions = (string.Join(",", mentionedUsers.Select(x => x.Id).ToArray()));
+        }
+
+        StateHasChanged();
+    }
+
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IJSRuntime JSRuntime { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private HttpClient Http { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private INotificationService NotificationService { get; set; }
     }

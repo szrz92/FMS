@@ -242,7 +242,7 @@
 @if (accidentalCheckListSideModal)
 {
     <AccidentalCheckList OnVisibilityChanged="ShowHideAccidentalCheckList" Visible="@accidentalCheckListSideModal" 
-                         VehicleNumber="@accidentalCheckListVehicleNumber" CheckList="@accidentalCheckList" />
+                         VehicleNumber="@accidentalCheckListVehicleNumber" AccidentalsCheckList="@accidentalCheckList" />
 }
 
 @if (dailyCheckListSideModal)
@@ -252,148 +252,6 @@
 }
 
 
-@if (accidentalCommentModal)
-{
-    <div id="kt_quick_cart" class="offcanvas offcanvas-right p-10 offcanvas-on" style="width:50%">
-        @if (AccidentalCommentModal != null)
-        {
-            <!--begin::Header-->
-            <div class="offcanvas-header d-flex align-items-center justify-content-between pb-7" kt-hidden-height="46" style="">
-                <h4 class="font-weight-bold m-0">@AccidentalCommentModal.CheckPointName</h4>
-                <a @onclick="closeAccidentalCommentModal" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_cart_close">
-                    <i class="ki ki-close icon-xs text-muted"></i>
-                </a>
-            </div>
-            <!--end::Header-->
-            <!--begin::Content-->
-            <div class="offcanvas-content pr-5 mr-n5 scroll ps ps--active-y">
-                <div class="d-flex flex-column-fluid">
-                    <!--begin::Container-->
-                    <div class="container pl-0">
-                        <!--begin::Chat-->
-                        <div class="row">
-                            <div class="col-xl-7">
-                                <div class="container">
-                                    <div class="card border border-secondary">
-                                        <div class="card-header">
-                                            <div class="card-title mb-0 font-weight-bolder">Comments</div>
-                                        </div>
-                                        <!--begin::Body-->
-                                        <div class="card-body">
-                                            <div class="scrollable" style="overflow-y: auto; max-height: 300px;">
-                                                <!--begin::Messages-->
-                                                <div class="messages">
-                                                    @foreach (var comment in AccidentalCommentModal.Comments)
-                                                    {
-                                                        <!--begin::Message In-->
-                                                        <div class="d-flex flex-column mb-5 align-items-start">
-                                                            <div class="d-flex align-items-center">
-                                                                <div>
-                                                                    <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">@comment.Name</a>
-                                                                    <span class="text-muted font-size-sm">@comment.LastUpdated</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="mt-2 rounded p-5 bg-light-secondary text-dark-50 font-weight-bold font-size-sm text-left w-90">@comment.Comment</div>
-                                                        </div>
-                                                        <!--end::Message In-->
-                                                    }
-                                                </div>
-                                                <!--end::Messages-->
-                                            </div>
-                                        </div>
-                                        <!--end::Body-->
-                                        <div class="card-footer p-0">
-                                            @if (visibleCommentBox)
-                                            {
-                                                <div class="input-group p-2">
-                                                    <textarea id="@mentionId" class="form-control" placeholder="Type comment here."
-                                                              style="resize: none" rows="3" aria-label="With textarea"></textarea>
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text btn btn-fms" @onclick="PostAccidentalComment">Post</span>
-                                                    </div>
-                                                </div>
-                                            }
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        @*<div class="input-group border border-secondary">
-                                                <textarea id="@mentionId" class="form-control custom-control"
-                                                          style="resize: none" rows="3"></textarea>
-                                            </div>
-                                            <span class="input-group-append btn btn-fms">Comment</span>*@
-                                    </div>
-                                    <div class="row pl-4">
-                                        @foreach (var i in imageDataUrls)
-                                        {
-                                            <div class="col-3 mb-2 p-2">
-                                                <img src="@i" style="width:90%;height:auto;" @onclick="() => DisplayImage(i)" />
-                                            </div>
-                                        }
-                                        <div class="col-3 mb-2 p-2">
-                                            <div class="d-flex" style="display: flex; align-items: flex-start; justify-content: flex-end; width: 100%;">
-                                                <div class="mr-3">
-                                                    <div class="container1">
-                                                        <div class="button-wrap">
-                                                            <label class="btn btn-fms btn-md text-uppercase font-weight-bold chat-send py-8 px-6" for="upload">Upload File</label>
-                                                            <InputFile id="upload" OnChange="@OnInputFileChange" style=" display:none; position: absolute; z-index: -3; top: 15px; left: 20px; font-size: 17px; color: #b8b8b8;" multiple />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-5">
-                                <div class="row">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <div class="card-title mb-0 font-weight-bolder">History</div>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-xl-4">
-                                                    <a href="#" class="btn btn-fms-emergency font-weight-boldest font-size-sm px-2 py-5">EMERGENCY <br /> 15 JOBS</a>
-                                                </div>
-                                                <div class="col-xl-4">
-                                                    <a href="#" class="btn btn-fms font-weight-boldest font-size-sm px-2 py-5">ACCIDENTAL <br /> 15 JOBS</a>
-                                                </div>
-                                                <div class="col-xl-4">
-                                                    <a href="#" class="btn btn-fms-daily font-weight-boldest font-size-sm px-5 py-5 w-100">DAILY <br /> 15 JOBS</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="row">
-                                    <div class="col-xl-12">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <div class="card-title mb-0 font-weight-bolder">Photo Viewer</div>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="h-50">
-                                                    <img src="@displayImage" style="width:99%;height:auto;" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end::Chat-->
-                    </div>
-                    <!--end::Container-->
-                </div>
-                <!--end::Content-->
-            </div>
-        }
-    </div>
-
-}
 @if (emergencyCommentModal)
 {
     <div id="kt_quick_cart" class="offcanvas offcanvas-right p-10 offcanvas-on" style="width:50%">
@@ -630,9 +488,6 @@
     public List<FMSUserVM> usersList { get; set; } = new List<FMSUserVM>();
     public List<FMSAccidentalCheckCommentVM> commentsList = new List<FMSAccidentalCheckCommentVM>();
 
-    public List<FMSAccidentalCheckVM> accidentalCheckList { get; set; }
-    public Guid accidentalId { get; set; }
-    public Guid accidentalCheckPointId { get; set; }
 
     public List<FMSEmergencyCheckVM> emergencyCheckList { get; set; }
     public Guid emergencyId { get; set; }
@@ -645,19 +500,14 @@
     public int TotalVehiclesCount { get; set; } = 0;
 
     public bool emergencyCheckListSideModal { get; set; } = false;
-    public bool accidentalCheckListSideModal { get; set; } = false;
     public bool dailyCheckListSideModal { get; set; } = false;
 
     public string emergencyCheckListVehicleNumber;
-    public string accidentalCheckListVehicleNumber;
     public string dailyCheckListVehicleNumber;
 
     public bool visibleCommentBox { get; set; } = true;
-
-    public bool accidentalCommentModal { get; set; } = false;
     public bool emergencyCommentModal { get; set; } = false;
-    FMSAccidentalCommentModalVM AccidentalCommentModal;
-    FMSAccidentalCheckCommentVM AccidentalCheckComment;
+
     FMSEmergencyCommentModalVM EmergencyCommentModal;
     FMSEmergencyCheckCommentVM EmergencyCheckComment;
 
@@ -689,7 +539,7 @@
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         mentionId = "mention1";
-        await JSRuntime.InvokeVoidAsync("mention", dotNetObjectReference, usersList);
+        //await JSRuntime.InvokeVoidAsync("mention", dotNetObjectReference, usersList);
         if (firstRender)
         {
             await JSRuntime.InvokeVoidAsync("initialize", dotNetObjectReference, filteredVehiclesList);
@@ -746,9 +596,7 @@
     public void closeSideModals()
     {
         HideEmergencyCheckList();
-        HideAccidentalCheckList();
         dailyCheckListSideModal = false;
-        accidentalCommentModal = false;
         emergencyCommentModal = false;
 
         dailyCheckListVehicleNumber = null;
@@ -759,17 +607,24 @@
         Description = null;
         dailyCheckListSideModal = !dailyCheckListSideModal;
     }
+
+    #region Accidental Check List
+
+    public List<FMSAccidentalCheckVM> accidentalCheckList { get; set; }
+
+    public string accidentalCheckListVehicleNumber;
+    
+    public bool accidentalCheckListSideModal { get; set; } = false;
+
     public void ShowHideAccidentalCheckList()
     {
         Description = null;
         accidentalCheckListSideModal = !accidentalCheckListSideModal;
     }
 
-    public void closeAccidentalCommentModal()
-    {
-        Accidental_JSInvoked(AccidentalCommentModal.VehicleNumber);
-        StateHasChanged();
-    }
+    #endregion
+
+
     public void closeEmergencyCommentModal()
     {
         Emergency_JSInvoked(EmergencyCommentModal.VehicleNumber);
@@ -778,7 +633,6 @@
 
     public void closeCommentModals()
     {
-        accidentalCommentModal = false;
 
         commentSideModalHeading = null;
     }
@@ -849,11 +703,6 @@
     [JSInvokable]
     public void mention_JSInvoked(List<FMSUserVM> mentionedUsers, string comment)
     {
-        if (AccidentalCheckComment != null)
-        {
-            AccidentalCheckComment.Comment = comment;
-            AccidentalCheckComment.Mentions = (string.Join(",", mentionedUsers.Select(x => x.Id).ToArray()));
-        }
         if (EmergencyCheckComment != null)
         {
             EmergencyCheckComment.Comment = comment;
@@ -955,32 +804,10 @@
     #endregion
 
 
-    public async void AccidentalCarOperational()
-    {
-        var vehicleResponse = await Http.PostAsJsonAsync("api/Accident/FMS/Demo/CarOperational",
-            new FMSVehicleVM() { VehicleNumber = accidentalCheckListVehicleNumber });
-        if (vehicleResponse.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-            closeSideModals();
-        }
-        StateHasChanged();
-    }
-    public async void AccidentalCloseJob()
-    {
-        var vehicleResponse = await Http.PostAsJsonAsync("api/Accident/FMS/Demo/CloseJob",
-            new FMSVehicleVM() { VehicleNumber = accidentalCheckListVehicleNumber });
-        if (vehicleResponse.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-            closeSideModals();
-        }
-        StateHasChanged();
-    }
 
     public void ShowAccidentalCheckList(List<FMSAccidentalCheckVM> checkVMs)
     {
-        accidentalId = checkVMs.FirstOrDefault().FMSAccidentId;
         accidentalCheckListSideModal = true;
-        accidentalCommentModal = false;
     }
 
     public void ShowEmergencyCheckList(List<FMSEmergencyCheckVM> checkVMs)
@@ -990,44 +817,6 @@
         emergencyCommentModal = false;
     }
 
-    public async void ShowAccidentalCommentModal(Guid pointId)
-    {
-        AccidentalCheckComment = new FMSAccidentalCheckCommentVM();
-        var getFMSAccidentalCommentModalResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/FMS/CheckList/Point", new ApiRequest() { FMSAccidentalCheckId = pointId, VehicleNumber = accidentalCheckListVehicleNumber });
-
-        if (getFMSAccidentalCommentModalResponse.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-            string response = await (getFMSAccidentalCommentModalResponse).Content.ReadAsStringAsync();
-            AccidentalCommentModal = JsonConvert.DeserializeObject<FMSAccidentalCommentModalVM>(response);
-            AccidentalCheckComment.FMSAccidentalCheckId = pointId;
-            AccidentalCheckComment.FMSAccidentId = AccidentalCommentModal.FMSAccidentId;
-            AccidentalCheckComment.FMSVehicleId = AccidentalCommentModal.FMSVehicleId;
-            AccidentalCheckComment.VehicleNumber = AccidentalCommentModal.VehicleNumber;
-        }
-        else
-        {
-        }
-
-        closeSideModals();
-        commentSideModalHeading = "Comment Box";
-
-        accidentalCommentModal = true;
-
-    }
-    public async void MarkAccidentalPointDone(Guid pointId)
-    {
-        AccidentalCheckComment = new FMSAccidentalCheckCommentVM();
-        var getMarkAccidentalPointDoneResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/FMS/CheckList/Point/MarkDone",
-            new ApiRequest() { FMSAccidentalCheckId = pointId, VehicleNumber = accidentalCheckListVehicleNumber });
-
-        if (getMarkAccidentalPointDoneResponse.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-            Accidental_JSInvoked(accidentalCheckListVehicleNumber);
-        }
-        else
-        {
-        }
-    }
     public async void MarkEmergencyPointDone(Guid pointId)
     {
         EmergencyCheckComment = new FMSEmergencyCheckCommentVM();
@@ -1068,23 +857,6 @@
 
     }
 
-    public async void PostAccidentalComment()
-    {
-        visibleCommentBox = false;
-        AccidentalCheckComment.FMSUserId = new Guid("E7BA5D45-5EAC-4195-AB93-1060DF7EE7AE");
-        var postCommentResponse = await Http.PostAsJsonAsync<FMSAccidentalCheckCommentVM>("api/Accident/FMS/CheckList/Point/Comment/Add", AccidentalCheckComment);
-        if (postCommentResponse.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-            ShowAccidentalCommentModal(AccidentalCheckComment.FMSAccidentalCheckId);
-            visibleCommentBox = true;
-            StateHasChanged();
-            closeSideModals();
-        }
-        else
-        {
-        }
-
-    }
 
     public async void PostEmergencyComment()
     {
@@ -1103,14 +875,6 @@
         {
         }
 
-    }
-
-    public void HideAccidentalCheckList()
-    {
-        accidentalCheckListSideModal = false;
-        //accidentalCheckListVehicleNumber = null;
-        accidentalId = Guid.Empty;
-        accidentalCheckList = null;
     }
 
     public void HideEmergencyCheckList()

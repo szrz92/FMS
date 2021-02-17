@@ -190,7 +190,7 @@ using Microsoft.AspNetCore.Components.Authorization;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 597 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Index.razor"
+#line 455 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Index.razor"
  
     private DotNetObjectReference<Index> dotNetObjectReference;
 
@@ -227,9 +227,6 @@ using Microsoft.AspNetCore.Components.Authorization;
     public List<FMSUserVM> usersList { get; set; } = new List<FMSUserVM>();
     public List<FMSAccidentalCheckCommentVM> commentsList = new List<FMSAccidentalCheckCommentVM>();
 
-    public List<FMSAccidentalCheckVM> accidentalCheckList { get; set; }
-    public Guid accidentalId { get; set; }
-    public Guid accidentalCheckPointId { get; set; }
 
     public List<FMSEmergencyCheckVM> emergencyCheckList { get; set; }
     public Guid emergencyId { get; set; }
@@ -242,19 +239,14 @@ using Microsoft.AspNetCore.Components.Authorization;
     public int TotalVehiclesCount { get; set; } = 0;
 
     public bool emergencyCheckListSideModal { get; set; } = false;
-    public bool accidentalCheckListSideModal { get; set; } = false;
     public bool dailyCheckListSideModal { get; set; } = false;
 
     public string emergencyCheckListVehicleNumber;
-    public string accidentalCheckListVehicleNumber;
     public string dailyCheckListVehicleNumber;
 
     public bool visibleCommentBox { get; set; } = true;
-
-    public bool accidentalCommentModal { get; set; } = false;
     public bool emergencyCommentModal { get; set; } = false;
-    FMSAccidentalCommentModalVM AccidentalCommentModal;
-    FMSAccidentalCheckCommentVM AccidentalCheckComment;
+
     FMSEmergencyCommentModalVM EmergencyCommentModal;
     FMSEmergencyCheckCommentVM EmergencyCheckComment;
 
@@ -286,7 +278,7 @@ using Microsoft.AspNetCore.Components.Authorization;
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         mentionId = "mention1";
-        await JSRuntime.InvokeVoidAsync("mention", dotNetObjectReference, usersList);
+        //await JSRuntime.InvokeVoidAsync("mention", dotNetObjectReference, usersList);
         if (firstRender)
         {
             await JSRuntime.InvokeVoidAsync("initialize", dotNetObjectReference, filteredVehiclesList);
@@ -343,9 +335,7 @@ using Microsoft.AspNetCore.Components.Authorization;
     public void closeSideModals()
     {
         HideEmergencyCheckList();
-        HideAccidentalCheckList();
         dailyCheckListSideModal = false;
-        accidentalCommentModal = false;
         emergencyCommentModal = false;
 
         dailyCheckListVehicleNumber = null;
@@ -356,17 +346,24 @@ using Microsoft.AspNetCore.Components.Authorization;
         Description = null;
         dailyCheckListSideModal = !dailyCheckListSideModal;
     }
+
+    #region Accidental Check List
+
+    public List<FMSAccidentalCheckVM> accidentalCheckList { get; set; }
+
+    public string accidentalCheckListVehicleNumber;
+    
+    public bool accidentalCheckListSideModal { get; set; } = false;
+
     public void ShowHideAccidentalCheckList()
     {
         Description = null;
         accidentalCheckListSideModal = !accidentalCheckListSideModal;
     }
 
-    public void closeAccidentalCommentModal()
-    {
-        Accidental_JSInvoked(AccidentalCommentModal.VehicleNumber);
-        StateHasChanged();
-    }
+    #endregion
+
+
     public void closeEmergencyCommentModal()
     {
         Emergency_JSInvoked(EmergencyCommentModal.VehicleNumber);
@@ -375,7 +372,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 
     public void closeCommentModals()
     {
-        accidentalCommentModal = false;
 
         commentSideModalHeading = null;
     }
@@ -446,11 +442,6 @@ using Microsoft.AspNetCore.Components.Authorization;
     [JSInvokable]
     public void mention_JSInvoked(List<FMSUserVM> mentionedUsers, string comment)
     {
-        if (AccidentalCheckComment != null)
-        {
-            AccidentalCheckComment.Comment = comment;
-            AccidentalCheckComment.Mentions = (string.Join(",", mentionedUsers.Select(x => x.Id).ToArray()));
-        }
         if (EmergencyCheckComment != null)
         {
             EmergencyCheckComment.Comment = comment;
@@ -552,32 +543,10 @@ using Microsoft.AspNetCore.Components.Authorization;
     #endregion
 
 
-    public async void AccidentalCarOperational()
-    {
-        var vehicleResponse = await Http.PostAsJsonAsync("api/Accident/FMS/Demo/CarOperational",
-            new FMSVehicleVM() { VehicleNumber = accidentalCheckListVehicleNumber });
-        if (vehicleResponse.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-            closeSideModals();
-        }
-        StateHasChanged();
-    }
-    public async void AccidentalCloseJob()
-    {
-        var vehicleResponse = await Http.PostAsJsonAsync("api/Accident/FMS/Demo/CloseJob",
-            new FMSVehicleVM() { VehicleNumber = accidentalCheckListVehicleNumber });
-        if (vehicleResponse.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-            closeSideModals();
-        }
-        StateHasChanged();
-    }
 
     public void ShowAccidentalCheckList(List<FMSAccidentalCheckVM> checkVMs)
     {
-        accidentalId = checkVMs.FirstOrDefault().FMSAccidentId;
         accidentalCheckListSideModal = true;
-        accidentalCommentModal = false;
     }
 
     public void ShowEmergencyCheckList(List<FMSEmergencyCheckVM> checkVMs)
@@ -587,44 +556,6 @@ using Microsoft.AspNetCore.Components.Authorization;
         emergencyCommentModal = false;
     }
 
-    public async void ShowAccidentalCommentModal(Guid pointId)
-    {
-        AccidentalCheckComment = new FMSAccidentalCheckCommentVM();
-        var getFMSAccidentalCommentModalResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/FMS/CheckList/Point", new ApiRequest() { FMSAccidentalCheckId = pointId, VehicleNumber = accidentalCheckListVehicleNumber });
-
-        if (getFMSAccidentalCommentModalResponse.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-            string response = await (getFMSAccidentalCommentModalResponse).Content.ReadAsStringAsync();
-            AccidentalCommentModal = JsonConvert.DeserializeObject<FMSAccidentalCommentModalVM>(response);
-            AccidentalCheckComment.FMSAccidentalCheckId = pointId;
-            AccidentalCheckComment.FMSAccidentId = AccidentalCommentModal.FMSAccidentId;
-            AccidentalCheckComment.FMSVehicleId = AccidentalCommentModal.FMSVehicleId;
-            AccidentalCheckComment.VehicleNumber = AccidentalCommentModal.VehicleNumber;
-        }
-        else
-        {
-        }
-
-        closeSideModals();
-        commentSideModalHeading = "Comment Box";
-
-        accidentalCommentModal = true;
-
-    }
-    public async void MarkAccidentalPointDone(Guid pointId)
-    {
-        AccidentalCheckComment = new FMSAccidentalCheckCommentVM();
-        var getMarkAccidentalPointDoneResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/FMS/CheckList/Point/MarkDone",
-            new ApiRequest() { FMSAccidentalCheckId = pointId, VehicleNumber = accidentalCheckListVehicleNumber });
-
-        if (getMarkAccidentalPointDoneResponse.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-            Accidental_JSInvoked(accidentalCheckListVehicleNumber);
-        }
-        else
-        {
-        }
-    }
     public async void MarkEmergencyPointDone(Guid pointId)
     {
         EmergencyCheckComment = new FMSEmergencyCheckCommentVM();
@@ -665,23 +596,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 
     }
 
-    public async void PostAccidentalComment()
-    {
-        visibleCommentBox = false;
-        AccidentalCheckComment.FMSUserId = new Guid("E7BA5D45-5EAC-4195-AB93-1060DF7EE7AE");
-        var postCommentResponse = await Http.PostAsJsonAsync<FMSAccidentalCheckCommentVM>("api/Accident/FMS/CheckList/Point/Comment/Add", AccidentalCheckComment);
-        if (postCommentResponse.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-            ShowAccidentalCommentModal(AccidentalCheckComment.FMSAccidentalCheckId);
-            visibleCommentBox = true;
-            StateHasChanged();
-            closeSideModals();
-        }
-        else
-        {
-        }
-
-    }
 
     public async void PostEmergencyComment()
     {
@@ -700,14 +614,6 @@ using Microsoft.AspNetCore.Components.Authorization;
         {
         }
 
-    }
-
-    public void HideAccidentalCheckList()
-    {
-        accidentalCheckListSideModal = false;
-        //accidentalCheckListVehicleNumber = null;
-        accidentalId = Guid.Empty;
-        accidentalCheckList = null;
     }
 
     public void HideEmergencyCheckList()

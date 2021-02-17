@@ -197,6 +197,8 @@ using Microsoft.AspNetCore.Components.Authorization;
     [Parameter]
     public EventCallback<bool> OnVisibilityChanged { get; set; }
     [Parameter]
+    public List<FMSAccidentalCheckVM> AccidentalsCheckList { get; set; }
+
     public List<FMSAccidentalCheckVM> CheckList { get; set; }
 
     FMSAccidentalCheckCommentVM AccidentalCheckComment;
@@ -208,8 +210,20 @@ using Microsoft.AspNetCore.Components.Authorization;
     public void ShowHideCommentBox()
     {
         commentBoxVisible = !commentBoxVisible;
+        if (!commentBoxVisible) ReloadCheckList();
     }
     #endregion
+
+    protected override async Task OnInitializedAsync()
+    {
+        CheckList = AccidentalsCheckList;
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+    }
 
     public async void AccidentalCarOperational()
     {
@@ -243,26 +257,26 @@ using Microsoft.AspNetCore.Components.Authorization;
 
         if (getMarkAccidentalPointDoneResponse.StatusCode == System.Net.HttpStatusCode.OK)
         {
-            Accidental_JSInvoked(VehicleNumber);
+            ReloadCheckList();
         }
         else
         {
         }
     }
 
-    public async void Accidental_JSInvoked(string vehicleNumber)
+    public async void ReloadCheckList()
     {
-        var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new FMSVehicleVM() { VehicleNumber = vehicleNumber });
+        var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new FMSVehicleVM() { VehicleNumber = VehicleNumber });
         var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<FMSVehicleVM>(await vehicleResponse.Content.ReadAsStringAsync());
         if (vehicle.Type == "accidental")
         {
-            var getAccidentalCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/FMS/CheckList", new ApiRequest() { VehicleNumber = vehicleNumber });
+            var getAccidentalCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/FMS/CheckList", new ApiRequest() { VehicleNumber = VehicleNumber });
 
             if (getAccidentalCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 string response = await (getAccidentalCheckListResponse).Content.ReadAsStringAsync();
                 CheckList = JsonConvert.DeserializeObject<List<FMSAccidentalCheckVM>>(response);
-                ShowAccidentalCheckList(CheckList);
+                //ShowAccidentalCheckList(CheckList);
             }
             else
             {
