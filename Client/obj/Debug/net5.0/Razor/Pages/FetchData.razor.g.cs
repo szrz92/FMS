@@ -171,6 +171,13 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line hidden
 #nullable disable
 #nullable restore
+#line 36 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+using Microsoft.AspNetCore.SignalR.Client;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 2 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\FetchData.razor"
 using SOS.FMS.Shared;
 
@@ -297,6 +304,7 @@ else
 #line hidden
 #nullable disable
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private HttpClient Http { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private INotificationService NotificationService { get; set; }
     }
 }

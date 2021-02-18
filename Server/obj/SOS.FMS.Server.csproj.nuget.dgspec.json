@@ -80,6 +80,10 @@
             "System.Net.Http.Json": {
               "target": "Package",
               "version": "[5.0.0, )"
+            },
+            "microsoft.aspnetcore.signalr.client": {
+              "target": "Package",
+              "version": "[5.0.3, )"
             }
           },
           "imports": [
@@ -196,6 +200,10 @@
             "firebaseadmin": {
               "target": "Package",
               "version": "[2.0.0, )"
+            },
+            "microsoft.aspnetcore.signalr.core": {
+              "target": "Package",
+              "version": "[1.1.0, )"
             }
           },
           "imports": [

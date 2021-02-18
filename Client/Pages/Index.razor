@@ -58,7 +58,6 @@
             padding: 0.3rem;
         }
 </style>
-
 <!--begin::Subheader-->
 <div class="subheader py-2 py-lg-4  subheader-solid " id="kt_subheader">
     <div class=" container-fluid  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
@@ -454,6 +453,8 @@
 </SfDialog>
 @code
 {
+    [CascadingParameter]
+    Task<AuthenticationState> AuthenticationState { get; set; }
     private DotNetObjectReference<Index> dotNetObjectReference;
 
     #region Filter
@@ -475,7 +476,7 @@
         await JSRuntime.InvokeVoidAsync("updateMarkers", dotNetObjectReference, filteredVehiclesList);
         StateHasChanged();
     }
-    public async void FilterDataWithoutUpdateMarkers()
+    public void FilterDataWithoutUpdateMarkers()
     {
         filteredVehiclesList = vehiclesList
             .Where(x => (string.IsNullOrEmpty(Filter.Region) || x.Region == Filter.Region))
@@ -535,6 +536,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+
         dotNetObjectReference = DotNetObjectReference.Create(this);
         vehiclesList = await Http.GetFromJsonAsync<List<FMSVehicleVM>>("api/Vehicles/FMS/Demo/All");
         vehicleNumbersList = vehiclesList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
@@ -686,6 +688,7 @@
 
             if (getAccidentalCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
             {
+
                 string response = await (getAccidentalCheckListResponse).Content.ReadAsStringAsync();
                 accidentalCheckList = JsonConvert.DeserializeObject<List<FMSAccidentalCheckVM>>(response);
                 ShowAccidentalCheckList(accidentalCheckList);
@@ -779,6 +782,9 @@
 
         if (getEmergencyCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
         {
+            //if (IsConnected)
+            //    await hubConnection.SendAsync("SendMessage", "z.raza@batech.com.pk", "Notification", $"Vehicle {accidentalCheckListVehicleNumber} marked as Emergency");
+
             string response = await (getEmergencyCheckListResponse).Content.ReadAsStringAsync();
             emergencyCheckList = JsonConvert.DeserializeObject<List<FMSEmergencyCheckVM>>(response);
             ShowEmergencyCheckList(emergencyCheckList);
@@ -802,6 +808,10 @@
         {
             string response = await (getAccidentalCheckListResponse).Content.ReadAsStringAsync();
             accidentalCheckList = JsonConvert.DeserializeObject<List<FMSAccidentalCheckVM>>(response);
+
+            //if (IsConnected)
+            //    await hubConnection.SendAsync("SendMessage", "z.raza@batech.com.pk", "Notification", $"Vehicle {accidentalCheckListVehicleNumber} marked as Accidental");
+
             ShowAccidentalCheckList(accidentalCheckList);
             this.ConfirmAccidentDlgVisible = false;
             StateHasChanged();

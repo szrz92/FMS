@@ -180,6 +180,13 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 36 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+using Microsoft.AspNetCore.SignalR.Client;
+
+#line default
+#line hidden
+#nullable disable
     public partial class AccidentalCheckListCommentBox : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -188,7 +195,7 @@ using Microsoft.AspNetCore.Components.Authorization;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 143 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\AccidentalCheckListCommentBox.razor"
+#line 156 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\AccidentalCheckListCommentBox.razor"
        
     [Parameter]
     public FMSAccidentalCommentModalVM AccidentalCommentModal { get; set; }
@@ -201,14 +208,23 @@ using Microsoft.AspNetCore.Components.Authorization;
     [Parameter]
     public EventCallback<bool> OnVisibilityChanged { get; set; }
 
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    public ClaimsPrincipal CurrentUser { get; set; }
+
     private DotNetObjectReference<AccidentalCheckListCommentBox> dotNetObjectReference;
 
     public List<GBMSUserVM> usersList { get; set; } = new List<GBMSUserVM>();
 
     FMSAccidentalCheckCommentVM AccidentalCheckComment;
 
+    public bool resetCommentBox { get; set; } = false;
+
     protected override async Task OnInitializedAsync()
     {
+        CurrentUser = (await authenticationStateTask).User;
         dotNetObjectReference = DotNetObjectReference.Create(this);
         usersList = await Http.GetFromJsonAsync<List<GBMSUserVM>>("api/Users/FMS/All");
 
@@ -256,10 +272,12 @@ using Microsoft.AspNetCore.Components.Authorization;
 
     public async void PostAccidentalComment()
     {
+        resetCommentBox = true;
         var postCommentResponse = await Http.PostAsJsonAsync<FMSAccidentalCheckCommentVM>("api/Accident/FMS/CheckList/Point/Comment/Add", AccidentalCheckComment);
         if (postCommentResponse.StatusCode == System.Net.HttpStatusCode.OK)
         {
             await NewCommentModel();
+            resetCommentBox = false;
             StateHasChanged();
         }
         else
@@ -285,6 +303,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 #nullable disable
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IJSRuntime JSRuntime { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private HttpClient Http { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private INotificationService NotificationService { get; set; }
     }
 }

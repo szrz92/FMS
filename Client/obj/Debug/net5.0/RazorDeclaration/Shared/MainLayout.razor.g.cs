@@ -160,13 +160,6 @@ using Syncfusion.Blazor.Navigations;
 #line hidden
 #nullable disable
 #nullable restore
-#line 30 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
-using Append.Blazor.Notifications;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
 #line 33 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using SOS.FMS.Client.Services;
 
@@ -180,6 +173,20 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 5 "C:\Users\BA Tech\source\repos\sosfms\Client\Shared\MainLayout.razor"
+using Microsoft.AspNetCore.SignalR.Client;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "C:\Users\BA Tech\source\repos\sosfms\Client\Shared\MainLayout.razor"
+using Append.Blazor.Notifications;
+
+#line default
+#line hidden
+#nullable disable
     public partial class MainLayout : LayoutComponentBase
     {
         #pragma warning disable 1998
@@ -188,13 +195,51 @@ using Microsoft.AspNetCore.Components.Authorization;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 250 "C:\Users\BA Tech\source\repos\sosfms\Client\Shared\MainLayout.razor"
+#line 253 "C:\Users\BA Tech\source\repos\sosfms\Client\Shared\MainLayout.razor"
       
     [CascadingParameter]
     Task<AuthenticationState> AuthenticationState { get; set; }
 
+    public ClaimsPrincipal CurrentUser { get; set; }
+    private HubConnection hubConnection;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            CurrentUser = (await AuthenticationState).User;
+
+            hubConnection = new HubConnectionBuilder()
+            .WithUrl(navigationManager.ToAbsoluteUri("/notificationhub"))
+            .Build();
+
+            hubConnection.On<string, string, string>("ReceiveMessage", (user, title, message) =>
+            {
+                var encodedMsg = $"{user}: {message}";
+                if (CurrentUser.Identity.Name == user)
+                {
+                    NotificationService.CreateAsync(title, message);
+                }
+
+                //messages.Add(encodedMsg);
+                StateHasChanged();
+            });
+
+            await hubConnection.StartAsync();
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
+    }
+
+
+    public bool IsConnected =>
+        hubConnection.State == HubConnectionState.Connected;
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+
         if (firstRender)
         {
             await _jsRuntime.InvokeVoidAsync("initializeJs");
@@ -218,10 +263,10 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private INotificationService NotificationService { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private CustomStateProvider authStateProvider { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IJSRuntime _jsRuntime { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private INotificationService NotificationService { get; set; }
     }
 }
 #pragma warning restore 1591

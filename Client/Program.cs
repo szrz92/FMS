@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace SOS.FMS.Client
 {
@@ -35,6 +36,7 @@ namespace SOS.FMS.Client
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddSyncfusionBlazor();
             builder.Services.AddNotifications();
+
 
             await builder.Build().RunAsync();
         }

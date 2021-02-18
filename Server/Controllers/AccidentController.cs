@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using SOS.FMS.Server.Hubs;
 using SOS.FMS.Server.Models;
 using SOS.FMS.Shared;
 using SOS.FMS.Shared.Enums;
@@ -17,9 +19,11 @@ namespace SOS.FMS.Server.Controllers
     public class AccidentController : ControllerBase
     {
         AppDbContext dbContext;
-        public AccidentController(AppDbContext dbContext)
+        private readonly IHubContext<NotificationHub> hubContext;
+        public AccidentController(AppDbContext dbContext, IHubContext<NotificationHub> hubContext)
         {
             this.dbContext = dbContext;
+            this.hubContext = hubContext;
         }
         [HttpGet("All")]
         public async Task<IActionResult> GetAllAccidents()
@@ -319,7 +323,9 @@ namespace SOS.FMS.Server.Controllers
         {
             try
             {
-
+                var currentUser = (from u in dbContext.Users
+                                   where u.Email == User.Identity.Name
+                                   select u).FirstOrDefault();
                 FMSAccidentalCheckComment newComment = new FMSAccidentalCheckComment()
                 {
                     Id = Guid.NewGuid(),
@@ -345,6 +351,24 @@ namespace SOS.FMS.Server.Controllers
                 FMSAccident accident = await dbContext.FMSAccidents.Where(x => x.Id == comment.FMSAccidentId).Select(x => x).SingleOrDefaultAsync();
                 accident.LastUpdated = PakistanDateTime.Now;
                 await dbContext.SaveChangesAsync();
+
+
+                if (!string.IsNullOrEmpty(comment.Mentions))
+                {
+                    string[] mentions = comment.Mentions.Split(',');
+                    foreach (var mention in mentions)
+                    {
+                        ApplicationUser user = (from u in dbContext.Users
+                                                where u.Id == mention
+                                                select u).FirstOrDefault();
+
+                        await hubContext.Clients.All.SendAsync("ReceiveMessage", 
+                            user.Email, 
+                            "Notification", 
+                            $"{currentUser.Name} mentioned you in a comment under accidental check list point {check.Description} for Vehicle Number {check.VehicleNumber}");
+                    }
+                }
+
                 return Ok();
             }
             catch (Exception ex)

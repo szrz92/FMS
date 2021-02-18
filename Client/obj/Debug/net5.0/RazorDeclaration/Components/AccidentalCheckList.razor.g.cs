@@ -180,6 +180,13 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 36 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+using Microsoft.AspNetCore.SignalR.Client;
+
+#line default
+#line hidden
+#nullable disable
     public partial class AccidentalCheckList : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -203,6 +210,12 @@ using Microsoft.AspNetCore.Components.Authorization;
 
     FMSAccidentalCheckCommentVM AccidentalCheckComment;
 
+    #region SignaR
+    private HubConnection hubConnection;
+    public bool IsConnected =>
+        hubConnection.State == HubConnectionState.Connected;
+    #endregion
+
     #region Comment Box
     public bool commentBoxVisible { get; set; } = false;
     public ApiRequest PointId { get; set; }
@@ -216,6 +229,10 @@ using Microsoft.AspNetCore.Components.Authorization;
 
     protected override async Task OnInitializedAsync()
     {
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(navigationManager.ToAbsoluteUri("/notificationhub"))
+            .Build();
+        await hubConnection.StartAsync();
         CheckList = AccidentalsCheckList;
         await base.OnInitializedAsync();
     }
@@ -243,6 +260,10 @@ using Microsoft.AspNetCore.Components.Authorization;
             new FMSVehicleVM() { VehicleNumber = VehicleNumber });
         if (vehicleResponse.StatusCode == System.Net.HttpStatusCode.OK)
         {
+
+            if (IsConnected)
+                await hubConnection.SendAsync("SendMessage", "z.raza@batech.com.pk", "Notification", $"Accident with Vehicle {VehicleNumber} marked as Closed");
+
             responseHeader = "Operation Successful";
             responseBody = "Job is marked as closed.";
             responseDialogVisibility = true;
@@ -257,6 +278,8 @@ using Microsoft.AspNetCore.Components.Authorization;
 
         if (getMarkAccidentalPointDoneResponse.StatusCode == System.Net.HttpStatusCode.OK)
         {
+            if (IsConnected)
+                await hubConnection.SendAsync("SendMessage", "z.raza@batech.com.pk", "Notification", "Point Marked Done");
             ReloadCheckList();
         }
         else
@@ -319,7 +342,7 @@ using Microsoft.AspNetCore.Components.Authorization;
     public void ShowAccidentalCommentModal(Guid pointId)
     {
         PointId = new ApiRequest() { FMSAccidentalCheckId = pointId };
-        commentBoxVisible =true;
+        commentBoxVisible = true;
 
     }
 
@@ -327,6 +350,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line hidden
 #nullable disable
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private HttpClient Http { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private INotificationService NotificationService { get; set; }
     }
 }

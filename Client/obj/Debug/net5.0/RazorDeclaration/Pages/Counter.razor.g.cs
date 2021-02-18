@@ -180,6 +180,13 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 36 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+using Microsoft.AspNetCore.SignalR.Client;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/counter")]
     public partial class Counter : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -201,6 +208,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private INotificationService NotificationService { get; set; }
     }
 }

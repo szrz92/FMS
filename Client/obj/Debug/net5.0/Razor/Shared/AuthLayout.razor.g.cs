@@ -177,6 +177,13 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 36 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+using Microsoft.AspNetCore.SignalR.Client;
+
+#line default
+#line hidden
+#nullable disable
     public partial class AuthLayout : LayoutComponentBase
     {
         #pragma warning disable 1998
@@ -216,6 +223,7 @@ using Microsoft.AspNetCore.Components.Authorization;
             __builder.CloseElement();
         }
         #pragma warning restore 1998
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private INotificationService NotificationService { get; set; }
     }
 }
