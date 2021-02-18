@@ -120,6 +120,13 @@ namespace SOS.FMS.Server.Controllers
                 await dbContext.AddRangeAsync(fmsAccidentalCheckList);
                 await dbContext.SaveChangesAsync();
 
+                string title = $"Accidental Job Vehicle Number {accident.VehicleNumber}";
+                string notification = $"Vehicle Number {accident.VehicleNumber} marked as accidental";
+                await hubContext.Clients.All.SendAsync("ReceiveMessageAllUsers",
+                    User.Identity.Name,
+                    title,
+                    notification);
+
                 return Ok(fmsAccidentalCheckList);
             }
             catch (Exception ex)
@@ -128,7 +135,7 @@ namespace SOS.FMS.Server.Controllers
             }
         }
         [HttpPost("FMS/Demo/CarOperational")]
-        public IActionResult CarOperational(FMSVehicleVM vehicle)
+        public async Task<IActionResult> CarOperational(FMSVehicleVM vehicle)
         {
             try
             {
@@ -152,6 +159,12 @@ namespace SOS.FMS.Server.Controllers
                 accident.LastUpdated = PakistanDateTime.Now;
                 dbContext.SaveChanges();
 
+                string title = $"Accidental Job Vehicle Number {vehicle.VehicleNumber}";
+                string notification = $"Vehicle Number {vehicle.VehicleNumber} marked as operational";
+                await hubContext.Clients.All.SendAsync("ReceiveMessageAllUsers",
+                    User.Identity.Name,
+                    title,
+                    notification);
                 return Ok();
             }
             catch (Exception ex)
@@ -187,8 +200,13 @@ namespace SOS.FMS.Server.Controllers
                     accident.JobClosingTime = PakistanDateTime.Now;
                     accident.LastUpdated = PakistanDateTime.Now;
                 }
-
                 await dbContext.SaveChangesAsync();
+
+                string notification = $"Accidental Job with Vehicle Number {request.VehicleNumber} marked as closed";
+                await hubContext.Clients.All.SendAsync("ReceiveMessageAllUsers",
+                    User.Identity.Name,
+                    "Notification",
+                    notification);
 
                 return Ok();
             }
@@ -284,6 +302,14 @@ namespace SOS.FMS.Server.Controllers
                 check.MaintenanceStatus = MaintenanceStatus.Done;
                 accident.LastUpdated = PakistanDateTime.Now;
                 await dbContext.SaveChangesAsync();
+
+                string title = $"Accidental Job Vehicle Number {check.VehicleNumber}";
+                string notification = $"Check Point {check.Description} marked as done";
+                await hubContext.Clients.All.SendAsync("ReceiveMessageAllUsers",
+                    User.Identity.Name,
+                    title,
+                    notification);
+
                 return Ok();
             }
             catch (Exception ex)

@@ -278,6 +278,13 @@
                 //messages.Add(encodedMsg);
                 StateHasChanged();
             });
+            hubConnection.On<string, string, string>("ReceiveMessageAllUsers", (user, title, message) =>
+            {
+                var encodedMsg = $"{user}: {message}";
+                Notify(title, message);
+                //messages.Add(encodedMsg);
+                StateHasChanged();
+            });
 
             await hubConnection.StartAsync();
         }

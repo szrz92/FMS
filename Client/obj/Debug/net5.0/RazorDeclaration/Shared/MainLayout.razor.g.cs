@@ -218,9 +218,16 @@ using Append.Blazor.Notifications;
                 var encodedMsg = $"{user}: {message}";
                 if (CurrentUser.Identity.Name == user)
                 {
-                    NotificationService.CreateAsync(title, message);
+                    Notify(title, message);
                 }
 
+                //messages.Add(encodedMsg);
+                StateHasChanged();
+            });
+            hubConnection.On<string, string, string>("ReceiveMessageAllUsers", (user, title, message) =>
+            {
+                var encodedMsg = $"{user}: {message}";
+                Notify(title, message);
                 //messages.Add(encodedMsg);
                 StateHasChanged();
             });
@@ -233,6 +240,10 @@ using Append.Blazor.Notifications;
         }
     }
 
+    public async void Notify(string title, string message)
+    {
+        await NotificationService.CreateAsync(title, message);
+    }
 
     public bool IsConnected =>
         hubConnection.State == HubConnectionState.Connected;
