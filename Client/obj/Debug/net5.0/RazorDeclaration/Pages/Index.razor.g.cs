@@ -182,7 +182,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 #nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/")]
     [Microsoft.AspNetCore.Components.RouteAttribute("/Index")]
-    public partial class Index : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class Index : Microsoft.AspNetCore.Components.ComponentBase, IDisposable
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -190,7 +190,7 @@ using Microsoft.AspNetCore.Components.Authorization;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 455 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Index.razor"
+#line 456 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Index.razor"
  
     private DotNetObjectReference<Index> dotNetObjectReference;
 
@@ -211,6 +211,16 @@ using Microsoft.AspNetCore.Components.Authorization;
             .Where(x => (string.IsNullOrEmpty(Filter.VehicleNumber) || x.VehicleNumber == Filter.VehicleNumber))
             .ToList();
         await JSRuntime.InvokeVoidAsync("updateMarkers", dotNetObjectReference, filteredVehiclesList);
+        StateHasChanged();
+    }
+    public async void FilterDataWithoutUpdateMarkers()
+    {
+        filteredVehiclesList = vehiclesList
+            .Where(x => (string.IsNullOrEmpty(Filter.Region) || x.Region == Filter.Region))
+            .Where(x => (string.IsNullOrEmpty(Filter.SubRegion) || x.SubRegion == Filter.SubRegion))
+            .Where(x => (string.IsNullOrEmpty(Filter.VehicleNumber) || x.VehicleNumber == Filter.VehicleNumber))
+            .ToList();
+        //await JSRuntime.InvokeVoidAsync("updateMarkers", dotNetObjectReference, filteredVehiclesList);
         StateHasChanged();
     }
 
@@ -263,7 +273,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 
     protected override async Task OnInitializedAsync()
     {
-        StartTimer();
         dotNetObjectReference = DotNetObjectReference.Create(this);
         vehiclesList = await Http.GetFromJsonAsync<List<FMSVehicleVM>>("api/Vehicles/FMS/Demo/All");
         vehicleNumbersList = vehiclesList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
@@ -272,6 +281,7 @@ using Microsoft.AspNetCore.Components.Authorization;
         filteredVehiclesList = vehiclesList;
         usersList = await Http.GetFromJsonAsync<List<GBMSUserVM>>("api/Users/FMS/All");
         CountVehicles(filteredVehiclesList);
+        StartTimer();
         await base.OnInitializedAsync();
     }
 
@@ -352,7 +362,7 @@ using Microsoft.AspNetCore.Components.Authorization;
     public List<FMSAccidentalCheckVM> accidentalCheckList { get; set; }
 
     public string accidentalCheckListVehicleNumber;
-    
+
     public bool accidentalCheckListSideModal { get; set; } = false;
 
     public void ShowHideAccidentalCheckList()
@@ -453,8 +463,9 @@ using Microsoft.AspNetCore.Components.Authorization;
     #endregion
 
     #region Timer
-    public void StartTimer()
+    public async void StartTimer()
     {
+        await JSRuntime.InvokeVoidAsync("updateMarkers", dotNetObjectReference, filteredVehiclesList);
         Timer.SetTimer(10000);
         Timer.OnElapsed += TimerElapsedHandler;
         Console.WriteLine("Markers Sync Started.");
@@ -464,7 +475,7 @@ using Microsoft.AspNetCore.Components.Authorization;
     {
         vehiclesList = await Http.GetFromJsonAsync<List<FMSVehicleVM>>("api/Vehicles/FMS/Demo/All");
         filteredVehiclesList = vehiclesList;
-        FilterData();
+        FilterDataWithoutUpdateMarkers();
         CountVehicles(filteredVehiclesList);
         await JSRuntime.InvokeVoidAsync("updateMarkerPositions", dotNetObjectReference, filteredVehiclesList);
         StateHasChanged();
@@ -632,6 +643,10 @@ using Microsoft.AspNetCore.Components.Authorization;
             closeSideModals();
         }
         StateHasChanged();
+    }
+    public void Dispose()
+    {
+        Timer.Dispose();
     }
 
 #line default

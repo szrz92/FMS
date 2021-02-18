@@ -25,5 +25,9 @@ namespace SOS.FMS.Client.Services
             OnElapsed?.Invoke();
             //_timer.Dispose();
         }
+        public void Dispose()
+        {
+            _timer.Dispose();
+        }
     }
 }

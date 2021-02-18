@@ -3,7 +3,8 @@
 @inject IJSRuntime JSRuntime
 @inject Services.TimerService Timer
 @inject HttpClient Http
-    <!-- Bootstrap -->
+@implements IDisposable
+<!-- Bootstrap -->
 <link href="assets/js/mentions/css/jquery.mentiony.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
 <style>
@@ -241,7 +242,7 @@
 }
 @if (accidentalCheckListSideModal)
 {
-    <AccidentalCheckList OnVisibilityChanged="ShowHideAccidentalCheckList" Visible="@accidentalCheckListSideModal" 
+    <AccidentalCheckList OnVisibilityChanged="ShowHideAccidentalCheckList" Visible="@accidentalCheckListSideModal"
                          VehicleNumber="@accidentalCheckListVehicleNumber" AccidentalsCheckList="@accidentalCheckList" />
 }
 
@@ -474,6 +475,16 @@
         await JSRuntime.InvokeVoidAsync("updateMarkers", dotNetObjectReference, filteredVehiclesList);
         StateHasChanged();
     }
+    public async void FilterDataWithoutUpdateMarkers()
+    {
+        filteredVehiclesList = vehiclesList
+            .Where(x => (string.IsNullOrEmpty(Filter.Region) || x.Region == Filter.Region))
+            .Where(x => (string.IsNullOrEmpty(Filter.SubRegion) || x.SubRegion == Filter.SubRegion))
+            .Where(x => (string.IsNullOrEmpty(Filter.VehicleNumber) || x.VehicleNumber == Filter.VehicleNumber))
+            .ToList();
+        //await JSRuntime.InvokeVoidAsync("updateMarkers", dotNetObjectReference, filteredVehiclesList);
+        StateHasChanged();
+    }
 
     public async void ResetData()
     {
@@ -524,7 +535,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        StartTimer();
         dotNetObjectReference = DotNetObjectReference.Create(this);
         vehiclesList = await Http.GetFromJsonAsync<List<FMSVehicleVM>>("api/Vehicles/FMS/Demo/All");
         vehicleNumbersList = vehiclesList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
@@ -533,6 +543,7 @@
         filteredVehiclesList = vehiclesList;
         usersList = await Http.GetFromJsonAsync<List<GBMSUserVM>>("api/Users/FMS/All");
         CountVehicles(filteredVehiclesList);
+        StartTimer();
         await base.OnInitializedAsync();
     }
 
@@ -613,7 +624,7 @@
     public List<FMSAccidentalCheckVM> accidentalCheckList { get; set; }
 
     public string accidentalCheckListVehicleNumber;
-    
+
     public bool accidentalCheckListSideModal { get; set; } = false;
 
     public void ShowHideAccidentalCheckList()
@@ -714,8 +725,9 @@
     #endregion
 
     #region Timer
-    public void StartTimer()
+    public async void StartTimer()
     {
+        await JSRuntime.InvokeVoidAsync("updateMarkers", dotNetObjectReference, filteredVehiclesList);
         Timer.SetTimer(10000);
         Timer.OnElapsed += TimerElapsedHandler;
         Console.WriteLine("Markers Sync Started.");
@@ -725,7 +737,7 @@
     {
         vehiclesList = await Http.GetFromJsonAsync<List<FMSVehicleVM>>("api/Vehicles/FMS/Demo/All");
         filteredVehiclesList = vehiclesList;
-        FilterData();
+        FilterDataWithoutUpdateMarkers();
         CountVehicles(filteredVehiclesList);
         await JSRuntime.InvokeVoidAsync("updateMarkerPositions", dotNetObjectReference, filteredVehiclesList);
         StateHasChanged();
@@ -893,5 +905,9 @@
             closeSideModals();
         }
         StateHasChanged();
+    }
+    public void Dispose()
+    {
+        Timer.Dispose();
     }
 }
