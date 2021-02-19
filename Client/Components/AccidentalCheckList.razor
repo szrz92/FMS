@@ -79,10 +79,10 @@
 }
 @if (commentBoxVisible)
 {
-    <AccidentalCheckListCommentBox Visible="commentBoxVisible" OnVisibilityChanged="ShowHideCommentBox"
-                                   VehicleNumber="@VehicleNumber" 
-                                   CheckPointId="@PointId"/>
-
+    <AccidentalCheckListCommentBox Visible="commentBoxVisible"
+                                   OnVisibilityChanged="ShowHideCommentBox"
+                                   VehicleNumber="@VehicleNumber"
+                                   CheckPointId="@PointId" />
 }
 
 <SfDialog Target="#target" Width="500px" ShowCloseIcon="true" @bind-Visible="responseDialogVisibility">
@@ -99,6 +99,10 @@
 
 
 @code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    public ClaimsPrincipal CurrentUser { get; set; }
     [Parameter]
     public string VehicleNumber { get; set; }
     [Parameter]
@@ -125,6 +129,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        CurrentUser = (await authenticationStateTask).User;
         CheckList = AccidentalsCheckList;
         await base.OnInitializedAsync();
     }
@@ -152,6 +157,7 @@
             new FMSVehicleVM() { VehicleNumber = VehicleNumber });
         if (vehicleResponse.StatusCode == System.Net.HttpStatusCode.OK)
         {
+
             responseHeader = "Operation Successful";
             responseBody = "Job is marked as closed.";
             responseDialogVisibility = true;
@@ -228,7 +234,7 @@
     public void ShowAccidentalCommentModal(Guid pointId)
     {
         PointId = new ApiRequest() { FMSAccidentalCheckId = pointId };
-        commentBoxVisible =true;
+        commentBoxVisible = true;
 
     }
 }

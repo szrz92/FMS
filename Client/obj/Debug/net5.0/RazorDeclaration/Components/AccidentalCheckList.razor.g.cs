@@ -180,6 +180,13 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 36 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+using Microsoft.AspNetCore.SignalR.Client;
+
+#line default
+#line hidden
+#nullable disable
     public partial class AccidentalCheckList : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -190,6 +197,10 @@ using Microsoft.AspNetCore.Components.Authorization;
 #nullable restore
 #line 101 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\AccidentalCheckList.razor"
        
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    public ClaimsPrincipal CurrentUser { get; set; }
     [Parameter]
     public string VehicleNumber { get; set; }
     [Parameter]
@@ -216,6 +227,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 
     protected override async Task OnInitializedAsync()
     {
+        CurrentUser = (await authenticationStateTask).User;
         CheckList = AccidentalsCheckList;
         await base.OnInitializedAsync();
     }
@@ -243,6 +255,7 @@ using Microsoft.AspNetCore.Components.Authorization;
             new FMSVehicleVM() { VehicleNumber = VehicleNumber });
         if (vehicleResponse.StatusCode == System.Net.HttpStatusCode.OK)
         {
+
             responseHeader = "Operation Successful";
             responseBody = "Job is marked as closed.";
             responseDialogVisibility = true;
@@ -319,7 +332,7 @@ using Microsoft.AspNetCore.Components.Authorization;
     public void ShowAccidentalCommentModal(Guid pointId)
     {
         PointId = new ApiRequest() { FMSAccidentalCheckId = pointId };
-        commentBoxVisible =true;
+        commentBoxVisible = true;
 
     }
 
@@ -327,6 +340,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line hidden
 #nullable disable
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private HttpClient Http { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private INotificationService NotificationService { get; set; }
     }
 }

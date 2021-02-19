@@ -180,6 +180,13 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 36 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+using Microsoft.AspNetCore.SignalR.Client;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/")]
     [Microsoft.AspNetCore.Components.RouteAttribute("/Index")]
     public partial class Index : Microsoft.AspNetCore.Components.ComponentBase, IDisposable
@@ -190,8 +197,10 @@ using Microsoft.AspNetCore.Components.Authorization;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 456 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Index.razor"
+#line 455 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Index.razor"
  
+    [CascadingParameter]
+    Task<AuthenticationState> AuthenticationState { get; set; }
     private DotNetObjectReference<Index> dotNetObjectReference;
 
     #region Filter
@@ -213,7 +222,7 @@ using Microsoft.AspNetCore.Components.Authorization;
         await JSRuntime.InvokeVoidAsync("updateMarkers", dotNetObjectReference, filteredVehiclesList);
         StateHasChanged();
     }
-    public async void FilterDataWithoutUpdateMarkers()
+    public void FilterDataWithoutUpdateMarkers()
     {
         filteredVehiclesList = vehiclesList
             .Where(x => (string.IsNullOrEmpty(Filter.Region) || x.Region == Filter.Region))
@@ -273,6 +282,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 
     protected override async Task OnInitializedAsync()
     {
+
         dotNetObjectReference = DotNetObjectReference.Create(this);
         vehiclesList = await Http.GetFromJsonAsync<List<FMSVehicleVM>>("api/Vehicles/FMS/Demo/All");
         vehicleNumbersList = vehiclesList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
@@ -424,6 +434,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 
             if (getAccidentalCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
             {
+
                 string response = await (getAccidentalCheckListResponse).Content.ReadAsStringAsync();
                 accidentalCheckList = JsonConvert.DeserializeObject<List<FMSAccidentalCheckVM>>(response);
                 ShowAccidentalCheckList(accidentalCheckList);
@@ -517,6 +528,9 @@ using Microsoft.AspNetCore.Components.Authorization;
 
         if (getEmergencyCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
         {
+            //if (IsConnected)
+            //    await hubConnection.SendAsync("SendMessage", "z.raza@batech.com.pk", "Notification", $"Vehicle {accidentalCheckListVehicleNumber} marked as Emergency");
+
             string response = await (getEmergencyCheckListResponse).Content.ReadAsStringAsync();
             emergencyCheckList = JsonConvert.DeserializeObject<List<FMSEmergencyCheckVM>>(response);
             ShowEmergencyCheckList(emergencyCheckList);
@@ -540,6 +554,10 @@ using Microsoft.AspNetCore.Components.Authorization;
         {
             string response = await (getAccidentalCheckListResponse).Content.ReadAsStringAsync();
             accidentalCheckList = JsonConvert.DeserializeObject<List<FMSAccidentalCheckVM>>(response);
+
+            //if (IsConnected)
+            //    await hubConnection.SendAsync("SendMessage", "z.raza@batech.com.pk", "Notification", $"Vehicle {accidentalCheckListVehicleNumber} marked as Accidental");
+
             ShowAccidentalCheckList(accidentalCheckList);
             this.ConfirmAccidentDlgVisible = false;
             StateHasChanged();
@@ -655,6 +673,7 @@ using Microsoft.AspNetCore.Components.Authorization;
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private HttpClient Http { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private Services.TimerService Timer { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IJSRuntime JSRuntime { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private INotificationService NotificationService { get; set; }
     }
 }

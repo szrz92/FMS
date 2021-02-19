@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SOS.FMS.Server.GBMSModels;
+using SOS.FMS.Server.Hubs;
 using SOS.FMS.Server.Models;
 using SOS.FMS.Server.Services;
 using System;
@@ -60,13 +61,22 @@ namespace SOS.FMS.Server
                 c.TimeZoneInfo = TimeZoneInfo.Local;
                 c.CronExpression = @"*/10 * * * *";
             });
+
+            services.AddSignalR();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddResponseCompression(opts =>
+            {
+                opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+                    new[] { "application/octet-stream" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseResponseCompression();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -92,6 +102,7 @@ namespace SOS.FMS.Server
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
+                endpoints.MapHub<NotificationHub>("/notificationhub");
                 endpoints.MapFallbackToFile("index.html");
             });
         }

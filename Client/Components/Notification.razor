@@ -1,0 +1,55 @@
+﻿@inject IJSRuntime _jsRuntime
+@inject NavigationManager navigationManager
+@inject CustomStateProvider authStateProvider
+@using Microsoft.AspNetCore.SignalR.Client
+@using Append.Blazor.Notifications
+@inject INotificationService NotificationService
+
+@code {
+
+
+    private HubConnection hubConnection;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            hubConnection = new HubConnectionBuilder()
+                .WithUrl(navigationManager.ToAbsoluteUri("/notificationhub"))
+                .Build();
+
+            hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
+            {
+                var encodedMsg = $"{user}: {message}";
+
+                NotificationService.CreateAsync("Title", encodedMsg);
+
+                //messages.Add(encodedMsg);
+                StateHasChanged();
+            });
+
+            await hubConnection.StartAsync();
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
+    }
+
+
+    public bool IsConnected =>
+        hubConnection.State == HubConnectionState.Connected;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (IsConnected)
+            await hubConnection.SendAsync("SendMessage", "szrz92@gmail.com", "Message");
+
+        if (firstRender)
+        {
+            await _jsRuntime.InvokeVoidAsync("initializeJs");
+        }
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+}
