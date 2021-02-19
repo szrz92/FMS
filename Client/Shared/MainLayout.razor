@@ -5,6 +5,8 @@
 @using Microsoft.AspNetCore.SignalR.Client
 @using Append.Blazor.Notifications
 @inject INotificationService NotificationService
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
 <!--begin::Header Mobile-->
 <div id="kt_header_mobile" class="header-mobile align-items-center header-mobile-fixed">
     <!--begin::Logo-->
@@ -251,7 +253,6 @@
 </div>
 <!-- end::User Panel-->
 @code{
-    [CascadingParameter]
     Task<AuthenticationState> AuthenticationState { get; set; }
 
     public ClaimsPrincipal CurrentUser { get; set; }
@@ -261,7 +262,7 @@
     {
         try
         {
-            CurrentUser = (await AuthenticationState).User;
+            CurrentUser = (await authStateProvider.GetAuthenticationStateAsync()).User;
 
             hubConnection = new HubConnectionBuilder()
             .WithUrl(navigationManager.ToAbsoluteUri("/notificationhub"))
@@ -269,6 +270,7 @@
 
             hubConnection.On<string, string, string>("ReceiveMessage", (user, title, message) =>
             {
+                GetCurrentUser();
                 var encodedMsg = $"{user}: {message}";
                 if (CurrentUser.Identity.Name == user)
                 {
@@ -293,10 +295,28 @@
             throw;
         }
     }
-
+    public async void GetCurrentUser()
+    {
+        CurrentUser = (await authStateProvider.GetAuthenticationStateAsync()).User;
+    }
     public async void Notify(string title, string message)
     {
-        await NotificationService.CreateAsync(title, message);
+        NotificationOptions options = new NotificationOptions
+        {
+            Body = message,
+            Icon = "sos-fms-logo.png",
+
+        };
+
+        if (await NotificationService.IsSupportedByBrowserAsync())
+        {
+            await NotificationService.CreateAsync(title, options);
+        }
+        else
+        {
+            await NotificationService.RequestPermissionAsync();
+            await NotificationService.CreateAsync(title, options);
+        }
     }
 
     public bool IsConnected =>
@@ -304,7 +324,14 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-
+        if (!(await AuthenticationState).User.Identity.IsAuthenticated)
+        {
+            navigationManager.NavigateTo("/login");
+        }
+        else
+        {
+            CurrentUser = (await AuthenticationState).User;
+        }
         if (firstRender)
         {
             await _jsRuntime.InvokeVoidAsync("initializeJs");

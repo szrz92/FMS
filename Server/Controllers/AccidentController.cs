@@ -389,9 +389,9 @@ namespace SOS.FMS.Server.Controllers
                                                 select u).FirstOrDefault();
 
                         await hubContext.Clients.All.SendAsync("ReceiveMessage", 
-                            user.Email, 
-                            "Notification", 
-                            $"{currentUser.Name} mentioned you in a comment under accidental check list point {check.Description} for Vehicle Number {check.VehicleNumber}");
+                            user.Email,
+                            $"Notification for Vehicle Number {check.VehicleNumber}", 
+                            $"{currentUser.Name} mentioned you in a comment under accidental check list point {check.Description}");
                     }
                 }
 

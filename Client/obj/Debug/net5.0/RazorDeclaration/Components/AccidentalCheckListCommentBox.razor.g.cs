@@ -238,6 +238,14 @@ using Microsoft.AspNetCore.SignalR.Client;
             await JSRuntime.InvokeVoidAsync("mention", dotNetObjectReference, usersList);
         }
 
+        if (!(await authenticationStateTask).User.Identity.IsAuthenticated)
+        {
+            navigationManager.NavigateTo("/login");
+        }
+        else
+        {
+            CurrentUser = (await authenticationStateTask).User;
+        }
         if (AccidentalCommentModal == null)
         {
             await NewCommentModel();

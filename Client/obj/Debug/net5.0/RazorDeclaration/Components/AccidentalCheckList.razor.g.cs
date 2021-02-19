@@ -197,6 +197,10 @@ using Microsoft.AspNetCore.SignalR.Client;
 #nullable restore
 #line 101 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\AccidentalCheckList.razor"
        
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    public ClaimsPrincipal CurrentUser { get; set; }
     [Parameter]
     public string VehicleNumber { get; set; }
     [Parameter]
@@ -209,12 +213,6 @@ using Microsoft.AspNetCore.SignalR.Client;
     public List<FMSAccidentalCheckVM> CheckList { get; set; }
 
     FMSAccidentalCheckCommentVM AccidentalCheckComment;
-
-    #region SignaR
-    private HubConnection hubConnection;
-    public bool IsConnected =>
-        hubConnection.State == HubConnectionState.Connected;
-    #endregion
 
     #region Comment Box
     public bool commentBoxVisible { get; set; } = false;
@@ -229,10 +227,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     protected override async Task OnInitializedAsync()
     {
-        hubConnection = new HubConnectionBuilder()
-            .WithUrl(navigationManager.ToAbsoluteUri("/notificationhub"))
-            .Build();
-        await hubConnection.StartAsync();
+        CurrentUser = (await authenticationStateTask).User;
         CheckList = AccidentalsCheckList;
         await base.OnInitializedAsync();
     }
@@ -261,9 +256,6 @@ using Microsoft.AspNetCore.SignalR.Client;
         if (vehicleResponse.StatusCode == System.Net.HttpStatusCode.OK)
         {
 
-            if (IsConnected)
-                await hubConnection.SendAsync("SendMessage", "z.raza@batech.com.pk", "Notification", $"Accident with Vehicle {VehicleNumber} marked as Closed");
-
             responseHeader = "Operation Successful";
             responseBody = "Job is marked as closed.";
             responseDialogVisibility = true;
@@ -278,8 +270,6 @@ using Microsoft.AspNetCore.SignalR.Client;
 
         if (getMarkAccidentalPointDoneResponse.StatusCode == System.Net.HttpStatusCode.OK)
         {
-            if (IsConnected)
-                await hubConnection.SendAsync("SendMessage", "z.raza@batech.com.pk", "Notification", "Point Marked Done");
             ReloadCheckList();
         }
         else

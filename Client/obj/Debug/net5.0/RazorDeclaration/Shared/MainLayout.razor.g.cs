@@ -187,6 +187,20 @@ using Append.Blazor.Notifications;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 8 "C:\Users\BA Tech\source\repos\sosfms\Client\Shared\MainLayout.razor"
+using Microsoft.AspNetCore.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 9 "C:\Users\BA Tech\source\repos\sosfms\Client\Shared\MainLayout.razor"
+           [Authorize]
+
+#line default
+#line hidden
+#nullable disable
     public partial class MainLayout : LayoutComponentBase
     {
         #pragma warning disable 1998
@@ -195,9 +209,8 @@ using Append.Blazor.Notifications;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 253 "C:\Users\BA Tech\source\repos\sosfms\Client\Shared\MainLayout.razor"
+#line 255 "C:\Users\BA Tech\source\repos\sosfms\Client\Shared\MainLayout.razor"
       
-    [CascadingParameter]
     Task<AuthenticationState> AuthenticationState { get; set; }
 
     public ClaimsPrincipal CurrentUser { get; set; }
@@ -207,7 +220,7 @@ using Append.Blazor.Notifications;
     {
         try
         {
-            CurrentUser = (await AuthenticationState).User;
+            CurrentUser = (await authStateProvider.GetAuthenticationStateAsync()).User;
 
             hubConnection = new HubConnectionBuilder()
             .WithUrl(navigationManager.ToAbsoluteUri("/notificationhub"))
@@ -215,6 +228,7 @@ using Append.Blazor.Notifications;
 
             hubConnection.On<string, string, string>("ReceiveMessage", (user, title, message) =>
             {
+                GetCurrentUser();
                 var encodedMsg = $"{user}: {message}";
                 if (CurrentUser.Identity.Name == user)
                 {
@@ -239,10 +253,28 @@ using Append.Blazor.Notifications;
             throw;
         }
     }
-
+    public async void GetCurrentUser()
+    {
+        CurrentUser = (await authStateProvider.GetAuthenticationStateAsync()).User;
+    }
     public async void Notify(string title, string message)
     {
-        await NotificationService.CreateAsync(title, message);
+        NotificationOptions options = new NotificationOptions
+        {
+            Body = message,
+            Icon = "sos-fms-logo.png",
+
+        };
+
+        if (await NotificationService.IsSupportedByBrowserAsync())
+        {
+            await NotificationService.CreateAsync(title, options);
+        }
+        else
+        {
+            await NotificationService.RequestPermissionAsync();
+            await NotificationService.CreateAsync(title, options);
+        }
     }
 
     public bool IsConnected =>
@@ -250,7 +282,14 @@ using Append.Blazor.Notifications;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-
+        if (!(await AuthenticationState).User.Identity.IsAuthenticated)
+        {
+            navigationManager.NavigateTo("/login");
+        }
+        else
+        {
+            CurrentUser = (await AuthenticationState).User;
+        }
         if (firstRender)
         {
             await _jsRuntime.InvokeVoidAsync("initializeJs");
