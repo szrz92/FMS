@@ -31,30 +31,58 @@ namespace SOS.FMS.Server.Controllers
             try
             {
                 List<FMSAccidentVM> accidentsList = new List<FMSAccidentVM>();
-                List<FMSAccident> accidents = await (from a in dbContext.FMSAccidents select a).ToListAsync();
-                foreach (var accident in accidents)
+                List<FMSAccident> accidents = new List<FMSAccident>();
+                if (User.IsInRole("SA") || User.IsInRole("HMT"))
                 {
-                    string driverName = await (from d in dbContext.FMSDrivers where d.Id == accident.DriverId select d.DriverName).SingleOrDefaultAsync();
-                    string regionName = await (from r in dbContext.Regions where r.Id == accident.RegionId select r.XDescription).SingleOrDefaultAsync();
-                    string subRegionName = await (from s in dbContext.SubRegions where s.Id == accident.SubRegionId select s.XDescription).SingleOrDefaultAsync();
-                    Guid vehicleId = await (from v in dbContext.FMSVehiclesDev where v.Id == accident.FMSVehicleId select v.VehicleId).SingleOrDefaultAsync();
-                    string vehicleNumber = await (from v in dbContext.Vehicles where v.Id == vehicleId select v.XDescription).SingleOrDefaultAsync();
-                    accidentsList.Add(new FMSAccidentVM()
-                    {
-                        Id = accident.Id,
-                        Description = accident.Description,
-                        Driver = driverName,
-                        Region = regionName,
-                        SubRegion = subRegionName,
-                        VehicleNumber = vehicleNumber,
-                        MaintenanceStatus = accident.MaintenanceStatus == MaintenanceStatus.Done ? "Complete" : "Pending",
-                        ReportTime = accident.TimeStamp,
-                        CarOperationalTime = accident.CarOperationalTime,
-                        JobClosingTime = accident.JobClosingTime,
-                        LastUpdated = accident.LastUpdated
-                    });
+                    accidentsList = await (from a in dbContext.FMSAccidents 
+                                       join d in dbContext.FMSDrivers on a.DriverId equals d.Id
+                                       join r in dbContext.Regions on a.RegionId equals r.Id
+                                       join s in dbContext.SubRegions on a.SubRegionId equals s.Id
+                                       join v in dbContext.FMSVehiclesDev on a.FMSVehicleId equals v.Id
+                                       join gv in dbContext.Vehicles on v.VehicleId equals gv.Id
+                                       select new FMSAccidentVM()
+                                       {
+                                           Id = a.Id,
+                                           Description = a.Description,
+                                           Driver = d.DriverName,
+                                           Region = r.XDescription,
+                                           SubRegion = s.XDescription,
+                                           VehicleNumber = gv.XDescription,
+                                           MaintenanceStatus = a.MaintenanceStatus == MaintenanceStatus.Done ? "Complete" : "Not Initiated",
+                                           ReportTime = a.TimeStamp,
+                                           CarOperationalTime = a.CarOperationalTime,
+                                           JobClosingTime = a.JobClosingTime,
+                                           LastUpdated = a.LastUpdated
+                                       }).ToListAsync();
                 }
-                return Ok(accidentsList);
+                else
+                {
+                    ApplicationUser user = (from u in dbContext.Users where u.Email == User.Identity.Name select u).FirstOrDefault();
+                    Region region = (from r in dbContext.Regions where r.XDescription == user.Region select r).FirstOrDefault();
+
+                    accidentsList = await (from a in dbContext.FMSAccidents
+                                           join d in dbContext.FMSDrivers on a.DriverId equals d.Id
+                                           join r in dbContext.Regions on a.RegionId equals r.Id
+                                           join s in dbContext.SubRegions on a.SubRegionId equals s.Id
+                                           join v in dbContext.FMSVehiclesDev on a.FMSVehicleId equals v.Id
+                                           join gv in dbContext.Vehicles on v.VehicleId equals gv.Id
+                                           where a.RegionId == region.Id
+                                           select new FMSAccidentVM()
+                                           {
+                                               Id = a.Id,
+                                               Description = a.Description,
+                                               Driver = d.DriverName,
+                                               Region = r.XDescription,
+                                               SubRegion = s.XDescription,
+                                               VehicleNumber = gv.XDescription,
+                                               MaintenanceStatus = a.MaintenanceStatus == MaintenanceStatus.Done ? "Complete" : "Not Initiated",
+                                               ReportTime = a.TimeStamp,
+                                               CarOperationalTime = a.CarOperationalTime,
+                                               JobClosingTime = a.JobClosingTime,
+                                               LastUpdated = a.LastUpdated
+                                           }).ToListAsync();
+                }
+                    return Ok(accidentsList);
             }
             catch (Exception)
             {
@@ -78,7 +106,7 @@ namespace SOS.FMS.Server.Controllers
                     VehicleNumber = accident.VehicleNumber,
                     SubRegionId = vehicle.SubRegion,
                     FMSVehicleId = vehicle.Id,
-                    MaintenanceStatus = accident.MaintenanceStatus == "Done" ? MaintenanceStatus.Done : MaintenanceStatus.InProgress,
+                    MaintenanceStatus = accident.MaintenanceStatus == "Done" ? MaintenanceStatus.Done : MaintenanceStatus.NotInitiated,
                     TimeStamp = DateTime.Now,
                     LastUpdated = DateTime.Now
                 };
@@ -108,7 +136,7 @@ namespace SOS.FMS.Server.Controllers
                         Id = Guid.NewGuid(),
                         Description = point,
                         FMSAccidentId = accidentId,
-                        MaintenanceStatus = MaintenanceStatus.InProgress,
+                        MaintenanceStatus = MaintenanceStatus.NotInitiated,
                         FMSVehicleId = vehicle.Id,
                         VehicleNumber = accident.VehicleNumber,
                         LastUpdated = DateTime.Now,
@@ -151,7 +179,7 @@ namespace SOS.FMS.Server.Controllers
                 dbContext.SaveChanges();
 
                 FMSAccident accident = (from a in dbContext.FMSAccidents 
-                                        where a.FMSVehicleId == fmsVehicle.Id && a.MaintenanceStatus == MaintenanceStatus.InProgress 
+                                        where a.FMSVehicleId == fmsVehicle.Id && a.MaintenanceStatus == MaintenanceStatus.NotInitiated
                                         select a).SingleOrDefault();
 
                 accident.MaintenanceStatus = MaintenanceStatus.Done;
@@ -188,7 +216,7 @@ namespace SOS.FMS.Server.Controllers
                 fmsVehicle.Status = "maintained";
 
                 List<FMSAccident> accidents = await dbContext.FMSAccidents
-                    .Where(x => x.FMSVehicleId == fmsVehicle.Id && x.MaintenanceStatus == MaintenanceStatus.InProgress).ToListAsync();
+                    .Where(x => x.FMSVehicleId == fmsVehicle.Id && x.MaintenanceStatus == MaintenanceStatus.NotInitiated).ToListAsync();
 
                 foreach (var accident in accidents)
                 {
@@ -222,7 +250,7 @@ namespace SOS.FMS.Server.Controllers
             {
                 Vehicle vehicle = await (from v in dbContext.Vehicles where v.XDescription == request.VehicleNumber select v).FirstOrDefaultAsync();
                 FMSVehicleDev fmsVehicle = await (from v in dbContext.FMSVehiclesDev where v.VehicleId == vehicle.Id && v.Status == "accidental" select v).SingleOrDefaultAsync();
-                FMSAccident fmsAccident = await (from a in dbContext.FMSAccidents where a.FMSVehicleId == fmsVehicle.Id && a.MaintenanceStatus == MaintenanceStatus.InProgress select a).FirstOrDefaultAsync();
+                FMSAccident fmsAccident = await (from a in dbContext.FMSAccidents where a.FMSVehicleId == fmsVehicle.Id && a.MaintenanceStatus == MaintenanceStatus.NotInitiated select a).FirstOrDefaultAsync();
                 List<FMSAccidentalCheckVM> checkList = await (from c in dbContext.FMSAccidentalCheckList
                                                               where c.FMSAccidentId == fmsAccident.Id && c.FMSVehicleId == fmsVehicle.Id
                                                               select new FMSAccidentalCheckVM()

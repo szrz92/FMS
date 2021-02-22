@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using SOS.FMS.Server.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +14,33 @@ namespace SOS.FMS.Server.Controllers
     [ApiController]
     public class StationsController : ControllerBase
     {
+        private AppDbContext dbContext;
+        public StationsController(AppDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
         [HttpGet]
         public async Task<IActionResult> GetStations()
         {
             return Ok(0);
+        }
+        [HttpGet("SelectList")]
+        public async Task<IActionResult> GetSelectList()
+        {
+            try
+            {
+                List<SelectListItem> items = await (from s in dbContext.Stations
+                                                    select new SelectListItem()
+                                                    {
+                                                        Text = s.XDescription,
+                                                        Value = s.XDescription
+                                                    }).ToListAsync();
+                return Ok(items);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
         }
     }
 }

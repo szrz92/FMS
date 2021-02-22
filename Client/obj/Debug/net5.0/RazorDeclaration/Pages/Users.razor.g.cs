@@ -203,7 +203,7 @@ using SOS.FMS.Client.Components.Users;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 100 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Users.razor"
+#line 102 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Users.razor"
        
     public List<FMSApplicationUserVM> UsersList { get; set; }
     public List<FMSRoleVM> RolesList { get; set; }

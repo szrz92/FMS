@@ -187,6 +187,13 @@ using Microsoft.AspNetCore.SignalR.Client;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 4 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Emergency.razor"
+using SOS.FMS.Client.Components.IncidentalHistory;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/Emergency")]
     public partial class Emergency : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -196,48 +203,11 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 121 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Emergency.razor"
+#line 44 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Emergency.razor"
        
-    public List<FMSEmergencyVM> EmergencyList { get; set; }
-
-    public List<FMSEmergencyVM> FilteredEmergencyList { get; set; }
-
-    public List<SelectListItem> regionsList { get; set; } = new List<SelectListItem>();
-    public List<SelectListItem> subRegionsList { get; set; } = new List<SelectListItem>();
-    public List<SelectListItem> statusList { get; set; } = new List<SelectListItem>();
-    public List<SelectListItem> vehiclesList { get; set; } = new List<SelectListItem>();
-
-    public FMSEmergencyVM Filter { get; set; } = new FMSEmergencyVM();
-
-    public void FilterData()
-    {
-        FilteredEmergencyList = EmergencyList
-    .Where(x => (string.IsNullOrEmpty(Filter.Region) || x.Region == Filter.Region))
-    .Where(x => (string.IsNullOrEmpty(Filter.SubRegion) || x.SubRegion == Filter.SubRegion))
-    .Where(x => (string.IsNullOrEmpty(Filter.MaintenanceStatus) || x.MaintenanceStatus == Filter.MaintenanceStatus))
-    .Where(x => (string.IsNullOrEmpty(Filter.VehicleNumber) || x.VehicleNumber == Filter.VehicleNumber))
-    .ToList();
-        StateHasChanged();
-    }
-
-    public void ResetData()
-    {
-        Filter = new FMSEmergencyVM();
-        FilteredEmergencyList = EmergencyList;
-    }
 
     protected override async Task OnInitializedAsync()
     {
-        EmergencyList = (await Http.GetFromJsonAsync<List<FMSEmergencyVM>>("api/Emergency/All"))
-        .OrderByDescending(x => x.LastUpdated)
-        .ToList();
-
-        FilteredEmergencyList = EmergencyList;
-        regionsList = EmergencyList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        subRegionsList = EmergencyList.GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        statusList = EmergencyList.GroupBy(x => x.MaintenanceStatus).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        vehiclesList = EmergencyList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-
         await base.OnInitializedAsync();
     }
 
@@ -246,29 +216,6 @@ using Microsoft.AspNetCore.SignalR.Client;
         await base.OnAfterRenderAsync(firstRender);
     }
 
-    #region Syncfusion
-
-    SfGrid<FMSEmergencyVM> EmergencyGrid;
-
-    public void EmergencyToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
-    {
-        if (args.Item.Id == "EmergencyGrid_pdfexport")
-        {
-            PdfExportProperties Props = new PdfExportProperties();
-            Props.PageOrientation = PageOrientation.Landscape;
-            Props.PageSize = PdfPageSize.A4;
-            this.EmergencyGrid.PdfExport(Props);
-        }
-        if (args.Item.Id == "EmergencyGrid_excelexport")
-        {
-            this.EmergencyGrid.ExcelExport();
-        }
-        if (args.Item.Id == "EmergencyGrid_csvexport")
-        {
-            this.EmergencyGrid.CsvExport();
-        }
-    }
-    #endregion
 
 #line default
 #line hidden

@@ -94,5 +94,9 @@ namespace SOS.FMS.Shared.ViewModels
 
             }
         }
+        [Required]
+        public string Region { get; set; }
+        [Required]
+        public string SubRegion { get; set; }
     }
 }

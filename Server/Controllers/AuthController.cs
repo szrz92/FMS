@@ -67,6 +67,8 @@ namespace SOS.FMS.Server.Controllers
                     user.EmailConfirmed = true;
                     user.Id = userVM.Id;
                     user.Name = userVM.FullName;
+                    user.SubRegion = userVM.SubRegion;
+                    user.Region = userVM.Region;
                     var result = await _userManager.CreateAsync(user, userVM.Password);
                     if (!result.Succeeded) return BadRequest(result.Errors.FirstOrDefault()?.Description);
                     else
@@ -105,6 +107,8 @@ namespace SOS.FMS.Server.Controllers
                     fmsuser.EmailConfirmed = true;
                     fmsuser.Id = userVM.Id;
                     fmsuser.Name = userVM.FullName;
+                    fmsuser.Region = userVM.Region;
+                    fmsuser.SubRegion = userVM.SubRegion;
                     var result = await _userManager.UpdateAsync(fmsuser);
                     if (!result.Succeeded) return BadRequest(result.Errors.FirstOrDefault()?.Description);
                     else
@@ -178,7 +182,9 @@ namespace SOS.FMS.Server.Controllers
                                                               FullName = u.Name,
                                                               Id = u.Id,
                                                               Roles = (from r in dbContext.UserRoles where r.UserId == u.Id select r.RoleId).ToList(),
-                                                              Department = (from g in dbContext.GBMSUsers where g.XName == u.Name select g.XDepartmentDescription).SingleOrDefault()
+                                                              Department = (from g in dbContext.GBMSUsers where g.XName == u.Name select g.XDepartmentDescription).SingleOrDefault(),
+                                                              Region = u.Region,
+                                                              SubRegion = u.SubRegion
                                                           }).ToListAsync();
                 return Ok(users);
             }
@@ -203,7 +209,9 @@ namespace SOS.FMS.Server.Controllers
                                                        Roles = (from r in dbContext.UserRoles where r.UserId == u.Id select r.RoleId).ToList(),
                                                        Department = (from g in dbContext.GBMSUsers where g.XName == u.Name select g.XDepartmentDescription).SingleOrDefault(),
                                                        Password = "Random123!@#",
-                                                       ConfirmPassword = "Random123!@#"
+                                                       ConfirmPassword = "Random123!@#",
+                                                       Region = u.Region,
+                                                       SubRegion = u.SubRegion
                                                    }).SingleOrDefaultAsync();
                 return Ok(user);
             }

@@ -246,7 +246,13 @@ namespace SOS.FMS.Server.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Region")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SubRegion")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -273,16 +279,16 @@ namespace SOS.FMS.Server.Migrations
                         {
                             Id = "c58e1a9d-1c28-46db-830a-7b3f0b9663f1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ca7f8d68-6b79-45f0-9298-232a38adbae3",
+                            ConcurrencyStamp = "3ce32c28-363a-4163-9376-ec936adc304e",
                             Email = "z.raza@batech.com.pk",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             Name = "Zain Raza",
                             NormalizedEmail = "Z.RAZA@BATECH.COM.PK",
                             NormalizedUserName = "Z.RAZA@BATECH.COM.PK",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDA1sox7YuY5I+fv2ZftbxsS63AZDgRA5v+yTn6ck2KBgHz0Bj9g005M1g7V54TGhA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGcE5aeS1g7bd8XRwuRqwESrYMcO9WEC21sqCA6sMHAiopGWLIiwoeEIsOXHwtDZXg==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "baddb3e2-e144-4d3e-9ad7-5fda3b7e56b7",
+                            SecurityStamp = "4e798820-3ed2-4ac3-848a-e3d3533a3b57",
                             TwoFactorEnabled = false,
                             UserName = "z.raza@batech.com.pk"
                         });

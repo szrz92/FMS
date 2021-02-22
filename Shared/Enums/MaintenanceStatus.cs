@@ -9,6 +9,6 @@ namespace SOS.FMS.Shared.Enums
     public enum MaintenanceStatus
     {
         Done,
-        InProgress
+        NotInitiated
     }
 }

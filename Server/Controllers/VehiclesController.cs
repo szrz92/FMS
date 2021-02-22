@@ -56,8 +56,20 @@ namespace SOS.FMS.Server.Controllers
             try
             {
                 List<FMSVehicleVM> rbVehicles = new List<FMSVehicleVM>();
-                List<FMSVehicleDev> vehicleDevs = (from v in dbContext.FMSVehiclesDev
-                                                   select v).ToList();
+                List<FMSVehicleDev> vehicleDevs = new List<FMSVehicleDev>();
+                if (User.IsInRole("SA") || User.IsInRole("HMT"))
+                {
+                    vehicleDevs = (from v in dbContext.FMSVehiclesDev
+                                   select v).ToList();
+                }
+                else
+                {
+                    ApplicationUser user = (from u in dbContext.Users where u.Email == User.Identity.Name select u).FirstOrDefault();
+                    Region region = (from r in dbContext.Regions where r.XDescription == user.Region select r).FirstOrDefault();
+                    vehicleDevs = (from v in dbContext.FMSVehiclesDev
+                                   where v.Region == region.Id
+                                   select v).ToList();
+                }
                 if (vehicleDevs.Count == 1)
                 {
                     //FMSVehicleDev vehicleDev = new FMSVehicleDev();

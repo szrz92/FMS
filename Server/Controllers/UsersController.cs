@@ -36,7 +36,13 @@ namespace SOS.FMS.Server.Controllers
                                                     Designation = u.XDesignationDescription,
                                                     Location = u.XLocationDescription,
                                                     Section = u.XSectionDescription,
-                                                    OfficialEmail = u.XOfficialEmail
+                                                    OfficialEmail = u.XOfficialEmail,
+                                                    Region = (from r in dbContext.SubRegions 
+                                                              where u.XLocationDescription.Contains(r.XDescription)
+                                                              select r.XRegionDescription).FirstOrDefault() ?? "Head Office",
+                                                    SubRegion = (from r in dbContext.SubRegions
+                                                                 where u.XLocationDescription.Contains(r.XDescription)
+                                                                 select r.XDescription).FirstOrDefault() ?? "Head Office"
                                                 }).ToListAsync();
                 return Ok(users);
             }

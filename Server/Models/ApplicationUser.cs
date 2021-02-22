@@ -9,5 +9,7 @@ namespace SOS.FMS.Server.Models
     public class ApplicationUser : IdentityUser
     {
         public string Name { get; set; }
+        public string SubRegion { get; set; }
+        public string Region { get; set; }
     }
 }

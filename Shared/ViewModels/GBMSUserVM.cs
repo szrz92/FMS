@@ -15,6 +15,8 @@ namespace SOS.FMS.Shared.ViewModels
         public string Department { get; set; }
         public string Section { get; set; }
         public string OfficialEmail { get; set; }
+        public string Region { get; set; }
+        public string SubRegion { get; set; }
     }
 }
 

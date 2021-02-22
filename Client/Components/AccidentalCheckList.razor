@@ -18,50 +18,56 @@
             <div class="d-flex align-items-center justify-content-between py-4">
                 @if (CheckList != null)
                 {
-                    <table class="w-100">
-                        @foreach (var item in CheckList)
-                        {
-                            <tr class="row px-1 py-2 border-bottom">
-                                <td class="col-6">@item.Description</td>
-                                @if (item.MaintenanceStatus == FMS.Shared.Enums.MaintenanceStatus.InProgress)
-                                {
-                                    <td class="col-2 text-danger">(@(item.MaintenanceStatus))</td>
-                                    <td class="col-2 text-danger"> NA</td>
-                                    <td class="col-2">
-                                        @if (item.CommentCount == 0)
-                                        {
-                                            <label class="checkbox checkbox-disabled pb-2">
-                                                <input type="checkbox" disabled>
-                                                <span></span>
-                                            </label>
-                                        }
-                                        else
-                                        {
-                                            <label class="checkbox checkbox-success pb-2">
-                                                <input type="checkbox" @onclick="() => MarkAccidentalPointDone(item.Id)">
-                                                <span></span>
-                                            </label>
-                                        }
-
-                                        <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowAccidentalCommentModal(item.Id)" />
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td class="col-2 text-success">(@(item.MaintenanceStatus))</td>
-                                    <td class="col-2"> @item.LastUpdated.ToString("dd-MMM-yy")</td>
-                                    <td class="col-2">
-                                        <label class="checkbox checkbox-success pb-2">
-                                            <input type="checkbox" checked="checked" disabled>
+                <table class="w-100">
+                    <tr class="row px-1 py-2 border-bottom">
+                        <td class="col-6 text-dark font-weight-bolder">Description</td>
+                        <td class="col-2 text-dark font-weight-bolder">Status</td>
+                        <td class="col-2 text-dark font-weight-bolder">Updated</td>
+                        <td class="col-2 text-dark font-weight-bolder">Action</td>
+                    </tr>
+                    @foreach (var item in CheckList)
+                    {
+                        <tr class="row px-1 py-2 border-bottom">
+                            <td class="col-6">@item.Description</td>
+                            @if (item.MaintenanceStatus == FMS.Shared.Enums.MaintenanceStatus.NotInitiated)
+                            {
+                                <td class="col-2 text-danger">Not Initiated</td>
+                                <td class="col-2 text-danger"> NA</td>
+                                <td class="col-2">
+                                    @if (item.CommentCount == 0)
+                                    {
+                                        <label class="checkbox checkbox-disabled pb-2">
+                                            <input type="checkbox" disabled>
                                             <span></span>
                                         </label>
+                                    }
+                                    else
+                                    {
+                                        <label class="checkbox checkbox-success pb-2">
+                                            <input type="checkbox" @onclick="() => MarkAccidentalPointDone(item.Id)">
+                                            <span></span>
+                                        </label>
+                                    }
 
-                                        <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowAccidentalCommentModal(item.Id)" />
-                                    </td>
-                                }
-                            </tr>
-                        }
-                    </table>
+                                    <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowAccidentalCommentModal(item.Id)" />
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="col-2 text-success">Done</td>
+                                <td class="col-2"> @item.LastUpdated.ToString("dd-MMM-yy")</td>
+                                <td class="col-2">
+                                    <label class="checkbox checkbox-success pb-2">
+                                        <input type="checkbox" checked="checked" disabled>
+                                        <span></span>
+                                    </label>
+
+                                    <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowAccidentalCommentModal(item.Id)" />
+                                </td>
+                            }
+                        </tr>
+                    }
+                </table>
                 }
                 else
                 {
