@@ -1,6 +1,6 @@
 ﻿@inject HttpClient Http
-
-<div class="col-xl-12">
+@inject NavigationManager navigationManager
+<NavLink href="CompletedJobs" class="col-xl-12">
     <!--begin::Stats Widget 29-->
     <div class="card card-custom bgi-no-repeat card-stretch gutter-b" style="background-position: right top; background-size: 30% auto; background-image: url(assets/media/svg/shapes/abstract-1.svg)">
         <!--begin::Body-->
@@ -16,7 +16,7 @@
         <!--end::Body-->
     </div>
     <!--end::Stats Widget 29-->
-</div>
+</NavLink>
 @code {
     public string Count { get; set; }
     protected override async Task OnInitializedAsync()
@@ -37,5 +37,8 @@
         Count = await Http.GetStringAsync("api/Jobs/All/Completed/SinceLastMonth");
         StateHasChanged();
     }
-
+    public void Navigation()
+    {
+        navigationManager.ToAbsoluteUri("/CompletedJobs");
+    }
 }

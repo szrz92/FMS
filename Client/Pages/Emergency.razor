@@ -80,7 +80,7 @@
                         <div class="content-wrapper">
                             <div class="row">
                                 <div id="container">
-                                    <SfGrid ID="EmergencyGrid" @ref="EmergencyGrid" DataSource="@EmergencyList"
+                                    <SfGrid ID="EmergencyGrid" @ref="EmergencyGrid" DataSource="@FilteredEmergencyList"
                                             AllowPaging="true" AllowSorting="true" AllowFiltering="true"
                                             Height="600" RowHeight="38"
                                             Toolbar="@(new List<string>() { "ExcelExport", "CsvExport", "PdfExport" })"
@@ -88,18 +88,18 @@
                                         <GridPageSettings PageCount="5" PageSize="20" PageSizes="new int[]{ 5, 10, 20, 50, 100 }"></GridPageSettings>
                                         <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Menu"></GridFilterSettings>
                                         <GridSelectionSettings CheckboxOnly="true" PersistSelection="true" Type="SelectionType.Multiple"></GridSelectionSettings>
-                                        <GridEvents OnToolbarClick="EmergencyToolbarClick" TValue="FMSAccidentVM"></GridEvents>
+                                        <GridEvents OnToolbarClick="EmergencyToolbarClick" TValue="FMSEmergencyVM"></GridEvents>
                                         <GridColumns>
-                                            <GridColumn Field=@nameof(FMSAccidentVM.Driver) TextAlign="TextAlign.Center" HeaderText="Driver" Width="130"></GridColumn>
-                                            <GridColumn Field=@nameof(FMSAccidentVM.VehicleNumber) HeaderText="Vehicle Number" Width="130"></GridColumn>
-                                            <GridColumn Field=@nameof(FMSAccidentVM.Description) HeaderText="Description" Width="230"></GridColumn>
-                                            <GridColumn Field=@nameof(FMSAccidentVM.Region) HeaderText="Region" Width="130"></GridColumn>
-                                            <GridColumn Field=@nameof(FMSAccidentVM.SubRegion) HeaderText="Subregion" Width="130"></GridColumn>
-                                            <GridColumn Field=@nameof(FMSAccidentVM.MaintenanceStatus) HeaderText="Maintenance" Width="130"></GridColumn>
-                                            <GridColumn Field=@nameof(FMSAccidentVM.ReportTime) Format="dd/MM/yy hh:mm" Type="ColumnType.DateTime" HeaderText="Reported At" Width="130"></GridColumn>
-                                            <GridColumn Field=@nameof(FMSAccidentVM.CarOperationalTime) Format="dd/MM/yy hh:mm" Type="ColumnType.DateTime" HeaderText="Operational At" Width="130"></GridColumn>
-                                            <GridColumn Field=@nameof(FMSAccidentVM.JobClosingTime) Format="dd/MM/yy hh:mm" Type="ColumnType.DateTime" HeaderText="Closed At" Width="130"></GridColumn>
-                                            <GridColumn Field=@nameof(FMSAccidentVM.LastUpdated) Format="dd/MM/yy hh:mm" Type="ColumnType.DateTime" HeaderText="Last Update" Width="130"></GridColumn>
+                                            <GridColumn Field=@nameof(FMSEmergencyVM.Driver) TextAlign="TextAlign.Center" HeaderText="Driver" Width="130"></GridColumn>
+                                            <GridColumn Field=@nameof(FMSEmergencyVM.VehicleNumber) HeaderText="Vehicle Number" Width="130"></GridColumn>
+                                            <GridColumn Field=@nameof(FMSEmergencyVM.Description) HeaderText="Description" Width="230"></GridColumn>
+                                            <GridColumn Field=@nameof(FMSEmergencyVM.Region) HeaderText="Region" Width="130"></GridColumn>
+                                            <GridColumn Field=@nameof(FMSEmergencyVM.SubRegion) HeaderText="Subregion" Width="130"></GridColumn>
+                                            <GridColumn Field=@nameof(FMSEmergencyVM.MaintenanceStatus) HeaderText="Maintenance" Width="130"></GridColumn>
+                                            <GridColumn Field=@nameof(FMSEmergencyVM.ReportTime) Format="dd/MM/yy hh:mm" Type="ColumnType.DateTime" HeaderText="Reported At" Width="130"></GridColumn>
+                                            <GridColumn Field=@nameof(FMSEmergencyVM.CarOperationalTime) Format="dd/MM/yy hh:mm" Type="ColumnType.DateTime" HeaderText="Operational At" Width="130"></GridColumn>
+                                            <GridColumn Field=@nameof(FMSEmergencyVM.JobClosingTime) Format="dd/MM/yy hh:mm" Type="ColumnType.DateTime" HeaderText="Closed At" Width="130"></GridColumn>
+                                            <GridColumn Field=@nameof(FMSEmergencyVM.LastUpdated) Format="dd/MM/yy hh:mm" Type="ColumnType.DateTime" HeaderText="Last Update" Width="130"></GridColumn>
                                         </GridColumns>
                                     </SfGrid>
                                 </div>
@@ -138,6 +138,7 @@
     .Where(x => (string.IsNullOrEmpty(Filter.MaintenanceStatus) || x.MaintenanceStatus == Filter.MaintenanceStatus))
     .Where(x => (string.IsNullOrEmpty(Filter.VehicleNumber) || x.VehicleNumber == Filter.VehicleNumber))
     .ToList();
+        StateHasChanged();
     }
 
     public void ResetData()
@@ -157,6 +158,7 @@
         subRegionsList = EmergencyList.GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         statusList = EmergencyList.GroupBy(x => x.MaintenanceStatus).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         vehiclesList = EmergencyList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+
         await base.OnInitializedAsync();
     }
 

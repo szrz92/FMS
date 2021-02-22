@@ -26,6 +26,7 @@
                 <div class="control-wrapper">
                     <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a region" @bind-Value="Filter.Region" AllowFiltering="true" DataSource="@regionsList">
                         <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                        <DropDownListEvents TValue="string" ValueChange="OnRegionChange"></DropDownListEvents>
                     </SfDropDownList>
                 </div>
             </div>
@@ -33,6 +34,7 @@
                 <div class="control-wrapper">
                     <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a subregion" @bind-Value="Filter.Subregion" AllowFiltering="true" DataSource="@subRegionsList">
                         <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                        <DropDownListEvents TValue="string" ValueChange="OnSubRegionChange"></DropDownListEvents>
                     </SfDropDownList>
                 </div>
             </div>
@@ -40,6 +42,7 @@
                 <div class="control-wrapper">
                     <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a status" @bind-Value="Filter.Status" AllowFiltering="true" DataSource="@statusList">
                         <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                        <DropDownListEvents TValue="string" ValueChange="OnStatusChange"></DropDownListEvents>
                     </SfDropDownList>
                 </div>
             </div>
@@ -138,6 +141,27 @@
         statusList = DailyChecksList.GroupBy(x => x.Status).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         vehiclesList = DailyChecksList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         await base.OnInitializedAsync();
+    }
+
+    public async Task OnRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        subRegionsList = DailyChecksList.Where(x => x.Region == args.Value).GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        statusList = DailyChecksList.Where(x => x.Region == args.Value).GroupBy(x => x.Status).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        vehiclesList = DailyChecksList.Where(x => x.Region == args.Value).GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        StateHasChanged();
+    }
+    public async Task OnSubRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        statusList = DailyChecksList.Where(x => x.Subregion == args.Value).GroupBy(x => x.Status).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        vehiclesList = DailyChecksList.Where(x => x.Subregion == args.Value).GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        StateHasChanged();
+    }
+    public async Task OnStatusChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        vehiclesList = DailyChecksList
+            .Where(x => x.Status == args.Value && (string.IsNullOrEmpty(Filter.Subregion) || x.Subregion == Filter.Subregion))
+            .GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        StateHasChanged();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

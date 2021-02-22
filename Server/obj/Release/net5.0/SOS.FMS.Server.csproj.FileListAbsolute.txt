@@ -243,3 +243,11 @@ C:\Users\BA Tech\source\repos\sosfms\Server\bin\Release\net5.0\Microsoft.AspNetC
 C:\Users\BA Tech\source\repos\sosfms\Server\bin\Release\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\BA Tech\source\repos\sosfms\Server\bin\Release\net5.0\Microsoft.Extensions.Identity.Core.dll
 C:\Users\BA Tech\source\repos\sosfms\Server\bin\Release\net5.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\BA Tech\source\repos\sosfms\Server\bin\Release\net5.0\Microsoft.AspNetCore.Connections.Abstractions.dll
+C:\Users\BA Tech\source\repos\sosfms\Server\bin\Release\net5.0\Microsoft.AspNetCore.Http.Connections.Client.dll
+C:\Users\BA Tech\source\repos\sosfms\Server\bin\Release\net5.0\Microsoft.AspNetCore.Http.Connections.Common.dll
+C:\Users\BA Tech\source\repos\sosfms\Server\bin\Release\net5.0\Microsoft.AspNetCore.Http.Features.dll
+C:\Users\BA Tech\source\repos\sosfms\Server\bin\Release\net5.0\Microsoft.AspNetCore.SignalR.Client.dll
+C:\Users\BA Tech\source\repos\sosfms\Server\bin\Release\net5.0\Microsoft.AspNetCore.SignalR.Client.Core.dll
+C:\Users\BA Tech\source\repos\sosfms\Server\bin\Release\net5.0\Microsoft.AspNetCore.SignalR.Common.dll
+C:\Users\BA Tech\source\repos\sosfms\Server\bin\Release\net5.0\Microsoft.AspNetCore.SignalR.Protocols.Json.dll

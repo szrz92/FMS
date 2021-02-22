@@ -217,6 +217,7 @@ using Microsoft.AspNetCore.SignalR.Client;
     .Where(x => (string.IsNullOrEmpty(Filter.MaintenanceStatus) || x.MaintenanceStatus == Filter.MaintenanceStatus))
     .Where(x => (string.IsNullOrEmpty(Filter.VehicleNumber) || x.VehicleNumber == Filter.VehicleNumber))
     .ToList();
+        StateHasChanged();
     }
 
     public void ResetData()
@@ -236,6 +237,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         subRegionsList = EmergencyList.GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         statusList = EmergencyList.GroupBy(x => x.MaintenanceStatus).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         vehiclesList = EmergencyList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+
         await base.OnInitializedAsync();
     }
 

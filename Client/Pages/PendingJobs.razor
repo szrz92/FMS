@@ -1,0 +1,184 @@
+﻿@page "/PendingJobs"
+@inject IJSRuntime JSRuntime
+@inject HttpClient Http
+<!--begin::Subheader-->
+<div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
+    <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+        <!--begin::Details-->
+        <div class="d-flex align-items-center flex-wrap mr-2">
+            <!--begin::Title-->
+            <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">FMS</h5>
+            <!--end::Title-->
+            <!--begin::Separator-->
+            <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-5 bg-gray-200"></div>
+            <!--end::Separator-->
+            <!--begin::Breadcrumb-->
+            <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+                <li class="breadcrumb-item">
+                    <a href="/" class="text-muted">Pending Jobs</a>
+                </li>
+            </ul>
+            <!--end::Breadcrumb-->
+        </div>
+        <!--end::Details-->
+        <div class="d-flex align-items-center">
+            <div class="mr-2" style="width:135%">
+                <div class="control-wrapper">
+                    <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a region" @bind-Value="Filter.Region" AllowFiltering="true" DataSource="@regionsList">
+                        <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                    </SfDropDownList>
+                </div>
+            </div>
+            <div class="mr-2" style="width:135%">
+                <div class="control-wrapper">
+                    <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a subregion" @bind-Value="Filter.SubRegion" AllowFiltering="true" DataSource="@subRegionsList">
+                        <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                    </SfDropDownList>
+                </div>
+            </div>
+            <div class="mr-2" style="width:135%">
+                <div class="control-wrapper">
+                    <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a type" @bind-Value="Filter.JobType" AllowFiltering="true" DataSource="@typesList">
+                        <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                    </SfDropDownList>
+                </div>
+            </div>
+            <div class="mr-2" style="width:135%">
+                <div class="control-wrapper">
+                    <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a vehicle" @bind-Value="Filter.VehicleNumber" AllowFiltering="true" DataSource="@vehiclesList">
+                        <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                    </SfDropDownList>
+                </div>
+            </div>
+            <button class="btn btn-bg-danger text-white mr-2" @onclick="FilterData">FILTER</button>
+            <button class="btn btn-bg-info text-white mr-2" @onclick="ResetData">RESET</button>
+        </div>
+    </div>
+</div>
+<!--end::Subheader-->
+
+<div class="d-flex flex-column-fluid">
+    <!--begin::Container-->
+    <div class="container-fluid">
+        <!--begin::Card-->
+        <div class="card card-custom card-stretch">
+            <!--begin::Header-->
+            @*<div class="card-header flex-wrap border-0 pt-6 pb-0">
+                    <div class="card-title">
+                        <h3 class="card-label">
+                            Accidents
+                            <span class="d-block text-muted pt-2 font-size-sm">All Accidents</span>
+                        </h3>
+                    </div>
+                </div>*@
+            <!--end::Header-->
+            <!--begin::Body-->
+            <div class="card-body">
+                @if (FilteredJobsList != null)
+                {
+                    <div class="col-lg-12 control-section">
+                        <div class="content-wrapper">
+                            <div class="row">
+                                <div id="container">
+                                    <SfGrid ID="JobsGrid" @ref="JobsGrid" DataSource="@FilteredJobsList"
+                                            AllowPaging="true" AllowSorting="true" AllowFiltering="true"
+                                            Height="600" RowHeight="38"
+                                            Toolbar="@(new List<string>() { "ExcelExport", "CsvExport", "PdfExport" })"
+                                            AllowExcelExport="true" AllowPdfExport="true">
+                                        <GridPageSettings PageCount="5" PageSize="20" PageSizes="new int[]{ 5, 10, 20, 50, 100 }"></GridPageSettings>
+                                        <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Menu"></GridFilterSettings>
+                                        <GridSelectionSettings CheckboxOnly="true" PersistSelection="true" Type="SelectionType.Multiple"></GridSelectionSettings>
+                                        <GridEvents OnToolbarClick="JobsToolbarClick" TValue="FMSJobsVM"></GridEvents>
+                                        <GridColumns>
+                                            <GridColumn Field=@nameof(FMSJobsVM.Driver) TextAlign="TextAlign.Center" HeaderText="Driver" Width="130"></GridColumn>
+                                            <GridColumn Field=@nameof(FMSJobsVM.VehicleNumber) HeaderText="Vehicle Number" Width="130"></GridColumn>
+                                            <GridColumn Field=@nameof(FMSJobsVM.Description) HeaderText="Description" Width="230"></GridColumn>
+                                            <GridColumn Field=@nameof(FMSJobsVM.Region) HeaderText="Region" Width="130"></GridColumn>
+                                            <GridColumn Field=@nameof(FMSJobsVM.SubRegion) HeaderText="Subregion" Width="130"></GridColumn>
+                                            <GridColumn Field=@nameof(FMSJobsVM.JobType) HeaderText="Type" Width="130"></GridColumn>
+                                            <GridColumn Field=@nameof(FMSJobsVM.LastUpdated) Format="dd/MM/yy hh:mm" Type="ColumnType.DateTime" HeaderText="Last Update" Width="130"></GridColumn>
+                                        </GridColumns>
+                                    </SfGrid>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <h5>Loading.....</h5>
+                }
+            </div>
+            <!--end::Body-->
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Container-->
+</div>
+@code {
+    public List<FMSJobsVM> JobsList { get; set; }
+    public List<FMSJobsVM> FilteredJobsList { get; set; }
+
+    public List<SelectListItem> regionsList { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> subRegionsList { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> vehiclesList { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> typesList { get; set; } = new List<SelectListItem>();
+    public FMSJobsVM Filter { get; set; } = new FMSJobsVM();
+    public void FilterData()
+    {
+        FilteredJobsList = JobsList
+    .Where(x => (string.IsNullOrEmpty(Filter.Region) || x.Region == Filter.Region))
+    .Where(x => (string.IsNullOrEmpty(Filter.SubRegion) || x.SubRegion == Filter.SubRegion))
+    .Where(x => (string.IsNullOrEmpty(Filter.VehicleNumber) || x.VehicleNumber == Filter.VehicleNumber))
+    .Where(x => (string.IsNullOrEmpty(Filter.JobType) || x.JobType == Filter.JobType))
+    .ToList();
+    }
+
+    public void ResetData()
+    {
+        Filter = new FMSJobsVM();
+        FilteredJobsList = JobsList;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        JobsList = (await Http.GetFromJsonAsync<List<FMSJobsVM>>("api/Jobs/All/Pending"))
+        .OrderByDescending(x => x.LastUpdated)
+        .ToList();
+        FilteredJobsList = JobsList;
+        regionsList = JobsList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        subRegionsList = JobsList.GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        vehiclesList = JobsList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        typesList = JobsList.GroupBy(x => x.JobType).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    #region Syncfusion
+
+    SfGrid<FMSJobsVM> JobsGrid;
+
+    public void JobsToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
+    {
+        if (args.Item.Id == "JobsGrid_pdfexport")
+        {
+            PdfExportProperties Props = new PdfExportProperties();
+            Props.PageOrientation = PageOrientation.Landscape;
+            Props.PageSize = PdfPageSize.A4;
+            this.JobsGrid.PdfExport(Props);
+        }
+        if (args.Item.Id == "JobsGrid_excelexport")
+        {
+            this.JobsGrid.ExcelExport();
+        }
+        if (args.Item.Id == "JobsGrid_csvexport")
+        {
+            this.JobsGrid.CsvExport();
+        }
+    }
+    #endregion
+}
