@@ -203,13 +203,13 @@ using SOS.FMS.Client.Components.IncidentalHistory;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 182 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Drivers.razor"
+#line 183 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Drivers.razor"
        
-    public List<FMSDriverVM> DriversList { get; set; }
+    public List<DriverVM> DriversList { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        DriversList = await Http.GetFromJsonAsync<List<FMSDriverVM>>("api/Drivers/FMS/All");
+        DriversList = await Http.GetFromJsonAsync<List<DriverVM>>("api/Drivers/FMS/All");
 
         await base.OnInitializedAsync();
     }
@@ -221,8 +221,8 @@ using SOS.FMS.Client.Components.IncidentalHistory;
 
     #region Syncfusion
 
-    SfGrid<FMSDriverVM> DriversGrid;
-    SfGrid<FMSDriverVM> ScoreCardsGrid;
+    SfGrid<DriverVM> DriversGrid;
+    SfGrid<DriverVM> ScoreCardsGrid;
 
     public void VehicleToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
     {

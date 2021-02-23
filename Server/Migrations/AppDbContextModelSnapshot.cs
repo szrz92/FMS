@@ -279,16 +279,16 @@ namespace SOS.FMS.Server.Migrations
                         {
                             Id = "c58e1a9d-1c28-46db-830a-7b3f0b9663f1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3ce32c28-363a-4163-9376-ec936adc304e",
+                            ConcurrencyStamp = "2ee9bc86-fe8f-41c9-9528-888e3172d9f1",
                             Email = "z.raza@batech.com.pk",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             Name = "Zain Raza",
                             NormalizedEmail = "Z.RAZA@BATECH.COM.PK",
                             NormalizedUserName = "Z.RAZA@BATECH.COM.PK",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGcE5aeS1g7bd8XRwuRqwESrYMcO9WEC21sqCA6sMHAiopGWLIiwoeEIsOXHwtDZXg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEK0uXwc1yg1yuyXGSwo3ccvPZjrgzizGh3qYzz23M3Aq0dSC+RDlT4fydylpqKatfg==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "4e798820-3ed2-4ac3-848a-e3d3533a3b57",
+                            SecurityStamp = "bcde8141-e841-4a85-a6d0-3a63dfd7ea57",
                             TwoFactorEnabled = false,
                             UserName = "z.raza@batech.com.pk"
                         });
@@ -300,197 +300,44 @@ namespace SOS.FMS.Server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("AddDate")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("Absents")
+                        .HasColumnType("int");
 
-                    b.Property<string>("AddId")
+                    b.Property<int>("Accidents")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IpAdd")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IpMod")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Emergencies")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("LastSync")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("ModDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ModId")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("XAccountNumber")
+                    b.Property<int>("Points")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Ranking")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Region")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("XAddress")
+                    b.Property<string>("SubRegion")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("XAdvLimit")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("Trips")
+                        .HasColumnType("int");
 
-                    b.Property<string>("XBankName")
+                    b.Property<string>("VehicleNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("XBankNameDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XBloodGroup")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XCadre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XCadreDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XCalculationMode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XCalculationModeDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XCard")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XCategory")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XCategoryDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XCity")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XCnic")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XContractDate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XDateOfBirth")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XDepartment")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XDepartmentDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XDesignation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XDesignationDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XEobi")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XExpiryDate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XFatherName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XGender")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XGrade")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XGradeDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XHusbandName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XJoiningDate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XLocation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XLocationDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("XNa1")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("XNa2")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("XNa3")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("XName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XNtn")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XOfficialEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XOfficialMobile")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XPayMode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("XPayRate")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("XPersonalEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XPersonalMobile")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XProject")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XProjectDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XReference1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XReference2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XReligion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XReligionDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XRemarks")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XSection")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XSectionDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XShift")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XShiftDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XSocialSecurity")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XStatus")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long?>("XrowId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Violations")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -927,53 +774,6 @@ namespace SOS.FMS.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FMSDailyMorningChecks");
-                });
-
-            modelBuilder.Entity("SOS.FMS.Server.Models.FMSDriver", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("DriverId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("DriverName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Inicidents")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("JoiningDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("LastSync")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Ranking")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Score")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Station")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TotalTrips")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Violations")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FMSDrivers");
                 });
 
             modelBuilder.Entity("SOS.FMS.Server.Models.FMSEmergency", b =>

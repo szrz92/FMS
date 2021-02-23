@@ -50,6 +50,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+
         [HttpGet("FMS/Demo/All")]
         public IActionResult GetAllDemoFMS()
         {
@@ -125,7 +130,7 @@ namespace SOS.FMS.Server.Controllers
                         Breakdowns = v.Breakdowns,
                         CostThisMonth = v.CostThisMonth,
                         DriverId = v.DriverId,
-                        DriverName = (from d in dbContext.FMSDrivers where d.Id == v.DriverId select d.DriverName).SingleOrDefault(),
+                        DriverName = (from d in dbContext.Drivers where d.Id == v.DriverId select d.Name).SingleOrDefault(),
                         Id = v.Id,
                         IMEI = v.IMEI,
                         Ranking = v.Ranking,
@@ -185,7 +190,7 @@ namespace SOS.FMS.Server.Controllers
                         Breakdowns = v.Breakdowns,
                         CostThisMonth = v.CostThisMonth,
                         DriverId = v.DriverId,
-                        DriverName = (from d in dbContext.FMSDrivers where d.Id == v.DriverId select d.DriverName).SingleOrDefault(),
+                        DriverName = (from d in dbContext.Drivers where d.Id == v.DriverId select d.Name).SingleOrDefault(),
                         Id = v.Id,
                         IMEI = v.IMEI,
                         Ranking = v.Ranking,
@@ -302,7 +307,7 @@ namespace SOS.FMS.Server.Controllers
                                                                   VehicleId = a.VehicleId,
                                                                   VehicleNumber = v.XDescription,
                                                                   DriverId = a.DriverId,
-                                                                  DriverName = d.XName,
+                                                                  DriverName = d.Name,
                                                                   TimeStamp = a.TimeStamp,
                                                                   Description = a.Description
                                                               }).ToListAsync();
@@ -340,7 +345,7 @@ namespace SOS.FMS.Server.Controllers
                                                                   VehicleId = a.VehicleId,
                                                                   VehicleNumber = v.XDescription,
                                                                   DriverId = a.DriverId,
-                                                                  DriverName = d.XName,
+                                                                  DriverName = d.Name,
                                                                   TimeStamp = a.TimeStamp,
                                                                   Description = a.Description
                                                               }).ToListAsync();

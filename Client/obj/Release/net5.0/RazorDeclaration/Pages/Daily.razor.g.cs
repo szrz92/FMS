@@ -196,7 +196,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 120 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Daily.razor"
+#line 123 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Daily.razor"
        
     public List<FMSDailyCheckListVM> DailyChecksList { get; set; }
     public List<FMSDailyCheckListVM> FilteredDailyChecksList { get; set; }
@@ -218,6 +218,27 @@ using Microsoft.AspNetCore.SignalR.Client;
         statusList = DailyChecksList.GroupBy(x => x.Status).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         vehiclesList = DailyChecksList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         await base.OnInitializedAsync();
+    }
+
+    public async Task OnRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        subRegionsList = DailyChecksList.Where(x => x.Region == args.Value).GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        statusList = DailyChecksList.Where(x => x.Region == args.Value).GroupBy(x => x.Status).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        vehiclesList = DailyChecksList.Where(x => x.Region == args.Value).GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        StateHasChanged();
+    }
+    public async Task OnSubRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        statusList = DailyChecksList.Where(x => x.Subregion == args.Value).GroupBy(x => x.Status).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        vehiclesList = DailyChecksList.Where(x => x.Subregion == args.Value).GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        StateHasChanged();
+    }
+    public async Task OnStatusChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        vehiclesList = DailyChecksList
+            .Where(x => x.Status == args.Value && (string.IsNullOrEmpty(Filter.Subregion) || x.Subregion == Filter.Subregion))
+            .GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        StateHasChanged();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

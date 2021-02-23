@@ -75,7 +75,7 @@ function setMarkers(dotNetObjectReference, data) {
                 + '<table class="table table-borderless">'
                 + '<tr><td>Driver Name :</td><td>' + feature.driverName + '</td></tr>'
                 + '<tr><td>Number of trips :</td><td>05</td></tr>'
-                + '<tr><td>Fuel Consumed :</td><td>10 Ltr</td></tr>'
+                //+ '<tr><td>Fuel Consumed :</td><td>10 Ltr</td></tr>'
                 + '<tr><td>KMs :</td><td>150 km</td></tr>'
                 + '<table>'
                 + '<p>Tyres replacement due in 500 KMs</p>'
@@ -123,38 +123,42 @@ function setMarkers(dotNetObjectReference, data) {
     };
 }
 function updateMarkerPositions(dotNetObjectReference, data) {
-    const legend = document.getElementById("legend");
-    map.controls[google.maps.ControlPosition.LEFT_BOTTOM].clear();
-    map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(legend);
+    try {
+        const legend = document.getElementById("legend");
+        map.controls[google.maps.ControlPosition.LEFT_BOTTOM].clear();
+        map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(legend);
 
-    const iconBase = "assets/icons/";
-    const icons = {
-        maintained: {
-            name: "Maintained",
-            color: "#00CB14",
-            icon: iconBase + "Maintained2x.png",
-        },
-        periodic: {
-            name: "Periodic",
-            color: "#FF6F00",
-            icon: iconBase + "Periodic2x.png",
-        },
-        emergency: {
-            name: "Emergency",
-            color: "#DFBB0B",
-            icon: iconBase + "Emergency2x.png",
-        },
-        accidental: {
-            name: "Accidental",
-            color: "#FF0000",
-            icon: iconBase + "Accidental2x.png",
-        },
-    };
+        const iconBase = "assets/icons/";
+        const icons = {
+            maintained: {
+                name: "Maintained",
+                color: "#00CB14",
+                icon: iconBase + "Maintained2x.png",
+            },
+            periodic: {
+                name: "Periodic",
+                color: "#FF6F00",
+                icon: iconBase + "Periodic2x.png",
+            },
+            emergency: {
+                name: "Emergency",
+                color: "#DFBB0B",
+                icon: iconBase + "Emergency2x.png",
+            },
+            accidental: {
+                name: "Accidental",
+                color: "#FF0000",
+                icon: iconBase + "Accidental2x.png",
+            },
+        };
 
-    for (var i = 0; i < data.length; i++)
-    {
-        markers[i].setOptions({ icon: { url: icons[data[i].type].icon, scaledSize: new google.maps.Size(60, 40)}  });
-        markers[i].setPosition(new google.maps.LatLng(data[i].latitude, data[i].longitude));
+        for (var i = 0; i < data.length; i++) {
+            markers[i].setOptions({ icon: { url: icons[data[i].type].icon, scaledSize: new google.maps.Size(60, 40) } });
+            markers[i].setPosition(new google.maps.LatLng(data[i].latitude, data[i].longitude));
+        }
+
+    } catch (e) {
+
     }
 }
 function updateMarkers(dotNetObjectReference, data) {
@@ -222,7 +226,7 @@ function updateMarkers(dotNetObjectReference, data) {
                 + '<table class="table table-borderless">'
                 + '<tr><td>Driver Name :</td><td>' + feature.driverName + '</td></tr>'
                 + '<tr><td>Number of trips :</td><td>05</td></tr>'
-                + '<tr><td>Fuel Consumed :</td><td>10 Ltr</td></tr>'
+                //+ '<tr><td>Fuel Consumed :</td><td>10 Ltr</td></tr>'
                 + '<tr><td>KMs :</td><td>150 km</td></tr>'
                 + '<table>'
                 + '<p>Tyres replacement due in 500 KMs</p>'

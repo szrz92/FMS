@@ -282,27 +282,36 @@ using Microsoft.AspNetCore.Authorization;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (!(await AuthenticationState).User.Identity.IsAuthenticated)
+        try
         {
-            navigationManager.NavigateTo("/login");
+            CurrentUser = (await authStateProvider.GetAuthenticationStateAsync()).User;
+            if (!CurrentUser.Identity.IsAuthenticated)
+            {
+                navigationManager.NavigateTo("/login");
+            }
+            else
+            {
+                CurrentUser = (await authStateProvider.GetAuthenticationStateAsync()).User;
+            }
+            if (firstRender)
+            {
+                await _jsRuntime.InvokeVoidAsync("initializeJs");
+            }
+            await base.OnAfterRenderAsync(firstRender);
         }
-        else
+        catch (Exception ex)
         {
-            CurrentUser = (await AuthenticationState).User;
+
+            throw;
         }
-        if (firstRender)
-        {
-            await _jsRuntime.InvokeVoidAsync("initializeJs");
-        }
-        await base.OnAfterRenderAsync(firstRender);
     }
-    protected override async Task OnParametersSetAsync()
-    {
-        if (!(await AuthenticationState).User.Identity.IsAuthenticated)
-        {
-            navigationManager.NavigateTo("/login");
-        }
-    }
+    //protected override async Task OnParametersSetAsync()
+    //{
+    //    if (!(await AuthenticationState).User.Identity.IsAuthenticated)
+    //    {
+    //        navigationManager.NavigateTo("/login");
+    //    }
+    //}
     async Task LogoutClick()
     {
         await authStateProvider.Logout();

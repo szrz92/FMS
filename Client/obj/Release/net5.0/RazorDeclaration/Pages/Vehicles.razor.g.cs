@@ -196,17 +196,13 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 195 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Vehicles.razor"
+#line 84 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Vehicles.razor"
        
-    public List<VehicleVM> VehiclesList { get; set; }
     public List<FMSVehicleVM> FMSVehiclesList { get; set; }
-    public List<FMSVehicleAccidentVM> AccidentsList { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        VehiclesList = await Http.GetFromJsonAsync<List<VehicleVM>>("api/Vehicles/All");
-        FMSVehiclesList = await Http.GetFromJsonAsync<List<FMSVehicleVM>>("api/Vehicles/FMS/All");
-        AccidentsList = await Http.GetFromJsonAsync<List<FMSVehicleAccidentVM>>("api/Vehicles/FMS/Accidents/All");
+        FMSVehiclesList = await Http.GetFromJsonAsync<List<FMSVehicleVM>>("api/Vehicles/FMS/Demo/All");
         await base.OnInitializedAsync();
     }
 
@@ -215,69 +211,6 @@ using Microsoft.AspNetCore.SignalR.Client;
         await base.OnAfterRenderAsync(firstRender);
     }
 
-    #region Syncfusion
-
-    SfGrid<VehicleVM> VehiclesGrid;
-    SfGrid<FMSVehicleAccidentVM> AccidentsGrid;
-    SfGrid<FMSVehicleVM> ScoreCardsGrid;
-
-    public void ToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
-    {
-        if (args.Item.Id == "Grid_pdfexport")
-        {
-            PdfExportProperties Props = new PdfExportProperties();
-            Props.PageOrientation = PageOrientation.Landscape;
-            Props.PageSize = PdfPageSize.A4;
-            this.VehiclesGrid.PdfExport(Props);
-        }
-        if (args.Item.Id == "Grid_excelexport")
-        {
-            this.VehiclesGrid.ExcelExport();
-        }
-        if (args.Item.Id == "Grid_csvexport")
-        {
-            this.VehiclesGrid.CsvExport();
-        }
-    }
-
-    public void AccidentToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
-    {
-        if (args.Item.Id == "AccidentsGrid_pdfexport")
-        {
-            PdfExportProperties Props = new PdfExportProperties();
-            Props.PageOrientation = PageOrientation.Landscape;
-            Props.PageSize = PdfPageSize.A4;
-            this.AccidentsGrid.PdfExport(Props);
-        }
-        if (args.Item.Id == "AccidentsGrid_excelexport")
-        {
-            this.AccidentsGrid.ExcelExport();
-        }
-        if (args.Item.Id == "AccidentsGrid_csvexport")
-        {
-            this.AccidentsGrid.CsvExport();
-        }
-    }
-
-    public void ScoreCardToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
-    {
-        if (args.Item.Id == "ScoreCardsGrid_pdfexport")
-        {
-            PdfExportProperties Props = new PdfExportProperties();
-            Props.PageOrientation = PageOrientation.Landscape;
-            Props.PageSize = PdfPageSize.A4;
-            this.ScoreCardsGrid.PdfExport(Props);
-        }
-        if (args.Item.Id == "ScoreCardsGrid_excelexport")
-        {
-            this.ScoreCardsGrid.ExcelExport();
-        }
-        if (args.Item.Id == "ScoreCardsGrid_csvexport")
-        {
-            this.ScoreCardsGrid.CsvExport();
-        }
-    }
-    #endregion
 
 #line default
 #line hidden

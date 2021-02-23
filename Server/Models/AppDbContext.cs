@@ -23,7 +23,6 @@ namespace SOS.FMS.Server.Models
         public DbSet<FMSVehicleAccident> FMSVehicleAccidents { get; set; }
         public DbSet<FMSVehicleScoreCard> FMSVehicleScoreCards { get; set; }
         public DbSet<Driver> Drivers { get; set; }
-        public DbSet<FMSDriver> FMSDrivers { get; set; }
         public DbSet<GBMSUser> GBMSUsers { get; set; }
         public DbSet<FMSAccident> FMSAccidents { get; set; }
         public DbSet<FMSAccidentalCheck> FMSAccidentalCheckList { get; set; }
@@ -35,8 +34,6 @@ namespace SOS.FMS.Server.Models
         public DbSet<FMSEmergencyCheckImage> FMSEmergencyCheckImages { get; set; }
         public DbSet<FMSDailyMorning> FMSDailyMorningChecks { get; set; }
         public DbSet<FMSDailyEvening> FMSDailyEveningChecks { get; set; }
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 

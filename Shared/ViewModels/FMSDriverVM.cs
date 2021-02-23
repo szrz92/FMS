@@ -6,18 +6,22 @@ using System.Threading.Tasks;
 
 namespace SOS.FMS.Shared.ViewModels
 {
-    public class FMSDriverVM
+    public class DriverVM
     {
-        public Guid DriverId { get; set; }
-        public string DriverName { get; set; }
-        public int TotalTrips { get; set; }
-        public string Location { get; set; }
-        public string Station { get; set; }
-        public string Status { get; set; }
-        public DateTime JoiningDate { get; set; }
-        public int Violations { get; set; }
-        public int Inicidents { get; set; }
-        public int Score { get; set; }
+        public Guid Id { get; set; }
+        public string Code { get; set; }
+        public string Name { get; set; }
+        public string VehicleNumber { get; set; }
+        public string Region { get; set; }
+        public string SubRegion { get; set; }
+        public int Trips { get; set; }
+        public int Points { get; set; }
+        public int Accidents { get; set; }
+        public int Emergencies { get; set; }
+        public int Incidents { get { return Accidents + Emergencies; } }
+        public int Absents { get; set; }
         public int Ranking { get; set; }
+        public bool Status { get; set; }
+        public int Violations { get; set; }
     }
 }

@@ -195,7 +195,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 98 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Users\EditUser.razor"
+#line 110 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Users\EditUser.razor"
        
     [Parameter]
     public bool Visible { get; set; }

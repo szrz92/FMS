@@ -15,6 +15,7 @@ using SOS.FMS.Server.GBMSModels;
 using SOS.FMS.Server.Models;
 using SOS.FMS.Shared;
 using SOS.FMS.Shared.Traccar;
+using SOS.FMS.Shared.Traccar.DeviceResponse;
 
 namespace SOS.FMS.Server.Services
 {
@@ -48,34 +49,32 @@ namespace SOS.FMS.Server.Services
                 SyncTraccarDevices().Wait();
                 var context = scope.ServiceProvider.GetService<SOS_VIEWSContext>();
 
-                var users = (from u in context.PayEmployeeMasters select u).ToList();
-                SyncUsers(users, scope);
+                //var users = (from u in context.PayEmployeeMasters select u).ToList();
+                //SyncUsers(users, scope);
 
-                var regions = (from r in context.RbRegions select r).ToList();
-                SyncRegions(regions, scope);
+                //var regions = (from r in context.RbRegions select r).ToList();
+                //SyncRegions(regions, scope);
 
-                var subregions = (from s in context.RbSubRegions select s).ToList();
-                SyncSubRegions(subregions, scope);
+                //var subregions = (from s in context.RbSubRegions select s).ToList();
+                //SyncSubRegions(subregions, scope);
 
-                var vehicles = (from v in context.RbVehicles select v).ToList();
-                SyncVehicles(vehicles, scope);
+                //var vehicles = (from v in context.RbVehicles select v).ToList();
+                //SyncVehicles(vehicles, scope);
 
-                var vehicletypes = (from t in context.RbVehicleTypes select t).ToList();
-                SyncVehicleTypes(vehicletypes, scope);
+                //var vehicletypes = (from t in context.RbVehicleTypes select t).ToList();
+                //SyncVehicleTypes(vehicletypes, scope);
 
-                var zones = (from z in context.RbZones select z).ToList();
-                SyncZones(zones, scope);
+                //var zones = (from z in context.RbZones select z).ToList();
+                //SyncZones(zones, scope);
 
-                var stations = (from s in context.RbStations select s).ToList();
-                SyncStations(stations, scope);
+                //var stations = (from s in context.RbStations select s).ToList();
+                //SyncStations(stations, scope);
 
-                List<string> driverDesignations = new List<string>() { "303", "305", "306", "311", "313", "314" };
                 var drivers = (from d in context.PdwEmployeeMasters 
-                               where driverDesignations.Contains(d.XDesignation)
+                               where d.XDesignationDescription.Contains("river")
                                select d).ToList();
-                SyncDrivers(drivers, scope);
 
-                SyncFMSDrivers(scope);
+                SyncDrivers(drivers, scope);
 
                 PrepareDailyCheckLists(scope).Wait();
             }
@@ -560,181 +559,38 @@ namespace SOS.FMS.Server.Services
             var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             foreach (var item in drivers)
             {
-                var driver = (from s in context.Drivers where s.XCode == item.XCode select s).FirstOrDefault();
+                var region = (from s in context.SubRegions where item.XLocationDescription.Contains(s.XDescription) select s.XRegionDescription).FirstOrDefault();
+                var subregion = (from s in context.SubRegions where item.XLocationDescription.Contains(s.XDescription) select s.XDescription).FirstOrDefault();
+
+                var driver = (from s in context.Drivers where s.Code == item.XCode select s).FirstOrDefault();
+
                 if (driver == null)
                 {
                     driver = new Driver()
                     {
                         Id = Guid.NewGuid(),
-                        AddDate = item.AddDate,
-                        AddId = item.AddId,
-                        IpAdd = item.IpAdd,
-                        IpMod = item.IpMod,
-                        ModDate = item.ModDate,
-                        ModId = item.ModId,
-                        XCode = item.XCode,
-                        XRemarks = item.XRemarks,
-                        XrowId = item.XrowId,
-                        XAccountNumber = item.XAccountNumber,
-                        XAddress = item.XAddress,
-                        XAdvLimit = item.XAdvLimit,
-                        XBankName = item.XBankName,
-                        XBankNameDescription = item.XBankNameDescription,
-                        XBloodGroup = item.XBloodGroup,
-                        XCadre = item.XCadre,
-                        XCadreDescription = item.XCadreDescription,
-                        XCalculationMode = item.XCalculationMode,
-                        XCalculationModeDescription = item.XCalculationModeDescription,
-                        XCard = item.XCard,
-                        XCategory = item.XCategory,
-                        XCategoryDescription = item.XCategoryDescription,
-                        XCity = item.XCity,
-                        XCnic = item.XCnic,
-                        XContractDate = item.XContractDate,
-                        XDateOfBirth = item.XDateOfBirth,
-                        XDepartment = item.XDepartment,
-                        XDepartmentDescription = item.XDepartmentDescription,
-                        XDesignation = item.XDesignation,
-                        XDesignationDescription = item.XDesignationDescription,
-                        XEobi = item.XEobi,
-                        XExpiryDate = item.XExpiryDate,
-                        XFatherName = item.XFatherName,
-                        XGender = item.XGender,
-                        XGrade = item.XGrade,
-                        XGradeDescription = item.XGradeDescription,
-                        XHusbandName = item.XHusbandName,
-                        XJoiningDate = item.XJoiningDate,
-                        XLocation = item.XLocation,
-                        XLocationDescription = item.XLocationDescription,
-                        XNa1 = item.XNa1,
-                        XNa2 = item.XNa2,
-                        XNa3 = item.XNa3,
-                        XName = item.XName,
-                        XNtn = item.XNtn,
-                        XOfficialEmail = item.XOfficialEmail,
-                        XOfficialMobile = item.XOfficialMobile,
-                        XPayMode = item.XPayMode,
-                        XPayRate = item.XPayRate,
-                        XPersonalEmail = item.XPersonalEmail,
-                        XPersonalMobile = item.XPersonalMobile,
-                        XProject = item.XProject,
-                        XProjectDescription = item.XProjectDescription,
-                        XReference1 = item.XReference1,
-                        XReference2 = item.XReference2,
-                        XReligion = item.XReligion,
-                        XReligionDescription = item.XReligionDescription,
-                        XSection = item.XSection,
-                        XSectionDescription = item.XSectionDescription,
-                        XShift = item.XShift,
-                        XShiftDescription = item.XShiftDescription,
-                        XSocialSecurity = item.XSocialSecurity,
-                        XStatus = item.XStatus,
-                        LastSync = DateTime.UtcNow
+                        Name = item.XName,
+                        Code = item.XCode,
+                        Absents = 0,
+                        Accidents = 0,
+                        Emergencies = 0,
+                        Points = 0,
+                        Trips = 0,
+                        VehicleNumber = "",
+                        Region = region,
+                        SubRegion = subregion,
+                        Ranking = 0,
+                        Violations = 0,
+                        LastSync = PakistanDateTime.Now
                     };
                     context.Drivers.Add(driver);
                 }
                 else
                 {
-                    driver.AddDate = item.AddDate;
-                    driver.AddId = item.AddId;
-                    driver.IpAdd = item.IpAdd;
-                    driver.IpMod = item.IpMod;
-                    driver.ModDate = item.ModDate;
-                    driver.ModId = item.ModId;
-                    driver.XRemarks = item.XRemarks;
-                    driver.XrowId = item.XrowId;
-                    driver.XAccountNumber = item.XAccountNumber;
-                    driver.XAddress = item.XAddress;
-                    driver.XAdvLimit = item.XAdvLimit;
-                    driver.XBankName = item.XBankName;
-                    driver.XBankNameDescription = item.XBankNameDescription;
-                    driver.XBloodGroup = item.XBloodGroup;
-                    driver.XCadre = item.XCadre;
-                    driver.XCadreDescription = item.XCadreDescription;
-                    driver.XCalculationMode = item.XCalculationMode;
-                    driver.XCalculationModeDescription = item.XCalculationModeDescription;
-                    driver.XCard = item.XCard;
-                    driver.XCategory = item.XCategory;
-                    driver.XCategoryDescription = item.XCategoryDescription;
-                    driver.XCity = item.XCity;
-                    driver.XCnic = item.XCnic;
-                    driver.XContractDate = item.XContractDate;
-                    driver.XDateOfBirth = item.XDateOfBirth;
-                    driver.XDepartment = item.XDepartment;
-                    driver.XDepartmentDescription = item.XDepartmentDescription;
-                    driver.XDesignation = item.XDesignation;
-                    driver.XDesignationDescription = item.XDesignationDescription;
-                    driver.XEobi = item.XEobi;
-                    driver.XExpiryDate = item.XExpiryDate;
-                    driver.XFatherName = item.XFatherName;
-                    driver.XGender = item.XGender;
-                    driver.XGrade = item.XGrade;
-                    driver.XGradeDescription = item.XGradeDescription;
-                    driver.XHusbandName = item.XHusbandName;
-                    driver.XJoiningDate = item.XJoiningDate;
-                    driver.XLocation = item.XLocation;
-                    driver.XLocationDescription = item.XLocationDescription;
-                    driver.XNa1 = item.XNa1;
-                    driver.XNa2 = item.XNa2;
-                    driver.XNa3 = item.XNa3;
-                    driver.XName = item.XName;
-                    driver.XNtn = item.XNtn;
-                    driver.XOfficialEmail = item.XOfficialEmail;
-                    driver.XOfficialMobile = item.XOfficialMobile;
-                    driver.XPayMode = item.XPayMode;
-                    driver.XPayRate = item.XPayRate;
-                    driver.XPersonalEmail = item.XPersonalEmail;
-                    driver.XPersonalMobile = item.XPersonalMobile;
-                    driver.XProject = item.XProject;
-                    driver.XProjectDescription = item.XProjectDescription;
-                    driver.XReference1 = item.XReference1;
-                    driver.XReference2 = item.XReference2;
-                    driver.XReligion = item.XReligion;
-                    driver.XReligionDescription = item.XReligionDescription;
-                    driver.XSection = item.XSection;
-                    driver.XSectionDescription = item.XSectionDescription;
-                    driver.XShift = item.XShift;
-                    driver.XShiftDescription = item.XShiftDescription;
-                    driver.XSocialSecurity = item.XSocialSecurity;
-                    driver.XStatus = item.XStatus;
-                    driver.LastSync = DateTime.UtcNow;
-                }
-            }
-            context.SaveChanges();
-            return Task.CompletedTask;
-        }
-        public Task SyncFMSDrivers(IServiceScope scope)
-        {
-            var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-            var drivers = (from d in context.Drivers select d).ToList();
-            foreach (var item in drivers)
-            {
-                var driver = (from s in context.FMSDrivers where s.DriverId == item.Id select s).FirstOrDefault();
-                if (driver == null)
-                {
-                    driver = new FMSDriver()
-                    {
-                        Id = Guid.NewGuid(),
-                        DriverId = item.Id,
-                        DriverName = item.XName,
-                        JoiningDate = DateTime.ParseExact(item.XJoiningDate, "dd-MM-yyyy", CultureInfo.InvariantCulture),
-                        Location = item.XLocationDescription,
-                        Station = item.XSectionDescription,
-                        Status = "OnDuty",
-                        TotalTrips = 0,
-                        LastSync = DateTime.UtcNow
-                    };
-                    context.FMSDrivers.Add(driver);
-                }
-                else
-                {
-                    driver.DriverName = item.XName;
-                    driver.JoiningDate = DateTime.ParseExact(item.XJoiningDate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                    driver.Location = item.XLocationDescription;
-                    driver.Station = item.XSectionDescription;
-                    driver.Status = "OnDuty";
-                    driver.TotalTrips = 0;
-                    driver.LastSync = DateTime.UtcNow;
+                    driver.Name = item.XName;
+                    driver.Region = region;
+                    driver.SubRegion = region;
+                    driver.LastSync = PakistanDateTime.Now;
                 }
             }
             context.SaveChanges();
@@ -771,10 +627,10 @@ namespace SOS.FMS.Server.Services
                                        where s.Id == vehicle.SubRegion
                                        select s).SingleOrDefault();
                 string DriverName = (from f in dbContext.FMSVehiclesDev
-                                     join d in dbContext.FMSDrivers on f.DriverId equals d.Id
+                                     join d in dbContext.Drivers on f.DriverId equals d.Id
                                      join v in dbContext.Vehicles on f.VehicleId equals v.Id
                                      where v.XDescription == vehicleNumber
-                                     select d.DriverName).SingleOrDefault();
+                                     select d.Name).SingleOrDefault();
                 IEnumerable<FMSDailyMorning> fMSDailyMornings = from m in dbContext.FMSDailyMorningChecks where m.VehicleNumber == vehicleNumber && m.LastUpdated.Date == (PakistanDateTime.Today) select m;
                 if (!fMSDailyMornings.Any())
                 {

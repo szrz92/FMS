@@ -25,7 +25,7 @@ namespace SOS.FMS.Server.Controllers
         {
             try
             {
-                List<FMSDriverVM> rbVehicles = await (from fd in dbContext.FMSDrivers
+                List<DriverVM> rbVehicles = await (from fd in dbContext.Drivers
                                                       select ModelService.FMSDriverViewModel(fd)).ToListAsync();
                 return Ok(rbVehicles);
             }

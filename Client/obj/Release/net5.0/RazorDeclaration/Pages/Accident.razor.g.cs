@@ -187,6 +187,13 @@ using Microsoft.AspNetCore.SignalR.Client;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 4 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Accident.razor"
+using SOS.FMS.Client.Components.IncidentalHistory;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/Accident")]
     public partial class Accident : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -196,42 +203,11 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 121 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Accident.razor"
+#line 43 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Accident.razor"
        
-    public List<FMSAccidentVM> AccidentsList { get; set; }
-    public List<FMSAccidentVM> FilteredAccidentsList { get; set; }
-
-    public List<SelectListItem> regionsList { get; set; } = new List<SelectListItem>();
-    public List<SelectListItem> subRegionsList { get; set; } = new List<SelectListItem>();
-    public List<SelectListItem> statusList { get; set; } = new List<SelectListItem>();
-    public List<SelectListItem> vehiclesList { get; set; } = new List<SelectListItem>();
-    public FMSAccidentVM Filter { get; set; } = new FMSAccidentVM();
-    public void FilterData()
-    {
-        FilteredAccidentsList = AccidentsList
-        .Where(x => (string.IsNullOrEmpty(Filter.Region) || x.Region == Filter.Region))
-        .Where(x => (string.IsNullOrEmpty(Filter.SubRegion) || x.SubRegion == Filter.SubRegion))
-        .Where(x => (string.IsNullOrEmpty(Filter.MaintenanceStatus) || x.MaintenanceStatus == Filter.MaintenanceStatus))
-        .Where(x => (string.IsNullOrEmpty(Filter.VehicleNumber) || x.VehicleNumber == Filter.VehicleNumber))
-        .ToList();
-    }
-
-    public void ResetData()
-    {
-        Filter = new FMSAccidentVM();
-        FilteredAccidentsList = AccidentsList;
-    }
 
     protected override async Task OnInitializedAsync()
     {
-        AccidentsList = (await Http.GetFromJsonAsync<List<FMSAccidentVM>>("api/Accident/All"))
-            .OrderByDescending(x => x.LastUpdated)
-            .ToList();
-        FilteredAccidentsList = AccidentsList;
-        regionsList = AccidentsList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        subRegionsList = AccidentsList.GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        statusList = AccidentsList.GroupBy(x => x.MaintenanceStatus).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        vehiclesList = AccidentsList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         await base.OnInitializedAsync();
     }
 
@@ -239,30 +215,6 @@ using Microsoft.AspNetCore.SignalR.Client;
     {
         await base.OnAfterRenderAsync(firstRender);
     }
-
-    #region Syncfusion
-
-    SfGrid<FMSAccidentVM> AccidentsGrid;
-
-    public void AccidentToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
-    {
-        if (args.Item.Id == "AccidentsGrid_pdfexport")
-        {
-            PdfExportProperties Props = new PdfExportProperties();
-            Props.PageOrientation = PageOrientation.Landscape;
-            Props.PageSize = PdfPageSize.A4;
-            this.AccidentsGrid.PdfExport(Props);
-        }
-        if (args.Item.Id == "AccidentsGrid_excelexport")
-        {
-            this.AccidentsGrid.ExcelExport();
-        }
-        if (args.Item.Id == "AccidentsGrid_csvexport")
-        {
-            this.AccidentsGrid.CsvExport();
-        }
-    }
-    #endregion
 
 #line default
 #line hidden

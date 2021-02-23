@@ -216,13 +216,16 @@ using Microsoft.AspNetCore.SignalR.Client;
         Count = await Http.GetStringAsync("api/Jobs/All/Completed/SinceLastMonth");
         StateHasChanged();
     }
-
+    public void Navigation()
+    {
+        navigationManager.ToAbsoluteUri("/CompletedJobs");
+    }
 
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private HttpClient Http { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private HttpClient Http { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private INotificationService NotificationService { get; set; }
     }
 }

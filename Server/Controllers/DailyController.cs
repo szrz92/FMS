@@ -54,10 +54,10 @@ namespace SOS.FMS.Server.Controllers
                                                where s.Id == vehicle.SubRegion
                                                select s).SingleOrDefault();
                         string DriverName = (from f in dbContext.FMSVehiclesDev
-                                             join d in dbContext.FMSDrivers on f.DriverId equals d.Id
+                                             join d in dbContext.Drivers on f.DriverId equals d.Id
                                              join v in dbContext.Vehicles on f.VehicleId equals v.Id
                                              where v.XDescription == vehicleNumber
-                                             select d.DriverName).SingleOrDefault();
+                                             select d.Name).SingleOrDefault();
                         FMSDailyMorning dailyMorning = new FMSDailyMorning();
                         dailyMorning.Id = Guid.NewGuid();
                         dailyMorning.LastUpdated = PakistanDateTime.Now;
@@ -94,10 +94,10 @@ namespace SOS.FMS.Server.Controllers
                                                where s.Id == vehicle.SubRegion
                                                select s).SingleOrDefault();
                         string DriverName = (from f in dbContext.FMSVehiclesDev
-                                             join d in dbContext.FMSDrivers on f.DriverId equals d.Id
+                                             join d in dbContext.Drivers on f.DriverId equals d.Id
                                              join v in dbContext.Vehicles on f.VehicleId equals v.Id
                                              where v.XDescription == vehicleNumber
-                                             select d.DriverName).SingleOrDefault();
+                                             select d.Name).SingleOrDefault();
                         FMSDailyEvening dailyEvening = new FMSDailyEvening();
                         dailyEvening.Id = Guid.NewGuid();
                         dailyEvening.LastUpdated = PakistanDateTime.Now;
@@ -148,10 +148,10 @@ namespace SOS.FMS.Server.Controllers
                                            where s.Id == vehicle.SubRegion
                                            select s).SingleOrDefault();
                     string DriverName = (from f in dbContext.FMSVehiclesDev
-                                         join d in dbContext.FMSDrivers on f.DriverId equals d.Id
+                                         join d in dbContext.Drivers on f.DriverId equals d.Id
                                          join v in dbContext.Vehicles on f.VehicleId equals v.Id
                                          where v.XDescription == request.VehicleNumber
-                                         select d.DriverName).SingleOrDefault();
+                                         select d.Name).SingleOrDefault();
                     FMSDailyMorning dailyMorning = new FMSDailyMorning();
                     dailyMorning.Id = Guid.NewGuid();
                     dailyMorning.LastUpdated = PakistanDateTime.Now;
@@ -188,10 +188,10 @@ namespace SOS.FMS.Server.Controllers
                                            where s.Id == vehicle.SubRegion
                                            select s).SingleOrDefault();
                     string DriverName = (from f in dbContext.FMSVehiclesDev
-                                         join d in dbContext.FMSDrivers on f.DriverId equals d.Id
+                                         join d in dbContext.Drivers on f.DriverId equals d.Id
                                          join v in dbContext.Vehicles on f.VehicleId equals v.Id
                                          where v.XDescription == request.VehicleNumber
-                                         select d.DriverName).SingleOrDefault();
+                                         select d.Name).SingleOrDefault();
                     FMSDailyEvening dailyEvening = new FMSDailyEvening();
                     dailyEvening.Id = Guid.NewGuid();
                     dailyEvening.LastUpdated = PakistanDateTime.Now;

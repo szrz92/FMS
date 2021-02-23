@@ -93,21 +93,21 @@ namespace SOS.FMS.Server.Services
         }
         #endregion
         #region Driver
-        public static FMSDriverVM FMSDriverViewModel(FMSDriver fd)
+        public static DriverVM FMSDriverViewModel(Driver d)
         {
-            return new FMSDriverVM()
+            return new DriverVM()
             {
-                DriverId = fd.DriverId,
-                DriverName = fd.DriverName,
-                JoiningDate = fd.JoiningDate,
-                Location = fd.Location,
-                Station = fd.Station,
-                Status = fd.Status,
-                TotalTrips = fd.TotalTrips,
-                Inicidents = fd.Inicidents,
-                Ranking = fd.Ranking,
-                Score = fd.Score,
-                Violations = fd.Violations
+                Id = d.Id,
+                Name = d.Name,
+                Code = d.Code,
+                Absents = d.Absents,
+                Accidents = d.Accidents,
+                Emergencies = d.Emergencies,
+                Points = d.Points,
+                Region = d.Region,
+                SubRegion = d.SubRegion,
+                Trips = d.Trips,
+                VehicleNumber = d.VehicleNumber
             };
         }
         #endregion

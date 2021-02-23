@@ -31,7 +31,7 @@ namespace SOS.FMS.Server.Controllers
                 if (User.IsInRole("SA") || User.IsInRole("HMT"))
                 {
                     emergencyList = await (from e in dbContext.FMSEmergencies
-                                         join d in dbContext.FMSDrivers on e.DriverId equals d.Id
+                                         join d in dbContext.Drivers on e.DriverId equals d.Id
                                          join r in dbContext.Regions on e.RegionId equals r.Id
                                          join s in dbContext.SubRegions on e.SubRegionId equals s.Id
                                          join v in dbContext.FMSVehiclesDev on e.FMSVehicleId equals v.Id
@@ -40,7 +40,7 @@ namespace SOS.FMS.Server.Controllers
                                          {
                                              Id = e.Id,
                                              Description = e.Description,
-                                             Driver = d.DriverName,
+                                             Driver = d.Name,
                                              Region = r.XDescription,
                                              SubRegion = s.XDescription,
                                              VehicleNumber = gv.XDescription,
@@ -57,7 +57,7 @@ namespace SOS.FMS.Server.Controllers
                     Region region = (from r in dbContext.Regions where r.XDescription == user.Region select r).FirstOrDefault();
 
                     emergencyList = await (from e in dbContext.FMSEmergencies
-                                           join d in dbContext.FMSDrivers on e.DriverId equals d.Id
+                                           join d in dbContext.Drivers on e.DriverId equals d.Id
                                            join r in dbContext.Regions on e.RegionId equals r.Id
                                            join s in dbContext.SubRegions on e.SubRegionId equals s.Id
                                            join v in dbContext.FMSVehiclesDev on e.FMSVehicleId equals v.Id
@@ -67,7 +67,7 @@ namespace SOS.FMS.Server.Controllers
                                            {
                                                Id = e.Id,
                                                Description = e.Description,
-                                               Driver = d.DriverName,
+                                               Driver = d.Name,
                                                Region = r.XDescription,
                                                SubRegion = s.XDescription,
                                                VehicleNumber = gv.XDescription,

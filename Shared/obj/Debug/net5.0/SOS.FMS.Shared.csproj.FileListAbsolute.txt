@@ -49,7 +49,6 @@ C:\Users\BA Tech\source\repos\sosfms\Shared\bin\Debug\net5.0\SOS.FMS.Shared.deps
 C:\Users\BA Tech\source\repos\sosfms\Shared\bin\Debug\net5.0\SOS.FMS.Shared.dll
 C:\Users\BA Tech\source\repos\sosfms\Shared\bin\Debug\net5.0\ref\SOS.FMS.Shared.dll
 C:\Users\BA Tech\source\repos\sosfms\Shared\bin\Debug\net5.0\SOS.FMS.Shared.pdb
-C:\Users\BA Tech\source\repos\sosfms\Shared\obj\Debug\net5.0\SOS.FMS.Shared.csprojAssemblyReference.cache
 C:\Users\BA Tech\source\repos\sosfms\Shared\obj\Debug\net5.0\SOS.FMS.Shared.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\BA Tech\source\repos\sosfms\Shared\obj\Debug\net5.0\SOS.FMS.Shared.AssemblyInfoInputs.cache
 C:\Users\BA Tech\source\repos\sosfms\Shared\obj\Debug\net5.0\SOS.FMS.Shared.AssemblyInfo.cs
@@ -57,3 +56,4 @@ C:\Users\BA Tech\source\repos\sosfms\Shared\obj\Debug\net5.0\SOS.FMS.Shared.cspr
 C:\Users\BA Tech\source\repos\sosfms\Shared\obj\Debug\net5.0\SOS.FMS.Shared.dll
 C:\Users\BA Tech\source\repos\sosfms\Shared\obj\Debug\net5.0\ref\SOS.FMS.Shared.dll
 C:\Users\BA Tech\source\repos\sosfms\Shared\obj\Debug\net5.0\SOS.FMS.Shared.pdb
+C:\Users\BA Tech\source\repos\sosfms\Shared\obj\Debug\net5.0\SOS.FMS.Shared.csprojAssemblyReference.cache

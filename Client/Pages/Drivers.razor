@@ -83,25 +83,27 @@
                                                     Height="650" RowHeight="38"
                                                     Toolbar="@(new List<string>() { "ExcelExport", "CsvExport", "PdfExport" })"
                                                     AllowExcelExport="true" AllowPdfExport="true">
-                                                <GridPageSettings PageCount="5" PageSize="10" PageSizes="new int[]{ 5, 10, 20, 50, 100 }"></GridPageSettings>
+                                                <GridPageSettings PageCount="5" PageSize="20" PageSizes="new int[]{ 5, 10, 20, 50, 100 }"></GridPageSettings>
                                                 <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Menu"></GridFilterSettings>
-                                                <GridSelectionSettings CheckboxOnly="true" PersistSelection="true" Type="SelectionType.Multiple"></GridSelectionSettings><GridEvents OnToolbarClick="VehicleToolbarClick" TValue="FMSDriverVM"></GridEvents>
+                                                <GridSelectionSettings CheckboxOnly="true" PersistSelection="true" Type="SelectionType.Multiple"></GridSelectionSettings>
+                                                <GridEvents OnToolbarClick="VehicleToolbarClick" TValue="DriverVM"></GridEvents>
                                                 <GridColumns>
-                                                    <GridColumn Field=@nameof(FMSDriverVM.DriverName) HeaderText="Name" Width="130">
+                                                    <GridColumn Field=@nameof(DriverVM.Name) HeaderText="Name" Width="130">
                                                         <HeaderTemplate>
                                                             <div>
                                                                 <span class="pl-2"></span> Driver Name
                                                             </div>
                                                         </HeaderTemplate>
                                                     </GridColumn>
-                                                    <GridColumn Field=@nameof(FMSDriverVM.TotalTrips) HeaderText="Total Trips" Width="130"></GridColumn>
-                                                    <GridColumn Field=@nameof(FMSDriverVM.Station) HeaderText="Station" Width="130"></GridColumn>
-                                                    <GridColumn Field=@nameof(FMSDriverVM.Location) HeaderText="Location" Width="130"></GridColumn>
-                                                    <GridColumn Field=@nameof(FMSDriverVM.Status) HeaderText="Status" Width="130">
+                                                    <GridColumn Field=@nameof(DriverVM.VehicleNumber) HeaderText="Vehicle Number" Width="130"></GridColumn>
+                                                    <GridColumn Field=@nameof(DriverVM.Trips) HeaderText="Total Trips" Width="130"></GridColumn>
+                                                    <GridColumn Field=@nameof(DriverVM.Region) HeaderText="Region" Width="130"></GridColumn>
+                                                    <GridColumn Field=@nameof(DriverVM.SubRegion) HeaderText="SubRegion" Width="130"></GridColumn>
+                                                    <GridColumn Field=@nameof(DriverVM.Status) HeaderText="Status" Width="130">
                                                         <Template>
                                                             @{
-                                                                var driverdata = (context as FMSDriverVM);
-                                                                if (driverdata.Status == "OnDuty")
+                                                                var driverdata = (context as DriverVM);
+                                                                if (driverdata.Status)
                                                                 {
                                                                     <a class="btn btn-success btn-sm btn-shadow font-weight-bold mr-2">On Duty</a>
                                                                 }
@@ -112,7 +114,6 @@
                                                             }
                                                         </Template>
                                                     </GridColumn>
-                                                    <GridColumn Field=@nameof(FMSDriverVM.JoiningDate) HeaderText="Joining Date" Width="130"></GridColumn>
                                                 </GridColumns>
                                             </SfGrid>
                                         </div>
@@ -145,19 +146,19 @@
                                                     AllowExcelExport="true" AllowPdfExport="true">
                                                 <GridPageSettings PageCount="5" PageSize="10" PageSizes="new int[]{ 5, 10, 20, 50, 100 }"></GridPageSettings>
                                                 <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Menu"></GridFilterSettings>
-                                                <GridSelectionSettings CheckboxOnly="true" PersistSelection="true" Type="SelectionType.Multiple"></GridSelectionSettings><GridEvents OnToolbarClick="VehicleToolbarClick" TValue="FMSDriverVM"></GridEvents>
+                                                <GridSelectionSettings CheckboxOnly="true" PersistSelection="true" Type="SelectionType.Multiple"></GridSelectionSettings><GridEvents OnToolbarClick="VehicleToolbarClick" TValue="DriverVM"></GridEvents>
                                                 <GridColumns>
-                                                    <GridColumn Field=@nameof(FMSDriverVM.DriverName) HeaderText="Name" Width="130">
+                                                    <GridColumn Field=@nameof(DriverVM.Name) HeaderText="Name" Width="130">
                                                         <HeaderTemplate>
                                                             <div>
                                                                 <span class="pl-2"></span> Driver Name
                                                             </div>
                                                         </HeaderTemplate>
                                                     </GridColumn>
-                                                    <GridColumn Field=@nameof(FMSDriverVM.Violations) HeaderText="Total Violations" Width="130"></GridColumn>
-                                                    <GridColumn Field=@nameof(FMSDriverVM.Inicidents) HeaderText="Total Incidents" Width="130"></GridColumn>
-                                                    <GridColumn Field=@nameof(FMSDriverVM.Score) HeaderText="Score" Width="130"></GridColumn>
-                                                    <GridColumn Field=@nameof(FMSDriverVM.Ranking) HeaderText="Ranking" Width="130"></GridColumn>
+                                                    <GridColumn Field=@nameof(DriverVM.Violations) HeaderText="Total Violations" Width="130"></GridColumn>
+                                                    <GridColumn Field=@nameof(DriverVM.Incidents) HeaderText="Total Incidents" Width="130"></GridColumn>
+                                                    <GridColumn Field=@nameof(DriverVM.Points) HeaderText="Score" Width="130"></GridColumn>
+                                                    <GridColumn Field=@nameof(DriverVM.Ranking) HeaderText="Ranking" Width="130"></GridColumn>
                                                 </GridColumns>
                                             </SfGrid>
                                         </div>
@@ -180,11 +181,11 @@
 </div>
 
 @code {
-    public List<FMSDriverVM> DriversList { get; set; }
+    public List<DriverVM> DriversList { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        DriversList = await Http.GetFromJsonAsync<List<FMSDriverVM>>("api/Drivers/FMS/All");
+        DriversList = await Http.GetFromJsonAsync<List<DriverVM>>("api/Drivers/FMS/All");
 
         await base.OnInitializedAsync();
     }
@@ -196,8 +197,8 @@
 
     #region Syncfusion
 
-    SfGrid<FMSDriverVM> DriversGrid;
-    SfGrid<FMSDriverVM> ScoreCardsGrid;
+    SfGrid<DriverVM> DriversGrid;
+    SfGrid<DriverVM> ScoreCardsGrid;
 
     public void VehicleToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
     {

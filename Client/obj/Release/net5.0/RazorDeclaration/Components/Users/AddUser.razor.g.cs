@@ -195,7 +195,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 104 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Users\AddUser.razor"
+#line 121 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Users\AddUser.razor"
        
     [Parameter]
     public bool Visible { get; set; }
@@ -210,14 +210,26 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     public List<GBMSUserVM> UsersList { get; set; }
 
+    public List<GBMSUserVM> FilteredUsersList { get; set; }
+
     public List<FMSRoleVM> RolesList { get; set; }
+
+    public List<SelectListItem> RegionsList = new List<SelectListItem>();
+
+    public List<SelectListItem> SubRegions = new List<SelectListItem>();
 
     protected override async Task OnInitializedAsync()
     {
         UsersList = (await Http.GetFromJsonAsync<List<GBMSUserVM>>("api/Users/GBMS/All"))
                             .ToList();
+        FilteredUsersList = UsersList;
         RolesList = (await Http.GetFromJsonAsync<List<FMSRoleVM>>("api/Auth/FMSRoles"))
+                        .ToList();
+        RegionsList = UsersList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
                             .ToList();
+        SubRegions = UsersList.GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
+                        .ToList();
+
         await base.OnInitializedAsync();
     }
 
@@ -259,11 +271,26 @@ using Microsoft.AspNetCore.SignalR.Client;
         return OnVisibilityChanged.InvokeAsync(false);
     }
 
+    public async Task OnRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        SubRegions = UsersList.Where(x => x.Region == args.Value).GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
+                        .ToList();
+        FilteredUsersList = UsersList.Where(x => x.Region == args.Value).ToList();
+        StateHasChanged();
+    }
+    public async Task OnSubRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        ApplicationUser.Region = UsersList.Where(x => x.SubRegion == args.Value).FirstOrDefault().Region;
+        FilteredUsersList = UsersList.Where(x => x.SubRegion == args.Value).ToList();
+    }
+
     public void OnNameSelectionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
     {
         var user = UsersList.Where(x => x.Id == new Guid(args.Value)).SingleOrDefault();
         ApplicationUser.Department = user.Department;
         ApplicationUser.FullName = user.Name;
+        ApplicationUser.SubRegion = user.SubRegion;
+        ApplicationUser.Region = user.Region;
         if (!string.IsNullOrEmpty(user.OfficialEmail)) ApplicationUser.Email = user.OfficialEmail;
         else ApplicationUser.Email = string.Empty;
         StateHasChanged();

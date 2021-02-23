@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SOS.FMS.Shared.Traccar
+namespace SOS.FMS.Shared.Traccar.DeviceResponse
 {
     public class Attributes
     {

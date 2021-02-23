@@ -187,6 +187,13 @@ using Microsoft.AspNetCore.SignalR.Client;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 4 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Drivers.razor"
+using SOS.FMS.Client.Components.IncidentalHistory;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/Drivers")]
     public partial class Drivers : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -196,15 +203,14 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 213 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Drivers.razor"
+#line 182 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Drivers.razor"
        
     public List<FMSDriverVM> DriversList { get; set; }
-    public List<FMSVehicleAccidentVM> AccidentsList { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         DriversList = await Http.GetFromJsonAsync<List<FMSDriverVM>>("api/Drivers/FMS/All");
-        AccidentsList = await Http.GetFromJsonAsync<List<FMSVehicleAccidentVM>>("api/Vehicles/FMS/Accidents/All");
+
         await base.OnInitializedAsync();
     }
 
@@ -216,7 +222,6 @@ using Microsoft.AspNetCore.SignalR.Client;
     #region Syncfusion
 
     SfGrid<FMSDriverVM> DriversGrid;
-    SfGrid<FMSVehicleAccidentVM> AccidentsGrid;
     SfGrid<FMSDriverVM> ScoreCardsGrid;
 
     public void VehicleToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
@@ -235,25 +240,6 @@ using Microsoft.AspNetCore.SignalR.Client;
         if (args.Item.Id == "DriversGrid_csvexport")
         {
             this.DriversGrid.CsvExport();
-        }
-    }
-
-    public void AccidentToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
-    {
-        if (args.Item.Id == "AccidentsGrid_pdfexport")
-        {
-            PdfExportProperties Props = new PdfExportProperties();
-            Props.PageOrientation = PageOrientation.Landscape;
-            Props.PageSize = PdfPageSize.A4;
-            this.AccidentsGrid.PdfExport(Props);
-        }
-        if (args.Item.Id == "AccidentsGrid_excelexport")
-        {
-            this.AccidentsGrid.ExcelExport();
-        }
-        if (args.Item.Id == "AccidentsGrid_csvexport")
-        {
-            this.AccidentsGrid.CsvExport();
         }
     }
 
