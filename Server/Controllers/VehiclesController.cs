@@ -62,87 +62,90 @@ namespace SOS.FMS.Server.Controllers
             {
                 List<FMSVehicleVM> rbVehicles = new List<FMSVehicleVM>();
                 List<FMSVehicleDev> vehicleDevs = new List<FMSVehicleDev>();
-                if (User.IsInRole("SA") || User.IsInRole("HMT"))
+                if (User.Claims.Any())
                 {
-                    vehicleDevs = (from v in dbContext.FMSVehiclesDev
-                                   select v).ToList();
-                }
-                else
-                {
-                    ApplicationUser user = (from u in dbContext.Users where u.Email == User.Identity.Name select u).FirstOrDefault();
-                    Region region = (from r in dbContext.Regions where r.XDescription == user.Region select r).FirstOrDefault();
-                    vehicleDevs = (from v in dbContext.FMSVehiclesDev
-                                   where v.Region == region.Id
-                                   select v).ToList();
-                }
-                if (vehicleDevs.Count == 1)
-                {
-                    //FMSVehicleDev vehicleDev = new FMSVehicleDev();
-                    //vehicleDev.Id = Guid.NewGuid();
-                    //vehicleDev.VehicleId = new Guid("C5704B36-57E4-489A-B7CB-1C676F97AB3B");
-                    //vehicleDev.DriverId = new Guid("D5B09BF7-24B1-44D2-8AFE-10EC44AC4FA1");
-                    //vehicleDev.IMEI = 100010001000100;
-                    //vehicleDev.SIM = 923331001000;
-                    //vehicleDev.Region = new Guid("C192434E-142F-4666-AD8C-E62B81208DDC");
-                    //vehicleDev.SubRegion = new Guid("2B63422E-30F6-4A8B-9199-B89CCE45BC0A");
-                    //vehicleDev.Active = true;
-                    //vehicleDev.Breakdowns = 0;
-                    //vehicleDev.CostThisMonth = 0;
-                    //vehicleDev.FuelAverage = 0;
-                    //vehicleDev.Ranking = 0;
-                    //vehicleDev.Status = "maintained";
-                    //dbContext.FMSVehiclesDev.Add(vehicleDev);
-                    //dbContext.SaveChanges();
-                }
-
-                foreach (var v in vehicleDevs)
-                {
-                    double Latitude = 0;
-                    double Longitude = 0;
-                    string subRegion = (from r in dbContext.SubRegions where r.Id == v.SubRegion select r.XDescription).SingleOrDefault();
-                    switch (subRegion)
+                    if (User.IsInRole("SA") || User.IsInRole("HMT"))
                     {
-                        case "Karachi":
-                            Latitude = 24.8607;
-                            Longitude = 67.0011;
-                            break;
-                        case "Quetta":
-                            Latitude = 30.1798;
-                            Longitude = 66.9750;
-                            break;
-                        case "Lahore":
-                            Latitude = 31.5204;
-                            Longitude = 74.3587;
-                            break;
-                        case "Rawalpindi":
-                            Latitude = 33.6844;
-                            Longitude = 73.0479;
-                            break;
-                        case "Islamabad":
-                            Latitude = 33.6844;
-                            Longitude = 73.0479;
-                            break;
+                        vehicleDevs = (from v in dbContext.FMSVehiclesDev
+                                       select v).ToList();
                     }
-                    rbVehicles.Add(new FMSVehicleVM()
+                    else
                     {
-                        Active = v.Active,
-                        FuelAverage = v.FuelAverage,
-                        Breakdowns = v.Breakdowns,
-                        CostThisMonth = v.CostThisMonth,
-                        DriverId = v.DriverId,
-                        DriverName = (from d in dbContext.Drivers where d.Id == v.DriverId select d.Name).SingleOrDefault(),
-                        Id = v.Id,
-                        IMEI = v.IMEI,
-                        Ranking = v.Ranking,
-                        Region = (from r in dbContext.Regions where r.Id == v.Region select r.XDescription).SingleOrDefault(),
-                        SIM = v.SIM,
-                        SubRegion = subRegion,
-                        VehicleId = v.VehicleId,
-                        VehicleNumber = (from r in dbContext.Vehicles where r.Id == v.VehicleId select r.XDescription).SingleOrDefault(),
-                        Latitude = Latitude,
-                        Longitude = Longitude,
-                        Type = v.Status
-                    });
+                        ApplicationUser user = (from u in dbContext.Users where u.Email == User.Identity.Name select u).FirstOrDefault();
+                        Region region = (from r in dbContext.Regions where r.XDescription == user.Region select r).FirstOrDefault();
+                        vehicleDevs = (from v in dbContext.FMSVehiclesDev
+                                       where v.Region == region.Id
+                                       select v).ToList();
+                    }
+                    if (vehicleDevs.Count == 1)
+                    {
+                        //FMSVehicleDev vehicleDev = new FMSVehicleDev();
+                        //vehicleDev.Id = Guid.NewGuid();
+                        //vehicleDev.VehicleId = new Guid("C5704B36-57E4-489A-B7CB-1C676F97AB3B");
+                        //vehicleDev.DriverId = new Guid("D5B09BF7-24B1-44D2-8AFE-10EC44AC4FA1");
+                        //vehicleDev.IMEI = 100010001000100;
+                        //vehicleDev.SIM = 923331001000;
+                        //vehicleDev.Region = new Guid("C192434E-142F-4666-AD8C-E62B81208DDC");
+                        //vehicleDev.SubRegion = new Guid("2B63422E-30F6-4A8B-9199-B89CCE45BC0A");
+                        //vehicleDev.Active = true;
+                        //vehicleDev.Breakdowns = 0;
+                        //vehicleDev.CostThisMonth = 0;
+                        //vehicleDev.FuelAverage = 0;
+                        //vehicleDev.Ranking = 0;
+                        //vehicleDev.Status = "maintained";
+                        //dbContext.FMSVehiclesDev.Add(vehicleDev);
+                        //dbContext.SaveChanges();
+                    }
+
+                    foreach (var v in vehicleDevs)
+                    {
+                        double Latitude = 0;
+                        double Longitude = 0;
+                        string subRegion = (from r in dbContext.SubRegions where r.Id == v.SubRegion select r.XDescription).SingleOrDefault();
+                        switch (subRegion)
+                        {
+                            case "Karachi":
+                                Latitude = 24.8607;
+                                Longitude = 67.0011;
+                                break;
+                            case "Quetta":
+                                Latitude = 30.1798;
+                                Longitude = 66.9750;
+                                break;
+                            case "Lahore":
+                                Latitude = 31.5204;
+                                Longitude = 74.3587;
+                                break;
+                            case "Rawalpindi":
+                                Latitude = 33.6844;
+                                Longitude = 73.0479;
+                                break;
+                            case "Islamabad":
+                                Latitude = 33.6844;
+                                Longitude = 73.0479;
+                                break;
+                        }
+                        rbVehicles.Add(new FMSVehicleVM()
+                        {
+                            Active = v.Active,
+                            FuelAverage = v.FuelAverage,
+                            Breakdowns = v.Breakdowns,
+                            CostThisMonth = v.CostThisMonth,
+                            DriverId = v.DriverId,
+                            DriverName = (from d in dbContext.Drivers where d.Id == v.DriverId select d.Name).SingleOrDefault(),
+                            Id = v.Id,
+                            IMEI = v.IMEI,
+                            Ranking = v.Ranking,
+                            Region = (from r in dbContext.Regions where r.Id == v.Region select r.XDescription).SingleOrDefault(),
+                            SIM = v.SIM,
+                            SubRegion = subRegion,
+                            VehicleId = v.VehicleId,
+                            VehicleNumber = (from r in dbContext.Vehicles where r.Id == v.VehicleId select r.XDescription).SingleOrDefault(),
+                            Latitude = Latitude,
+                            Longitude = Longitude,
+                            Type = v.Status
+                        });
+                    }
                 }
                 return Ok(rbVehicles);
             }

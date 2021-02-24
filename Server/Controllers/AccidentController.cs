@@ -7,6 +7,7 @@ using SOS.FMS.Server.Models;
 using SOS.FMS.Shared;
 using SOS.FMS.Shared.Enums;
 using SOS.FMS.Shared.ViewModels;
+using SOS.FMS.Shared.ViewModels.Accident;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -422,6 +423,49 @@ namespace SOS.FMS.Server.Controllers
                             $"{currentUser.Name} mentioned you in a comment under accidental check list point {check.Description}");
                     }
                 }
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+        [HttpPost("PostBill")]
+        public async Task<IActionResult> PostBill(BillPostingVM bill)
+        {
+            try
+            {
+                var currentUser = (from u in dbContext.Users
+                                   where u.Email == User.Identity.Name
+                                   select u).FirstOrDefault();
+
+                FMSAccidentalCheck check = (from c in dbContext.FMSAccidentalCheckList
+                                            where c.Id == bill.CheckPointId
+                                            select c).SingleOrDefault();
+
+                FMSAccidentalCheckComment newComment = new FMSAccidentalCheckComment()
+                {
+                    Id = Guid.NewGuid(),
+                    FMSAccidentalCheckId = check.Id,
+                    FMSAccidentId = check.FMSAccidentId,
+                    Comment = bill.TotalAmount.ToString(),
+                    FMSUserId = new Guid((from u in dbContext.Users where u.Email == User.Identity.Name select u.Id).SingleOrDefault()),
+                    FMSVehicleId = check.FMSVehicleId,
+                    VehicleNumber = check.VehicleNumber,
+                    LastUpdated = DateTime.Now,
+                    Mentions = ""
+                };
+                await dbContext.FMSAccidentalCheckComments.AddAsync(newComment);
+                await dbContext.SaveChangesAsync();
+
+                check.CommentCount = await (from c in dbContext.FMSAccidentalCheckComments
+                                            where c.FMSAccidentalCheckId == bill.CheckPointId
+                                            select c).CountAsync();
+
+                FMSAccident accident = await dbContext.FMSAccidents.Where(x => x.Id == check.FMSAccidentId).Select(x => x).SingleOrDefaultAsync();
+                accident.LastUpdated = PakistanDateTime.Now;
+                await dbContext.SaveChangesAsync();
 
                 return Ok();
             }

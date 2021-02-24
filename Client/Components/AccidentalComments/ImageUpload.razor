@@ -1,0 +1,67 @@
+﻿<div class="row p-1">
+    <div class="col-xl-7">
+        <div class="row pl-4">
+            @foreach (var i in imageDataUrls)
+            {
+                <div class="col-3 mb-2 p-2">
+                    <img src="@i" style="width:90%;height:auto;" @onclick="() => DisplayImage(i)" />
+                </div>
+            }
+            <div class="col-3 mb-2 p-2">
+                <div class="d-flex" style="display: flex; align-items: flex-start; justify-content: flex-end; width: 100%;">
+                    <div class="mr-3">
+                        <div class="container1">
+                            <div class="button-wrap">
+                                <label class="btn btn-fms btn-md text-uppercase font-weight-bold chat-send py-8 px-6" for="upload">Upload File</label>
+                                <InputFile id="upload" OnChange="@OnInputFileChange" style=" display:none; position: absolute; z-index: -3; top: 15px; left: 20px; font-size: 17px; color: #b8b8b8;" multiple />
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-5">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title mb-0 font-weight-bolder">Photo Viewer</div>
+            </div>
+            <div class="card-body">
+                <img src="@displayImage" style="width:99%;height:auto;" />
+            </div>
+        </div>
+    </div>
+</div>
+@code {
+    [Parameter]
+    public EventCallback<string> OnImagePost { get; set; }
+
+    public string displayImage;
+    private IList<string> imageDataUrls = new List<string>();
+    public void DisplayImage(string item)
+    {
+        displayImage = item;
+    }
+
+
+    private async Task OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        var maxAllowedFiles = 3;
+        var format = "image/png";
+
+        foreach (var imageFile in e.GetMultipleFiles(maxAllowedFiles))
+        {
+            var resizedImageFile = await imageFile.RequestImageFileAsync(format,
+                100, 100);
+            var buffer = new byte[resizedImageFile.Size];
+            await resizedImageFile.OpenReadStream().ReadAsync(buffer);
+            var imageDataUrl =
+                $"data:{format};base64,{Convert.ToBase64String(buffer)}";
+            imageDataUrls.Add(imageDataUrl);
+
+            await OnImagePost.InvokeAsync(imageDataUrl);
+        }
+    }
+}

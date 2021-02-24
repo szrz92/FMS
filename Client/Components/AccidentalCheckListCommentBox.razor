@@ -20,87 +20,56 @@
                     <!--begin::Chat-->
                     <div class="row">
                         <div class="col-xl-7">
-                            <div class="container">
-                                <div class="card border border-secondary">
-                                    <div class="card-header">
-                                        <div class="card-title mb-0 font-weight-bolder">Comments</div>
-                                    </div>
-                                    <!--begin::Body-->
-                                    <div class="card-body">
-                                        <div class="scrollable" style="overflow-y: auto; max-height: 300px;">
-                                            <!--begin::Messages-->
-                                            <div class="messages">
-                                                @foreach (var comment in AccidentalCommentModal.Comments)
-                                                {
-                                                    <!--begin::Message In-->
-                                                    <div class="d-flex flex-column mb-5 align-items-start">
-                                                        <div class="d-flex align-items-center">
-                                                            <div>
-                                                                <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">@comment.FMSUserName</a>
-                                                                <span class="text-muted font-size-sm">@comment.LastUpdated</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="mt-2 rounded p-5 bg-light-secondary text-dark-50 font-weight-bold font-size-sm text-left w-90">@comment.Comment</div>
-                                                    </div>
-                                                    <!--end::Message In-->
-                                                }
-                                            </div>
-                                            <!--end::Messages-->
-                                        </div>
-                                    </div>
-                                    <!--end::Body-->
-                                    <div class="card-footer p-0">
-                                        @if (!resetCommentBox)
-                                        {
-                                            <div class="input-group p-2">
-                                                <textarea id="mention1" class="form-control" placeholder="Type comment here."
-                                                          style="resize: none" rows="3" aria-label="With textarea"></textarea>
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text btn btn-fms" @onclick="PostAccidentalComment">Post</span>
-                                                </div>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="input-group p-2">
-                                                <textarea id="mention5" class="form-control" placeholder="Type comment here."
-                                                          style="resize: none" rows="3" aria-label="With textarea"></textarea>
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text btn btn-fms">Post</span>
-                                                </div>
-                                            </div>
-                                        }
-                                    </div>
+                            <div class="card border border-secondary">
+                                <div class="card-header">
+                                    <div class="card-title mb-0 font-weight-bolder">Comments</div>
                                 </div>
-                                <div class="row">
-                                    @*<div class="input-group border border-secondary">
-                                            <textarea id="@mentionId" class="form-control custom-control"
-                                                      style="resize: none" rows="3"></textarea>
-                                        </div>
-                                        <span class="input-group-append btn btn-fms">Comment</span>*@
-                                </div>
-                                @*<div class="row pl-4">
-                                        @foreach (var i in imageDataUrls)
-                                        {
-                                            <div class="col-3 mb-2 p-2">
-                                                <img src="@i" style="width:90%;height:auto;" @onclick="() => DisplayImage(i)" />
-                                            </div>
-                                        }
-                                        <div class="col-3 mb-2 p-2">
-                                            <div class="d-flex" style="display: flex; align-items: flex-start; justify-content: flex-end; width: 100%;">
-                                                <div class="mr-3">
-                                                    <div class="container1">
-                                                        <div class="button-wrap">
-                                                            <label class="btn btn-fms btn-md text-uppercase font-weight-bold chat-send py-8 px-6" for="upload">Upload File</label>
-                                                            <InputFile id="upload" OnChange="@OnInputFileChange" style=" display:none; position: absolute; z-index: -3; top: 15px; left: 20px; font-size: 17px; color: #b8b8b8;" multiple />
+                                <!--begin::Body-->
+                                <div class="card-body">
+                                    <div class="scrollable" style="overflow-y: auto; max-height: 250px;">
+                                        <!--begin::Messages-->
+                                        <div class="messages">
+                                            @foreach (var comment in AccidentalCommentModal.Comments)
+                                            {
+                                                <!--begin::Message In-->
+                                                <div class="d-flex flex-column mb-5 align-items-start">
+                                                    <div class="d-flex align-items-center">
+                                                        <div>
+                                                            <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">@comment.FMSUserName</a>
+                                                            <span class="text-muted font-size-sm">@comment.LastUpdated</span>
                                                         </div>
                                                     </div>
+                                                    <div class="mt-2 rounded p-5 bg-light-secondary text-dark-50 font-weight-bold font-size-sm text-left w-90">@comment.Comment</div>
                                                 </div>
-                                                <div>
-                                                </div>
+                                                <!--end::Message In-->
+                                            }
+                                        </div>
+                                        <!--end::Messages-->
+                                    </div>
+                                </div>
+                                <!--end::Body-->
+                                <div class="card-footer p-0">
+                                    @if (!resetCommentBox)
+                                    {
+                                        <div class="input-group p-2">
+                                            <textarea id="mention1" class="form-control" placeholder="Type comment here."
+                                                      style="resize: none" rows="3" aria-label="With textarea"></textarea>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text btn btn-fms" @onclick="PostAccidentalComment">Post</span>
                                             </div>
                                         </div>
-                                    </div>*@
+                                    }
+                                    else
+                                    {
+                                        <div class="input-group p-2">
+                                            <textarea id="mention5" class="form-control" placeholder="Type comment here."
+                                                      style="resize: none" rows="3" aria-label="With textarea"></textarea>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text btn btn-fms">Post</span>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
                             </div>
                         </div>
                         <div class="col-xl-5">
@@ -124,23 +93,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <hr />
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <div class="card-title mb-0 font-weight-bolder">Photo Viewer</div>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="h-50">
-                                                @*<img src="@displayImage" style="width:99%;height:auto;" />*@
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
+                    <SOS.FMS.Client.Components.AccidentalComments.ImageUpload />
                     <!--end::Chat-->
                 </div>
                 <!--end::Container-->
@@ -224,6 +179,7 @@
             AccidentalCheckComment.FMSAccidentId = AccidentalCommentModal.FMSAccidentId;
             AccidentalCheckComment.FMSVehicleId = AccidentalCommentModal.FMSVehicleId;
             AccidentalCheckComment.VehicleNumber = AccidentalCommentModal.VehicleNumber;
+            StateHasChanged();
         }
         else
         {
@@ -234,7 +190,6 @@
     {
         return OnVisibilityChanged.InvokeAsync(false);
     }
-
     public async void PostAccidentalComment()
     {
         resetCommentBox = true;
@@ -250,7 +205,6 @@
         }
 
     }
-
     [JSInvokable]
     public void mention_JSInvoked(List<GBMSUserVM> mentionedUsers, string comment)
     {
@@ -263,3 +217,4 @@
         StateHasChanged();
     }
 }
+

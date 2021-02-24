@@ -1,10 +1,19 @@
 {
   "version": 2,
-  "dgSpecHash": "nSD2FIWu3i9bcKfKVm/mcYdYd/XZcq9LqVvFCBXEEoU+16UfqDGgsw+tMzNKZngngzr9/Jcv23jLxfAv4IsOVQ==",
+  "dgSpecHash": "Ct0nG1+gR+WWUl3Zdd8nXzpEcsurxcJVtBC62DLrA7lPP9hC0zc9vUtzN/Jq8ph2nbM/pHWa0FWsBt25f9WzUg==",
   "success": true,
   "projectFilePath": "C:\\Users\\BA Tech\\source\\repos\\sosfms\\Shared\\SOS.FMS.Shared.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\BA Tech\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512"
+    "C:\\Users\\BA Tech\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+    "C:\\Users\\BA Tech\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
+    "C:\\Users\\BA Tech\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
+    "C:\\Users\\BA Tech\\.nuget\\packages\\system.configuration.configurationmanager\\5.0.0\\system.configuration.configurationmanager.5.0.0.nupkg.sha512",
+    "C:\\Users\\BA Tech\\.nuget\\packages\\system.drawing.common\\5.0.0\\system.drawing.common.5.0.0.nupkg.sha512",
+    "C:\\Users\\BA Tech\\.nuget\\packages\\system.security.accesscontrol\\5.0.0\\system.security.accesscontrol.5.0.0.nupkg.sha512",
+    "C:\\Users\\BA Tech\\.nuget\\packages\\system.security.cryptography.protecteddata\\5.0.0\\system.security.cryptography.protecteddata.5.0.0.nupkg.sha512",
+    "C:\\Users\\BA Tech\\.nuget\\packages\\system.security.permissions\\5.0.0\\system.security.permissions.5.0.0.nupkg.sha512",
+    "C:\\Users\\BA Tech\\.nuget\\packages\\system.security.principal.windows\\5.0.0\\system.security.principal.windows.5.0.0.nupkg.sha512",
+    "C:\\Users\\BA Tech\\.nuget\\packages\\system.windows.extensions\\5.0.0\\system.windows.extensions.5.0.0.nupkg.sha512"
   ],
   "logs": []
 }

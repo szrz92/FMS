@@ -195,7 +195,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 156 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\AccidentalCheckListCommentBox.razor"
+#line 111 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\AccidentalCheckListCommentBox.razor"
        
     [Parameter]
     public FMSAccidentalCommentModalVM AccidentalCommentModal { get; set; }
@@ -267,6 +267,7 @@ using Microsoft.AspNetCore.SignalR.Client;
             AccidentalCheckComment.FMSAccidentId = AccidentalCommentModal.FMSAccidentId;
             AccidentalCheckComment.FMSVehicleId = AccidentalCommentModal.FMSVehicleId;
             AccidentalCheckComment.VehicleNumber = AccidentalCommentModal.VehicleNumber;
+            StateHasChanged();
         }
         else
         {
@@ -277,7 +278,6 @@ using Microsoft.AspNetCore.SignalR.Client;
     {
         return OnVisibilityChanged.InvokeAsync(false);
     }
-
     public async void PostAccidentalComment()
     {
         resetCommentBox = true;
@@ -293,7 +293,6 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
 
     }
-
     [JSInvokable]
     public void mention_JSInvoked(List<GBMSUserVM> mentionedUsers, string comment)
     {
