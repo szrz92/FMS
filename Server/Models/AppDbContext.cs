@@ -15,11 +15,10 @@ namespace SOS.FMS.Server.Models
         public DbSet<RegionalOffice> RegionalOffices { get; set; }
         public DbSet<Station> Stations { get; set; }
         public DbSet<SubRegion> SubRegions { get; set; }
-        public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<GBMSVehicle> GBMSVehicles { get; set; }
         public DbSet<VehicleType> VehicleTypes { get; set; }
         public DbSet<Zone> Zones { get; set; }
-        public DbSet<FMSVehicle> FMSVehicles { get; set; }
-        public DbSet<FMSVehicleDev> FMSVehiclesDev { get; set; }
+        public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<FMSVehicleAccident> FMSVehicleAccidents { get; set; }
         public DbSet<FMSVehicleScoreCard> FMSVehicleScoreCards { get; set; }
         public DbSet<Driver> Drivers { get; set; }

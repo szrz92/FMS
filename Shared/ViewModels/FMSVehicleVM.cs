@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SOS.FMS.Shared.ViewModels
 {
-    public class FMSVehicleVM
+    public class VehicleVM
     {
         public Guid Id { get; set; }
         public Guid VehicleId { get; set; }

@@ -194,6 +194,34 @@ using Microsoft.AspNetCore.SignalR.Client;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 70 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Vehicles\AddVehicle.razor"
+       
+    public List<GBMSVehicleVM> Vehicles { get; set; }
+    public List<SelectListItem> VehiclesList = new List<SelectListItem>();
+    public List<SelectListItem> RegionsList = new List<SelectListItem>();
+
+    public List<SelectListItem> SubRegions = new List<SelectListItem>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Vehicles = (await Http.GetFromJsonAsync<List<GBMSVehicleVM>>("api/Vehicles/All"))
+                        .ToList();
+        VehiclesList = Vehicles.GroupBy(x => x.Description).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
+                            .ToList();
+        RegionsList = Vehicles.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
+                        .ToList();
+        SubRegions = Vehicles.GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
+                        .ToList();
+
+        await base.OnInitializedAsync();
+    }
+
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private HttpClient Http { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private INotificationService NotificationService { get; set; }
     }

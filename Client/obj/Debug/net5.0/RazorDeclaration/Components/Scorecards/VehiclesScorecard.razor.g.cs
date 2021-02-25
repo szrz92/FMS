@@ -198,7 +198,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 #line 37 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Scorecards\VehiclesScorecard.razor"
        
     [Parameter]
-    public List<FMSVehicleVM> FMSVehiclesList { get; set; }
+    public List<VehicleVM> FMSVehiclesList { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -212,7 +212,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     #region Syncfusion
 
-    SfGrid<FMSVehicleVM> ScoreCardsGrid;
+    SfGrid<VehicleVM> ScoreCardsGrid;
 
     public void ScoreCardToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
     {

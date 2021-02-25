@@ -13,18 +13,18 @@
                             AllowExcelExport="true" AllowPdfExport="true">
                         <GridPageSettings PageCount="5" PageSize="10" PageSizes="new int[]{ 5, 10, 20, 50, 100 }"></GridPageSettings>
                         <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Menu"></GridFilterSettings>
-                        <GridSelectionSettings CheckboxOnly="true" PersistSelection="true" Type="SelectionType.Multiple"></GridSelectionSettings><GridEvents OnToolbarClick="ToolbarClick" TValue="FMSVehicleVM"></GridEvents>
+                        <GridSelectionSettings CheckboxOnly="true" PersistSelection="true" Type="SelectionType.Multiple"></GridSelectionSettings><GridEvents OnToolbarClick="ToolbarClick" TValue="VehicleVM"></GridEvents>
                         <GridColumns>
-                            <GridColumn Field=@nameof(FMSVehicleVM.VehicleNumber) HeaderText="Vehicle Number" Width="130"></GridColumn>
-                            <GridColumn Field=@nameof(FMSVehicleVM.DriverName) HeaderText="Driver Name" Width="130"></GridColumn>
-                            <GridColumn Field=@nameof(FMSVehicleVM.Region) HeaderText="Region" Width="130"></GridColumn>
-                            <GridColumn Field=@nameof(FMSVehicleVM.SubRegion) HeaderText="SubRegion" Width="130"></GridColumn>
-                            <GridColumn Field=@nameof(FMSVehicleVM.Type) HeaderText="Status" Width="130"></GridColumn>
-                            <GridColumn Field=@nameof(FMSVehicleVM.IMEI) HeaderText="IMEI" Width="130" FilterSettings="@(new FilterSettings { Type = Syncfusion.Blazor.Grids.FilterType.Menu })"></GridColumn>
-                            <GridColumn Field=@nameof(FMSVehicleVM.SIM) HeaderText="SIM" Width="130"></GridColumn>
-                            <GridColumn Field=@nameof(FMSVehicleVM.FuelAverage) HeaderText="Fuel Average" Width="130"></GridColumn>
-                            <GridColumn Field=@nameof(FMSVehicleVM.Breakdowns) HeaderText="Breakdowns" Width="130"></GridColumn>
-                            <GridColumn Field=@nameof(FMSVehicleVM.CostThisMonth) HeaderText="Cost This Month" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(VehicleVM.VehicleNumber) HeaderText="Vehicle Number" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(VehicleVM.DriverName) HeaderText="Driver Name" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(VehicleVM.Region) HeaderText="Region" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(VehicleVM.SubRegion) HeaderText="SubRegion" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(VehicleVM.Type) HeaderText="Status" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(VehicleVM.IMEI) HeaderText="IMEI" Width="130" FilterSettings="@(new FilterSettings { Type = Syncfusion.Blazor.Grids.FilterType.Menu })"></GridColumn>
+                            <GridColumn Field=@nameof(VehicleVM.SIM) HeaderText="SIM" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(VehicleVM.FuelAverage) HeaderText="Fuel Average" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(VehicleVM.Breakdowns) HeaderText="Breakdowns" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(VehicleVM.CostThisMonth) HeaderText="Cost This Month" Width="130"></GridColumn>
                         </GridColumns>
                     </SfGrid>
                 </div>
@@ -38,7 +38,7 @@ else
 }
 @code {
     [Parameter]
-    public List<FMSVehicleVM> FMSVehiclesList { get; set; }
+    public List<VehicleVM> FMSVehiclesList { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -51,7 +51,7 @@ else
     }
     #region Syncfusion
 
-    SfGrid<FMSVehicleVM> VehiclesGrid;
+    SfGrid<VehicleVM> VehiclesGrid;
 
     public void ToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
     {

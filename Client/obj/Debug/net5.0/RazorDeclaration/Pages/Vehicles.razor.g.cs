@@ -198,11 +198,11 @@ using Microsoft.AspNetCore.SignalR.Client;
 #nullable restore
 #line 84 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Vehicles.razor"
        
-    public List<FMSVehicleVM> FMSVehiclesList { get; set; }
+    public List<VehicleVM> FMSVehiclesList { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        FMSVehiclesList = await Http.GetFromJsonAsync<List<FMSVehicleVM>>("api/Vehicles/FMS/Demo/All");
+        FMSVehiclesList = await Http.GetFromJsonAsync<List<VehicleVM>>("api/Vehicles/FMS/Demo/All");
         await base.OnInitializedAsync();
     }
 

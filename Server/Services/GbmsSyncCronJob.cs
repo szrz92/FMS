@@ -58,8 +58,8 @@ namespace SOS.FMS.Server.Services
                 //var subregions = (from s in context.RbSubRegions select s).ToList();
                 //SyncSubRegions(subregions, scope);
 
-                //var vehicles = (from v in context.RbVehicles select v).ToList();
-                //SyncVehicles(vehicles, scope);
+                var vehicles = (from v in context.RbVehicles select v).ToList();
+                SyncVehicles(vehicles, scope);
 
                 //var vehicletypes = (from t in context.RbVehicleTypes select t).ToList();
                 //SyncVehicleTypes(vehicletypes, scope);
@@ -70,13 +70,13 @@ namespace SOS.FMS.Server.Services
                 //var stations = (from s in context.RbStations select s).ToList();
                 //SyncStations(stations, scope);
 
-                var drivers = (from d in context.PdwEmployeeMasters 
-                               where d.XDesignationDescription.Contains("river")
-                               select d).ToList();
+                //var drivers = (from d in context.PdwEmployeeMasters 
+                //               where d.XDesignationDescription.Contains("river")
+                //               select d).ToList();
 
-                SyncDrivers(drivers, scope);
+                //SyncDrivers(drivers, scope);
 
-                PrepareDailyCheckLists(scope).Wait();
+                //PrepareDailyCheckLists(scope).Wait();
             }
 
             return Task.CompletedTask;
@@ -335,82 +335,39 @@ namespace SOS.FMS.Server.Services
             var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             foreach (var item in vehicles)
             {
-                var vehicle = (from r in context.Vehicles where r.XCode == item.XCode select r).FirstOrDefault();
+                var vehicle = (from r in context.GBMSVehicles where r.Code == item.XCode select r).FirstOrDefault();
                 if (vehicle == null)
                 {
-                    vehicle = new Vehicle()
+                    vehicle = new GBMSVehicle()
                     {
-                        AddDate = item.AddDate,
-                        AddId = item.AddId,
-                        IpAdd = item.IpAdd,
                         Id = Guid.NewGuid(),
-                        IpMod = item.IpMod,
-                        ModDate = item.ModDate,
-                        ModId = item.ModId,
-                        XCode = item.XCode,
-                        XDescription = item.XDescription,
-                        XRemarks = item.XRemarks,
-                        XrowId = item.XrowId,
-                        XCapacity = item.XCapacity,
-                        XChasisNo = item.XChasisNo,
-                        XEngineNo = item.XEngineNo,
-                        XGasolineType = item.XGasolineType,
-                        XGasolineTypeDescription = item.XGasolineTypeDescription,
-                        XLeasingCompany = item.XLeasingCompany,
-                        XLocation = item.XLocation,
-                        XLocationDescription = item.XLocationDescription,
-                        XMake = item.XMake,
-                        XModel = item.XModel,
-                        XOrigin = item.XOrigin,
-                        XOtherCosts = item.XOtherCosts,
-                        XPurchaseDate = item.XPurchaseDate,
-                        XPurchasePrice = item.XPurchasePrice,
-                        XRegistration = item.XRegistration,
-                        XRegistrationCost = item.XRegistrationCost,
-                        XStation = item.XStation,
-                        XStationDescription = item.XStationDescription,
-                        XTagNumber = item.XTagNumber,
-                        XTotalCost = item.XTotalCost,
-                        XVehicleType = item.XVehicleType,
-                        XVehicleTypeDescription = item.XVehicleTypeDescription,
+                        Code = item.XCode,
+                        Description = item.XDescription,
+                        ChasisNo = item.XChasisNo,
+                        EngineNo = item.XEngineNo,
+                        GasolineType = item.XGasolineTypeDescription,
+                        Location = item.XLocationDescription,
+                        Make = item.XMake,
+                        Model = item.XModel,
+                        PurchaseDate = item.XPurchaseDate,
+                        Station = item.XStationDescription,
+                        VehicleType = item.XVehicleTypeDescription,
                         LastSync = DateTime.UtcNow
                     };
-                    context.Vehicles.Add(vehicle);
+                    context.GBMSVehicles.Add(vehicle);
                 }
                 else
                 {
-                    vehicle.AddDate = item.AddDate;
-                    vehicle.AddId = item.AddId;
-                    vehicle.IpAdd = item.IpAdd;
-                    vehicle.IpMod = item.IpMod;
-                    vehicle.ModDate = item.ModDate;
-                    vehicle.ModId = item.ModId;
-                    vehicle.XDescription = item.XDescription;
-                    vehicle.XRemarks = item.XRemarks;
-                    vehicle.XrowId = item.XrowId;
-                    vehicle.XCapacity = item.XCapacity;
-                    vehicle.XChasisNo = item.XChasisNo;
-                    vehicle.XEngineNo = item.XEngineNo;
-                    vehicle.XGasolineType = item.XGasolineType;
-                    vehicle.XGasolineTypeDescription = item.XGasolineTypeDescription;
-                    vehicle.XLeasingCompany = item.XLeasingCompany;
-                    vehicle.XLocation = item.XLocation;
-                    vehicle.XLocationDescription = item.XLocationDescription;
-                    vehicle.XMake = item.XMake;
-                    vehicle.XModel = item.XModel;
-                    vehicle.XOrigin = item.XOrigin;
-                    vehicle.XOtherCosts = item.XOtherCosts;
-                    vehicle.XPurchaseDate = item.XPurchaseDate;
-                    vehicle.XPurchasePrice = item.XPurchasePrice;
-                    vehicle.XRegistration = item.XRegistration;
-                    vehicle.XRegistrationCost = item.XRegistrationCost;
-                    vehicle.XStation = item.XStation;
-                    vehicle.XStationDescription = item.XStationDescription;
-                    vehicle.XTagNumber = item.XTagNumber;
-                    vehicle.XTotalCost = item.XTotalCost;
-                    vehicle.XVehicleType = item.XVehicleType;
-                    vehicle.XVehicleTypeDescription = item.XVehicleTypeDescription;
-                    vehicle.LastSync = DateTime.UtcNow;
+                    vehicle.Description = item.XDescription;
+                    vehicle.ChasisNo = item.XChasisNo;
+                    vehicle.EngineNo = item.XEngineNo;
+                    vehicle.GasolineType = item.XGasolineTypeDescription;
+                    vehicle.Location = item.XLocationDescription;
+                    vehicle.Make = item.XMake;
+                    vehicle.Model = item.XModel;
+                    vehicle.PurchaseDate = item.XPurchaseDate;
+                    vehicle.Station = item.XStationDescription;
+                    vehicle.VehicleType = item.XVehicleTypeDescription;
                 }
             }
             context.SaveChanges();
@@ -611,14 +568,14 @@ namespace SOS.FMS.Server.Services
         public async Task PrepareDailyCheckLists(IServiceScope scope)
         {
             var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-            List<string> vehicleNumbers = (from v in dbContext.FMSVehiclesDev
-                                           join gv in dbContext.Vehicles on v.VehicleId equals gv.Id
-                                           select gv.XDescription).ToList();
+            List<string> vehicleNumbers = (from v in dbContext.Vehicles
+                                           join gv in dbContext.GBMSVehicles on v.VehicleId equals gv.Id
+                                           select gv.Description).ToList();
             foreach (var vehicleNumber in vehicleNumbers)
             {
-                FMSVehicleDev vehicle = (from f in dbContext.FMSVehiclesDev
-                                         join v in dbContext.Vehicles on f.VehicleId equals v.Id
-                                         where v.XDescription == vehicleNumber
+                Vehicle vehicle = (from f in dbContext.Vehicles
+                                         join v in dbContext.GBMSVehicles on f.VehicleId equals v.Id
+                                         where v.Description == vehicleNumber
                                          select f).SingleOrDefault();
                 Region region = (from r in dbContext.Regions
                                  where r.Id == vehicle.Region
@@ -626,10 +583,10 @@ namespace SOS.FMS.Server.Services
                 SubRegion subRegion = (from s in dbContext.SubRegions
                                        where s.Id == vehicle.SubRegion
                                        select s).SingleOrDefault();
-                string DriverName = (from f in dbContext.FMSVehiclesDev
+                string DriverName = (from f in dbContext.Vehicles
                                      join d in dbContext.Drivers on f.DriverId equals d.Id
-                                     join v in dbContext.Vehicles on f.VehicleId equals v.Id
-                                     where v.XDescription == vehicleNumber
+                                     join v in dbContext.GBMSVehicles on f.VehicleId equals v.Id
+                                     where v.Description == vehicleNumber
                                      select d.Name).SingleOrDefault();
                 IEnumerable<FMSDailyMorning> fMSDailyMornings = from m in dbContext.FMSDailyMorningChecks where m.VehicleNumber == vehicleNumber && m.LastUpdated.Date == (PakistanDateTime.Today) select m;
                 if (!fMSDailyMornings.Any())

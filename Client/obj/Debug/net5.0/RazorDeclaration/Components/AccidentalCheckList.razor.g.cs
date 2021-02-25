@@ -273,7 +273,7 @@ using SOS.FMS.Client.Components.AccidentalComments;
     public async void AccidentalCarOperational()
     {
         var vehicleResponse = await Http.PostAsJsonAsync("api/Accident/FMS/Demo/CarOperational",
-            new FMSVehicleVM() { VehicleNumber = VehicleNumber });
+            new VehicleVM() { VehicleNumber = VehicleNumber });
         if (vehicleResponse.StatusCode == System.Net.HttpStatusCode.OK)
         {
             responseHeader = "Operation Successful";
@@ -285,7 +285,7 @@ using SOS.FMS.Client.Components.AccidentalComments;
     public async void AccidentalCloseJob()
     {
         var vehicleResponse = await Http.PostAsJsonAsync("api/Accident/FMS/Demo/CloseJob",
-            new FMSVehicleVM() { VehicleNumber = VehicleNumber });
+            new VehicleVM() { VehicleNumber = VehicleNumber });
         if (vehicleResponse.StatusCode == System.Net.HttpStatusCode.OK)
         {
 
@@ -312,8 +312,8 @@ using SOS.FMS.Client.Components.AccidentalComments;
 
     public async void ReloadCheckList()
     {
-        var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new FMSVehicleVM() { VehicleNumber = VehicleNumber });
-        var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<FMSVehicleVM>(await vehicleResponse.Content.ReadAsStringAsync());
+        var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new VehicleVM() { VehicleNumber = VehicleNumber });
+        var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<VehicleVM>(await vehicleResponse.Content.ReadAsStringAsync());
         if (vehicle.Type == "accidental")
         {
             var getAccidentalCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/FMS/CheckList", new ApiRequest() { VehicleNumber = VehicleNumber });

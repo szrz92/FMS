@@ -279,16 +279,16 @@ namespace SOS.FMS.Server.Migrations
                         {
                             Id = "c58e1a9d-1c28-46db-830a-7b3f0b9663f1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2ee9bc86-fe8f-41c9-9528-888e3172d9f1",
+                            ConcurrencyStamp = "c95d73aa-0058-47cd-a722-f3dbfaadbe26",
                             Email = "z.raza@batech.com.pk",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             Name = "Zain Raza",
                             NormalizedEmail = "Z.RAZA@BATECH.COM.PK",
                             NormalizedUserName = "Z.RAZA@BATECH.COM.PK",
-                            PasswordHash = "AQAAAAEAACcQAAAAEK0uXwc1yg1yuyXGSwo3ccvPZjrgzizGh3qYzz23M3Aq0dSC+RDlT4fydylpqKatfg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEF4LPjAEvsg/pbt+LTIQRmmgJ1gQhUtuGFqHg/d8fhO7xJyZ/IlTnZ24t9aOOgXouA==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "bcde8141-e841-4a85-a6d0-3a63dfd7ea57",
+                            SecurityStamp = "0ae1d986-238f-4b6e-b6e2-c63161917d45",
                             TwoFactorEnabled = false,
                             UserName = "z.raza@batech.com.pk"
                         });
@@ -916,50 +916,6 @@ namespace SOS.FMS.Server.Migrations
                     b.ToTable("FMSEmergencyCheckImages");
                 });
 
-            modelBuilder.Entity("SOS.FMS.Server.Models.FMSVehicle", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("Active")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Breakdowns")
-                        .HasColumnType("int");
-
-                    b.Property<double>("CostThisMonth")
-                        .HasColumnType("float");
-
-                    b.Property<Guid>("DriverId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<double>("FuelAverage")
-                        .HasColumnType("float");
-
-                    b.Property<int>("IMEI")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Ranking")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("Region")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("SIM")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("SubRegion")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("VehicleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FMSVehicles");
-                });
-
             modelBuilder.Entity("SOS.FMS.Server.Models.FMSVehicleAccident", b =>
                 {
                     b.Property<Guid>("Id")
@@ -993,53 +949,6 @@ namespace SOS.FMS.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FMSVehicleAccidents");
-                });
-
-            modelBuilder.Entity("SOS.FMS.Server.Models.FMSVehicleDev", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("Active")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Breakdowns")
-                        .HasColumnType("int");
-
-                    b.Property<double>("CostThisMonth")
-                        .HasColumnType("float");
-
-                    b.Property<Guid>("DriverId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<double>("FuelAverage")
-                        .HasColumnType("float");
-
-                    b.Property<long>("IMEI")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("Ranking")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("Region")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<long>("SIM")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("SubRegion")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("VehicleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FMSVehiclesDev");
                 });
 
             modelBuilder.Entity("SOS.FMS.Server.Models.FMSVehicleScoreCard", b =>
@@ -1268,6 +1177,53 @@ namespace SOS.FMS.Server.Migrations
                     b.ToTable("GBMSUsers");
                 });
 
+            modelBuilder.Entity("SOS.FMS.Server.Models.GBMSVehicle", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ChasisNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EngineNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GasolineType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastSync")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Make")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Model")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PurchaseDate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Station")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VehicleType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GBMSVehicles");
+                });
+
             modelBuilder.Entity("SOS.FMS.Server.Models.Region", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1480,104 +1436,41 @@ namespace SOS.FMS.Server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("AddDate")
-                        .HasColumnType("datetime2");
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
 
-                    b.Property<string>("AddId")
+                    b.Property<int>("Breakdowns")
+                        .HasColumnType("int");
+
+                    b.Property<double>("CostThisMonth")
+                        .HasColumnType("float");
+
+                    b.Property<Guid>("DriverId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<double>("FuelAverage")
+                        .HasColumnType("float");
+
+                    b.Property<int>("IMEI")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Ranking")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("Region")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("SIM")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IpAdd")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("SubRegion")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("IpMod")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("LastSync")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ModDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ModId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XCapacity")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XChasisNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XEngineNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XGasolineType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XGasolineTypeDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XLeasingCompany")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XLocation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XLocationDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XMake")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XModel")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XOrigin")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("XOtherCosts")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("XPurchaseDate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("XPurchasePrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("XRegistration")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("XRegistrationCost")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("XRemarks")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XStation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XStationDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XTagNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("XTotalCost")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("XVehicleType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("XVehicleTypeDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long?>("XrowId")
-                        .HasColumnType("bigint");
+                    b.Property<Guid>("VehicleId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 

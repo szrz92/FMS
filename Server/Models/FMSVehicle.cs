@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SOS.FMS.Server.Models
 {
-    public class FMSVehicle
+    public class Vehicle
     {
         [Key]
         public Guid Id { get; set; }
@@ -21,5 +21,6 @@ namespace SOS.FMS.Server.Models
         public double FuelAverage { get; set; } = 0;
         public double CostThisMonth { get; set; } = 0;
         public int Ranking { get; set; }
+        public string Status { get; set; }
     }
 }

@@ -27,8 +27,25 @@ namespace SOS.FMS.Server.Controllers
         {
             try
             {
-                List<VehicleVM> rbVehicles = await (from v in dbContext.Vehicles
-                                                    select ModelService.VehicleViewModel(v)).ToListAsync();
+                List<GBMSVehicleVM> rbVehicles = await (from v in dbContext.GBMSVehicles
+                                                        join s in dbContext.SubRegions on v.Location equals s.XDescription
+                                                    select new GBMSVehicleVM()
+                                                    {
+                                                        Id = v.Id,
+                                                        Code = v.Code,
+                                                        ChasisNo = v.ChasisNo,
+                                                        Description = v.Description,
+                                                        EngineNo = v.EngineNo,
+                                                        GasolineType = v.GasolineType,
+                                                        LastSync = v.LastSync,
+                                                        Region = s.XRegionDescription,
+                                                        Subregion = v.Location,
+                                                        Make = v.Make,
+                                                        Model = v.Model,
+                                                        PurchaseDate = v.PurchaseDate,
+                                                        Station = v.Station,
+                                                        VehicleType = v.VehicleType
+                                                    }).ToListAsync();
                 return Ok(rbVehicles);
             }
             catch (Exception ex)
@@ -41,8 +58,12 @@ namespace SOS.FMS.Server.Controllers
         {
             try
             {
-                List<SelectListItem> items = await (from v in dbContext.Vehicles
-                                                    select ModelService.SelectList(v)).ToListAsync();
+                List<SelectListItem> items = await (from v in dbContext.GBMSVehicles
+                                                    select new SelectListItem()
+                                                    {
+                                                        Text = v.Description,
+                                                        Value = v.Description
+                                                    }).ToListAsync();
                 return Ok(items);
             }
             catch (Exception ex)
@@ -60,20 +81,20 @@ namespace SOS.FMS.Server.Controllers
         {
             try
             {
-                List<FMSVehicleVM> rbVehicles = new List<FMSVehicleVM>();
-                List<FMSVehicleDev> vehicleDevs = new List<FMSVehicleDev>();
+                List<VehicleVM> rbVehicles = new List<VehicleVM>();
+                List<Vehicle> vehicleDevs = new List<Vehicle>();
                 if (User.Claims.Any())
                 {
                     if (User.IsInRole("SA") || User.IsInRole("HMT"))
                     {
-                        vehicleDevs = (from v in dbContext.FMSVehiclesDev
+                        vehicleDevs = (from v in dbContext.Vehicles
                                        select v).ToList();
                     }
                     else
                     {
                         ApplicationUser user = (from u in dbContext.Users where u.Email == User.Identity.Name select u).FirstOrDefault();
                         Region region = (from r in dbContext.Regions where r.XDescription == user.Region select r).FirstOrDefault();
-                        vehicleDevs = (from v in dbContext.FMSVehiclesDev
+                        vehicleDevs = (from v in dbContext.Vehicles
                                        where v.Region == region.Id
                                        select v).ToList();
                     }
@@ -125,7 +146,7 @@ namespace SOS.FMS.Server.Controllers
                                 Longitude = 73.0479;
                                 break;
                         }
-                        rbVehicles.Add(new FMSVehicleVM()
+                        rbVehicles.Add(new VehicleVM()
                         {
                             Active = v.Active,
                             FuelAverage = v.FuelAverage,
@@ -140,7 +161,7 @@ namespace SOS.FMS.Server.Controllers
                             SIM = v.SIM,
                             SubRegion = subRegion,
                             VehicleId = v.VehicleId,
-                            VehicleNumber = (from r in dbContext.Vehicles where r.Id == v.VehicleId select r.XDescription).SingleOrDefault(),
+                            VehicleNumber = (from r in dbContext.GBMSVehicles where r.Id == v.VehicleId select r.Description).SingleOrDefault(),
                             Latitude = Latitude,
                             Longitude = Longitude,
                             Type = v.Status
@@ -155,12 +176,12 @@ namespace SOS.FMS.Server.Controllers
             }
         }
         [HttpPost("FMS/Demo/GetByNumber")]
-        public IActionResult GetByNumber(FMSVehicleVM vehicle)
+        public IActionResult GetByNumber(VehicleVM vehicle)
         {
             try
             {
-                List<FMSVehicleVM> rbVehicles = new List<FMSVehicleVM>();
-                List<FMSVehicleDev> vehicleDevs = (from v in dbContext.FMSVehiclesDev
+                List<VehicleVM> rbVehicles = new List<VehicleVM>();
+                List<Vehicle> vehicleDevs = (from v in dbContext.Vehicles
                                                    select v).ToList();
                 foreach (var v in vehicleDevs)
                 {
@@ -186,7 +207,7 @@ namespace SOS.FMS.Server.Controllers
                             Longitude = 73.0479;
                             break;
                     }
-                    rbVehicles.Add(new FMSVehicleVM()
+                    rbVehicles.Add(new VehicleVM()
                     {
                         Active = v.Active,
                         FuelAverage = v.FuelAverage,
@@ -201,7 +222,7 @@ namespace SOS.FMS.Server.Controllers
                         SIM = v.SIM,
                         SubRegion = subRegion,
                         VehicleId = v.VehicleId,
-                        VehicleNumber = (from r in dbContext.Vehicles where r.Id == v.VehicleId select r.XDescription).SingleOrDefault(),
+                        VehicleNumber = (from r in dbContext.GBMSVehicles where r.Id == v.VehicleId select r.Description).SingleOrDefault(),
                         Latitude = Latitude,
                         Longitude = Longitude,
                         Type = v.Status
@@ -219,16 +240,25 @@ namespace SOS.FMS.Server.Controllers
         {
             try
             {
-                List<FMSVehicleVM> rbVehicles = await (from v in dbContext.FMSVehicles
-                                                       join fv in dbContext.Vehicles on v.VehicleId equals fv.Id
+                List<VehicleVM> rbVehicles = await (from v in dbContext.Vehicles
+                                                       join fv in dbContext.GBMSVehicles on v.VehicleId equals fv.Id
                                                        join r in dbContext.Regions on v.Region equals r.Id
                                                        join sr in dbContext.SubRegions on v.SubRegion equals sr.Id
-                                                       select ModelService.FMSVehicleViewModel(v, fv, r, sr)).ToListAsync();
+                                                       select new VehicleVM()
+                                                       {
+                                                           VehicleId = v.VehicleId,
+                                                           Active = v.Active,
+                                                           IMEI = v.IMEI,
+                                                           Region = r.XDescription,
+                                                           SIM = v.SIM,
+                                                           SubRegion = sr.XDescription,
+                                                           VehicleNumber = fv.Description
+                                                       }).ToListAsync();
                 if (rbVehicles == null || rbVehicles.Count < 1)
                 {
-                    rbVehicles = new List<FMSVehicleVM>()
+                    rbVehicles = new List<VehicleVM>()
                     {
-                        new FMSVehicleVM()
+                        new VehicleVM()
                         {
                             VehicleId = Guid.NewGuid(),
                             Active= true,
@@ -256,9 +286,13 @@ namespace SOS.FMS.Server.Controllers
         {
             try
             {
-                List<SelectListItem> items = await (from v in dbContext.FMSVehicles
-                                                    join fv in dbContext.Vehicles on v.VehicleId equals fv.Id
-                                                    select ModelService.FMSVehicleSelectList(fv)).ToListAsync();
+                List<SelectListItem> items = await (from v in dbContext.Vehicles
+                                                    join fv in dbContext.GBMSVehicles on v.VehicleId equals fv.Id
+                                                    select new SelectListItem()
+                                                    {
+                                                        Value = fv.Description,
+                                                        Text = fv.Description
+                                                    }).ToListAsync();
                 return Ok(items);
             }
             catch (Exception ex)
@@ -272,8 +306,16 @@ namespace SOS.FMS.Server.Controllers
             try
             {
                 List<FMSVehicleScoreCardVM> scoreCards = await (from s in dbContext.FMSVehicleScoreCards
-                                                                join v in dbContext.Vehicles on s.VehicleId equals v.Id
-                                                                select ModelService.FMSVehicleScoreCardViewModel(s, v)).ToListAsync();
+                                                                join v in dbContext.GBMSVehicles on s.VehicleId equals v.Id
+                                                                select new FMSVehicleScoreCardVM()
+                                                                {
+                                                                    VehicleId = s.VehicleId,
+                                                                    VehicleNumber = v.Description,
+                                                                    FuelAverage = s.FuelAverage,
+                                                                    Breakdowns = s.Breakdowns,
+                                                                    CostThisMonth = s.CostThisMonth,
+                                                                    Ranking = s.Ranking
+                                                                }).ToListAsync();
                 return Ok(scoreCards);
             }
             catch (Exception ex)
@@ -287,9 +329,17 @@ namespace SOS.FMS.Server.Controllers
             try
             {
                 List<FMSVehicleScoreCardVM> scoreCards = await (from s in dbContext.FMSVehicleScoreCards
-                                                                join v in dbContext.Vehicles on s.VehicleId equals v.Id
+                                                                join v in dbContext.GBMSVehicles on s.VehicleId equals v.Id
                                                                 where s.VehicleId == vehicleId
-                                                                select ModelService.FMSVehicleScoreCardViewModel(s, v)).ToListAsync();
+                                                                select new FMSVehicleScoreCardVM()
+                                                                {
+                                                                    VehicleId = s.VehicleId,
+                                                                    VehicleNumber = v.Description,
+                                                                    FuelAverage = s.FuelAverage,
+                                                                    Breakdowns = s.Breakdowns,
+                                                                    CostThisMonth = s.CostThisMonth,
+                                                                    Ranking = s.Ranking
+                                                                }).ToListAsync();
                 return Ok(scoreCards);
             }
             catch (Exception ex)
@@ -303,12 +353,12 @@ namespace SOS.FMS.Server.Controllers
             try
             {
                 List<FMSVehicleAccidentVM> accidents = await (from a in dbContext.FMSVehicleAccidents
-                                                              join v in dbContext.Vehicles on a.VehicleId equals v.Id
+                                                              join v in dbContext.GBMSVehicles on a.VehicleId equals v.Id
                                                               join d in dbContext.Drivers on a.DriverId equals d.Id
                                                               select new FMSVehicleAccidentVM()
                                                               {
                                                                   VehicleId = a.VehicleId,
-                                                                  VehicleNumber = v.XDescription,
+                                                                  VehicleNumber = v.Description,
                                                                   DriverId = a.DriverId,
                                                                   DriverName = d.Name,
                                                                   TimeStamp = a.TimeStamp,
@@ -340,13 +390,13 @@ namespace SOS.FMS.Server.Controllers
             try
             {
                 List<FMSVehicleAccidentVM> accidents = await (from a in dbContext.FMSVehicleAccidents
-                                                              join v in dbContext.Vehicles on a.VehicleId equals v.Id
+                                                              join v in dbContext.GBMSVehicles on a.VehicleId equals v.Id
                                                               join d in dbContext.Drivers on a.DriverId equals d.Id
                                                               where a.VehicleId == vehicleId
                                                               select new FMSVehicleAccidentVM()
                                                               {
                                                                   VehicleId = a.VehicleId,
-                                                                  VehicleNumber = v.XDescription,
+                                                                  VehicleNumber = v.Description,
                                                                   DriverId = a.DriverId,
                                                                   DriverName = d.Name,
                                                                   TimeStamp = a.TimeStamp,

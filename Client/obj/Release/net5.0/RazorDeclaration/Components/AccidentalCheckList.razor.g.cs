@@ -187,6 +187,13 @@ using Microsoft.AspNetCore.SignalR.Client;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 2 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\AccidentalCheckList.razor"
+using SOS.FMS.Client.Components.AccidentalComments;
+
+#line default
+#line hidden
+#nullable disable
     public partial class AccidentalCheckList : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -195,7 +202,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 107 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\AccidentalCheckList.razor"
+#line 143 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\AccidentalCheckList.razor"
        
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -222,6 +229,32 @@ using Microsoft.AspNetCore.SignalR.Client;
     {
         commentBoxVisible = !commentBoxVisible;
         if (!commentBoxVisible) ReloadCheckList();
+    }
+    #endregion
+    #region Bill Posting
+    public bool billPostingVisible { get; set; } = false;
+    public void ShowHideBillPosting()
+    {
+        billPostingVisible = !billPostingVisible;
+        if (!billPostingVisible) ReloadCheckList();
+    }
+    public void ShowBillPostingModal(Guid pointId)
+    {
+        PointId = new ApiRequest() { FMSAccidentalCheckId = pointId, Remarks = CheckList.Where(x => x.Id == pointId).FirstOrDefault().Description };
+        billPostingVisible = true;
+    }
+    #endregion
+    #region Assign Work Shop
+    public bool assignWorkShopVisible { get; set; } = false;
+    public void ShowHideAssignWorkshop()
+    {
+        assignWorkShopVisible = !assignWorkShopVisible;
+        if (!assignWorkShopVisible) ReloadCheckList();
+    }
+    public void ShowAssignWorkshopModal(Guid pointId)
+    {
+        PointId = new ApiRequest() { FMSAccidentalCheckId = pointId, Remarks = CheckList.Where(x => x.Id == pointId).FirstOrDefault().Description };
+        assignWorkShopVisible = true;
     }
     #endregion
 
@@ -333,8 +366,8 @@ using Microsoft.AspNetCore.SignalR.Client;
     {
         PointId = new ApiRequest() { FMSAccidentalCheckId = pointId };
         commentBoxVisible = true;
-
     }
+
 
 #line default
 #line hidden
