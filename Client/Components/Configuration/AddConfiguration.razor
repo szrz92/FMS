@@ -1,0 +1,84 @@
+﻿@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+
+<div id="kt_quick_cart" class="offcanvas offcanvas-right p-10 offcanvas-on">
+    @if (configuration != null)
+    {
+        <!--begin::Header-->
+        <div class="offcanvas-header d-flex align-items-center justify-content-between pb-7" kt-hidden-height="46" style="">
+            <h4 class="font-weight-bold m-0">New Configuration for Vehicles</h4>
+            <a @onclick="Close" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_cart_close">
+                <i class="ki ki-close icon-xs text-muted"></i>
+            </a>
+        </div>
+        <!--end::Header-->
+        <!--begin::Content-->
+        <div class="offcanvas-content pr-5 mr-n5 scroll ps ps--active-y">
+            <div class="d-flex flex-column-fluid">
+                <EditForm Model="configuration" OnValidSubmit="Submit">
+                    <DataAnnotationsValidator />
+                    <div class="form-group">
+                        <label>Description:</label>
+                        <SfTextBox Type="InputType.Text" Placeholder="Enter Description" @bind-Value="configuration.Description" class="form-control"></SfTextBox>
+                        <ValidationMessage For="() => configuration.Description" />
+                    </div>
+                    <div class="form-group">
+                        <label>Months (Change Interval):</label>
+                        <SfNumericTextBox Placeholder="Enter Distance Limit" @bind-Value="configuration.Month" class="form-control"></SfNumericTextBox>
+                        <ValidationMessage For="() => configuration.Month" />
+                    </div>
+                    <div class="form-group">
+                        <label>Distance in KMs:</label>
+                        <SfNumericTextBox Placeholder="Enter Distance Limit" @bind-Value="configuration.Distance" class="form-control"></SfNumericTextBox>
+                        <ValidationMessage For="() => configuration.Distance" />
+                    </div>
+                    <div class="form-group">
+                        <label>Points:</label>
+                        <SfNumericTextBox Placeholder="Enter Points to be Deducted" @bind-Value="configuration.PenalityPoints" class="form-control"></SfNumericTextBox>
+                        <ValidationMessage For="() => configuration.PenalityPoints" />
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    <button type="reset" class="btn btn-secondary" @onclick="Close">Cancel</button><!-- Button trigger modal-->
+                </EditForm>
+            </div>
+            <!--end::Content-->
+        </div>
+    }
+    else
+    {
+        <img style="position:fixed;top:50%;left:70%;" src="assets/media/loading.gif" />
+    }
+</div>
+@code {
+    [Parameter]
+    public string VehicleNumber { get; set; }
+    [Parameter]
+    public bool Visible { get; set; }
+    [Parameter]
+    public EventCallback<bool> OnVisibilityChanged { get; set; }
+    [Parameter]
+    public EventCallback<VehicleConfigurationVM> OnSubmit { get; set; }
+
+    VehicleConfigurationVM configuration { get; set; } = new VehicleConfigurationVM();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    public async void Submit()
+    {
+        await OnSubmit.InvokeAsync(configuration);
+    }
+
+    public Task Close()
+    {
+        return OnVisibilityChanged.InvokeAsync(false);
+    }
+
+}

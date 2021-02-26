@@ -40,7 +40,7 @@ namespace SOS.FMS.Server.Controllers
                                        join r in dbContext.Regions on a.RegionId equals r.Id
                                        join s in dbContext.SubRegions on a.SubRegionId equals s.Id
                                        join v in dbContext.Vehicles on a.FMSVehicleId equals v.Id
-                                       join gv in dbContext.GBMSVehicles on v.VehicleId equals gv.Id
+                                       join gv in dbContext.GBMSVehicles on v.VehicleNumber equals gv.Description
                                        select new FMSAccidentVM()
                                        {
                                            Id = a.Id,
@@ -66,7 +66,7 @@ namespace SOS.FMS.Server.Controllers
                                            join r in dbContext.Regions on a.RegionId equals r.Id
                                            join s in dbContext.SubRegions on a.SubRegionId equals s.Id
                                            join v in dbContext.Vehicles on a.FMSVehicleId equals v.Id
-                                           join gv in dbContext.GBMSVehicles on v.VehicleId equals gv.Id
+                                           join gv in dbContext.GBMSVehicles on v.VehicleNumber equals gv.Description
                                            where a.RegionId == region.Id
                                            select new FMSAccidentVM()
                                            {
@@ -96,16 +96,17 @@ namespace SOS.FMS.Server.Controllers
             try
             {
                 Guid accidentId = Guid.NewGuid();
-                Guid vehicleId = await (from v in dbContext.GBMSVehicles where v.Description == accident.VehicleNumber select v.Id).FirstOrDefaultAsync();
-                Vehicle vehicle = await (from v in dbContext.Vehicles where v.VehicleId == vehicleId select v).SingleOrDefaultAsync();
+                Vehicle vehicle = await (from v in dbContext.Vehicles 
+                                         where v.VehicleNumber == accident.VehicleNumber
+                                         select v).SingleOrDefaultAsync();
                 FMSAccident newAccident = new FMSAccident()
                 {
                     Id = accidentId,
                     Description = accident.Description,
-                    DriverId = vehicle.DriverId,
-                    RegionId = vehicle.Region,
+                    DriverId = dbContext.Drivers.Where(x => x.VehicleNumber == accident.VehicleNumber).SingleOrDefault().Id,
+                    RegionId = dbContext.Regions.Where(x => x.XDescription == vehicle.Region).SingleOrDefault().Id,
                     VehicleNumber = accident.VehicleNumber,
-                    SubRegionId = vehicle.SubRegion,
+                    SubRegionId = dbContext.SubRegions.Where(x => x.XDescription == vehicle.SubRegion).SingleOrDefault().Id,
                     FMSVehicleId = vehicle.Id,
                     MaintenanceStatus = accident.MaintenanceStatus == "Done" ? MaintenanceStatus.Done : MaintenanceStatus.NotInitiated,
                     TimeStamp = DateTime.Now,
@@ -168,13 +169,10 @@ namespace SOS.FMS.Server.Controllers
         {
             try
             {
-                GBMSVehicle vehicle1 = (from v in dbContext.GBMSVehicles
-                                        where v.Description == vehicle.VehicleNumber
-                                    select v).FirstOrDefault();
 
                 Vehicle fmsVehicle = (from v in dbContext.Vehicles
-                                            where v.VehicleId == vehicle1.Id
-                                            select v).SingleOrDefault();
+                                      where v.VehicleNumber == vehicle.VehicleNumber
+                                      select v).SingleOrDefault();
 
                 fmsVehicle.Status = "maintained";
                 dbContext.SaveChanges();
@@ -206,12 +204,8 @@ namespace SOS.FMS.Server.Controllers
         {
             try
             {
-                GBMSVehicle vehicle = (from v in dbContext.GBMSVehicles
-                                       where v.Description == request.VehicleNumber
-                                    select v).FirstOrDefault();
-
                 Vehicle fmsVehicle = (from v in dbContext.Vehicles
-                                      where v.VehicleId == vehicle.Id
+                                      where v.VehicleNumber == request.VehicleNumber
                                       select v).SingleOrDefault();
 
                 fmsVehicle.Status = "maintained";
@@ -249,8 +243,7 @@ namespace SOS.FMS.Server.Controllers
         {
             try
             {
-                GBMSVehicle vehicle = await (from v in dbContext.GBMSVehicles where v.Description == request.VehicleNumber select v).FirstOrDefaultAsync();
-                Vehicle fmsVehicle = await (from v in dbContext.Vehicles where v.VehicleId == vehicle.Id && v.Status == "accidental" select v).SingleOrDefaultAsync();
+                Vehicle fmsVehicle = await (from v in dbContext.Vehicles where v.VehicleNumber == request.VehicleNumber && v.Status == "accidental" select v).SingleOrDefaultAsync();
                 FMSAccident fmsAccident = await (from a in dbContext.FMSAccidents where a.FMSVehicleId == fmsVehicle.Id && a.MaintenanceStatus == MaintenanceStatus.NotInitiated select a).FirstOrDefaultAsync();
                 List<FMSAccidentalCheckVM> checkList = await (from c in dbContext.FMSAccidentalCheckList
                                                               where c.FMSAccidentId == fmsAccident.Id && c.FMSVehicleId == fmsVehicle.Id

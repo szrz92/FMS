@@ -10,6 +10,12 @@ using Microsoft.EntityFrameworkCore;
 using SOS.FMS.Shared.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SOS.FMS.Server.Services;
+using System.Net.Http;
+using System.Text;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
+using SOS.FMS.Shared.Traccar;
+using SOS.FMS.Shared;
 
 namespace SOS.FMS.Server.Controllers
 {
@@ -58,8 +64,8 @@ namespace SOS.FMS.Server.Controllers
         {
             try
             {
-                List<SelectListItem> items = await (from v in dbContext.GBMSVehicles
-                                                    select new SelectListItem()
+                List<Shared.SelectListItem> items = await (from v in dbContext.GBMSVehicles
+                                                    select new Shared.SelectListItem()
                                                     {
                                                         Text = v.Description,
                                                         Value = v.Description
@@ -82,92 +88,6 @@ namespace SOS.FMS.Server.Controllers
             try
             {
                 List<VehicleVM> rbVehicles = new List<VehicleVM>();
-                List<Vehicle> vehicleDevs = new List<Vehicle>();
-                if (User.Claims.Any())
-                {
-                    if (User.IsInRole("SA") || User.IsInRole("HMT"))
-                    {
-                        vehicleDevs = (from v in dbContext.Vehicles
-                                       select v).ToList();
-                    }
-                    else
-                    {
-                        ApplicationUser user = (from u in dbContext.Users where u.Email == User.Identity.Name select u).FirstOrDefault();
-                        Region region = (from r in dbContext.Regions where r.XDescription == user.Region select r).FirstOrDefault();
-                        vehicleDevs = (from v in dbContext.Vehicles
-                                       where v.Region == region.Id
-                                       select v).ToList();
-                    }
-                    if (vehicleDevs.Count == 1)
-                    {
-                        //FMSVehicleDev vehicleDev = new FMSVehicleDev();
-                        //vehicleDev.Id = Guid.NewGuid();
-                        //vehicleDev.VehicleId = new Guid("C5704B36-57E4-489A-B7CB-1C676F97AB3B");
-                        //vehicleDev.DriverId = new Guid("D5B09BF7-24B1-44D2-8AFE-10EC44AC4FA1");
-                        //vehicleDev.IMEI = 100010001000100;
-                        //vehicleDev.SIM = 923331001000;
-                        //vehicleDev.Region = new Guid("C192434E-142F-4666-AD8C-E62B81208DDC");
-                        //vehicleDev.SubRegion = new Guid("2B63422E-30F6-4A8B-9199-B89CCE45BC0A");
-                        //vehicleDev.Active = true;
-                        //vehicleDev.Breakdowns = 0;
-                        //vehicleDev.CostThisMonth = 0;
-                        //vehicleDev.FuelAverage = 0;
-                        //vehicleDev.Ranking = 0;
-                        //vehicleDev.Status = "maintained";
-                        //dbContext.FMSVehiclesDev.Add(vehicleDev);
-                        //dbContext.SaveChanges();
-                    }
-
-                    foreach (var v in vehicleDevs)
-                    {
-                        double Latitude = 0;
-                        double Longitude = 0;
-                        string subRegion = (from r in dbContext.SubRegions where r.Id == v.SubRegion select r.XDescription).SingleOrDefault();
-                        switch (subRegion)
-                        {
-                            case "Karachi":
-                                Latitude = 24.8607;
-                                Longitude = 67.0011;
-                                break;
-                            case "Quetta":
-                                Latitude = 30.1798;
-                                Longitude = 66.9750;
-                                break;
-                            case "Lahore":
-                                Latitude = 31.5204;
-                                Longitude = 74.3587;
-                                break;
-                            case "Rawalpindi":
-                                Latitude = 33.6844;
-                                Longitude = 73.0479;
-                                break;
-                            case "Islamabad":
-                                Latitude = 33.6844;
-                                Longitude = 73.0479;
-                                break;
-                        }
-                        rbVehicles.Add(new VehicleVM()
-                        {
-                            Active = v.Active,
-                            FuelAverage = v.FuelAverage,
-                            Breakdowns = v.Breakdowns,
-                            CostThisMonth = v.CostThisMonth,
-                            DriverId = v.DriverId,
-                            DriverName = (from d in dbContext.Drivers where d.Id == v.DriverId select d.Name).SingleOrDefault(),
-                            Id = v.Id,
-                            IMEI = v.IMEI,
-                            Ranking = v.Ranking,
-                            Region = (from r in dbContext.Regions where r.Id == v.Region select r.XDescription).SingleOrDefault(),
-                            SIM = v.SIM,
-                            SubRegion = subRegion,
-                            VehicleId = v.VehicleId,
-                            VehicleNumber = (from r in dbContext.GBMSVehicles where r.Id == v.VehicleId select r.Description).SingleOrDefault(),
-                            Latitude = Latitude,
-                            Longitude = Longitude,
-                            Type = v.Status
-                        });
-                    }
-                }
                 return Ok(rbVehicles);
             }
             catch (Exception ex)
@@ -176,59 +96,26 @@ namespace SOS.FMS.Server.Controllers
             }
         }
         [HttpPost("FMS/Demo/GetByNumber")]
-        public IActionResult GetByNumber(VehicleVM vehicle)
+        public IActionResult GetByNumber(ApiRequest vehicle)
         {
             try
             {
-                List<VehicleVM> rbVehicles = new List<VehicleVM>();
-                List<Vehicle> vehicleDevs = (from v in dbContext.Vehicles
-                                                   select v).ToList();
-                foreach (var v in vehicleDevs)
-                {
-                    double Latitude = 0;
-                    double Longitude = 0;
-                    string subRegion = (from r in dbContext.SubRegions where r.Id == v.SubRegion select r.XDescription).SingleOrDefault();
-                    switch (subRegion)
-                    {
-                        case "Karachi":
-                            Latitude = 24.8607;
-                            Longitude = 67.0011;
-                            break;
-                        case "Quetta":
-                            Latitude = 30.1798;
-                            Longitude = 66.9750;
-                            break;
-                        case "Lahore":
-                            Latitude = 31.5204;
-                            Longitude = 74.3587;
-                            break;
-                        case "Rawalpindi":
-                            Latitude = 33.6844;
-                            Longitude = 73.0479;
-                            break;
-                    }
-                    rbVehicles.Add(new VehicleVM()
-                    {
-                        Active = v.Active,
-                        FuelAverage = v.FuelAverage,
-                        Breakdowns = v.Breakdowns,
-                        CostThisMonth = v.CostThisMonth,
-                        DriverId = v.DriverId,
-                        DriverName = (from d in dbContext.Drivers where d.Id == v.DriverId select d.Name).SingleOrDefault(),
-                        Id = v.Id,
-                        IMEI = v.IMEI,
-                        Ranking = v.Ranking,
-                        Region = (from r in dbContext.Regions where r.Id == v.Region select r.XDescription).SingleOrDefault(),
-                        SIM = v.SIM,
-                        SubRegion = subRegion,
-                        VehicleId = v.VehicleId,
-                        VehicleNumber = (from r in dbContext.GBMSVehicles where r.Id == v.VehicleId select r.Description).SingleOrDefault(),
-                        Latitude = Latitude,
-                        Longitude = Longitude,
-                        Type = v.Status
-                    });
-                }
-                return Ok(rbVehicles.Where(x => x.VehicleNumber == vehicle.VehicleNumber).SingleOrDefault());
+                VehicleVM rbVehicles = (from v in dbContext.Vehicles
+                                        join d in dbContext.Drivers on v.VehicleNumber equals d.VehicleNumber
+                                        where v.VehicleNumber == vehicle.VehicleNumber
+                                        select new VehicleVM()
+                                        {
+                                            VehicleId = v.Id,
+                                            Active = v.Active,
+                                            DriverName = d.Name,
+                                            IMEI = v.IMEI,
+                                            Region = v.Region,
+                                            SIM = v.SIM,
+                                            SubRegion = v.SubRegion,
+                                            VehicleNumber = v.VehicleNumber,
+                                            Type = v.Status
+                                        }).SingleOrDefault();
+                return Ok(rbVehicles);
             }
             catch (Exception ex)
             {
@@ -240,41 +127,56 @@ namespace SOS.FMS.Server.Controllers
         {
             try
             {
+                List<Position> positions = await TraccarService.GetPositions();
+                List<Device> devices = await TraccarService.GetDevices();
+                IEnumerable<DevicePosition> devicePositions = from d in devices
+                                                             join p in positions on d.id equals p.deviceId
+                                                             select new DevicePosition()
+                                                             {
+                                                                 id = d.id,
+                                                                 name = d.name,
+                                                                 latitude = p.latitude,
+                                                                 longitude = p.longitude,
+                                                                 distance = p.attributes.distance,
+                                                                 hours = p.attributes.hours,
+                                                                 odometer = p.attributes.odometer,
+                                                                 totalDistance = p.attributes.totalDistance
+                                                             };
                 List<VehicleVM> rbVehicles = await (from v in dbContext.Vehicles
-                                                       join fv in dbContext.GBMSVehicles on v.VehicleId equals fv.Id
-                                                       join r in dbContext.Regions on v.Region equals r.Id
-                                                       join sr in dbContext.SubRegions on v.SubRegion equals sr.Id
-                                                       select new VehicleVM()
-                                                       {
-                                                           VehicleId = v.VehicleId,
-                                                           Active = v.Active,
-                                                           IMEI = v.IMEI,
-                                                           Region = r.XDescription,
-                                                           SIM = v.SIM,
-                                                           SubRegion = sr.XDescription,
-                                                           VehicleNumber = fv.Description
-                                                       }).ToListAsync();
-                if (rbVehicles == null || rbVehicles.Count < 1)
-                {
-                    rbVehicles = new List<VehicleVM>()
-                    {
-                        new VehicleVM()
-                        {
-                            VehicleId = Guid.NewGuid(),
-                            Active= true,
-                            FuelAverage=0,
-                            Breakdowns=0,
-                            CostThisMonth=0,
-                            IMEI=11111,
-                            Ranking=0,
-                            Region="XYZ",
-                            SIM=090078601,
-                            SubRegion="ABC",
-                            VehicleNumber="ABC-123"
-                        }
-                    };
-                }
-                return Ok(rbVehicles);
+                                                    join d in dbContext.Drivers on v.VehicleNumber equals d.VehicleNumber
+                                                    select new VehicleVM()
+                                                    {
+                                                        VehicleId = v.Id,
+                                                        Active = v.Active,
+                                                        DriverName = d.Name,
+                                                        IMEI = v.IMEI,
+                                                        Region = v.Region,
+                                                        SIM = v.SIM,
+                                                        SubRegion = v.SubRegion,
+                                                        VehicleNumber = v.VehicleNumber,
+                                                        Type = v.Status
+                                                    }).ToListAsync();
+                var list = from v in rbVehicles
+                           join p in devicePositions on v.VehicleNumber equals p.name
+                           select new VehicleVM()
+                           {
+                               VehicleId = v.Id,
+                               Active = v.Active,
+                               DriverName = v.DriverName,
+                               IMEI = v.IMEI,
+                               Region = v.Region,
+                               SIM = v.SIM,
+                               SubRegion = v.SubRegion,
+                               VehicleNumber = v.VehicleNumber,
+                               Type = v.Type,
+                               Latitude = p.latitude,
+                               Longitude = p.longitude,
+                               Odometer = p.odometer,
+                               Distance = p.distance,
+                               TotalDistance = p.totalDistance,
+                               Hours = p.hours
+                           };
+                return Ok(list);
             }
             catch (Exception ex)
             {
@@ -286,12 +188,11 @@ namespace SOS.FMS.Server.Controllers
         {
             try
             {
-                List<SelectListItem> items = await (from v in dbContext.Vehicles
-                                                    join fv in dbContext.GBMSVehicles on v.VehicleId equals fv.Id
-                                                    select new SelectListItem()
+                List<Shared.SelectListItem> items = await (from v in dbContext.Vehicles
+                                                    select new Shared.SelectListItem()
                                                     {
-                                                        Value = fv.Description,
-                                                        Text = fv.Description
+                                                        Value = v.VehicleNumber,
+                                                        Text = v.VehicleNumber
                                                     }).ToListAsync();
                 return Ok(items);
             }
@@ -403,6 +304,72 @@ namespace SOS.FMS.Server.Controllers
                                                                   Description = a.Description
                                                               }).ToListAsync();
                 return Ok(accidents);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpPost("Add")]
+        public async Task<IActionResult> AddVehicle(VehicleVM vehicle)
+        {
+            try
+            {
+                List<Device> devices = await TraccarService.GetDevices();
+                if (devices != null)
+                {
+                    if (devices.Where(x => x.name == vehicle.VehicleNumber).Any())
+                    {
+                        return BadRequest($"A device with vehicle number {vehicle.VehicleNumber} already exists");
+                    }
+                    else
+                    {
+                        Driver driver = (from d in dbContext.Drivers where d.VehicleNumber == vehicle.VehicleNumber select d).SingleOrDefault();
+                        if (driver != null)
+                        {
+                            if (await TraccarService.AddDevice(vehicle))
+                            {
+                                Vehicle newVehicle = new Vehicle()
+                                {
+                                    Id = Guid.NewGuid(),
+                                    Active = true,
+                                    FuelAverage = 0,
+                                    Breakdowns = 0,
+                                    CostThisMonth = 0,
+                                    IMEI = vehicle.IMEI,
+                                    Ranking = 0,
+                                    Region = vehicle.Region,
+                                    SIM = vehicle.SIM,
+                                    Status = "maintained",
+                                    SubRegion = vehicle.SubRegion,
+                                    VehicleNumber = vehicle.VehicleNumber
+                                };
+                                await dbContext.Vehicles.AddAsync(newVehicle);
+                                if (await dbContext.SaveChangesAsync() > 0)
+                                {
+                                    return Ok($"Device is successfully added with vehicle number {vehicle.VehicleNumber}");
+                                }
+                                else
+                                {
+                                    return BadRequest($"A device with vehicle number {vehicle.VehicleNumber} could not be added to FMS.");
+                                }
+                            }
+                            else
+                            {
+                                return BadRequest($"A device could not be added with vehicle number {vehicle.VehicleNumber}");
+                            }
+                        }
+                        else
+                        {
+                            return BadRequest($"Please assign driver to vehicle number {vehicle.VehicleNumber}");
+                        }
+                    }
+                }
+                else
+                {
+                    return BadRequest($"A device could not be added with vehicle number {vehicle.VehicleNumber}. It seems some temporary problem. Please try again. If problem persists, contact support staff for assistance.");
+                }
             }
             catch (Exception ex)
             {

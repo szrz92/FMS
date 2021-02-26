@@ -31,7 +31,7 @@ namespace SOS.FMS.Server.Controllers
             try
             {
                 List<string> vehicleNumbers = (from v in dbContext.Vehicles
-                                               join gv in dbContext.GBMSVehicles on v.VehicleId equals gv.Id
+                                               join gv in dbContext.GBMSVehicles on v.VehicleNumber equals gv.Description
                                                select gv.Description).ToList();
                 foreach (var vehicleNumber in vehicleNumbers)
                 {
@@ -44,18 +44,18 @@ namespace SOS.FMS.Server.Controllers
                     else
                     {
                         Vehicle vehicle = (from f in dbContext.Vehicles
-                                                 join v in dbContext.GBMSVehicles on f.VehicleId equals v.Id
+                                                 join v in dbContext.GBMSVehicles on f.VehicleNumber equals v.Description
                                                  where v.Description == vehicleNumber
                                                  select f).SingleOrDefault();
                         Region region = (from r in dbContext.Regions
-                                         where r.Id == vehicle.Region
+                                         where r.XDescription == vehicle.Region
                                          select r).SingleOrDefault();
                         SubRegion subRegion = (from s in dbContext.SubRegions
-                                               where s.Id == vehicle.SubRegion
+                                               where s.XDescription == vehicle.SubRegion
                                                select s).SingleOrDefault();
                         string DriverName = (from f in dbContext.Vehicles
-                                             join d in dbContext.Drivers on f.DriverId equals d.Id
-                                             join v in dbContext.GBMSVehicles on f.VehicleId equals v.Id
+                                             join d in dbContext.Drivers on f.VehicleNumber equals d.VehicleNumber
+                                             join v in dbContext.GBMSVehicles on f.VehicleNumber equals v.Description
                                              where v.Description == vehicleNumber
                                              select d.Name).SingleOrDefault();
                         FMSDailyMorning dailyMorning = new FMSDailyMorning();
@@ -84,18 +84,18 @@ namespace SOS.FMS.Server.Controllers
                     else
                     {
                         Vehicle vehicle = (from f in dbContext.Vehicles
-                                                 join v in dbContext.GBMSVehicles on f.VehicleId equals v.Id
-                                                 where v.Description == vehicleNumber
-                                                 select f).SingleOrDefault();
+                                           join v in dbContext.GBMSVehicles on f.VehicleNumber equals v.Description
+                                           where v.Description == vehicleNumber
+                                           select f).SingleOrDefault();
                         Region region = (from r in dbContext.Regions
-                                         where r.Id == vehicle.Region
+                                         where r.XDescription == vehicle.Region
                                          select r).SingleOrDefault();
                         SubRegion subRegion = (from s in dbContext.SubRegions
-                                               where s.Id == vehicle.SubRegion
+                                               where s.XDescription == vehicle.SubRegion
                                                select s).SingleOrDefault();
                         string DriverName = (from f in dbContext.Vehicles
-                                             join d in dbContext.Drivers on f.DriverId equals d.Id
-                                             join v in dbContext.GBMSVehicles on f.VehicleId equals v.Id
+                                             join d in dbContext.Drivers on f.VehicleNumber equals d.VehicleNumber
+                                             join v in dbContext.GBMSVehicles on f.VehicleNumber equals v.Description
                                              where v.Description == vehicleNumber
                                              select d.Name).SingleOrDefault();
                         FMSDailyEvening dailyEvening = new FMSDailyEvening();
@@ -138,18 +138,18 @@ namespace SOS.FMS.Server.Controllers
                 else
                 {
                     Vehicle vehicle = (from f in dbContext.Vehicles
-                                             join v in dbContext.GBMSVehicles on f.VehicleId equals v.Id
+                                             join v in dbContext.GBMSVehicles on f.VehicleNumber equals v.Description
                                              where v.Description == request.VehicleNumber
                                              select f).SingleOrDefault();
                     Region region = (from r in dbContext.Regions
-                                     where r.Id == vehicle.Region
+                                     where r.XDescription == vehicle.Region
                                      select r).SingleOrDefault();
                     SubRegion subRegion = (from s in dbContext.SubRegions
-                                           where s.Id == vehicle.SubRegion
+                                           where s.XDescription == vehicle.SubRegion
                                            select s).SingleOrDefault();
                     string DriverName = (from f in dbContext.Vehicles
-                                         join d in dbContext.Drivers on f.DriverId equals d.Id
-                                         join v in dbContext.GBMSVehicles on f.VehicleId equals v.Id
+                                         join d in dbContext.Drivers on f.VehicleNumber equals d.VehicleNumber
+                                         join v in dbContext.GBMSVehicles on f.VehicleNumber equals v.Description
                                          where v.Description == request.VehicleNumber
                                          select d.Name).SingleOrDefault();
                     FMSDailyMorning dailyMorning = new FMSDailyMorning();
@@ -178,18 +178,18 @@ namespace SOS.FMS.Server.Controllers
                 else
                 {
                     Vehicle vehicle = (from f in dbContext.Vehicles
-                                             join v in dbContext.GBMSVehicles on f.VehicleId equals v.Id
+                                             join v in dbContext.GBMSVehicles on f.VehicleNumber equals v.Description
                                              where v.Description == request.VehicleNumber
                                              select f).SingleOrDefault();
                     Region region = (from r in dbContext.Regions
-                                     where r.Id == vehicle.Region
+                                     where r.XDescription == vehicle.Region
                                      select r).SingleOrDefault();
                     SubRegion subRegion = (from s in dbContext.SubRegions
-                                           where s.Id == vehicle.SubRegion
+                                           where s.XDescription == vehicle.SubRegion
                                            select s).SingleOrDefault();
                     string DriverName = (from f in dbContext.Vehicles
-                                         join d in dbContext.Drivers on f.DriverId equals d.Id
-                                         join v in dbContext.GBMSVehicles on f.VehicleId equals v.Id
+                                         join d in dbContext.Drivers on f.VehicleNumber equals d.VehicleNumber
+                                         join v in dbContext.GBMSVehicles on f.VehicleNumber equals v.Description
                                          where v.Description == request.VehicleNumber
                                          select d.Name).SingleOrDefault();
                     FMSDailyEvening dailyEvening = new FMSDailyEvening();

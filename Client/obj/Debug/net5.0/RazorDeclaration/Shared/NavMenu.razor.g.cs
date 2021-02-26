@@ -195,7 +195,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 127 "C:\Users\BA Tech\source\repos\sosfms\Client\Shared\NavMenu.razor"
+#line 137 "C:\Users\BA Tech\source\repos\sosfms\Client\Shared\NavMenu.razor"
       
     [CascadingParameter]
     Task<AuthenticationState> AuthenticationState { get; set; }

@@ -195,27 +195,91 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 70 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Vehicles\AddVehicle.razor"
+#line 79 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Vehicles\AddVehicle.razor"
        
+    [Parameter]
+    public EventCallback OnResponse { get; set; }
+
     public List<GBMSVehicleVM> Vehicles { get; set; }
     public List<SelectListItem> VehiclesList = new List<SelectListItem>();
     public List<SelectListItem> RegionsList = new List<SelectListItem>();
+    public List<SelectListItem> SubRegionsList = new List<SelectListItem>();
 
-    public List<SelectListItem> SubRegions = new List<SelectListItem>();
+    public VehicleVM vehicle = new VehicleVM();
 
     protected override async Task OnInitializedAsync()
     {
         Vehicles = (await Http.GetFromJsonAsync<List<GBMSVehicleVM>>("api/Vehicles/All"))
                         .ToList();
+
         VehiclesList = Vehicles.GroupBy(x => x.Description).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
                             .ToList();
         RegionsList = Vehicles.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
                         .ToList();
-        SubRegions = Vehicles.GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
-                        .ToList();
+        SubRegionsList = Vehicles.GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
+                    .ToList();
 
         await base.OnInitializedAsync();
     }
+
+    public void OnRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        SubRegionsList = Vehicles.Where(x => x.Region == args.Value)
+            .GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        VehiclesList = Vehicles.Where(x => x.Region == args.Value)
+            .GroupBy(x => x.Description).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        StateHasChanged();
+    }
+
+    public void OnSubRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        vehicle.Region = Vehicles.Where(x => x.Subregion == args.Value).FirstOrDefault().Region;
+        VehiclesList = Vehicles.Where(x => x.Subregion == args.Value)
+            .GroupBy(x => x.Description).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        StateHasChanged();
+    }
+
+    public void OnVehicleNumberChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        vehicle.Region = Vehicles.Where(x => x.Description == args.Value).FirstOrDefault().Region;
+        vehicle.SubRegion = Vehicles.Where(x => x.Description == args.Value).FirstOrDefault().Subregion;
+        StateHasChanged();
+    }
+
+    public async void Save()
+    {
+        var response = await Http.PostAsJsonAsync("api/Vehicles/Add", vehicle);
+        dialogBody = await response.Content.ReadAsStringAsync();
+        if (response.IsSuccessStatusCode)
+        {
+            dialogHeader = "Success";
+        }
+        else
+        {
+            dialogHeader = "Failed";
+        }
+        ResponseDialog = true;
+        await OnResponse.InvokeAsync();
+        vehicle = new VehicleVM();
+        StateHasChanged();
+    }
+
+    public void Cancel()
+    {
+        vehicle = new VehicleVM();
+    }
+
+    #region Dialog
+    public bool ResponseDialog { get; set; }
+    public string dialogHeader { get; set; }
+    public string dialogBody { get; set; }
+
+    public void DialogClose()
+    {
+        dialogHeader = null;
+        dialogBody = null;
+    }
+    #endregion
 
 
 #line default

@@ -50,9 +50,58 @@ namespace SOS.FMS.Server.Controllers
                                         VehicleNumber = crew.vehicle
                                     };
                                     await dbContext.Drivers.AddAsync(driver);
+
+                                    VehicleSummary vehicleSummary = new VehicleSummary()
+                                    {
+                                        Id = Guid.NewGuid(),
+                                        AssignmentDate = DateTime.Now,
+                                        DriverCode = member.code,
+                                        DriverName = member.name,
+                                        VehicleNumber = crew.vehicle,
+                                        LeavingDate = DateTime.MinValue
+                                    };
+                                    await dbContext.VehicleSummaries.AddAsync(vehicleSummary);
                                 }
                                 else
                                 {
+                                    if (driver.VehicleNumber == crew.vehicle)
+                                    {
+                                        VehicleSummary vehicleSummary = (from v in dbContext.VehicleSummaries
+                                                                         where v.DriverCode == driver.Code && v.VehicleNumber == crew.vehicle
+                                                                         select v).OrderByDescending(x => x.LastUpdate).FirstOrDefault();
+                                        if (vehicleSummary == null)
+                                        {
+                                            VehicleSummary newVehicleSummary = new VehicleSummary()
+                                            {
+                                                Id = Guid.NewGuid(),
+                                                AssignmentDate = DateTime.Now,
+                                                DriverCode = member.code,
+                                                DriverName = member.name,
+                                                VehicleNumber = crew.vehicle,
+                                                LeavingDate = DateTime.MinValue
+                                            };
+                                            await dbContext.VehicleSummaries.AddAsync(newVehicleSummary);
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        VehicleSummary vehicleSummary = (from v in dbContext.VehicleSummaries
+                                                                         where v.DriverCode == driver.Code
+                                                                         select v).OrderByDescending(x => x.LastUpdate).FirstOrDefault();
+                                        vehicleSummary.LeavingDate = DateTime.Now;
+
+                                        VehicleSummary newVehicleSummary = new VehicleSummary()
+                                        {
+                                            Id = Guid.NewGuid(),
+                                            AssignmentDate = DateTime.Now,
+                                            DriverCode = member.code,
+                                            DriverName = member.name,
+                                            VehicleNumber = crew.vehicle,
+                                            LeavingDate = DateTime.MinValue
+                                        };
+                                        await dbContext.VehicleSummaries.AddAsync(newVehicleSummary);
+                                    }
                                     driver.VehicleNumber = crew.vehicle;
                                 }
                             }
@@ -74,6 +123,32 @@ namespace SOS.FMS.Server.Controllers
             {
                 Driver driver = dbContext.Drivers.Where(x => x.Code.Equals(Code)).FirstOrDefault();
                 driver.VehicleNumber = VehicleNumber;
+
+                //Update Summary
+
+                VehicleSummary vehicleSummary = (from v in dbContext.VehicleSummaries
+                                                 where v.DriverCode == driver.Code
+                                                 select v).OrderByDescending(x=>x.LastUpdate).FirstOrDefault();
+
+                if (vehicleSummary.VehicleNumber == VehicleNumber)
+                {
+                }
+                else
+                {
+                    vehicleSummary.LeavingDate = DateTime.Now;
+
+                    VehicleSummary newVehicleSummary = new VehicleSummary()
+                    {
+                        Id = Guid.NewGuid(),
+                        AssignmentDate = DateTime.Now,
+                        DriverCode = driver.Code,
+                        DriverName = driver.Name,
+                        VehicleNumber = VehicleNumber,
+                        LeavingDate = DateTime.MinValue
+                    };
+                    await dbContext.VehicleSummaries.AddAsync(newVehicleSummary);
+                }
+
                 await dbContext.SaveChangesAsync();
                 return Ok("Driver updated!");
             }

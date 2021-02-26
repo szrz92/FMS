@@ -46,7 +46,6 @@ namespace SOS.FMS.Server.Services
 
             using (var scope = _serviceScope.CreateScope()) // this will use `IServiceScopeFactory` internally
             {
-                SyncTraccarDevices().Wait();
                 var context = scope.ServiceProvider.GetService<SOS_VIEWSContext>();
 
                 //var users = (from u in context.PayEmployeeMasters select u).ToList();
@@ -553,40 +552,26 @@ namespace SOS.FMS.Server.Services
             context.SaveChanges();
             return Task.CompletedTask;
         }
-        public async Task SyncTraccarDevices()
-        {
-            using (var client = new HttpClient())
-            {
-                var authToken = Encoding.ASCII.GetBytes($"admin:admin");
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(authToken));
-                client.BaseAddress = new Uri("http://18.214.221.25:8082/api/");
-                var response = await client.GetAsync("devices");
-                var responseString = await response.Content.ReadAsStringAsync();
-                List<DeviceResponse> devices = JsonConvert.DeserializeObject<List<DeviceResponse>>(responseString);
-            }
-        }
         public async Task PrepareDailyCheckLists(IServiceScope scope)
         {
             var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             List<string> vehicleNumbers = (from v in dbContext.Vehicles
-                                           join gv in dbContext.GBMSVehicles on v.VehicleId equals gv.Id
+                                           join gv in dbContext.GBMSVehicles on v.VehicleNumber equals gv.Description
                                            select gv.Description).ToList();
             foreach (var vehicleNumber in vehicleNumbers)
             {
                 Vehicle vehicle = (from f in dbContext.Vehicles
-                                         join v in dbContext.GBMSVehicles on f.VehicleId equals v.Id
+                                         join v in dbContext.GBMSVehicles on f.VehicleNumber equals v.Description
                                          where v.Description == vehicleNumber
                                          select f).SingleOrDefault();
                 Region region = (from r in dbContext.Regions
-                                 where r.Id == vehicle.Region
+                                 where r.XDescription == vehicle.Region
                                  select r).SingleOrDefault();
                 SubRegion subRegion = (from s in dbContext.SubRegions
-                                       where s.Id == vehicle.SubRegion
+                                       where s.XDescription == vehicle.SubRegion
                                        select s).SingleOrDefault();
-                string DriverName = (from f in dbContext.Vehicles
-                                     join d in dbContext.Drivers on f.DriverId equals d.Id
-                                     join v in dbContext.GBMSVehicles on f.VehicleId equals v.Id
-                                     where v.Description == vehicleNumber
+                string DriverName = (from d in dbContext.Drivers 
+                                     where d.VehicleNumber == vehicleNumber
                                      select d.Name).SingleOrDefault();
                 IEnumerable<FMSDailyMorning> fMSDailyMornings = from m in dbContext.FMSDailyMorningChecks where m.VehicleNumber == vehicleNumber && m.LastUpdated.Date == (PakistanDateTime.Today) select m;
                 if (!fMSDailyMornings.Any())

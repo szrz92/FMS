@@ -184,56 +184,56 @@
             <div class="d-flex align-items-center justify-content-between py-4">
                 @if (emergencyCheckList != null)
                 {
-                <table class="w-100">
-                    <tr class="row px-1 py-2 border-bottom">
-                        <td class="col-6 text-dark font-weight-bolder">Description</td>
-                        <td class="col-2 text-dark font-weight-bolder">Status</td>
-                        <td class="col-2 text-dark font-weight-bolder">Updated</td>
-                        <td class="col-2 text-dark font-weight-bolder">Action</td>
-                    </tr>
-                    @foreach (var item in emergencyCheckList)
-                    {
+                    <table class="w-100">
                         <tr class="row px-1 py-2 border-bottom">
-                            <td class="col-6">@item.Description</td>
-                            @if (item.MaintenanceStatus == FMS.Shared.Enums.MaintenanceStatus.NotInitiated)
-                            {
-                        <td class="col-2 text-danger">Not Initiated</td>
-                                <td class="col-2 text-danger"> NA</td>
-                                <td class="col-2">
-                                    @if (item.CommentCount == 0)
-                                    {
-                                        <label class="checkbox checkbox-disabled pb-2">
-                                            <input type="checkbox" disabled>
-                                            <span></span>
-                                        </label>
-                                    }
-                                    else
-                                    {
-                                        <label class="checkbox checkbox-success pb-2">
-                                            <input type="checkbox" @onclick="() => MarkEmergencyPointDone(item.Id)">
-                                            <span></span>
-                                        </label>
-                                    }
-
-                                    <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowEmergencyCommentModal(item.Id)" />
-                                </td>
-                            }
-                            else
-                            {
-                                <td class="col-2 text-success">Done</td>
-                                <td class="col-2"> @item.LastUpdated.ToString("dd-MMM-yy")</td>
-                                <td class="col-2">
-                                    <label class="checkbox checkbox-success pb-2">
-                                        <input type="checkbox" checked="checked">
-                                        <span></span>
-                                    </label>
-
-                                    <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowEmergencyCommentModal(item.Id)" />
-                                </td>
-                            }
+                            <td class="col-6 text-dark font-weight-bolder">Description</td>
+                            <td class="col-2 text-dark font-weight-bolder">Status</td>
+                            <td class="col-2 text-dark font-weight-bolder">Updated</td>
+                            <td class="col-2 text-dark font-weight-bolder">Action</td>
                         </tr>
-                    }
-                </table>
+                        @foreach (var item in emergencyCheckList)
+                        {
+                            <tr class="row px-1 py-2 border-bottom">
+                                <td class="col-6">@item.Description</td>
+                                @if (item.MaintenanceStatus == FMS.Shared.Enums.MaintenanceStatus.NotInitiated)
+                                {
+                                    <td class="col-2 text-danger">Not Initiated</td>
+                                    <td class="col-2 text-danger"> NA</td>
+                                    <td class="col-2">
+                                        @if (item.CommentCount == 0)
+                                        {
+                                            <label class="checkbox checkbox-disabled pb-2">
+                                                <input type="checkbox" disabled>
+                                                <span></span>
+                                            </label>
+                                        }
+                                        else
+                                        {
+                                            <label class="checkbox checkbox-success pb-2">
+                                                <input type="checkbox" @onclick="() => MarkEmergencyPointDone(item.Id)">
+                                                <span></span>
+                                            </label>
+                                        }
+
+                                        <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowEmergencyCommentModal(item.Id)" />
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td class="col-2 text-success">Done</td>
+                                    <td class="col-2"> @item.LastUpdated.ToString("dd-MMM-yy")</td>
+                                    <td class="col-2">
+                                        <label class="checkbox checkbox-success pb-2">
+                                            <input type="checkbox" checked="checked">
+                                            <span></span>
+                                        </label>
+
+                                        <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowEmergencyCommentModal(item.Id)" />
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </table>
                 }
                 else
                 {
@@ -460,6 +460,40 @@
         <DialogButton Content="No" OnClick="@HideDialog" />
     </DialogButtons>
 </SfDialog>
+<SfDialog @bind-Visible="@HistoryDlgVisible" Width="600px" Target="#target" ShowCloseIcon="true">
+    <DialogTemplates>
+        <Header>
+            History
+        </Header>
+        <Content>
+            <div class="d-flex flex-column">
+                <div class="row">
+                    <div class="col-2 font-weight-bolder">Type</div>
+                    <div class="col-6 font-weight-bolder">Description</div>
+                    <div class="col-2 font-weight-bolder">Status</div>
+                    <div class="col-2 font-weight-bolder">Updated</div>
+                </div>
+                @if (histories != null)
+                {
+                    foreach (var h in histories)
+                    {
+                        <div class="row">
+                            <div class="col-2">@h.Type</div>
+                            <div class="col-6">@h.Description</div>
+                            <div class="col-2">@h.Status</div>
+                            <div class="col-2">@h.LastUpdated.ToShortDateString()</div>
+                        </div>
+                    }
+                }
+            </div>
+        </Content>
+    </DialogTemplates>
+    <DialogEvents Closed="@DialogClose"></DialogEvents>
+    <DialogButtons>
+        <DialogButton Content="Yes" IsPrimary="true" OnClick="@ConfirmDaily" />
+        <DialogButton Content="No" OnClick="@HideDialog" />
+    </DialogButtons>
+</SfDialog>
 @code
 {
     [CascadingParameter]
@@ -565,7 +599,7 @@
     {
 
         dotNetObjectReference = DotNetObjectReference.Create(this);
-        vehiclesList = await Http.GetFromJsonAsync<List<VehicleVM>>("api/Vehicles/FMS/Demo/All");
+        vehiclesList = await Http.GetFromJsonAsync<List<VehicleVM>>("api/Vehicles/FMS/All");
         vehicleNumbersList = vehiclesList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         regionsList = vehiclesList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         subRegionsList = vehiclesList.GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
@@ -682,7 +716,7 @@
     public async void Emergency_JSInvoked(string vehicleNumber)
     {
         emergencyCheckListVehicleNumber = vehicleNumber;
-        var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new VehicleVM() { VehicleNumber = vehicleNumber });
+        var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new ApiRequest() { VehicleNumber = vehicleNumber });
         var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<VehicleVM>(await vehicleResponse.Content.ReadAsStringAsync());
         if (vehicle.Type == "emergency")
         {
@@ -706,29 +740,37 @@
     [JSInvokable]
     public async void Accidental_JSInvoked(string vehicleNumber)
     {
-        accidentalCheckListVehicleNumber = vehicleNumber;
-        var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new VehicleVM() { VehicleNumber = vehicleNumber });
-        var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<VehicleVM>(await vehicleResponse.Content.ReadAsStringAsync());
-        if (vehicle.Type == "accidental")
+        try
         {
-            var getAccidentalCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/FMS/CheckList", new ApiRequest() { VehicleNumber = vehicleNumber });
-
-            if (getAccidentalCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
+            accidentalCheckListVehicleNumber = vehicleNumber;
+            var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new ApiRequest() { VehicleNumber = vehicleNumber });
+            string res = await vehicleResponse.Content.ReadAsStringAsync();
+            var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<VehicleVM>(res);
+            if (vehicle.Type == "accidental")
             {
+                var getAccidentalCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/FMS/CheckList", new ApiRequest() { VehicleNumber = vehicleNumber });
 
-                string response = await (getAccidentalCheckListResponse).Content.ReadAsStringAsync();
-                accidentalCheckList = JsonConvert.DeserializeObject<List<FMSAccidentalCheckVM>>(response);
-                ShowAccidentalCheckList(accidentalCheckList);
+                if (getAccidentalCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+
+                    string response = await (getAccidentalCheckListResponse).Content.ReadAsStringAsync();
+                    accidentalCheckList = JsonConvert.DeserializeObject<List<FMSAccidentalCheckVM>>(response);
+                    ShowAccidentalCheckList(accidentalCheckList);
+                }
+                else
+                {
+                }
             }
             else
             {
+                ConfirmAccidentDlgVisible = true;
             }
+            StateHasChanged();
         }
-        else
+        catch (Exception ex)
         {
-            ConfirmAccidentDlgVisible = true;
+            throw;
         }
-        StateHasChanged();
     }
     [JSInvokable]
     public void Daily_JSInvoked(string vehicleNumber)
@@ -737,9 +779,20 @@
         ConfirmDailyDlgVisible = true;
         StateHasChanged();
     }
+
+
+    List<HistoryVM> histories { get; set; }
     [JSInvokable]
-    public void History_JSInvoked(string vehicleNumber)
+    public async void History_JSInvoked(string vehicleNumber)
     {
+        var history = await Http.PostAsJsonAsync("api/Jobs/History", new ApiRequest() { VehicleNumber = vehicleNumber });
+        if (history.IsSuccessStatusCode)
+        {
+            string historyString = await history.Content.ReadAsStringAsync();
+            histories = JsonConvert.DeserializeObject<List<HistoryVM>>(historyString);
+            HistoryDlgVisible = true;
+            StateHasChanged();
+        }
     }
     [JSInvokable]
     public void mention_JSInvoked(List<FMSUserVM> mentionedUsers, string comment)
@@ -765,7 +818,7 @@
 
     private async void TimerElapsedHandler()
     {
-        vehiclesList = await Http.GetFromJsonAsync<List<VehicleVM>>("api/Vehicles/FMS/Demo/All");
+        vehiclesList = await Http.GetFromJsonAsync<List<VehicleVM>>("api/Vehicles/FMS/All");
         filteredVehiclesList = vehiclesList;
         FilterDataWithoutUpdateMarkers();
         CountVehicles(filteredVehiclesList);
@@ -779,6 +832,7 @@
     public bool ConfirmEmergencyDlgVisible { get; set; } = false;
     public bool ConfirmAccidentDlgVisible { get; set; } = false;
     public bool ConfirmDailyDlgVisible { get; set; } = false;
+    public bool HistoryDlgVisible { get; set; } = false;
 
     public string Description { get; set; } = "";
 
@@ -794,6 +848,7 @@
         this.ConfirmEmergencyDlgVisible = false;
         this.ConfirmAccidentDlgVisible = false;
         this.ConfirmDailyDlgVisible = false;
+        this.HistoryDlgVisible = false;
     }
 
     public async void ConfirmEmergency()

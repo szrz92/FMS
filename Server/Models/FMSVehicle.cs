@@ -10,12 +10,11 @@ namespace SOS.FMS.Server.Models
     {
         [Key]
         public Guid Id { get; set; }
-        public Guid VehicleId { get; set; }
-        public Guid DriverId { get; set; }
-        public int IMEI { get; set; }
-        public int SIM { get; set; }
-        public Guid Region { get; set; }
-        public Guid SubRegion { get; set; }
+        public string VehicleNumber { get; set; }
+        public long IMEI { get; set; }
+        public long SIM { get; set; }
+        public string Region { get; set; }
+        public string SubRegion { get; set; }
         public bool Active { get; set; }
         public int Breakdowns { get; set; } = 0;
         public double FuelAverage { get; set; } = 0;

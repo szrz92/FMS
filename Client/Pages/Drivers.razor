@@ -8,7 +8,7 @@
         <!--begin::Details-->
         <div class="d-flex align-items-center flex-wrap mr-2">
             <!--begin::Title-->
-            <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">FMS Drivers</h5>
+            <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">FMS</h5>
             <!--end::Title-->
             <!--begin::Separator-->
             <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-5 bg-gray-200"></div>
@@ -16,16 +16,7 @@
             <!--begin::Breadcrumb-->
             <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                 <li class="breadcrumb-item">
-                    <a class="text-muted">Management</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a data-toggle="tab" class="text-muted">History</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a data-toggle="tab" class="text-muted">Summery</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a class="text-muted">Scorecard</a>
+                    <a class="text-muted">Drivers</a>
                 </li>
             </ul>
             <!--end::Breadcrumb-->
@@ -43,12 +34,6 @@
                     <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_4_2">
                         <span class="nav-icon"><i class="flaticon2-information"></i></span>
                         <span class="nav-text">Accidental History</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_4_3">
-                        <span class="nav-icon"><i class="flaticon2-sheet"></i></span>
-                        <span class="nav-text">Vehicle Summery</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -128,9 +113,6 @@
                     </div>
                     <div class="tab-pane fade" id="kt_tab_pane_4_2" role="tabpanel" aria-labelledby="kt_tab_pane_4_2">
                         <AccidentalHistory />
-                    </div>
-                    <div class="tab-pane fade" id="kt_tab_pane_4_3" role="tabpanel" aria-labelledby="kt_tab_pane_4_3">
-                        <h5>Loading.....</h5>
                     </div>
                     <div class="tab-pane fade" id="kt_tab_pane_4_4" role="tabpanel" aria-labelledby="kt_tab_pane_4_4">
                         @if (DriversList != null)

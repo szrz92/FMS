@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SOS.FMS.Server.Models;
+using SOS.FMS.Shared;
 using SOS.FMS.Shared.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -361,6 +362,42 @@ namespace SOS.FMS.Server.Controllers
                 }
                 Jobs = Accidents.Union(Emergencies).ToList();
                 return Ok(Jobs);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+        [HttpPost("History")]
+        public async Task<IActionResult> HistoryByVehicleNumber(ApiRequest request)
+        {
+            List<HistoryVM> history = new List<HistoryVM>();
+            try
+            {
+                var Accidents = new List<HistoryVM>();
+                var Emergencies = new List<HistoryVM>();
+
+                Accidents = await (from a in dbContext.FMSAccidents
+                                   where a.VehicleNumber == request.VehicleNumber
+                                   select new HistoryVM()
+                                   {
+                                       Description = a.Description,
+                                       Type = "Accidental",
+                                       Status = (a.MaintenanceStatus == Shared.Enums.MaintenanceStatus.Done) ? "Done" : "Pending",
+                                       LastUpdated = a.LastUpdated
+                                   }).ToListAsync();
+                Emergencies = await (from e in dbContext.FMSEmergencies
+                                     where e.VehicleNumber == request.VehicleNumber
+                                     select new HistoryVM()
+                                     {
+                                         Description = e.Description,
+                                         Type = "Emergency",
+                                         Status = (e.MaintenanceStatus == Shared.Enums.MaintenanceStatus.Done) ? "Done" : "Pending",
+                                         LastUpdated = e.LastUpdated
+                                     }).ToListAsync();
+
+                history = Accidents.Union(Emergencies).OrderByDescending(x => x.LastUpdated).ToList();
+                return Ok(history);
             }
             catch (Exception ex)
             {

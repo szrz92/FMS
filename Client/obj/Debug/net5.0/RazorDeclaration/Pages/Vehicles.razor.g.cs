@@ -196,13 +196,13 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 84 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Vehicles.razor"
+#line 93 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Vehicles.razor"
        
     public List<VehicleVM> FMSVehiclesList { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        FMSVehiclesList = await Http.GetFromJsonAsync<List<VehicleVM>>("api/Vehicles/FMS/Demo/All");
+        FMSVehiclesList = await Http.GetFromJsonAsync<List<VehicleVM>>("api/Vehicles/FMS/All");
         await base.OnInitializedAsync();
     }
 
@@ -211,6 +211,11 @@ using Microsoft.AspNetCore.SignalR.Client;
         await base.OnAfterRenderAsync(firstRender);
     }
 
+    public async Task ReloadVehicles()
+    {
+        FMSVehiclesList = await Http.GetFromJsonAsync<List<VehicleVM>>("api/Vehicles/FMS/All");
+        await InvokeAsync(StateHasChanged);
+    }
 
 #line default
 #line hidden

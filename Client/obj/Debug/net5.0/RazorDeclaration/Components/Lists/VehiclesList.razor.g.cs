@@ -234,6 +234,10 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     #endregion
 
+    public void NotifyChangeState()
+    {
+        StateHasChanged();
+    }
 
 #line default
 #line hidden

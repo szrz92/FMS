@@ -187,8 +187,8 @@ using Microsoft.AspNetCore.SignalR.Client;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/GBMSTestComponent")]
-    public partial class GBMSTestComponent : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Configuration")]
+    public partial class VehicleConfiguration : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -196,14 +196,80 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 6 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\GBMSTestComponent.razor"
+#line 102 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\VehicleConfiguration.razor"
        
+    public List<VehicleConfigurationVM> ConfigurationList = new List<VehicleConfigurationVM>();
 
     protected override async Task OnInitializedAsync()
     {
-        var forecasts = await Http.GetStringAsync("WeatherForecast/GetString");
+        ConfigurationList = await Http.GetFromJsonAsync<List<VehicleConfigurationVM>>("api/Config/All");
+        await base.OnInitializedAsync();
     }
 
+    public async Task Reload()
+    {
+        ConfigurationList = await Http.GetFromJsonAsync<List<VehicleConfigurationVM>>("api/Config/All");
+        StateHasChanged();
+    }
+    #region Syncfusion
+
+    SfGrid<VehicleConfigurationVM> ConfigurationGrid;
+
+    public void ConfigurationToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
+    {
+        if (args.Item.Id == "ConfigurationGrid_pdfexport")
+        {
+            PdfExportProperties Props = new PdfExportProperties();
+            Props.PageOrientation = PageOrientation.Landscape;
+            Props.PageSize = PdfPageSize.A4;
+            this.ConfigurationGrid.PdfExport(Props);
+        }
+        if (args.Item.Id == "ConfigurationGrid_excelexport")
+        {
+            this.ConfigurationGrid.ExcelExport();
+        }
+        if (args.Item.Id == "ConfigurationGrid_csvexport")
+        {
+            this.ConfigurationGrid.CsvExport();
+        }
+    }
+    #endregion
+
+    #region Add Configuration Item
+    public bool showAddConfig { get; set; } = false;
+    public async Task ShowHideAddConfig()
+    {
+        showAddConfig = !showAddConfig;
+        if (!showAddConfig) await Reload();
+    }
+    public async void Submit(VehicleConfigurationVM configuration)
+    {
+        var response = await Http.PostAsJsonAsync("api/config/add", configuration);
+        dialogBody = await response.Content.ReadAsStringAsync();
+        if (response.IsSuccessStatusCode)
+        {
+            dialogHeader = "Success";
+        }
+        else
+        {
+            dialogHeader = "Failed";
+        }
+        ResponseDialog = true;
+        await ShowHideAddConfig();
+    }
+    #endregion
+
+    #region Dialog
+    public bool ResponseDialog { get; set; }
+    public string dialogHeader { get; set; }
+    public string dialogBody { get; set; }
+
+    public void DialogClose()
+    {
+        dialogHeader = null;
+        dialogBody = null;
+    }
+    #endregion
 
 #line default
 #line hidden

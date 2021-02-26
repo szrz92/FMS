@@ -49,7 +49,9 @@ function setMarkers(dotNetObjectReference, data) {
             "position": new google.maps.LatLng(datum.latitude, datum.longitude),
             "type": datum.type,
             "number": datum.vehicleNumber,
-            "driverName": datum.driverName
+            "driverName": datum.driverName,
+            "odometer": datum.odometer,
+            "totalDistance": datum.totalDistance
         };
         //console.log(JSON.stringify(feature));
 
@@ -75,8 +77,8 @@ function setMarkers(dotNetObjectReference, data) {
                 + '<table class="table table-borderless">'
                 + '<tr><td>Driver Name :</td><td>' + feature.driverName + '</td></tr>'
                 + '<tr><td>Number of trips :</td><td>05</td></tr>'
-                //+ '<tr><td>Fuel Consumed :</td><td>10 Ltr</td></tr>'
-                + '<tr><td>KMs :</td><td>150 km</td></tr>'
+                + '<tr><td>Odometer :</td><td>' + feature.odometer + '</td></tr>'
+                + '<tr><td>KMs :</td><td>' + feature.totalDistance + ' km</td></tr>'
                 + '<table>'
                 + '<p>Tyres replacement due in 500 KMs</p>'
                 + ' <p>'
@@ -200,7 +202,9 @@ function updateMarkers(dotNetObjectReference, data) {
             "position": new google.maps.LatLng(datum.latitude, datum.longitude),
             "type": datum.type,
             "number": datum.vehicleNumber,
-            "driverName": datum.driverName
+            "driverName": datum.driverName,
+            "odometer": datum.odometer,
+            "totalDistance": datum.totalDistance
         };
         //console.log(JSON.stringify(feature));
 
@@ -226,8 +230,8 @@ function updateMarkers(dotNetObjectReference, data) {
                 + '<table class="table table-borderless">'
                 + '<tr><td>Driver Name :</td><td>' + feature.driverName + '</td></tr>'
                 + '<tr><td>Number of trips :</td><td>05</td></tr>'
-                //+ '<tr><td>Fuel Consumed :</td><td>10 Ltr</td></tr>'
-                + '<tr><td>KMs :</td><td>150 km</td></tr>'
+                + '<tr><td>Odometer :</td><td>' + feature.odometer + '</td></tr>'
+                + '<tr><td>KMs :</td><td>' + feature.totalDistance + ' km</td></tr>'
                 + '<table>'
                 + '<p>Tyres replacement due in 500 KMs</p>'
                 + ' <p>'
