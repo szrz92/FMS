@@ -74,6 +74,7 @@ function setMarkers(dotNetObjectReference, data) {
         const infowindow = new google.maps.InfoWindow({
             content: '<div id="content">'
                 + '<div id="bodyContent">'
+                + '<div class="font-weight-bolder" style="margin-left:15%;">Vehicle Number : ' + feature.number + '</div><hr/>'
                 + '<table class="table table-borderless">'
                 + '<tr><td>Driver Name :</td><td>' + feature.driverName + '</td></tr>'
                 + '<tr><td>Number of trips :</td><td>05</td></tr>'
@@ -204,7 +205,8 @@ function updateMarkers(dotNetObjectReference, data) {
             "number": datum.vehicleNumber,
             "driverName": datum.driverName,
             "odometer": datum.odometer,
-            "totalDistance": datum.totalDistance
+            "totalDistance": datum.totalDistance,
+            "trips": datum.numberOfTripsToday
         };
         //console.log(JSON.stringify(feature));
 
@@ -227,9 +229,10 @@ function updateMarkers(dotNetObjectReference, data) {
         const infowindow = new google.maps.InfoWindow({
             content: '<div id="content">'
                 + '<div id="bodyContent">'
+                + '<div class="font-weight-bolder" style="margin-left:15%;">Vehicle Number : ' + feature.number + '</div><hr/>'
                 + '<table class="table table-borderless">'
                 + '<tr><td>Driver Name :</td><td>' + feature.driverName + '</td></tr>'
-                + '<tr><td>Number of trips :</td><td>05</td></tr>'
+                + '<tr><td>Number of trips :</td><td>' + feature.trips + '</td></tr>'
                 + '<tr><td>Odometer :</td><td>' + feature.odometer + '</td></tr>'
                 + '<tr><td>KMs :</td><td>' + feature.totalDistance + ' km</td></tr>'
                 + '<table>'

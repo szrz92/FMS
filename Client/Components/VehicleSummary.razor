@@ -1,0 +1,106 @@
+﻿@inject HttpClient Http
+
+@if (Summaries != null)
+{
+    <div class="col-lg-12 control-section">
+        <div class="content-wrapper">
+            <div class="row">
+                <div id="container">
+                    <SfGrid ID="SummaryGrid" @ref="SummaryGrid" DataSource="@Summaries"
+                            AllowPaging="true" AllowSorting="true" AllowFiltering="true"
+                            Height="600" RowHeight="38"
+                            Toolbar="@(new List<string>() { "ExcelExport", "CsvExport", "PdfExport" })"
+                            AllowExcelExport="true" AllowPdfExport="true">
+                        <GridPageSettings PageCount="5" PageSize="10" PageSizes="new int[]{ 5, 10, 20, 50, 100 }"></GridPageSettings>
+                        <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Menu"></GridFilterSettings>
+                        <GridSelectionSettings CheckboxOnly="true" PersistSelection="true" Type="SelectionType.Multiple"></GridSelectionSettings><GridEvents OnToolbarClick="ToolbarClick" TValue="SummaryVM"></GridEvents>
+                        <GridColumns>
+                            <GridColumn Field=@nameof(SummaryVM.VehicleNumber) HeaderText="Vehicle Number" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(SummaryVM.DriverName) HeaderText="Driver Name" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(SummaryVM.AssignmentDate) HeaderText="Assignment Date" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(SummaryVM.LeavingDate) HeaderText="Leaving Date" Width="130">
+                                <Template>
+                                    @{ 
+                                        var summarydata = (context as SummaryVM);
+                                        if (summarydata.LeavingDate == DateTime.MinValue)
+                                        {
+                                            <p>Not left till now</p>
+                                        }
+                                        else
+                                        {
+                                            <p>@summarydata.LeavingDate</p>
+                                        }
+
+                                    }
+                                </Template>
+                            </GridColumn>
+                            <GridColumn Field=@nameof(SummaryVM.LastUpdate) HeaderText="Updated At" Width="130">
+                                <Template>
+                                    @{
+                                        var summarydata = (context as SummaryVM);
+                                        if (summarydata.LastUpdate == DateTime.MinValue)
+                                        {
+                                            <p>Not updated till now</p>
+                                        }
+                                        else
+                                        {
+                                            <p>@summarydata.LastUpdate</p>
+                                        }
+
+                                    }
+                                </Template>
+                            </GridColumn>
+                        </GridColumns>
+                    </SfGrid>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <h5>Loading.....</h5>
+}
+@code {
+    [Parameter]
+    public List<SummaryVM> Summaries { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+    }
+    #region Syncfusion
+
+    SfGrid<SummaryVM> SummaryGrid;
+
+    public void ToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
+    {
+        if (args.Item.Id == "SummaryGrid_pdfexport")
+        {
+            PdfExportProperties Props = new PdfExportProperties();
+            Props.PageOrientation = PageOrientation.Landscape;
+            Props.PageSize = PdfPageSize.A4;
+            this.SummaryGrid.PdfExport(Props);
+        }
+        if (args.Item.Id == "SummaryGrid_excelexport")
+        {
+            this.SummaryGrid.ExcelExport();
+        }
+        if (args.Item.Id == "SummaryGrid_csvexport")
+        {
+            this.SummaryGrid.CsvExport();
+        }
+    }
+
+    #endregion
+
+    public void NotifyChangeState()
+    {
+        StateHasChanged();
+    }
+}

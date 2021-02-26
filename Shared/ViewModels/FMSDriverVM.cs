@@ -23,5 +23,6 @@ namespace SOS.FMS.Shared.ViewModels
         public int Ranking { get; set; }
         public bool Status { get; set; }
         public int Violations { get; set; }
+        public int Score { get; set; } = 100;
     }
 }

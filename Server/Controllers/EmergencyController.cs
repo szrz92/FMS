@@ -90,11 +90,16 @@ namespace SOS.FMS.Server.Controllers
             {
                 Guid emergencyId = Guid.NewGuid();
                 Vehicle vehicle = await (from v in dbContext.Vehicles where v.VehicleNumber == emergency.VehicleNumber select v).SingleOrDefaultAsync();
+                Driver driver = await (from d in dbContext.Drivers where d.VehicleNumber == emergency.VehicleNumber select d).SingleOrDefaultAsync();
+
+                vehicle.Breakdowns++;
+                driver.Emergencies++;
+
                 FMSEmergency newEmergency = new FMSEmergency()
                 {
                     Id = emergencyId,
                     Description = emergency.Description,
-                    DriverId = dbContext.Drivers.Where(x => x.VehicleNumber == emergency.VehicleNumber).SingleOrDefault().Id,
+                    DriverId =driver.Id,
                     RegionId = dbContext.Regions.Where(x => x.XDescription == vehicle.Region).SingleOrDefault().Id,
                     VehicleNumber = emergency.VehicleNumber,
                     SubRegionId = dbContext.SubRegions.Where(x => x.XDescription == vehicle.SubRegion).SingleOrDefault().Id,

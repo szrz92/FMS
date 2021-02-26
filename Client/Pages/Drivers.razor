@@ -90,11 +90,12 @@
                                                                 var driverdata = (context as DriverVM);
                                                                 if (driverdata.Status)
                                                                 {
-                                                                    <a class="btn btn-success btn-sm btn-shadow font-weight-bold mr-2">On Duty</a>
-                                                                }
+                                                                    <a class="btn btn-danger btn-shadow font-weight-bold mr-2">Off Duty</a>
+}
                                                                 else
                                                                 {
-                                                                    <a class="btn btn-danger btn-shadow font-weight-bold mr-2">Off Duty</a>
+                                                                    <a class="btn btn-success btn-sm btn-shadow font-weight-bold mr-2">On Duty</a>
+
                                                                 }
                                                             }
                                                         </Template>
@@ -139,7 +140,7 @@
                                                     </GridColumn>
                                                     <GridColumn Field=@nameof(DriverVM.Violations) HeaderText="Total Violations" Width="130"></GridColumn>
                                                     <GridColumn Field=@nameof(DriverVM.Incidents) HeaderText="Total Incidents" Width="130"></GridColumn>
-                                                    <GridColumn Field=@nameof(DriverVM.Points) HeaderText="Score" Width="130"></GridColumn>
+                                                    <GridColumn Field=@nameof(DriverVM.Score) HeaderText="Score" Width="130"></GridColumn>
                                                     <GridColumn Field=@nameof(DriverVM.Ranking) HeaderText="Ranking" Width="130"></GridColumn>
                                                 </GridColumns>
                                             </SfGrid>

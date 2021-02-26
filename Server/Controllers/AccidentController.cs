@@ -99,6 +99,12 @@ namespace SOS.FMS.Server.Controllers
                 Vehicle vehicle = await (from v in dbContext.Vehicles 
                                          where v.VehicleNumber == accident.VehicleNumber
                                          select v).SingleOrDefaultAsync();
+                Driver driver = await (from d in dbContext.Drivers where d.VehicleNumber == accident.VehicleNumber select d).SingleOrDefaultAsync();
+                vehicle.Score = vehicle.Score - 15;
+                driver.Score = driver.Score - 20;
+                vehicle.Breakdowns++;
+                driver.Accidents++;
+
                 FMSAccident newAccident = new FMSAccident()
                 {
                     Id = accidentId,

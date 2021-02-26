@@ -24,6 +24,7 @@ namespace SOS.FMS.Server.Models
         public int Absents { get; set; }
         public int Violations { get; set; }
         public int Ranking { get; set; }
+        public int Score { get; set; } = 100;
         public DateTime LastSync { get; set; }
     }
 }

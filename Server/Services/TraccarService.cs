@@ -91,5 +91,23 @@ namespace SOS.FMS.Server.Services
                 return null;
             }
         }
+        public static async Task<int> GetNumberOfTripsTodayByDeviceId(int deviceId)
+        {
+            try
+            {
+                using var client = new HttpClient();
+                var authToken = Encoding.ASCII.GetBytes($"admin:admin");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(authToken));
+                client.BaseAddress = new Uri("http://18.214.221.25:8082/api/");
+                var response = await client.GetAsync($"reports/trips?from={DateTime.Now.ToString("yyyy-MM-dd") + "T00:00:00Z"}&to={DateTime.Now.ToString("yyyy-MM-dd") + "T23:59:59Z"}&deviceId={deviceId}");
+                var responseString = await response.Content.ReadAsStringAsync();
+                List<Trip> trips = JsonConvert.DeserializeObject<List<Trip>>(responseString);
+                return trips.Count;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
     }
 }

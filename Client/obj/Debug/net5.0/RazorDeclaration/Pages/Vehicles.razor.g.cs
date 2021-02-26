@@ -199,10 +199,12 @@ using Microsoft.AspNetCore.SignalR.Client;
 #line 93 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Vehicles.razor"
        
     public List<VehicleVM> FMSVehiclesList { get; set; }
+    public List<SummaryVM> SummaryList { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         FMSVehiclesList = await Http.GetFromJsonAsync<List<VehicleVM>>("api/Vehicles/FMS/All");
+        SummaryList = await Http.GetFromJsonAsync<List<SummaryVM>>("api/Drivers/Summary");
         await base.OnInitializedAsync();
     }
 

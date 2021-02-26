@@ -279,16 +279,16 @@ namespace SOS.FMS.Server.Migrations
                         {
                             Id = "c58e1a9d-1c28-46db-830a-7b3f0b9663f1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "41591ac3-7ea0-4c75-8cfb-bad6fc32809c",
+                            ConcurrencyStamp = "049db42b-2272-40cb-b818-5bd119433378",
                             Email = "z.raza@batech.com.pk",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             Name = "Zain Raza",
                             NormalizedEmail = "Z.RAZA@BATECH.COM.PK",
                             NormalizedUserName = "Z.RAZA@BATECH.COM.PK",
-                            PasswordHash = "AQAAAAEAACcQAAAAED5MrjunlS3UqRt6403N5XXM5JXeVmckQmxP74sIjbD18pN4MiuCCNqUl8D++IbADg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOZUGAyJDlbG9xxGUpf4haiYDcTt4MBXsxBtNnBP0lB7rQznKNh9kB4GeztZHx9UNg==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "100951a3-a41a-44c8-9218-12500d188952",
+                            SecurityStamp = "136beed2-143e-471e-a2b6-68c25e6c2e67",
                             TwoFactorEnabled = false,
                             UserName = "z.raza@batech.com.pk"
                         });
@@ -326,6 +326,9 @@ namespace SOS.FMS.Server.Migrations
 
                     b.Property<string>("Region")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Score")
+                        .HasColumnType("int");
 
                     b.Property<string>("SubRegion")
                         .HasColumnType("nvarchar(max)");
@@ -1459,6 +1462,9 @@ namespace SOS.FMS.Server.Migrations
 
                     b.Property<long>("SIM")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("Score")
+                        .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");

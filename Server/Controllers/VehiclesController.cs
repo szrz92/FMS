@@ -154,7 +154,12 @@ namespace SOS.FMS.Server.Controllers
                                                         SIM = v.SIM,
                                                         SubRegion = v.SubRegion,
                                                         VehicleNumber = v.VehicleNumber,
-                                                        Type = v.Status
+                                                        Type = v.Status,
+                                                        Score = v.Score,
+                                                        FuelAverage = v.FuelAverage,
+                                                        Breakdowns = v.Breakdowns,
+                                                        CostThisMonth = v.CostThisMonth,
+                                                        Ranking = v.Ranking
                                                     }).ToListAsync();
                 var list = from v in rbVehicles
                            join p in devicePositions on v.VehicleNumber equals p.name
@@ -174,7 +179,13 @@ namespace SOS.FMS.Server.Controllers
                                Odometer = p.odometer,
                                Distance = p.distance,
                                TotalDistance = p.totalDistance,
-                               Hours = p.hours
+                               Hours = p.hours,
+                               NumberOfTripsToday = TraccarService.GetNumberOfTripsTodayByDeviceId(p.id).Result,
+                               Score = v.Score,
+                               FuelAverage = v.FuelAverage,
+                               Breakdowns = v.Breakdowns,
+                               CostThisMonth = v.CostThisMonth,
+                               Ranking = v.Ranking
                            };
                 return Ok(list);
             }
@@ -343,7 +354,8 @@ namespace SOS.FMS.Server.Controllers
                                     SIM = vehicle.SIM,
                                     Status = "maintained",
                                     SubRegion = vehicle.SubRegion,
-                                    VehicleNumber = vehicle.VehicleNumber
+                                    VehicleNumber = vehicle.VehicleNumber,
+                                    Score = vehicle.Score
                                 };
                                 await dbContext.Vehicles.AddAsync(newVehicle);
                                 if (await dbContext.SaveChangesAsync() > 0)

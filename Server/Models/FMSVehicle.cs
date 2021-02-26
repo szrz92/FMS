@@ -20,6 +20,7 @@ namespace SOS.FMS.Server.Models
         public double FuelAverage { get; set; } = 0;
         public double CostThisMonth { get; set; } = 0;
         public int Ranking { get; set; }
+        public int Score { get; set; } = 135;
         public string Status { get; set; }
     }
 }

@@ -248,6 +248,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     public async void Save()
     {
+        vehicle.Score = 135;
         var response = await Http.PostAsJsonAsync("api/Vehicles/Add", vehicle);
         dialogBody = await response.Content.ReadAsStringAsync();
         if (response.IsSuccessStatusCode)

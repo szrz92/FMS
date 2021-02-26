@@ -25,7 +25,8 @@ namespace SOS.FMS.Server.Services
                 Region = d.Region,
                 SubRegion = d.SubRegion,
                 Trips = d.Trips,
-                VehicleNumber = d.VehicleNumber
+                VehicleNumber = d.VehicleNumber,
+                Score = d.Score
             };
         }
         #endregion

@@ -47,7 +47,8 @@ namespace SOS.FMS.Server.Controllers
                                     {
                                         Name = member.name,
                                         Code = member.code,
-                                        VehicleNumber = crew.vehicle
+                                        VehicleNumber = crew.vehicle,
+                                        Score = 100
                                     };
                                     await dbContext.Drivers.AddAsync(driver);
 
@@ -101,6 +102,10 @@ namespace SOS.FMS.Server.Controllers
                                             LeavingDate = DateTime.MinValue
                                         };
                                         await dbContext.VehicleSummaries.AddAsync(newVehicleSummary);
+                                    }
+                                    if(driver.Score==0)
+                                    {
+                                        driver.Score = 100;
                                     }
                                     driver.VehicleNumber = crew.vehicle;
                                 }

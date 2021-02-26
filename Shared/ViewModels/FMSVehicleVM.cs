@@ -37,5 +37,7 @@ namespace SOS.FMS.Shared.ViewModels
         public double Distance { get; set; }
         public double TotalDistance { get; set; }
         public int Hours { get; set; }
+        public int NumberOfTripsToday { get; set; }
+        public int Score { get; set; }
     }
 }

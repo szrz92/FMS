@@ -155,11 +155,22 @@
             </div>
             <div class="col-sm-5 col-md-4 col-lg-4 col-xl-2" style="height:80vh;overflow-y:scroll;">
                 <div class="row">
-                    <JobsCount Accidents="@AccidentalVehiclesCount" Emergency="@EmergencyVehiclesCount" Periodic="@PeriodicVehiclesCount" />
-                    <CompletedJobsCount />
-                    <PendingJobsCount />
-                    <PendingSoonJobsCount />
-                    <ActiveComplaintsCount />
+
+                    <AuthorizeView Roles="SA, HMT, RMTO">
+                        <JobsCount Accidents="@AccidentalVehiclesCount" Emergency="@EmergencyVehiclesCount" Periodic="@PeriodicVehiclesCount" />
+                    </AuthorizeView>
+                    <AuthorizeView Roles="SA, HMT, CIM, RMTO, RAO">
+                        <CompletedJobsCount />
+                    </AuthorizeView>
+                    <AuthorizeView Roles="SA, HMT, CIM, RMTO, RAO">
+                        <PendingJobsCount />
+                    </AuthorizeView>
+                    <AuthorizeView Roles="SA, HMT, CPM, RMTO, RAO">
+                        <PendingSoonJobsCount />
+                    </AuthorizeView>
+                    <AuthorizeView Roles="SA, HMT, MTAM, CIM, CPM, RMTO, RAO">
+                        <ActiveComplaintsCount />
+                    </AuthorizeView>
                 </div>
             </div>
         </div>
@@ -489,10 +500,6 @@
         </Content>
     </DialogTemplates>
     <DialogEvents Closed="@DialogClose"></DialogEvents>
-    <DialogButtons>
-        <DialogButton Content="Yes" IsPrimary="true" OnClick="@ConfirmDaily" />
-        <DialogButton Content="No" OnClick="@HideDialog" />
-    </DialogButtons>
 </SfDialog>
 @code
 {

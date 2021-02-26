@@ -537,7 +537,8 @@ namespace SOS.FMS.Server.Services
                         SubRegion = subregion,
                         Ranking = 0,
                         Violations = 0,
-                        LastSync = PakistanDateTime.Now
+                        LastSync = PakistanDateTime.Now,
+                        Score = 100
                     };
                     context.Drivers.Add(driver);
                 }

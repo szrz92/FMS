@@ -34,6 +34,29 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        [HttpGet("Summary")]
+        public async Task<IActionResult> GetSummary()
+        {
+            try
+            {
+                List<SummaryVM> summaries = await (from s in dbContext.VehicleSummaries
+                                                   select new SummaryVM()
+                                                   {
+                                                       Id = s.Id,
+                                                       AssignmentDate = s.AssignmentDate,
+                                                       DriverCode = s.DriverCode,
+                                                       DriverName = s.DriverName,
+                                                       LastUpdate = s.LastUpdate,
+                                                       LeavingDate = s.LeavingDate,
+                                                       VehicleNumber = s.VehicleNumber
+                                                   }).OrderByDescending(x => x.LastUpdate).ToListAsync();
+                return Ok(summaries);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
 
     }
 }
