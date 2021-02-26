@@ -198,7 +198,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 #line 39 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Lists\VehiclesList.razor"
        
     [Parameter]
-    public List<FMSVehicleVM> FMSVehiclesList { get; set; }
+    public List<VehicleVM> FMSVehiclesList { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -211,7 +211,7 @@ using Microsoft.AspNetCore.SignalR.Client;
     }
     #region Syncfusion
 
-    SfGrid<FMSVehicleVM> VehiclesGrid;
+    SfGrid<VehicleVM> VehiclesGrid;
 
     public void ToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
     {
@@ -234,6 +234,10 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     #endregion
 
+    public void NotifyChangeState()
+    {
+        StateHasChanged();
+    }
 
 #line default
 #line hidden

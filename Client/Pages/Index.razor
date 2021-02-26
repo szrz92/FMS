@@ -471,7 +471,7 @@
         <DialogButton Content="No" OnClick="@HideDialog" />
     </DialogButtons>
 </SfDialog>
-<SfDialog @bind-Visible="@HistoryDlgVisible" Width="600px" Target="#target" ShowCloseIcon="true">
+<SfDialog @bind-Visible="@HistoryDlgVisible" Width="600px" Height="600px" Target="#target" ShowCloseIcon="true">
     <DialogTemplates>
         <Header>
             History
@@ -495,6 +495,12 @@
                             <div class="col-2">@h.LastUpdated.ToShortDateString()</div>
                         </div>
                     }
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-12">No Data Available</div>
+                    </div>
                 }
             </div>
         </Content>
@@ -724,7 +730,8 @@
     {
         emergencyCheckListVehicleNumber = vehicleNumber;
         var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new ApiRequest() { VehicleNumber = vehicleNumber });
-        var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<VehicleVM>(await vehicleResponse.Content.ReadAsStringAsync());
+        string res = await vehicleResponse.Content.ReadAsStringAsync();
+        var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<VehicleVM>(res);
         if (vehicle.Type == "emergency")
         {
             var getEmergencyCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Emergency/FMS/CheckList", new ApiRequest() { VehicleNumber = vehicleNumber });

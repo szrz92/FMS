@@ -556,7 +556,6 @@ C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\RazorDeclaration\
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\RazorDeclaration\Pages\Drivers.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\RazorDeclaration\Pages\Emergency.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\RazorDeclaration\Pages\FetchData.razor.g.cs
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\RazorDeclaration\Pages\GBMSTestComponent.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\RazorDeclaration\Pages\Index.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\RazorDeclaration\Pages\Test.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\RazorDeclaration\Pages\Users.razor.g.cs
@@ -591,7 +590,6 @@ C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\Razor\Pages\Daily
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\Razor\Pages\Drivers.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\Razor\Pages\Emergency.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\Razor\Pages\FetchData.razor.g.cs
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\Razor\Pages\GBMSTestComponent.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\Razor\Pages\Index.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\Razor\Pages\Test.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\Razor\Pages\Users.razor.g.cs
@@ -916,3 +914,9 @@ C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\build-gz\8XG4zo99
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\build-gz\YMQPJ0TJ.gz
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\build-gz\dcgkgPXf.gz
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\build-gz\CVybsjsQ.gz
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\RazorDeclaration\Components\Configuration\AddConfiguration.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\RazorDeclaration\Components\VehicleSummary.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\RazorDeclaration\Pages\VehicleConfiguration.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\Razor\Components\Configuration\AddConfiguration.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\Razor\Components\VehicleSummary.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\Razor\Pages\VehicleConfiguration.razor.g.cs

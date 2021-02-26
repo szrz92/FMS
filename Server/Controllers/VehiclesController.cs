@@ -125,73 +125,47 @@ namespace SOS.FMS.Server.Controllers
         [HttpGet("FMS/All")]
         public async Task<IActionResult> GetAllFMS()
         {
+            List<VehicleVM> rbVehicles = new List<VehicleVM>();
             try
             {
                 if (User.Claims.Any())
                 {
+                    List<Position> positions = await TraccarService.GetPositions();
+                    List<Device> devices = await TraccarService.GetDevices();
+                    IEnumerable<DevicePosition> devicePositions = from d in devices
+                                                                  join p in positions on d.id equals p.deviceId
+                                                                  select new DevicePosition()
+                                                                  {
+                                                                      id = d.id,
+                                                                      name = d.name,
+                                                                      latitude = p.latitude,
+                                                                      longitude = p.longitude,
+                                                                      distance = p.attributes.distance,
+                                                                      hours = p.attributes.hours,
+                                                                      odometer = p.attributes.odometer,
+                                                                      totalDistance = p.attributes.totalDistance
+                                                                  };
                     if (User.IsInRole("SA") || User.IsInRole("HMT"))
                     {
-                        List<Position> positions = await TraccarService.GetPositions();
-                        List<Device> devices = await TraccarService.GetDevices();
-                        IEnumerable<DevicePosition> devicePositions = from d in devices
-                                                                      join p in positions on d.id equals p.deviceId
-                                                                      select new DevicePosition()
-                                                                      {
-                                                                          id = d.id,
-                                                                          name = d.name,
-                                                                          latitude = p.latitude,
-                                                                          longitude = p.longitude,
-                                                                          distance = p.attributes.distance,
-                                                                          hours = p.attributes.hours,
-                                                                          odometer = p.attributes.odometer,
-                                                                          totalDistance = p.attributes.totalDistance
-                                                                      };
-                        List<VehicleVM> rbVehicles = await (from v in dbContext.Vehicles
-                                                            join d in dbContext.Drivers on v.VehicleNumber equals d.VehicleNumber
-                                                            select new VehicleVM()
-                                                            {
-                                                                VehicleId = v.Id,
-                                                                Active = v.Active,
-                                                                DriverName = d.Name,
-                                                                IMEI = v.IMEI,
-                                                                Region = v.Region,
-                                                                SIM = v.SIM,
-                                                                SubRegion = v.SubRegion,
-                                                                VehicleNumber = v.VehicleNumber,
-                                                                Type = v.Status,
-                                                                Score = v.Score,
-                                                                FuelAverage = v.FuelAverage,
-                                                                Breakdowns = v.Breakdowns,
-                                                                CostThisMonth = v.CostThisMonth,
-                                                                Ranking = v.Ranking
-                                                            }).ToListAsync();
-                        var list = from v in rbVehicles
-                                   join p in devicePositions on v.VehicleNumber equals p.name
-                                   select new VehicleVM()
-                                   {
-                                       VehicleId = v.Id,
-                                       Active = v.Active,
-                                       DriverName = v.DriverName,
-                                       IMEI = v.IMEI,
-                                       Region = v.Region,
-                                       SIM = v.SIM,
-                                       SubRegion = v.SubRegion,
-                                       VehicleNumber = v.VehicleNumber,
-                                       Type = v.Type,
-                                       Latitude = p.latitude,
-                                       Longitude = p.longitude,
-                                       Odometer = p.odometer,
-                                       Distance = p.distance,
-                                       TotalDistance = p.totalDistance,
-                                       Hours = p.hours,
-                                       NumberOfTripsToday = TraccarService.GetNumberOfTripsTodayByDeviceId(p.id).Result,
-                                       Score = v.Score,
-                                       FuelAverage = v.FuelAverage,
-                                       Breakdowns = v.Breakdowns,
-                                       CostThisMonth = v.CostThisMonth,
-                                       Ranking = v.Ranking
-                                   };
-                        return Ok(list);
+                        rbVehicles = await (from v in dbContext.Vehicles
+                                            join d in dbContext.Drivers on v.VehicleNumber equals d.VehicleNumber
+                                            select new VehicleVM()
+                                            {
+                                                VehicleId = v.Id,
+                                                Active = v.Active,
+                                                DriverName = d.Name,
+                                                IMEI = v.IMEI,
+                                                Region = v.Region,
+                                                SIM = v.SIM,
+                                                SubRegion = v.SubRegion,
+                                                VehicleNumber = v.VehicleNumber,
+                                                Type = v.Status,
+                                                Score = v.Score,
+                                                FuelAverage = v.FuelAverage,
+                                                Breakdowns = v.Breakdowns,
+                                                CostThisMonth = v.CostThisMonth,
+                                                Ranking = v.Ranking
+                                            }).ToListAsync();
                     }
                     else
                         if (User.IsInRole("RMTO"))
@@ -199,135 +173,90 @@ namespace SOS.FMS.Server.Controllers
                         ApplicationUser user = (from u in dbContext.Users where u.Email == User.Identity.Name select u).FirstOrDefault();
                         Region region = (from r in dbContext.Regions where r.XDescription == user.Region select r).FirstOrDefault();
 
-                        List<Position> positions = await TraccarService.GetPositions();
-                        List<Device> devices = await TraccarService.GetDevices();
-                        IEnumerable<DevicePosition> devicePositions = from d in devices
-                                                                      join p in positions on d.id equals p.deviceId
-                                                                      select new DevicePosition()
-                                                                      {
-                                                                          id = d.id,
-                                                                          name = d.name,
-                                                                          latitude = p.latitude,
-                                                                          longitude = p.longitude,
-                                                                          distance = p.attributes.distance,
-                                                                          hours = p.attributes.hours,
-                                                                          odometer = p.attributes.odometer,
-                                                                          totalDistance = p.attributes.totalDistance
-                                                                      };
-                        List<VehicleVM> rbVehicles = await (from v in dbContext.Vehicles
-                                                            join d in dbContext.Drivers on v.VehicleNumber equals d.VehicleNumber
-                                                            where v.Region == region.XDescription
-                                                            select new VehicleVM()
-                                                            {
-                                                                VehicleId = v.Id,
-                                                                Active = v.Active,
-                                                                DriverName = d.Name,
-                                                                IMEI = v.IMEI,
-                                                                Region = v.Region,
-                                                                SIM = v.SIM,
-                                                                SubRegion = v.SubRegion,
-                                                                VehicleNumber = v.VehicleNumber,
-                                                                Type = v.Status,
-                                                                Score = v.Score,
-                                                                FuelAverage = v.FuelAverage,
-                                                                Breakdowns = v.Breakdowns,
-                                                                CostThisMonth = v.CostThisMonth,
-                                                                Ranking = v.Ranking
-                                                            }).ToListAsync();
-                        var list = from v in rbVehicles
-                                   join p in devicePositions on v.VehicleNumber equals p.name
-                                   select new VehicleVM()
-                                   {
-                                       VehicleId = v.Id,
-                                       Active = v.Active,
-                                       DriverName = v.DriverName,
-                                       IMEI = v.IMEI,
-                                       Region = v.Region,
-                                       SIM = v.SIM,
-                                       SubRegion = v.SubRegion,
-                                       VehicleNumber = v.VehicleNumber,
-                                       Type = v.Type,
-                                       Latitude = p.latitude,
-                                       Longitude = p.longitude,
-                                       Odometer = p.odometer,
-                                       Distance = p.distance,
-                                       TotalDistance = p.totalDistance,
-                                       Hours = p.hours,
-                                       NumberOfTripsToday = TraccarService.GetNumberOfTripsTodayByDeviceId(p.id).Result,
-                                       Score = v.Score,
-                                       FuelAverage = v.FuelAverage,
-                                       Breakdowns = v.Breakdowns,
-                                       CostThisMonth = v.CostThisMonth,
-                                       Ranking = v.Ranking
-                                   };
-                        return Ok(list);
+                        rbVehicles = await (from v in dbContext.Vehicles
+                                            join d in dbContext.Drivers on v.VehicleNumber equals d.VehicleNumber
+                                            where v.Region == region.XDescription
+                                            select new VehicleVM()
+                                            {
+                                                VehicleId = v.Id,
+                                                Active = v.Active,
+                                                DriverName = d.Name,
+                                                IMEI = v.IMEI,
+                                                Region = v.Region,
+                                                SIM = v.SIM,
+                                                SubRegion = v.SubRegion,
+                                                VehicleNumber = v.VehicleNumber,
+                                                Type = v.Status,
+                                                Score = v.Score,
+                                                FuelAverage = v.FuelAverage,
+                                                Breakdowns = v.Breakdowns,
+                                                CostThisMonth = v.CostThisMonth,
+                                                Ranking = v.Ranking
+                                            }).ToListAsync();
                     }
                     else
                     {
-                        List<Position> positions = await TraccarService.GetPositions();
-                        List<Device> devices = await TraccarService.GetDevices();
-                        IEnumerable<DevicePosition> devicePositions = from d in devices
-                                                                      join p in positions on d.id equals p.deviceId
-                                                                      select new DevicePosition()
-                                                                      {
-                                                                          id = d.id,
-                                                                          name = d.name,
-                                                                          latitude = p.latitude,
-                                                                          longitude = p.longitude,
-                                                                          distance = p.attributes.distance,
-                                                                          hours = p.attributes.hours,
-                                                                          odometer = p.attributes.odometer,
-                                                                          totalDistance = p.attributes.totalDistance
-                                                                      };
-                        List<VehicleVM> rbVehicles = await (from v in dbContext.Vehicles
-                                                            join d in dbContext.Drivers on v.VehicleNumber equals d.VehicleNumber
-                                                            select new VehicleVM()
-                                                            {
-                                                                VehicleId = v.Id,
-                                                                Active = v.Active,
-                                                                DriverName = d.Name,
-                                                                IMEI = v.IMEI,
-                                                                Region = v.Region,
-                                                                SIM = v.SIM,
-                                                                SubRegion = v.SubRegion,
-                                                                VehicleNumber = v.VehicleNumber,
-                                                                Type = v.Status,
-                                                                Score = v.Score,
-                                                                FuelAverage = v.FuelAverage,
-                                                                Breakdowns = v.Breakdowns,
-                                                                CostThisMonth = v.CostThisMonth,
-                                                                Ranking = v.Ranking
-                                                            }).ToListAsync();
-                        var list = from v in rbVehicles
-                                   join p in devicePositions on v.VehicleNumber equals p.name
-                                   select new VehicleVM()
-                                   {
-                                       VehicleId = v.Id,
-                                       Active = v.Active,
-                                       DriverName = v.DriverName,
-                                       IMEI = v.IMEI,
-                                       Region = v.Region,
-                                       SIM = v.SIM,
-                                       SubRegion = v.SubRegion,
-                                       VehicleNumber = v.VehicleNumber,
-                                       Type = v.Type,
-                                       Latitude = p.latitude,
-                                       Longitude = p.longitude,
-                                       Odometer = p.odometer,
-                                       Distance = p.distance,
-                                       TotalDistance = p.totalDistance,
-                                       Hours = p.hours,
-                                       NumberOfTripsToday = TraccarService.GetNumberOfTripsTodayByDeviceId(p.id).Result,
-                                       Score = v.Score,
-                                       FuelAverage = v.FuelAverage,
-                                       Breakdowns = v.Breakdowns,
-                                       CostThisMonth = v.CostThisMonth,
-                                       Ranking = v.Ranking
-                                   };
-                        return Ok(list);
+                        rbVehicles = await (from v in dbContext.Vehicles
+                                            join d in dbContext.Drivers on v.VehicleNumber equals d.VehicleNumber
+                                            select new VehicleVM()
+                                            {
+                                                VehicleId = v.Id,
+                                                Active = v.Active,
+                                                DriverName = d.Name,
+                                                IMEI = v.IMEI,
+                                                Region = v.Region,
+                                                SIM = v.SIM,
+                                                SubRegion = v.SubRegion,
+                                                VehicleNumber = v.VehicleNumber,
+                                                Type = v.Status,
+                                                Score = v.Score,
+                                                FuelAverage = v.FuelAverage,
+                                                Breakdowns = v.Breakdowns,
+                                                CostThisMonth = v.CostThisMonth,
+                                                Ranking = v.Ranking
+                                            }).ToListAsync();
                     }
+                    var list = from v in rbVehicles
+                               join p in devicePositions on v.VehicleNumber equals p.name
+                               select new VehicleVM()
+                               {
+                                   VehicleId = v.Id,
+                                   Active = v.Active,
+                                   DriverName = v.DriverName,
+                                   IMEI = v.IMEI,
+                                   Region = v.Region,
+                                   SIM = v.SIM,
+                                   SubRegion = v.SubRegion,
+                                   VehicleNumber = v.VehicleNumber,
+                                   Type = v.Type,
+                                   Latitude = p.latitude,
+                                   Longitude = p.longitude,
+                                   Odometer = p.odometer,
+                                   Distance = p.distance,
+                                   TotalDistance = p.totalDistance,
+                                   Hours = p.hours,
+                                   NumberOfTripsToday = TraccarService.GetNumberOfTripsTodayByDeviceId(p.id).Result,
+                                   Score = v.Score,
+                                   FuelAverage = v.FuelAverage,
+                                   Breakdowns = v.Breakdowns,
+                                   CostThisMonth = v.CostThisMonth,
+                                   Ranking = v.Ranking
+                               };
+
+                    foreach (var l in list)
+                    {
+                        Vehicle vehicle = (from v in dbContext.Vehicles
+                                           where v.VehicleNumber == l.VehicleNumber
+                                           select v).SingleOrDefault();
+                        vehicle.Distance = l.TotalDistance;
+                    }
+                    await dbContext.SaveChangesAsync();
+                    return Ok(list);
                 }
-                return Ok();
+                else
+                {
+                    return BadRequest("User not logged in.");
+                }
             }
             catch (Exception ex)
             {

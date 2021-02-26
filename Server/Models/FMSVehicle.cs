@@ -22,5 +22,6 @@ namespace SOS.FMS.Server.Models
         public int Ranking { get; set; }
         public int Score { get; set; } = 135;
         public string Status { get; set; }
+        public double Distance { get; set; }
     }
 }

@@ -265,13 +265,13 @@
       "mscorlib.dll": "sha256-OoIy6q8Z4O5iSevqVXHfYC14mo\/kaxz74ydYX19CiAA=",
       "netstandard.dll": "sha256-FbW0xcZkySFb6B8yBpUE8XmaiMacDVdXdN9GeDH6xu4=",
       "System.Private.CoreLib.dll": "sha256-AQbVm+Z+NByScjRZWDWQnNUk5PBVgwCSWPLQN4YxxZs=",
-      "SOS.FMS.Shared.dll": "sha256-6s+6zoNhRi997Ee3XERE6jMVq\/GY\/gtuGkacbstoSNw=",
-      "SOS.FMS.Client.dll": "sha256-9XEsJuOSI4+v3QOgJ7oCXkwSSoOTlYQvjLV6ufkkPto="
+      "SOS.FMS.Shared.dll": "sha256-z8mQn4NmnHFVnPKJSgW12SddxbJg1DYQQcX82DC3GVU=",
+      "SOS.FMS.Client.dll": "sha256-RDaGb755HPReMDUiS4tbuOTLXOrU7UiFxHjbjG5ZeSI="
     },
     "lazyAssembly": null,
     "pdb": {
-      "SOS.FMS.Shared.pdb": "sha256-VT3zukJlsg42y1WvdwAwWDLSo7gAi42zIrZ1L5HhO9Q=",
-      "SOS.FMS.Client.pdb": "sha256-TbIrH9qBzkPX2maKux+HCuMglbDH6\/qxwGCBHR8BXuE="
+      "SOS.FMS.Shared.pdb": "sha256-LISI1SQX1uuvwu0iTTziR9YHL3vQlX8drQ9r\/Lv\/AcI=",
+      "SOS.FMS.Client.pdb": "sha256-p3oYRLDrzOiM+T8Nj+KeUr+QZ+Bkk3UO8nYBA8C1\/ug="
     },
     "runtime": {
       "dotnet.timezones.blat": "sha256-rFG55cwkAnfHzxmxwBL2tTwfj8X8cjcSEAlco4bc1eo=",

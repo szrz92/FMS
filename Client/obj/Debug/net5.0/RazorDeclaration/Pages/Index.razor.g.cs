@@ -197,7 +197,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 505 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Index.razor"
+#line 511 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Index.razor"
  
     [CascadingParameter]
     Task<AuthenticationState> AuthenticationState { get; set; }
@@ -420,7 +420,8 @@ using Microsoft.AspNetCore.SignalR.Client;
     {
         emergencyCheckListVehicleNumber = vehicleNumber;
         var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new ApiRequest() { VehicleNumber = vehicleNumber });
-        var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<VehicleVM>(await vehicleResponse.Content.ReadAsStringAsync());
+        string res = await vehicleResponse.Content.ReadAsStringAsync();
+        var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<VehicleVM>(res);
         if (vehicle.Type == "emergency")
         {
             var getEmergencyCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Emergency/FMS/CheckList", new ApiRequest() { VehicleNumber = vehicleNumber });

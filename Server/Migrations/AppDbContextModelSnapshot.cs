@@ -279,16 +279,16 @@ namespace SOS.FMS.Server.Migrations
                         {
                             Id = "c58e1a9d-1c28-46db-830a-7b3f0b9663f1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "049db42b-2272-40cb-b818-5bd119433378",
+                            ConcurrencyStamp = "1270c01b-7775-4e6d-a5e3-280828afdc4b",
                             Email = "z.raza@batech.com.pk",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             Name = "Zain Raza",
                             NormalizedEmail = "Z.RAZA@BATECH.COM.PK",
                             NormalizedUserName = "Z.RAZA@BATECH.COM.PK",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOZUGAyJDlbG9xxGUpf4haiYDcTt4MBXsxBtNnBP0lB7rQznKNh9kB4GeztZHx9UNg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKZ5Ogx8cWRZquZ7UJ+JzyoCpcDOkypIqvfDM8VescxUEXMXG1XhiWf4sf1yGewauA==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "136beed2-143e-471e-a2b6-68c25e6c2e67",
+                            SecurityStamp = "b120eecd-102f-4d9e-9783-daf9dc840f8a",
                             TwoFactorEnabled = false,
                             UserName = "z.raza@batech.com.pk"
                         });
@@ -1227,6 +1227,38 @@ namespace SOS.FMS.Server.Migrations
                     b.ToTable("GBMSVehicles");
                 });
 
+            modelBuilder.Entity("SOS.FMS.Server.Models.PeriodicHistory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ConfigurationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DriverCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DriverName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("LastCheckDistance")
+                        .HasColumnType("float");
+
+                    b.Property<int>("LastCheckMonth")
+                        .HasColumnType("int");
+
+                    b.Property<string>("VehicleNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PeriodicHistories");
+                });
+
             modelBuilder.Entity("SOS.FMS.Server.Models.Region", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1446,6 +1478,9 @@ namespace SOS.FMS.Server.Migrations
                         .HasColumnType("int");
 
                     b.Property<double>("CostThisMonth")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Distance")
                         .HasColumnType("float");
 
                     b.Property<double>("FuelAverage")

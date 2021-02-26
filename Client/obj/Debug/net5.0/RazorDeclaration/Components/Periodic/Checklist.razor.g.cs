@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace SOS.FMS.Client.Pages
+namespace SOS.FMS.Client.Components.Periodic
 {
     #line hidden
     using System;
@@ -187,28 +187,13 @@ using Microsoft.AspNetCore.SignalR.Client;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/GBMSTestComponent")]
-    public partial class GBMSTestComponent : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class Checklist : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
-#nullable restore
-#line 6 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\GBMSTestComponent.razor"
-       
-
-    protected override async Task OnInitializedAsync()
-    {
-        var forecasts = await Http.GetStringAsync("WeatherForecast/GetString");
-    }
-
-
-#line default
-#line hidden
-#nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private HttpClient Http { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private INotificationService NotificationService { get; set; }
     }
