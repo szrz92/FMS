@@ -11,7 +11,7 @@
                             Height="600" RowHeight="38"
                             Toolbar="@(new List<string>() { "ExcelExport", "CsvExport", "PdfExport" })"
                             AllowExcelExport="true" AllowPdfExport="true">
-                        <GridPageSettings PageCount="5" PageSize="10" PageSizes="new int[]{ 5, 10, 20, 50, 100 }"></GridPageSettings>
+                        <GridPageSettings PageCount="5" PageSize="20" PageSizes="new int[]{ 5, 10, 20, 50, 100 }"></GridPageSettings>
                         <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Menu"></GridFilterSettings>
                         <GridSelectionSettings CheckboxOnly="true" PersistSelection="true" Type="SelectionType.Multiple"></GridSelectionSettings><GridEvents OnToolbarClick="ToolbarClick" TValue="SummaryVM"></GridEvents>
                         <GridColumns>

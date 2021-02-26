@@ -69,11 +69,11 @@ namespace SOS.FMS.Server.Services
                 //var stations = (from s in context.RbStations select s).ToList();
                 //SyncStations(stations, scope);
 
-                //var drivers = (from d in context.PdwEmployeeMasters 
-                //               where d.XDesignationDescription.Contains("river")
-                //               select d).ToList();
+                var drivers = (from d in context.PdwEmployeeMasters
+                               where d.XDesignationDescription.Contains("river")
+                               select d).ToList();
 
-                //SyncDrivers(drivers, scope);
+                SyncDrivers(drivers, scope);
 
                 //PrepareDailyCheckLists(scope).Wait();
             }
@@ -546,7 +546,7 @@ namespace SOS.FMS.Server.Services
                 {
                     driver.Name = item.XName;
                     driver.Region = region;
-                    driver.SubRegion = region;
+                    driver.SubRegion = subregion;
                     driver.LastSync = PakistanDateTime.Now;
                 }
             }

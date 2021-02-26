@@ -59,7 +59,7 @@ namespace SOS.FMS.Server
             services.AddCronJob<GbmsSyncCronJob>(c =>
             {
                 c.TimeZoneInfo = TimeZoneInfo.Local;
-                c.CronExpression = @"*/1 * * * *";
+                c.CronExpression = @"*/5 * * * *";
             });
 
             services.AddSignalR();
