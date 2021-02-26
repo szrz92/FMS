@@ -1,7 +1,7 @@
 ﻿<StaticWebAssets Version="1.0">
-  <ContentRoot BasePath="/" Path="C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\" />
-  <ContentRoot BasePath="/" Path="C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\scopedcss\bundle\" />
-  <ContentRoot BasePath="_content/Append.Blazor.Notifications" Path="C:\Users\BA Tech\.nuget\packages\append.blazor.notifications\1.0.1\build\..\staticwebassets\" />
-  <ContentRoot BasePath="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication" Path="C:\Users\BA Tech\.nuget\packages\microsoft.aspnetcore.components.webassembly.authentication\5.0.2\build\..\staticwebassets\" />
-  <ContentRoot BasePath="_content/Syncfusion.Blazor" Path="C:\Users\BA Tech\.nuget\packages\syncfusion.blazor\18.2.0.57\build\..\staticwebassets\" />
+  <ContentRoot BasePath="/" Path="C:\Users\HP\source\repos\fms\Client\bin\Debug\net5.0\wwwroot\" />
+  <ContentRoot BasePath="/" Path="C:\Users\HP\source\repos\fms\Client\obj\Debug\net5.0\scopedcss\bundle\" />
+  <ContentRoot BasePath="_content/Append.Blazor.Notifications" Path="C:\Users\HP\.nuget\packages\append.blazor.notifications\1.0.1\build\..\staticwebassets\" />
+  <ContentRoot BasePath="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication" Path="C:\Users\HP\.nuget\packages\microsoft.aspnetcore.components.webassembly.authentication\5.0.2\build\..\staticwebassets\" />
+  <ContentRoot BasePath="_content/Syncfusion.Blazor" Path="C:\Users\HP\.nuget\packages\syncfusion.blazor\18.2.0.57\build\..\staticwebassets\" />
 </StaticWebAssets>

@@ -170,24 +170,52 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
-        [HttpPost("FMS/Demo/CarOperational")]
-        public async Task<IActionResult> CarOperational(VehicleVM vehicle)
+
+        [HttpPost("FMS/checkAccidentalStatus")]
+        public async Task<IActionResult> checkAccidentalStatus(ApiRequest request)
         {
             try
             {
+                Vehicle fmsVehicle =await (from v in dbContext.Vehicles
+                                      where v.VehicleNumber == request.VehicleNumber
+                                      select v).SingleOrDefaultAsync();
 
+
+                FMSAccident accident = await dbContext.FMSAccidents
+                    .Where(x => x.FMSVehicleId == fmsVehicle.Id && (x.MaintenanceStatus == MaintenanceStatus.NotInitiated || x.MaintenanceStatus == MaintenanceStatus.Operational))
+                    .SingleOrDefaultAsync();
+                if (accident != null)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return NotFound();
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpPost("FMS/Demo/CarOperational")]
+        public async Task<IActionResult> CarOperational(ApiRequest vehicle)
+        {
+            try
+            {
                 Vehicle fmsVehicle = (from v in dbContext.Vehicles
                                       where v.VehicleNumber == vehicle.VehicleNumber
                                       select v).SingleOrDefault();
 
-                fmsVehicle.Status = "maintained";
                 dbContext.SaveChanges();
 
                 FMSAccident accident = (from a in dbContext.FMSAccidents 
                                         where a.FMSVehicleId == fmsVehicle.Id && a.MaintenanceStatus == MaintenanceStatus.NotInitiated
                                         select a).SingleOrDefault();
 
-                accident.MaintenanceStatus = MaintenanceStatus.Done;
+                accident.MaintenanceStatus = MaintenanceStatus.Operational;
                 accident.CarOperationalTime = PakistanDateTime.Now;
                 accident.LastUpdated = PakistanDateTime.Now;
                 dbContext.SaveChanges();
@@ -210,24 +238,40 @@ namespace SOS.FMS.Server.Controllers
         {
             try
             {
+
                 Vehicle fmsVehicle = (from v in dbContext.Vehicles
                                       where v.VehicleNumber == request.VehicleNumber
                                       select v).SingleOrDefault();
 
-                fmsVehicle.Status = "maintained";
-
                 List<FMSAccident> accidents = await dbContext.FMSAccidents
-                    .Where(x => x.FMSVehicleId == fmsVehicle.Id && x.MaintenanceStatus == MaintenanceStatus.NotInitiated).ToListAsync();
-
+                    .Where(x => x.FMSVehicleId == fmsVehicle.Id && (x.MaintenanceStatus == MaintenanceStatus.NotInitiated || x.MaintenanceStatus == MaintenanceStatus.Operational)).ToListAsync();
+                if (accidents.Count == 0)
+                {
+                    return NoContent();
+                }
                 foreach (var accident in accidents)
                 {
                     var checkList = await dbContext.FMSAccidentalCheckList.Where(x => x.FMSAccidentId == accident.Id).ToListAsync();
                     checkList.ForEach(u => u.MaintenanceStatus = MaintenanceStatus.Done);
-
+                    if (accident.MaintenanceStatus != MaintenanceStatus.Operational)
+                    {
+                        accident.CarOperationalTime = PakistanDateTime.Now;
+                    }
                     accident.MaintenanceStatus = MaintenanceStatus.Done;
-                    accident.CarOperationalTime = PakistanDateTime.Now;
                     accident.JobClosingTime = PakistanDateTime.Now;
                     accident.LastUpdated = PakistanDateTime.Now;
+                }
+
+                FMSEmergency emergencyCheck = await dbContext.FMSEmergencies
+                   .Where(x => x.FMSVehicleId == fmsVehicle.Id && x.MaintenanceStatus == MaintenanceStatus.NotInitiated)
+                   .SingleOrDefaultAsync();
+                if (emergencyCheck != null)
+                {
+                    fmsVehicle.Status = "emergency";
+                }
+                else
+                {
+                    fmsVehicle.Status = "maintained";
                 }
                 await dbContext.SaveChangesAsync();
 
@@ -249,8 +293,12 @@ namespace SOS.FMS.Server.Controllers
         {
             try
             {
-                Vehicle fmsVehicle = await (from v in dbContext.Vehicles where v.VehicleNumber == request.VehicleNumber && v.Status == "accidental" select v).SingleOrDefaultAsync();
-                FMSAccident fmsAccident = await (from a in dbContext.FMSAccidents where a.FMSVehicleId == fmsVehicle.Id && a.MaintenanceStatus == MaintenanceStatus.NotInitiated select a).FirstOrDefaultAsync();
+                Vehicle fmsVehicle = await (from v in dbContext.Vehicles where v.VehicleNumber == request.VehicleNumber select v).SingleOrDefaultAsync();
+                FMSAccident fmsAccident = await (from a in dbContext.FMSAccidents where a.FMSVehicleId == fmsVehicle.Id && (a.MaintenanceStatus == MaintenanceStatus.NotInitiated || a.MaintenanceStatus == MaintenanceStatus.Operational) select a).FirstOrDefaultAsync();
+                if (fmsAccident == null)
+                {
+                    return NotFound();
+                }
                 List<FMSAccidentalCheckVM> checkList = await (from c in dbContext.FMSAccidentalCheckList
                                                               where c.FMSAccidentId == fmsAccident.Id && c.FMSVehicleId == fmsVehicle.Id
                                                               select new FMSAccidentalCheckVM()

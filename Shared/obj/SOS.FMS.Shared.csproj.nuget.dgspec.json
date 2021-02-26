@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\HP\\Source\\Repos\\fms\\Shared\\SOS.FMS.Shared.csproj": {}
+    "C:\\Users\\HP\\source\\repos\\fms\\Shared\\SOS.FMS.Shared.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HP\\Source\\Repos\\fms\\Shared\\SOS.FMS.Shared.csproj": {
+    "C:\\Users\\HP\\source\\repos\\fms\\Shared\\SOS.FMS.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HP\\Source\\Repos\\fms\\Shared\\SOS.FMS.Shared.csproj",
+        "projectUniqueName": "C:\\Users\\HP\\source\\repos\\fms\\Shared\\SOS.FMS.Shared.csproj",
         "projectName": "SOS.FMS.Shared",
-        "projectPath": "C:\\Users\\HP\\Source\\Repos\\fms\\Shared\\SOS.FMS.Shared.csproj",
+        "projectPath": "C:\\Users\\HP\\source\\repos\\fms\\Shared\\SOS.FMS.Shared.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HP\\Source\\Repos\\fms\\Shared\\obj\\",
+        "outputPath": "C:\\Users\\HP\\source\\repos\\fms\\Shared\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",

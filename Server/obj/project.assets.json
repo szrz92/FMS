@@ -11109,11 +11109,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HP\\Source\\Repos\\fms\\Server\\SOS.FMS.Server.csproj",
+      "projectUniqueName": "C:\\Users\\HP\\source\\repos\\fms\\Server\\SOS.FMS.Server.csproj",
       "projectName": "SOS.FMS.Server",
-      "projectPath": "C:\\Users\\HP\\Source\\Repos\\fms\\Server\\SOS.FMS.Server.csproj",
+      "projectPath": "C:\\Users\\HP\\source\\repos\\fms\\Server\\SOS.FMS.Server.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HP\\Source\\Repos\\fms\\Server\\obj\\",
+      "outputPath": "C:\\Users\\HP\\source\\repos\\fms\\Server\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -11130,11 +11130,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\HP\\Source\\Repos\\fms\\Client\\SOS.FMS.Client.csproj": {
-              "projectPath": "C:\\Users\\HP\\Source\\Repos\\fms\\Client\\SOS.FMS.Client.csproj"
+            "C:\\Users\\HP\\source\\repos\\fms\\Client\\SOS.FMS.Client.csproj": {
+              "projectPath": "C:\\Users\\HP\\source\\repos\\fms\\Client\\SOS.FMS.Client.csproj"
             },
-            "C:\\Users\\HP\\Source\\Repos\\fms\\Shared\\SOS.FMS.Shared.csproj": {
-              "projectPath": "C:\\Users\\HP\\Source\\Repos\\fms\\Shared\\SOS.FMS.Shared.csproj"
+            "C:\\Users\\HP\\source\\repos\\fms\\Shared\\SOS.FMS.Shared.csproj": {
+              "projectPath": "C:\\Users\\HP\\source\\repos\\fms\\Shared\\SOS.FMS.Shared.csproj"
             }
           }
         }
