@@ -13,175 +13,175 @@ namespace SOS.FMS.Client.Pages
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 1 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 2 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
 using System.Net.Http.Json;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 3 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 4 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 5 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 6 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 7 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
 using Microsoft.AspNetCore.Components.WebAssembly.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 8 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 9 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
 using SOS.FMS.Client;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 10 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
 using SOS.FMS.Client.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 11 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 11 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
 using SOS.FMS.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 12 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 12 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
 using System.Security.Claims;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 13 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 13 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
 using Newtonsoft.Json;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 16 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 16 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
 using SOS.FMS.Client.Components;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 19 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 19 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
 using SOS.FMS.Shared.ViewModels;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 22 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 22 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
 using Syncfusion.Blazor.Inputs;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 23 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 23 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
 using Syncfusion.Blazor.Grids;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 24 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 24 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
 using Syncfusion.Blazor.Spinner;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 25 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 25 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
 using Syncfusion.Blazor.DropDowns;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 26 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 26 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
 using Syncfusion.Blazor.Popups;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 27 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 27 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
 using Syncfusion.Blazor.Navigations;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 30 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 30 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
 using Append.Blazor.Notifications;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 33 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 33 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
 using SOS.FMS.Client.Services;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 34 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 34 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 36 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 36 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
 using Microsoft.AspNetCore.SignalR.Client;
 
 #line default
@@ -197,7 +197,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 464 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Index.razor"
+#line 505 "C:\Users\HP\Source\Repos\fms\Client\Pages\Index.razor"
  
     [CascadingParameter]
     Task<AuthenticationState> AuthenticationState { get; set; }
@@ -208,9 +208,9 @@ using Microsoft.AspNetCore.SignalR.Client;
     public List<SelectListItem> subRegionsList { get; set; } = new List<SelectListItem>();
     public List<SelectListItem> vehicleNumbersList { get; set; } = new List<SelectListItem>();
 
-    public FMSVehicleVM Filter = new FMSVehicleVM();
+    public VehicleVM Filter = new VehicleVM();
 
-    public List<FMSVehicleVM> filteredVehiclesList { get; set; } = new List<FMSVehicleVM>();
+    public List<VehicleVM> filteredVehiclesList { get; set; } = new List<VehicleVM>();
 
     public async void FilterData()
     {
@@ -235,7 +235,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     public async void ResetData()
     {
-        Filter = new FMSVehicleVM();
+        Filter = new VehicleVM();
         filteredVehiclesList = vehiclesList;
         await JSRuntime.InvokeVoidAsync("updateMarkers", dotNetObjectReference, filteredVehiclesList);
     }
@@ -260,7 +260,7 @@ using Microsoft.AspNetCore.SignalR.Client;
     }
     #endregion
 
-    public List<FMSVehicleVM> vehiclesList { get; set; } = new List<FMSVehicleVM>();
+    public List<VehicleVM> vehiclesList { get; set; } = new List<VehicleVM>();
     public List<GBMSUserVM> usersList { get; set; } = new List<GBMSUserVM>();
     public List<FMSAccidentalCheckCommentVM> commentsList = new List<FMSAccidentalCheckCommentVM>();
 
@@ -302,7 +302,7 @@ using Microsoft.AspNetCore.SignalR.Client;
     {
 
         dotNetObjectReference = DotNetObjectReference.Create(this);
-        vehiclesList = await Http.GetFromJsonAsync<List<FMSVehicleVM>>("api/Vehicles/FMS/Demo/All");
+        vehiclesList = await Http.GetFromJsonAsync<List<VehicleVM>>("api/Vehicles/FMS/All");
         vehicleNumbersList = vehiclesList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         regionsList = vehiclesList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         subRegionsList = vehiclesList.GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
@@ -323,7 +323,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
     }
 
-    public void CountVehicles(List<FMSVehicleVM> vehicles)
+    public void CountVehicles(List<VehicleVM> vehicles)
     {
         TotalVehiclesCount = 0;
         AccidentalVehiclesCount = 0;
@@ -419,8 +419,8 @@ using Microsoft.AspNetCore.SignalR.Client;
     public async void Emergency_JSInvoked(string vehicleNumber)
     {
         emergencyCheckListVehicleNumber = vehicleNumber;
-        var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new FMSVehicleVM() { VehicleNumber = vehicleNumber });
-        var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<FMSVehicleVM>(await vehicleResponse.Content.ReadAsStringAsync());
+        var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new ApiRequest() { VehicleNumber = vehicleNumber });
+        var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<VehicleVM>(await vehicleResponse.Content.ReadAsStringAsync());
         if (vehicle.Type == "emergency")
         {
             var getEmergencyCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Emergency/FMS/CheckList", new ApiRequest() { VehicleNumber = vehicleNumber });
@@ -443,29 +443,37 @@ using Microsoft.AspNetCore.SignalR.Client;
     [JSInvokable]
     public async void Accidental_JSInvoked(string vehicleNumber)
     {
-        accidentalCheckListVehicleNumber = vehicleNumber;
-        var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new FMSVehicleVM() { VehicleNumber = vehicleNumber });
-        var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<FMSVehicleVM>(await vehicleResponse.Content.ReadAsStringAsync());
-        if (vehicle.Type == "accidental")
+        try
         {
-            var getAccidentalCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/FMS/CheckList", new ApiRequest() { VehicleNumber = vehicleNumber });
-
-            if (getAccidentalCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
+            accidentalCheckListVehicleNumber = vehicleNumber;
+            var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new ApiRequest() { VehicleNumber = vehicleNumber });
+            string res = await vehicleResponse.Content.ReadAsStringAsync();
+            var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<VehicleVM>(res);
+            if (vehicle.Type == "accidental")
             {
+                var getAccidentalCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/FMS/CheckList", new ApiRequest() { VehicleNumber = vehicleNumber });
 
-                string response = await (getAccidentalCheckListResponse).Content.ReadAsStringAsync();
-                accidentalCheckList = JsonConvert.DeserializeObject<List<FMSAccidentalCheckVM>>(response);
-                ShowAccidentalCheckList(accidentalCheckList);
+                if (getAccidentalCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+
+                    string response = await (getAccidentalCheckListResponse).Content.ReadAsStringAsync();
+                    accidentalCheckList = JsonConvert.DeserializeObject<List<FMSAccidentalCheckVM>>(response);
+                    ShowAccidentalCheckList(accidentalCheckList);
+                }
+                else
+                {
+                }
             }
             else
             {
+                ConfirmAccidentDlgVisible = true;
             }
+            StateHasChanged();
         }
-        else
+        catch (Exception ex)
         {
-            ConfirmAccidentDlgVisible = true;
+            throw;
         }
-        StateHasChanged();
     }
     [JSInvokable]
     public void Daily_JSInvoked(string vehicleNumber)
@@ -474,9 +482,20 @@ using Microsoft.AspNetCore.SignalR.Client;
         ConfirmDailyDlgVisible = true;
         StateHasChanged();
     }
+
+
+    List<HistoryVM> histories { get; set; }
     [JSInvokable]
-    public void History_JSInvoked(string vehicleNumber)
+    public async void History_JSInvoked(string vehicleNumber)
     {
+        var history = await Http.PostAsJsonAsync("api/Jobs/History", new ApiRequest() { VehicleNumber = vehicleNumber });
+        if (history.IsSuccessStatusCode)
+        {
+            string historyString = await history.Content.ReadAsStringAsync();
+            histories = JsonConvert.DeserializeObject<List<HistoryVM>>(historyString);
+            HistoryDlgVisible = true;
+            StateHasChanged();
+        }
     }
     [JSInvokable]
     public void mention_JSInvoked(List<FMSUserVM> mentionedUsers, string comment)
@@ -502,7 +521,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     private async void TimerElapsedHandler()
     {
-        vehiclesList = await Http.GetFromJsonAsync<List<FMSVehicleVM>>("api/Vehicles/FMS/Demo/All");
+        vehiclesList = await Http.GetFromJsonAsync<List<VehicleVM>>("api/Vehicles/FMS/All");
         filteredVehiclesList = vehiclesList;
         FilterDataWithoutUpdateMarkers();
         CountVehicles(filteredVehiclesList);
@@ -516,6 +535,7 @@ using Microsoft.AspNetCore.SignalR.Client;
     public bool ConfirmEmergencyDlgVisible { get; set; } = false;
     public bool ConfirmAccidentDlgVisible { get; set; } = false;
     public bool ConfirmDailyDlgVisible { get; set; } = false;
+    public bool HistoryDlgVisible { get; set; } = false;
 
     public string Description { get; set; } = "";
 
@@ -531,6 +551,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         this.ConfirmEmergencyDlgVisible = false;
         this.ConfirmAccidentDlgVisible = false;
         this.ConfirmDailyDlgVisible = false;
+        this.HistoryDlgVisible = false;
     }
 
     public async void ConfirmEmergency()
