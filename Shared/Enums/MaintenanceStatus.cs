@@ -11,4 +11,9 @@ namespace SOS.FMS.Shared.Enums
         Done,
         NotInitiated
     }
+    public enum PeriodicMaintenanceStatus
+    {
+        Pending,
+        Done
+    }
 }

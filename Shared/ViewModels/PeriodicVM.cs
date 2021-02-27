@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SOS.FMS.Shared.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,11 +17,12 @@ namespace SOS.FMS.Shared.ViewModels
         public string DriverCode { get; set; }
         public int CurrentMonth { get; set; }
         public double CurrentDistance { get; set; }
-        public int LastCheckMonth { get; set; }
+        public DateTime LastCheckTime { get; set; }
         public double LastCheckDistance { get; set; }
         public int MonthLimit { get; set; }
         public double DistanceLimit { get; set; }
         public string Region { get; set; }
         public string SubRegion { get; set; }
+        public string Status { get; set; }
     }
 }

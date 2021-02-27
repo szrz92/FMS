@@ -197,7 +197,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 511 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Index.razor"
+#line 536 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Index.razor"
  
     [CascadingParameter]
     Task<AuthenticationState> AuthenticationState { get; set; }
@@ -277,9 +277,11 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     public bool emergencyCheckListSideModal { get; set; } = false;
     public bool dailyCheckListSideModal { get; set; } = false;
+    public bool periodicCheckListSideModal { get; set; } = false;
 
     public string emergencyCheckListVehicleNumber;
     public string dailyCheckListVehicleNumber;
+    public string periodicCheckVehicleNumber;
 
     public bool visibleCommentBox { get; set; } = true;
     public bool emergencyCommentModal { get; set; } = false;
@@ -414,6 +416,16 @@ using Microsoft.AspNetCore.SignalR.Client;
         commentSideModalHeading = null;
     }
 
+    #region Periodic Checklist
+    public void ShowHidePeriodicCheckList()
+    {
+        Description = null;
+        Periodic_JSInvoked(periodicCheckVehicleNumber);
+        periodicCheckListSideModal = !periodicCheckListSideModal;
+        StateHasChanged();
+    }
+    #endregion
+
     #region JS Invokables
     [JSInvokable]
     public async void Emergency_JSInvoked(string vehicleNumber)
@@ -484,6 +496,14 @@ using Microsoft.AspNetCore.SignalR.Client;
         StateHasChanged();
     }
 
+    [JSInvokable]
+    public void Periodic_JSInvoked(string vehicleNumber)
+    {
+        periodicCheckVehicleNumber = vehicleNumber;
+        PeriodicHistoryDlgVisible = true;
+        StateHasChanged();
+    }
+
 
     List<HistoryVM> histories { get; set; }
     [JSInvokable]
@@ -537,6 +557,7 @@ using Microsoft.AspNetCore.SignalR.Client;
     public bool ConfirmAccidentDlgVisible { get; set; } = false;
     public bool ConfirmDailyDlgVisible { get; set; } = false;
     public bool HistoryDlgVisible { get; set; } = false;
+    public bool PeriodicHistoryDlgVisible { get; set; } = false;
 
     public string Description { get; set; } = "";
 
@@ -545,6 +566,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         this.ConfirmEmergencyDlgVisible = false;
         this.ConfirmAccidentDlgVisible = false;
         this.ConfirmDailyDlgVisible = false;
+        this.PeriodicHistoryDlgVisible = false;
     }
 
     private void DialogClose(CloseEventArgs args)
@@ -553,6 +575,13 @@ using Microsoft.AspNetCore.SignalR.Client;
         this.ConfirmAccidentDlgVisible = false;
         this.ConfirmDailyDlgVisible = false;
         this.HistoryDlgVisible = false;
+        this.PeriodicHistoryDlgVisible = false;
+    }
+    public void MaintainBtnClick()
+    {
+        periodicCheckListSideModal = true;
+        this.PeriodicHistoryDlgVisible = false;
+        StateHasChanged();
     }
 
     public async void ConfirmEmergency()

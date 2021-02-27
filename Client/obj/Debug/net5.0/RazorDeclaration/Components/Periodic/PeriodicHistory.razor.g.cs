@@ -197,6 +197,9 @@ using Microsoft.AspNetCore.SignalR.Client;
 #nullable restore
 #line 73 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Periodic\PeriodicHistory.razor"
        
+    [Parameter]
+    public string VehicleNumber { get; set; }
+
     public List<PeriodicVM> PeriodicList { get; set; }
     public List<PeriodicVM> FilteredPeriodicList { get; set; }
 
@@ -208,8 +211,17 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     protected override async Task OnInitializedAsync()
     {
-        PeriodicList = (await Http.GetFromJsonAsync<List<PeriodicVM>>("api/Periodic/Status/All"))
-        .ToList();
+        if (VehicleNumber != null)
+        {
+            PeriodicList = JsonConvert.DeserializeObject<List<PeriodicVM>>(
+                await (await Http.PostAsJsonAsync("api/Periodic/Status", new ApiRequest() { VehicleNumber = VehicleNumber }))
+            .Content.ReadAsStringAsync());
+        }
+        else
+        {
+            PeriodicList = (await Http.GetFromJsonAsync<List<PeriodicVM>>("api/Periodic/Status/All"))
+            .ToList();
+        }
         FilteredPeriodicList = PeriodicList;
         regionsList = PeriodicList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         subRegionsList = PeriodicList.GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();

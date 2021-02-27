@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SOS.FMS.Shared.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace SOS.FMS.Server.Models
         public int Ranking { get; set; }
         public int Score { get; set; } = 135;
         public string Status { get; set; }
+        public PeriodicMaintenanceStatus PeriodicStatus { get; set; }
         public double Distance { get; set; }
     }
 }

@@ -271,6 +271,13 @@
 
 }
 
+@if (periodicCheckListSideModal)
+{
+    if (!string.IsNullOrEmpty(periodicCheckVehicleNumber))
+    {
+        <SOS.FMS.Client.Components.Periodic.Checklist VehicleNumber="@periodicCheckVehicleNumber" OnVisibilityChanged="ShowHidePeriodicCheckList" />
+    }
+}
 
 @if (emergencyCommentModal)
 {
@@ -507,6 +514,24 @@
     </DialogTemplates>
     <DialogEvents Closed="@DialogClose"></DialogEvents>
 </SfDialog>
+@if (!string.IsNullOrEmpty(periodicCheckVehicleNumber))
+{
+<SfDialog @bind-Visible="@PeriodicHistoryDlgVisible" Width="800px" Height="600px" Target="#target" ShowCloseIcon="true">
+    <DialogTemplates>
+        <Header>
+            History
+        </Header>
+        <Content>
+            <SOS.FMS.Client.Components.Periodic.ShortPeriodicHistory VehicleNumber="@periodicCheckVehicleNumber" />
+        </Content>
+
+    </DialogTemplates>
+    <DialogButtons>
+        <DialogButton Content="Maintain" IsPrimary="true" OnClick="@MaintainBtnClick" />
+    </DialogButtons>
+    <DialogEvents Closed="@DialogClose"></DialogEvents>
+</SfDialog>
+}
 @code
 {
     [CascadingParameter]
@@ -587,9 +612,11 @@
 
     public bool emergencyCheckListSideModal { get; set; } = false;
     public bool dailyCheckListSideModal { get; set; } = false;
+    public bool periodicCheckListSideModal { get; set; } = false;
 
     public string emergencyCheckListVehicleNumber;
     public string dailyCheckListVehicleNumber;
+    public string periodicCheckVehicleNumber;
 
     public bool visibleCommentBox { get; set; } = true;
     public bool emergencyCommentModal { get; set; } = false;
@@ -724,6 +751,16 @@
         commentSideModalHeading = null;
     }
 
+    #region Periodic Checklist
+    public void ShowHidePeriodicCheckList()
+    {
+        Description = null;
+        Periodic_JSInvoked(periodicCheckVehicleNumber);
+        periodicCheckListSideModal = !periodicCheckListSideModal;
+        StateHasChanged();
+    }
+    #endregion
+
     #region JS Invokables
     [JSInvokable]
     public async void Emergency_JSInvoked(string vehicleNumber)
@@ -794,6 +831,14 @@
         StateHasChanged();
     }
 
+    [JSInvokable]
+    public void Periodic_JSInvoked(string vehicleNumber)
+    {
+        periodicCheckVehicleNumber = vehicleNumber;
+        PeriodicHistoryDlgVisible = true;
+        StateHasChanged();
+    }
+
 
     List<HistoryVM> histories { get; set; }
     [JSInvokable]
@@ -847,6 +892,7 @@
     public bool ConfirmAccidentDlgVisible { get; set; } = false;
     public bool ConfirmDailyDlgVisible { get; set; } = false;
     public bool HistoryDlgVisible { get; set; } = false;
+    public bool PeriodicHistoryDlgVisible { get; set; } = false;
 
     public string Description { get; set; } = "";
 
@@ -855,6 +901,7 @@
         this.ConfirmEmergencyDlgVisible = false;
         this.ConfirmAccidentDlgVisible = false;
         this.ConfirmDailyDlgVisible = false;
+        this.PeriodicHistoryDlgVisible = false;
     }
 
     private void DialogClose(CloseEventArgs args)
@@ -863,6 +910,13 @@
         this.ConfirmAccidentDlgVisible = false;
         this.ConfirmDailyDlgVisible = false;
         this.HistoryDlgVisible = false;
+        this.PeriodicHistoryDlgVisible = false;
+    }
+    public void MaintainBtnClick()
+    {
+        periodicCheckListSideModal = true;
+        this.PeriodicHistoryDlgVisible = false;
+        StateHasChanged();
     }
 
     public async void ConfirmEmergency()

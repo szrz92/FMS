@@ -187,6 +187,13 @@ using Microsoft.AspNetCore.SignalR.Client;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 2 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Periodic\Checklist.razor"
+using SOS.FMS.Client.Components.AccidentalComments;
+
+#line default
+#line hidden
+#nullable disable
     public partial class Checklist : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -194,6 +201,46 @@ using Microsoft.AspNetCore.SignalR.Client;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 52 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Periodic\Checklist.razor"
+       
+    [Parameter]
+    public string VehicleNumber { get; set; }
+    [Parameter]
+    public EventCallback<bool> OnVisibilityChanged { get; set; }
+
+    public List<PeriodicVM> PeriodicList { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        PeriodicList = JsonConvert.DeserializeObject<List<PeriodicVM>>(
+            await (await Http.PostAsJsonAsync("api/Periodic/Status/Last", new ApiRequest() { VehicleNumber = VehicleNumber }))
+        .Content.ReadAsStringAsync());
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+    }
+    public async void MaintainNow(string Description)
+    {
+        PeriodicList = null;
+        var maintainResponse = await Http.PostAsJsonAsync("api/Periodic/Maintain", new ApiRequest() { Remarks = Description, VehicleNumber = VehicleNumber });
+        PeriodicList = JsonConvert.DeserializeObject<List<PeriodicVM>>(
+            await (await Http.PostAsJsonAsync("api/Periodic/Status/Last", new ApiRequest() { VehicleNumber = VehicleNumber }))
+        .Content.ReadAsStringAsync());
+        StateHasChanged();
+    }
+    public Task Close()
+    {
+        return OnVisibilityChanged.InvokeAsync(false);
+    }
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private HttpClient Http { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private INotificationService NotificationService { get; set; }
     }

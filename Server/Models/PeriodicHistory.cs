@@ -13,7 +13,7 @@ namespace SOS.FMS.Server.Models
         public string VehicleNumber { get; set; }
         public string DriverName { get; set; }
         public string DriverCode { get; set; }
-        public int LastCheckMonth { get; set; }
+        public DateTime LastCheckTime { get; set; }
         public double LastCheckDistance { get; set; }
         public DateTime Timestamp { get; set; }
     }

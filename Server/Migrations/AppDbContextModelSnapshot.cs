@@ -279,16 +279,16 @@ namespace SOS.FMS.Server.Migrations
                         {
                             Id = "c58e1a9d-1c28-46db-830a-7b3f0b9663f1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1270c01b-7775-4e6d-a5e3-280828afdc4b",
+                            ConcurrencyStamp = "039cfe46-9708-4747-9934-938469d2e57f",
                             Email = "z.raza@batech.com.pk",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             Name = "Zain Raza",
                             NormalizedEmail = "Z.RAZA@BATECH.COM.PK",
                             NormalizedUserName = "Z.RAZA@BATECH.COM.PK",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKZ5Ogx8cWRZquZ7UJ+JzyoCpcDOkypIqvfDM8VescxUEXMXG1XhiWf4sf1yGewauA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPTp/RJYUzxtOw04eMjtJLGilqkHS/ix6cziaapgcwByLCDzqozCN+pcjeejroOIuQ==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "b120eecd-102f-4d9e-9783-daf9dc840f8a",
+                            SecurityStamp = "40677f74-44f2-41fd-933b-57c7ed846d5a",
                             TwoFactorEnabled = false,
                             UserName = "z.raza@batech.com.pk"
                         });
@@ -1248,8 +1248,11 @@ namespace SOS.FMS.Server.Migrations
                     b.Property<double>("LastCheckDistance")
                         .HasColumnType("float");
 
-                    b.Property<int>("LastCheckMonth")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("LastCheckTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("VehicleNumber")
                         .HasColumnType("nvarchar(max)");
@@ -1488,6 +1491,9 @@ namespace SOS.FMS.Server.Migrations
 
                     b.Property<long>("IMEI")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("PeriodicStatus")
+                        .HasColumnType("int");
 
                     b.Property<int>("Ranking")
                         .HasColumnType("int");

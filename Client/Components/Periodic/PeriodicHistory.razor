@@ -55,7 +55,7 @@
                                     <GridColumn Field=@nameof(PeriodicVM.LastCheckDistance) HeaderText="Last (kms)" Width="110"></GridColumn>
                                     <GridColumn Field=@nameof(PeriodicVM.DistanceLimit) HeaderText="Limit (kms)" Width="110"></GridColumn>
                                     <GridColumn Field=@nameof(PeriodicVM.CurrentMonth) HeaderText="Current (month)" Width="130"></GridColumn>
-                                    <GridColumn Field=@nameof(PeriodicVM.LastCheckMonth) HeaderText="Last (month)" Width="130"></GridColumn>
+                                    <GridColumn Field=@nameof(PeriodicVM.LastCheckTime) HeaderText="Last (time)" Width="130"></GridColumn>
                                     <GridColumn Field=@nameof(PeriodicVM.MonthLimit) HeaderText="Limit (month)" Width="130"></GridColumn>
                                 </GridColumns>
                             </SfGrid>
@@ -71,6 +71,9 @@ else
     <h5>Loading.....</h5>
 }
 @code {
+    [Parameter]
+    public string VehicleNumber { get; set; }
+
     public List<PeriodicVM> PeriodicList { get; set; }
     public List<PeriodicVM> FilteredPeriodicList { get; set; }
 
@@ -82,8 +85,17 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        PeriodicList = (await Http.GetFromJsonAsync<List<PeriodicVM>>("api/Periodic/Status/All"))
-        .ToList();
+        if (VehicleNumber != null)
+        {
+            PeriodicList = JsonConvert.DeserializeObject<List<PeriodicVM>>(
+                await (await Http.PostAsJsonAsync("api/Periodic/Status", new ApiRequest() { VehicleNumber = VehicleNumber }))
+            .Content.ReadAsStringAsync());
+        }
+        else
+        {
+            PeriodicList = (await Http.GetFromJsonAsync<List<PeriodicVM>>("api/Periodic/Status/All"))
+            .ToList();
+        }
         FilteredPeriodicList = PeriodicList;
         regionsList = PeriodicList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         subRegionsList = PeriodicList.GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();

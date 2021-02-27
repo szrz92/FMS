@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SOS.FMS.Server.Models;
 using SOS.FMS.Shared;
+using SOS.FMS.Shared.Enums;
 using SOS.FMS.Shared.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,49 @@ namespace SOS.FMS.Server.Controllers
                     foreach (var h in histories)
                     {
                         VehicleConfiguration configuration = (from v in dbContext.VehicleConfigurations where v.Id == h.ConfigurationId select v).SingleOrDefault();
+
+                        double CurrentKMS = vehicle.Distance - h.LastCheckDistance;
+                        int CurrentMonths = PakistanDateTime.GetMonthsBetween(PakistanDateTime.Now , h.LastCheckTime);
+
+                        List<PeriodicMaintenanceStatus> statusList = new List<PeriodicMaintenanceStatus>();
+                        string status;
+
+                        if (CurrentMonths > configuration.Month)
+                        {
+                            statusList.Add(PeriodicMaintenanceStatus.Pending);
+                        }
+                        else if (CurrentMonths < configuration.Month)
+                        {
+                            statusList.Add(PeriodicMaintenanceStatus.Done);
+                        }
+                        else if (CurrentMonths == configuration.Month)
+                        {
+                            statusList.Add(PeriodicMaintenanceStatus.Pending);
+                        }
+
+                        if (CurrentKMS > configuration.Distance)
+                        {
+                            statusList.Add(PeriodicMaintenanceStatus.Pending);
+                        }
+                        else if (CurrentKMS < configuration.Distance)
+                        {
+                            statusList.Add(PeriodicMaintenanceStatus.Done);
+                        }
+                        else if (CurrentKMS == configuration.Distance)
+                        {
+                            statusList.Add(PeriodicMaintenanceStatus.Pending);
+                        }
+
+
+                        if (statusList.Contains(PeriodicMaintenanceStatus.Pending))
+                        {
+                            status = "Not Maintained";
+                        }
+                        else
+                        {
+                            status = "Maintained";
+                        }
+
                         periodicHistory.Add(new PeriodicVM()
                         {
                             Id = h.Id,
@@ -49,11 +93,12 @@ namespace SOS.FMS.Server.Controllers
                             DriverCode = driver.Code,
                             DriverName = driver.Name,
                             LastCheckDistance = h.LastCheckDistance,
-                            LastCheckMonth = h.LastCheckMonth,
+                            LastCheckTime = h.LastCheckTime,
                             MonthLimit = configuration.Month,
                             VehicleNumber = vehicle.VehicleNumber,
                             Region = driver.Region,
-                            SubRegion = driver.SubRegion
+                            SubRegion = driver.SubRegion,
+                            Status = status
                         });
                     }
                     return Ok(periodicHistory);
@@ -73,7 +118,7 @@ namespace SOS.FMS.Server.Controllers
                             DriverCode = driver.Code,
                             DriverName = driver.Name,
                             LastCheckDistance = 0,
-                            LastCheckMonth = 0,
+                            LastCheckTime = DateTime.MinValue,
                             VehicleNumber = request.VehicleNumber,
                             Timestamp = PakistanDateTime.Now
                         });
@@ -98,7 +143,7 @@ namespace SOS.FMS.Server.Controllers
                             DriverCode = driver.Code,
                             DriverName = driver.Name,
                             LastCheckDistance = h.LastCheckDistance,
-                            LastCheckMonth = h.LastCheckMonth,
+                            LastCheckTime = h.LastCheckTime,
                             MonthLimit = configuration.Month,
                             VehicleNumber = vehicle.VehicleNumber,
                             Region = driver.Region,
@@ -111,6 +156,100 @@ namespace SOS.FMS.Server.Controllers
                     {
                         return BadRequest();
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+        [HttpPost("Status/Last")]
+        public async Task<IActionResult> GetLastStatus(ApiRequest request)
+        {
+            List<PeriodicHistory> histories;
+            List<PeriodicVM> periodicHistory = new List<PeriodicVM>();
+            try
+            {
+                Vehicle vehicle = (from v in dbContext.Vehicles where v.VehicleNumber == request.VehicleNumber select v).SingleOrDefault();
+                Driver driver = (from v in dbContext.Drivers where v.VehicleNumber == request.VehicleNumber select v).SingleOrDefault();
+                List<VehicleConfiguration> configurations = (from v in dbContext.VehicleConfigurations select v).ToList();
+
+                histories = (from p in dbContext.PeriodicHistories
+                             where p.VehicleNumber == request.VehicleNumber
+                             select p).ToList();
+
+                if (histories.Any())
+                {
+                    foreach (var c in configurations)
+                    {
+                        var history = histories.Where(x => x.Description == c.Description).OrderByDescending(x => x.Timestamp)
+                            .Select(h=>new PeriodicVM()
+                            {
+                                Id = h.Id,
+                                ConfigurationId = h.ConfigurationId,
+                                Description = h.Description,
+                                CurrentDistance = vehicle.Distance,
+                                CurrentMonth = PakistanDateTime.GetMonthsBetween(DateTime.Now, h.LastCheckTime),
+                                DistanceLimit = c.Distance,
+                                DriverCode = driver.Code,
+                                DriverName = driver.Name,
+                                LastCheckDistance = h.LastCheckDistance,
+                                LastCheckTime = h.LastCheckTime,
+                                MonthLimit = c.Month,
+                                VehicleNumber = vehicle.VehicleNumber,
+                                Region = driver.Region,
+                                SubRegion = driver.SubRegion
+                            }).FirstOrDefault();
+                        periodicHistory.Add(history);
+                    }
+                    foreach (var p in periodicHistory)
+                    {
+                        double CurrentKMS = vehicle.Distance - p.LastCheckDistance;
+                        int CurrentMonths = PakistanDateTime.GetMonthsBetween(PakistanDateTime.Now, p.LastCheckTime);
+
+                        List<PeriodicMaintenanceStatus> statusList = new List<PeriodicMaintenanceStatus>();
+
+                        if (CurrentMonths > p.MonthLimit)
+                        {
+                            statusList.Add(PeriodicMaintenanceStatus.Pending);
+                        }
+                        else if (CurrentMonths < p.MonthLimit)
+                        {
+                            statusList.Add(PeriodicMaintenanceStatus.Done);
+                        }
+                        else if (CurrentMonths == p.MonthLimit)
+                        {
+                            statusList.Add(PeriodicMaintenanceStatus.Pending);
+                        }
+
+                        if (CurrentKMS > p.DistanceLimit)
+                        {
+                            statusList.Add(PeriodicMaintenanceStatus.Pending);
+                        }
+                        else if (CurrentKMS < p.DistanceLimit)
+                        {
+                            statusList.Add(PeriodicMaintenanceStatus.Done);
+                        }
+                        else if (CurrentKMS == p.DistanceLimit)
+                        {
+                            statusList.Add(PeriodicMaintenanceStatus.Pending);
+                        }
+
+
+                        if (statusList.Contains(PeriodicMaintenanceStatus.Pending))
+                        {
+                            p.Status = "Not Maintained";
+                        }
+                        else
+                        {
+                            p.Status = "Maintained";
+                        }
+                    }
+                    return Ok(periodicHistory);
+                }
+                else
+                {
+                    return Ok(periodicHistory);
                 }
             }
             catch (Exception ex)
@@ -156,7 +295,7 @@ namespace SOS.FMS.Server.Controllers
                                     DriverCode = driver.Code,
                                     DriverName = driver.Name,
                                     LastCheckDistance = h.LastCheckDistance,
-                                    LastCheckMonth = h.LastCheckMonth,
+                                    LastCheckTime = h.LastCheckTime,
                                     MonthLimit = configuration.Month,
                                     VehicleNumber = v.VehicleNumber,
                                     Region = driver.Region,
@@ -195,7 +334,7 @@ namespace SOS.FMS.Server.Controllers
                                             DriverCode = driver.Code,
                                             DriverName = driver.Name,
                                             LastCheckDistance = h.LastCheckDistance,
-                                            LastCheckMonth = h.LastCheckMonth,
+                                            LastCheckTime = h.LastCheckTime,
                                             MonthLimit = configuration.Month,
                                             VehicleNumber = v.VehicleNumber,
                                             Region = driver.Region,
@@ -227,7 +366,7 @@ namespace SOS.FMS.Server.Controllers
                                     DriverCode = driver.Code,
                                     DriverName = driver.Name,
                                     LastCheckDistance = 0,
-                                    LastCheckMonth = 0,
+                                    LastCheckTime = DateTime.MinValue,
                                     VehicleNumber = v.VehicleNumber,
                                     Timestamp = PakistanDateTime.Now
                                 });
@@ -252,7 +391,7 @@ namespace SOS.FMS.Server.Controllers
                                         DriverCode = driver.Code,
                                         DriverName = driver.Name,
                                         LastCheckDistance = h.LastCheckDistance,
-                                        LastCheckMonth = h.LastCheckMonth,
+                                        LastCheckTime = h.LastCheckTime,
                                         MonthLimit = configuration.Month,
                                         VehicleNumber = v.VehicleNumber,
                                         Region = driver.Region,
@@ -281,7 +420,7 @@ namespace SOS.FMS.Server.Controllers
                                 DriverCode = driver.Code,
                                 DriverName = driver.Name,
                                 LastCheckDistance = 0,
-                                LastCheckMonth = 0,
+                                LastCheckTime = DateTime.MinValue,
                                 VehicleNumber = v.VehicleNumber,
                                 Timestamp = PakistanDateTime.Now
                             });
@@ -306,7 +445,7 @@ namespace SOS.FMS.Server.Controllers
                                     DriverCode = driver.Code,
                                     DriverName = driver.Name,
                                     LastCheckDistance = h.LastCheckDistance,
-                                    LastCheckMonth = h.LastCheckMonth,
+                                    LastCheckTime = h.LastCheckTime,
                                     MonthLimit = configuration.Month,
                                     VehicleNumber = v.VehicleNumber,
                                     Region = driver.Region,
@@ -322,6 +461,37 @@ namespace SOS.FMS.Server.Controllers
                 }
 
                 return Ok(periodicHistory);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+        [HttpPost("Maintain")]
+        public async Task<IActionResult> Maintain(ApiRequest request)
+        {
+            try
+            {
+                Vehicle vehicle = (from v in dbContext.Vehicles where v.VehicleNumber == request.VehicleNumber select v).SingleOrDefault();
+                Driver driver = (from v in dbContext.Drivers where v.VehicleNumber == request.VehicleNumber select v).SingleOrDefault();
+                VehicleConfiguration configuration = (from v in dbContext.VehicleConfigurations where v.Description == request.Remarks select v).SingleOrDefault();
+                PeriodicHistory lastMaintenance = (from p in dbContext.PeriodicHistories where p.Description == request.Remarks && p.VehicleNumber == request.VehicleNumber select p)
+                    .OrderByDescending(x => x.LastCheckTime).FirstOrDefault();
+                PeriodicHistory periodicHistory = new PeriodicHistory()
+                {
+                    Id = Guid.NewGuid(),
+                    ConfigurationId = configuration.Id,
+                    Description = request.Remarks,
+                    DriverCode = driver.Code,
+                    DriverName = driver.Name,
+                    LastCheckDistance = vehicle.Distance,
+                    LastCheckTime = PakistanDateTime.Now,
+                    Timestamp = PakistanDateTime.Now,
+                    VehicleNumber = request.VehicleNumber
+                };
+                await dbContext.PeriodicHistories.AddAsync(periodicHistory);
+                await dbContext.SaveChangesAsync();
+                return Ok();
             }
             catch (Exception ex)
             {

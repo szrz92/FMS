@@ -1,5 +1,85 @@
-﻿<h3>Checklist</h3>
+﻿@inject HttpClient Http
+@using SOS.FMS.Client.Components.AccidentalComments
+@if (true)
+{
+    <div id="kt_quick_cart2" class="offcanvas offcanvas-right p-10 offcanvas-on" style="width:50%">
+        <!--begin::Header-->
+        <div class="offcanvas-header d-flex align-items-center justify-content-between pb-7" kt-hidden-height="46" style="">
+            <h4 class="font-weight-bold m-0">Periodic Maintenance for @(VehicleNumber)</h4>
+            <a @onclick="Close" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_cart_close">
+                <i class="ki ki-close icon-xs text-muted"></i>
+            </a>
+        </div>
+        <!--end::Header-->
+        <!--begin::Content-->
+        <div class="offcanvas-content pr-5 mr-n5 scroll ps ps--active-y">
+
+            <!--begin::Item-->
+            <div class="d-flex align-items-center justify-content-between py-4">
+                @if (PeriodicList != null)
+                {
+                    <table class="w-100">
+                        <tr class="row px-1 py-2 border-bottom">
+                            <td class="col-5 text-dark font-weight-bolder">Description</td>
+                            <td class="col-2 text-dark font-weight-bolder">Status</td>
+                            <td class="col-3 text-dark font-weight-bolder">Last Updated</td>
+                            <td class="col-2 text-dark font-weight-bolder">Action</td>
+                        </tr>
+                        @foreach (var item in PeriodicList)
+                        {
+                    <tr class="row px-1 py-2 border-bottom">
+                        <td class="col-5">@item.Description</td>
+                        <td class="col-2">@item.Status</td>
+                        <td class="col-3">@item.LastCheckTime</td>
+                        <td class="col-2"><button class="btn btn-fms" @onclick="()=>MaintainNow(item.Description)">MAINTAIN NOW</button></td>
+                    </tr>
+                        }
+                    </table>
+                }
+                else
+                {
+                    <p>Loading...</p>
+                }
+            </div>
+            <!--end::Content-->
+        </div>
+
+        <div class="offcanvas-footer" kt-hidden-height="112" style="">
+        </div>
+    </div>
+}
 
 @code {
+    [Parameter]
+    public string VehicleNumber { get; set; }
+    [Parameter]
+    public EventCallback<bool> OnVisibilityChanged { get; set; }
 
+    public List<PeriodicVM> PeriodicList { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        PeriodicList = JsonConvert.DeserializeObject<List<PeriodicVM>>(
+            await (await Http.PostAsJsonAsync("api/Periodic/Status/Last", new ApiRequest() { VehicleNumber = VehicleNumber }))
+        .Content.ReadAsStringAsync());
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+    }
+    public async void MaintainNow(string Description)
+    {
+        PeriodicList = null;
+        var maintainResponse = await Http.PostAsJsonAsync("api/Periodic/Maintain", new ApiRequest() { Remarks = Description, VehicleNumber = VehicleNumber });
+        PeriodicList = JsonConvert.DeserializeObject<List<PeriodicVM>>(
+            await (await Http.PostAsJsonAsync("api/Periodic/Status/Last", new ApiRequest() { VehicleNumber = VehicleNumber }))
+        .Content.ReadAsStringAsync());
+        StateHasChanged();
+    }
+    public Task Close()
+    {
+        return OnVisibilityChanged.InvokeAsync(false);
+    }
 }

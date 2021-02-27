@@ -1,0 +1,89 @@
+﻿@inject HttpClient Http
+
+@if (PeriodicList != null)
+{
+    <div class="d-flex flex-column">
+        <div class="p-2">
+            <div class="control-section">
+                <div class="content-wrapper">
+                    <div class="row">
+                        <div id="container">
+                            <SfGrid ID="PeriodicGrid" @ref="PeriodicGrid" DataSource="@PeriodicList"
+                                    AllowPaging="true" AllowSorting="true" AllowFiltering="true" RowHeight="38"
+                                    Toolbar="@(new List<string>() { "ExcelExport", "CsvExport", "PdfExport" })"
+                                    AllowExcelExport="true" AllowPdfExport="true">
+                                <GridPageSettings PageCount="5" PageSize="20" PageSizes="new int[]{ 5, 10, 20, 50, 100 }"></GridPageSettings>
+                                <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Menu"></GridFilterSettings>
+                                <GridSelectionSettings CheckboxOnly="true" PersistSelection="true" Type="SelectionType.Multiple"></GridSelectionSettings>
+                                <GridEvents OnToolbarClick="PeriodicToolbarClick" TValue="PeriodicVM"></GridEvents>
+                                <GridColumns>
+                                    <GridColumn Field=@nameof(PeriodicVM.Description) HeaderText="Description" Width="230"></GridColumn>
+                                    <GridColumn Field=@nameof(PeriodicVM.LastCheckDistance) HeaderText="Last (kms)" Width="110"></GridColumn>
+                                    <GridColumn Field=@nameof(PeriodicVM.LastCheckTime) HeaderText="Last (time)" Width="130"></GridColumn>
+                                    <GridColumn Field=@nameof(PeriodicVM.Status) HeaderText="Status" Width="130"></GridColumn>
+                                </GridColumns>
+                            </SfGrid>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <h5>Loading.....</h5>
+}
+@code {
+    [Parameter]
+    public string VehicleNumber { get; set; }
+
+    public List<PeriodicVM> PeriodicList { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (VehicleNumber != null)
+        {
+            PeriodicList = JsonConvert.DeserializeObject<List<PeriodicVM>>(
+                await (await Http.PostAsJsonAsync("api/Periodic/Status", new ApiRequest() { VehicleNumber = VehicleNumber }))
+            .Content.ReadAsStringAsync());
+        }
+        else
+        {
+            PeriodicList = (await Http.GetFromJsonAsync<List<PeriodicVM>>("api/Periodic/Status/All"))
+            .ToList();
+        };
+        PeriodicList = PeriodicList.OrderByDescending(x => x.LastCheckTime).ToList();
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    #region Syncfusion
+
+    SfGrid<PeriodicVM> PeriodicGrid;
+
+    public void PeriodicToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
+    {
+        if (args.Item.Id == "PeriodicGrid_pdfexport")
+        {
+            PdfExportProperties Props = new PdfExportProperties();
+            Props.PageOrientation = PageOrientation.Landscape;
+            Props.PageSize = PdfPageSize.A4;
+            this.PeriodicGrid.PdfExport(Props);
+        }
+        if (args.Item.Id == "PeriodicGrid_excelexport")
+        {
+            this.PeriodicGrid.ExcelExport();
+        }
+        if (args.Item.Id == "PeriodicGrid_csvexport")
+        {
+            this.PeriodicGrid.CsvExport();
+        }
+    }
+    #endregion
+
+}

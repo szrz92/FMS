@@ -88,7 +88,8 @@ function setMarkers(dotNetObjectReference, data) {
                 + '<a class="btn text-white mr-2" style="background-color:#FF6F00" onclick="dailyDotNetFunc(\'' + feature.number.toString() + '\');"> DAILY</a>'
                 + '</p>'
                 + ' <h3 style="margin-left:30%;">'
-                + '<a class="btn text-dark mr-2" style="border: 1px solid #adb5bd;width:70%;" href="javascript:historyDotNetFunc(\'' + feature.number.toString() + '\')">'
+                + '<a class="btn text-white mr-2" style="background-color:#FF6F00" onclick="dailyDotNetFunc(\'' + feature.number.toString() + '\');"> PERIODIC</a>'
+                + '<a class="btn text-dark mr-2" style="border: 1px solid #adb5bd;" href="javascript:historyDotNetFunc(\'' + feature.number.toString() + '\')">'
                 + '<img style="margin-right: 5px; height:20px;" alt="Pic" src="assets/icons/History1x.png"/>History</a>'
                 + '</h3>'
                 + '</div>'
@@ -242,8 +243,9 @@ function updateMarkers(dotNetObjectReference, data) {
                 + '<a class="btn text-white mr-2" style="background-color:#FF0000" href="javascript:accidentalDotNetFunc(\'' + feature.number.toString() + '\')"> ACCIDENTAL</a>'
                 + '<a class="btn text-white mr-2" style="background-color:#FF6F00" onclick="dailyDotNetFunc(\'' + feature.number.toString() + '\');"> DAILY</a>'
                 + '</p>'
-                + ' <h3 style="margin-left:30%;">'
-                + '<a class="btn text-dark mr-2" style="border: 1px solid #adb5bd;width:70%;" href="javascript:historyDotNetFunc(\'' + feature.number.toString() + '\')">'
+                + ' <h3 style="margin-left:20%;">'
+                + '<a class="btn text-white mr-2" style="background-color:#FF6F00" onclick="periodicDotNetFunc(\'' + feature.number.toString() + '\');"> PERIODIC</a>'
+                + '<a class="btn text-dark mr-2" style="border: 1px solid #adb5bd;" href="javascript:historyDotNetFunc(\'' + feature.number.toString() + '\')">'
                 + '<img style="margin-right: 5px; height:20px;" alt="Pic" src="assets/icons/History1x.png"/>History</a>'
                 + '</h3>'
                 + '</div>'
@@ -274,6 +276,10 @@ function updateMarkers(dotNetObjectReference, data) {
     window.dailyDotNetFunc = (vehicleNumber) => {
         //alert(vehicleNumber)
         dotNetObjectReference.invokeMethodAsync("Daily_JSInvoked", vehicleNumber);
+    };
+    window.periodicDotNetFunc = (vehicleNumber) => {
+        //alert(vehicleNumber)
+        dotNetObjectReference.invokeMethodAsync("Periodic_JSInvoked", vehicleNumber);
     };
     window.historyDotNetFunc = (vehicleNumber) => {
         //alert(vehicleNumber)
