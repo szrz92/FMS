@@ -503,9 +503,12 @@ namespace SOS.FMS.Server.Controllers
                     LastUpdated = DateTime.Now,
                     Mentions = ""
                 };
-                bill.Id = new Guid();
 
                 await dbContext.FMSAccidentalCheckComments.AddAsync(newComment);
+                await dbContext.SaveChangesAsync();
+
+                bill.Id = new Guid();
+                await dbContext.AccidentBills.AddAsync(bill);
                 await dbContext.SaveChangesAsync();
 
                 check.CommentCount = await (from c in dbContext.FMSAccidentalCheckComments
