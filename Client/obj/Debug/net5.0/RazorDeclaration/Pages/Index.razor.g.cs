@@ -462,7 +462,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 
                 if (getAccidentalCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    JsonConvert.DeserializeObject<List<FMSAccidentalCheckVM>>(await getAccidentalCheckListResponse.Content.ReadAsStringAsync());
+                    accidentalCheckList=JsonConvert.DeserializeObject<List<FMSAccidentalCheckVM>>(await getAccidentalCheckListResponse.Content.ReadAsStringAsync());
                     ShowAccidentalCheckList(accidentalCheckList);
                 }
                 else

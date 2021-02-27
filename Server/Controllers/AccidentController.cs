@@ -479,7 +479,7 @@ namespace SOS.FMS.Server.Controllers
             }
         }
         [HttpPost("PostBill")]
-        public async Task<IActionResult> PostBill(BillPostingVM bill)
+        public async Task<IActionResult> PostBill(AccidentBill bill)
         {
             try
             {
@@ -496,20 +496,21 @@ namespace SOS.FMS.Server.Controllers
                     Id = Guid.NewGuid(),
                     FMSAccidentalCheckId = check.Id,
                     FMSAccidentId = check.FMSAccidentId,
-                    Comment = bill.TotalAmount.ToString(),
+                    Comment = bill.BillAmount.ToString(),
                     FMSUserId = new Guid((from u in dbContext.Users where u.Email == User.Identity.Name select u.Id).SingleOrDefault()),
                     FMSVehicleId = check.FMSVehicleId,
                     VehicleNumber = check.VehicleNumber,
                     LastUpdated = DateTime.Now,
                     Mentions = ""
                 };
+                bill.Id = new Guid();
+
                 await dbContext.FMSAccidentalCheckComments.AddAsync(newComment);
                 await dbContext.SaveChangesAsync();
 
                 check.CommentCount = await (from c in dbContext.FMSAccidentalCheckComments
                                             where c.FMSAccidentalCheckId == bill.CheckPointId
                                             select c).CountAsync();
-
                 FMSAccident accident = await dbContext.FMSAccidents.Where(x => x.Id == check.FMSAccidentId).Select(x => x).SingleOrDefaultAsync();
                 accident.LastUpdated = PakistanDateTime.Now;
                 await dbContext.SaveChangesAsync();
@@ -519,6 +520,22 @@ namespace SOS.FMS.Server.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpPost("GetBills")]
+        public async Task<IActionResult> GetBills(ApiRequest request)
+        {
+            try
+            {
+                List<AccidentBill> Bills = await (from b in dbContext.AccidentBills
+                                                  where b.CheckPointId == request.FMSAccidentalCheckId
+                                                  select b).ToListAsync();
+                return Ok(Bills);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
             }
         }
     }
