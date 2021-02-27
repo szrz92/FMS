@@ -362,5 +362,69 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+
+        [HttpPost("PostBill")]
+        public async Task<IActionResult> PostBill(EmergencyBill bill)
+        {
+            try
+            {
+                var currentUser = (from u in dbContext.Users
+                                   where u.Email == User.Identity.Name
+                                   select u).FirstOrDefault();
+
+                FMSEmergencyCheck check = (from c in dbContext.FMSEmergencyCheckList
+                                            where c.Id == bill.CheckPointId
+                                            select c).SingleOrDefault();
+
+                FMSEmergencyCheckComment newComment = new FMSEmergencyCheckComment()
+                {
+                    Id = Guid.NewGuid(),
+                    FMSEmergencyCheckId = check.Id,
+                    FMSEmergencyId = check.FMSEmergencyId,
+                    Comment = bill.BillAmount.ToString(),
+                    FMSUserId = new Guid((from u in dbContext.Users where u.Email == User.Identity.Name select u.Id).SingleOrDefault()),
+                    FMSVehicleId = check.FMSVehicleId,
+                    VehicleNumber = check.VehicleNumber,
+                    LastUpdated = DateTime.Now,
+                    Mentions = ""
+                };
+
+                await dbContext.FMSEmergencyCheckComments.AddAsync(newComment);
+                await dbContext.SaveChangesAsync();
+
+                bill.Id = new Guid();
+                await dbContext.EmergencyBills.AddAsync(bill);
+                await dbContext.SaveChangesAsync();
+
+                check.CommentCount = await (from c in dbContext.FMSEmergencyCheckComments
+                                            where c.FMSEmergencyCheckId == bill.CheckPointId
+                                            select c).CountAsync();
+                FMSEmergency emergency = await dbContext.FMSEmergencies.Where(x => x.Id == check.FMSEmergencyId).Select(x => x).SingleOrDefaultAsync();
+                emergency.LastUpdated = PakistanDateTime.Now;
+                await dbContext.SaveChangesAsync();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpPost("GetBills")]
+        public async Task<IActionResult> GetBills(ApiRequest request)
+        {
+            try
+            {
+                List<EmergencyBill> Bills = await (from b in dbContext.EmergencyBills
+                                                  where b.CheckPointId == request.FMSAccidentalCheckId
+                                                  select b).ToListAsync();
+                return Ok(Bills);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
     }
 }
