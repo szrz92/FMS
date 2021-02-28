@@ -270,7 +270,6 @@
     },
     "lazyAssembly": null,
     "pdb": {
-      "SOS.FMS.Shared.pdb": "sha256-1lTK1iBlhUS0mI9wBiXlzA5kSc3\/HENAnc5VwlvLQ4o=",
       "SOS.FMS.Client.pdb": "sha256-wTe42KfqSfs3BKSLue7L67kMOs9be1NmELnkjPgmSSs="
     },
     "runtime": {
