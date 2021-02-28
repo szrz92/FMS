@@ -51,7 +51,8 @@ function setMarkers(dotNetObjectReference, data) {
             "number": datum.vehicleNumber,
             "driverName": datum.driverName,
             "odometer": datum.odometer,
-            "totalDistance": datum.totalDistance
+            "totalDistance": datum.totalDistance,
+            "periodicRemarks": datum.periodicRemarks
         };
         //console.log(JSON.stringify(feature));
 
@@ -207,7 +208,8 @@ function updateMarkers(dotNetObjectReference, data) {
             "driverName": datum.driverName,
             "odometer": datum.odometer,
             "totalDistance": datum.totalDistance,
-            "trips": datum.numberOfTripsToday
+            "trips": datum.numberOfTripsToday,
+            "periodicRemarks": datum.periodicRemarks
         };
         //console.log(JSON.stringify(feature));
 
@@ -237,7 +239,7 @@ function updateMarkers(dotNetObjectReference, data) {
                 + '<tr><td>Odometer :</td><td>' + feature.odometer + '</td></tr>'
                 + '<tr><td>KMs :</td><td>' + feature.totalDistance + ' km</td></tr>'
                 + '<table>'
-                + '<p>Tyres replacement due in 500 KMs</p>'
+                + '<p>' + feature.periodicRemarks + '</p>'
                 + ' <p>'
                 + '<a class="btn text-white mr-2" style="background-color:#DFBB0B" href="javascript:emergencyDotNetFunc(\'' + feature.number.toString() + '\')"> EMERGENCY</a>'
                 + '<a class="btn text-white mr-2" style="background-color:#FF0000" href="javascript:accidentalDotNetFunc(\'' + feature.number.toString() + '\')"> ACCIDENTAL</a>'

@@ -113,7 +113,8 @@ namespace SOS.FMS.Server.Controllers
                                             SIM = v.SIM,
                                             SubRegion = v.SubRegion,
                                             VehicleNumber = v.VehicleNumber,
-                                            Type = v.Status
+                                            Type = v.Status,
+                                            PeriodicRemarks = v.PeriodicStatus == Shared.Enums.PeriodicMaintenanceStatus.Done ? "Periodically Maintained" : "Periodic Maintenance Pending"
                                         }).SingleOrDefault();
                 return Ok(rbVehicles);
             }
@@ -164,7 +165,8 @@ namespace SOS.FMS.Server.Controllers
                                                 FuelAverage = v.FuelAverage,
                                                 Breakdowns = v.Breakdowns,
                                                 CostThisMonth = v.CostThisMonth,
-                                                Ranking = v.Ranking
+                                                Ranking = v.Ranking,
+                                                PeriodicRemarks = v.PeriodicStatus == Shared.Enums.PeriodicMaintenanceStatus.Done ? "Periodically Maintained" : "Periodic Maintenance Pending"
                                             }).ToListAsync();
                     }
                     else
@@ -191,7 +193,8 @@ namespace SOS.FMS.Server.Controllers
                                                 FuelAverage = v.FuelAverage,
                                                 Breakdowns = v.Breakdowns,
                                                 CostThisMonth = v.CostThisMonth,
-                                                Ranking = v.Ranking
+                                                Ranking = v.Ranking,
+                                                PeriodicRemarks = v.PeriodicStatus == Shared.Enums.PeriodicMaintenanceStatus.Done ? "Periodically Maintained" : "Periodic Maintenance Pending"
                                             }).ToListAsync();
                     }
                     else
@@ -213,7 +216,8 @@ namespace SOS.FMS.Server.Controllers
                                                 FuelAverage = v.FuelAverage,
                                                 Breakdowns = v.Breakdowns,
                                                 CostThisMonth = v.CostThisMonth,
-                                                Ranking = v.Ranking
+                                                Ranking = v.Ranking,
+                                                PeriodicRemarks = v.PeriodicStatus == Shared.Enums.PeriodicMaintenanceStatus.Done ? "Periodically Maintained" : "Periodic Maintenance Pending"
                                             }).ToListAsync();
                     }
                     var list = from v in rbVehicles
@@ -240,7 +244,8 @@ namespace SOS.FMS.Server.Controllers
                                    FuelAverage = v.FuelAverage,
                                    Breakdowns = v.Breakdowns,
                                    CostThisMonth = v.CostThisMonth,
-                                   Ranking = v.Ranking
+                                   Ranking = v.Ranking,
+                                   PeriodicRemarks = v.PeriodicRemarks
                                };
 
                     foreach (var l in list)

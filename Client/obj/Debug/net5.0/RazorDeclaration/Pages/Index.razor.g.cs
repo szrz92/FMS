@@ -334,6 +334,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         MaintainedVehiclesCount = 0;
         foreach (var vehicle in vehicles)
         {
+
             switch (vehicle.Type)
             {
                 case "maintained":
@@ -343,6 +344,22 @@ using Microsoft.AspNetCore.SignalR.Client;
                     EmergencyVehiclesCount++;
                     break;
                 case "periodic":
+                    PeriodicVehiclesCount++;
+                    break;
+                case "accidental":
+                    AccidentalVehiclesCount++;
+                    break;
+            }
+
+            switch (vehicle.PeriodicRemarks)
+            {
+                case "maintained":
+                    MaintainedVehiclesCount++;
+                    break;
+                case "emergency":
+                    EmergencyVehiclesCount++;
+                    break;
+                case "Periodic Maintenance Pending":
                     PeriodicVehiclesCount++;
                     break;
                 case "accidental":

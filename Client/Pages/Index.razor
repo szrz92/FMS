@@ -166,7 +166,7 @@
                         <PendingJobsCount />
                     </AuthorizeView>
                     <AuthorizeView Roles="SA, HMT, CPM, RMTO, RAO">
-                        <PendingSoonJobsCount />
+                        <PendingSoonJobsCount Count="@PeriodicVehiclesCount" />
                     </AuthorizeView>
                     <AuthorizeView Roles="SA, HMT, MTAM, CIM, CPM, RMTO, RAO">
                         <ActiveComplaintsCount />
@@ -514,7 +514,7 @@
     </DialogTemplates>
     <DialogEvents Closed="@DialogClose"></DialogEvents>
 </SfDialog>
-@if (!string.IsNullOrEmpty(periodicCheckVehicleNumber))
+@if (!string.IsNullOrEmpty(periodicCheckVehicleNumber) && PeriodicHistoryDlgVisible)
 {
 <SfDialog @bind-Visible="@PeriodicHistoryDlgVisible" Width="800px" Height="600px" Target="#target" ShowCloseIcon="true">
     <DialogTemplates>
@@ -669,6 +669,7 @@
         MaintainedVehiclesCount = 0;
         foreach (var vehicle in vehicles)
         {
+
             switch (vehicle.Type)
             {
                 case "maintained":
@@ -678,6 +679,22 @@
                     EmergencyVehiclesCount++;
                     break;
                 case "periodic":
+                    PeriodicVehiclesCount++;
+                    break;
+                case "accidental":
+                    AccidentalVehiclesCount++;
+                    break;
+            }
+
+            switch (vehicle.PeriodicRemarks)
+            {
+                case "maintained":
+                    MaintainedVehiclesCount++;
+                    break;
+                case "emergency":
+                    EmergencyVehiclesCount++;
+                    break;
+                case "Periodic Maintenance Pending":
                     PeriodicVehiclesCount++;
                     break;
                 case "accidental":

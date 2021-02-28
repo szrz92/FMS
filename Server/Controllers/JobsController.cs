@@ -93,6 +93,36 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        [HttpGet("All/PendingSoon")]
+        public async Task<IActionResult> PendingSoon()
+        {
+            try
+            {
+                int PeriodicCount = 0;
+                if (User.Claims.Any())
+                {
+                    if (User.IsInRole("SA") || User.IsInRole("HMT"))
+                    {
+                        PeriodicCount = (from a in dbContext.Vehicles where a.PeriodicStatus == Shared.Enums.PeriodicMaintenanceStatus.Pending select a).Count();
+                    }
+                    else
+                    {
+                        ApplicationUser user = (from u in dbContext.Users where u.Email == User.Identity.Name select u).FirstOrDefault();
+                        Region region = (from r in dbContext.Regions where r.XDescription == user.Region select r).FirstOrDefault();
+                        PeriodicCount = (from a in dbContext.Vehicles
+                                          where a.PeriodicStatus == Shared.Enums.PeriodicMaintenanceStatus.Pending
+                                          && a.Region == region.XDescription
+                                          select a).Count();
+                    }
+                }
+                int total = PeriodicCount;
+                return Ok(total.ToString());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
         [HttpGet("All/Completed")]
         public async Task<IActionResult> CompletedJobs()
         {

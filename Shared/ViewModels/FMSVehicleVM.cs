@@ -39,5 +39,6 @@ namespace SOS.FMS.Shared.ViewModels
         public int Hours { get; set; }
         public int NumberOfTripsToday { get; set; }
         public int Score { get; set; }
+        public string PeriodicRemarks { get; set; }
     }
 }

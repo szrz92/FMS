@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using SOS.FMS.Server.Models;
 using SOS.FMS.Shared;
 using SOS.FMS.Shared.Enums;
+using SOS.FMS.Shared.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,62 +45,8 @@ namespace SOS.FMS.Server.Services
 
                 foreach (var v in vehicles)
                 {
-                    var configDetails = (from p in dbContext.PeriodicHistories
-                                         join c in dbContext.VehicleConfigurations on p.ConfigurationId equals c.Id
-                                         select new
-                                         {
-                                             Id = p.Id,
-                                             VehicleNumber = p.VehicleNumber,
-
-                                             CurrentKMS = v.Distance - p.LastCheckDistance,
-                                             KMSLimit = c.Distance,
-
-                                             CurrentMonth = GetMonthsBetween(PakistanDateTime.Now, p.LastCheckTime),
-                                             MonthLimit = c.Month
-
-                                         }).ToList();
-
-                    List<PeriodicMaintenanceStatus> statusList = new List<PeriodicMaintenanceStatus>();
-
-                    foreach (var c in configDetails)
-                    {
-                        if (c.CurrentMonth > c.MonthLimit)
-                        {
-                            statusList.Add(PeriodicMaintenanceStatus.Pending);
-                        }
-                        else if (c.CurrentMonth < c.MonthLimit)
-                        {
-                            statusList.Add(PeriodicMaintenanceStatus.Done);
-                        }
-                        else if (c.CurrentMonth == c.MonthLimit)
-                        {
-                            statusList.Add(PeriodicMaintenanceStatus.Pending);
-                        }
-
-                        if (c.CurrentKMS > c.KMSLimit)
-                        {
-                            statusList.Add(PeriodicMaintenanceStatus.Pending);
-                        }
-                        else if (c.CurrentKMS < c.KMSLimit)
-                        {
-                            statusList.Add(PeriodicMaintenanceStatus.Done);
-                        }
-                        else if (c.CurrentKMS == c.KMSLimit)
-                        {
-                            statusList.Add(PeriodicMaintenanceStatus.Pending);
-                        }
-                    }
-
-                    if (statusList.Contains(PeriodicMaintenanceStatus.Pending))
-                    {
-                        v.PeriodicStatus = PeriodicMaintenanceStatus.Pending;
-                    }
-                    else
-                    {
-                        v.PeriodicStatus = PeriodicMaintenanceStatus.Done;
-                    }
+                    GetLastStatus(new ApiRequest() { VehicleNumber = v.VehicleNumber }, scope);
                 }
-                dbContext.SaveChanges();
             }
 
             return Task.CompletedTask;
@@ -124,6 +71,100 @@ namespace SOS.FMS.Server.Services
             else
             {
                 return monthDiff;
+            }
+        }
+
+        public void GetLastStatus(ApiRequest request, IServiceScope scope)
+        {
+            List<PeriodicHistory> histories;
+            List<PeriodicVM> periodicHistory = new List<PeriodicVM>();
+            try
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                Vehicle vehicle = (from v in dbContext.Vehicles where v.VehicleNumber == request.VehicleNumber select v).SingleOrDefault();
+                Driver driver = (from v in dbContext.Drivers where v.VehicleNumber == request.VehicleNumber select v).SingleOrDefault();
+                List<VehicleConfiguration> configurations = (from v in dbContext.VehicleConfigurations select v).ToList();
+
+                histories = (from p in dbContext.PeriodicHistories
+                             where p.VehicleNumber == request.VehicleNumber
+                             select p).ToList();
+
+                if (histories.Any())
+                {
+                    foreach (var c in configurations)
+                    {
+                        var history = histories.Where(x => x.Description == c.Description).OrderByDescending(x => x.Timestamp)
+                            .Select(h => new PeriodicVM()
+                            {
+                                Id = h.Id,
+                                ConfigurationId = h.ConfigurationId,
+                                Description = h.Description,
+                                CurrentDistance = vehicle.Distance,
+                                CurrentMonth = PakistanDateTime.GetMonthsBetween(DateTime.Now, h.LastCheckTime),
+                                DistanceLimit = c.Distance,
+                                DriverCode = driver.Code,
+                                DriverName = driver.Name,
+                                LastCheckDistance = h.LastCheckDistance,
+                                LastCheckTime = h.LastCheckTime,
+                                MonthLimit = c.Month,
+                                VehicleNumber = vehicle.VehicleNumber,
+                                Region = driver.Region,
+                                SubRegion = driver.SubRegion
+                            }).FirstOrDefault();
+                        periodicHistory.Add(history);
+                    }
+                    foreach (var p in periodicHistory)
+                    {
+                        double CurrentKMS = vehicle.Distance - p.LastCheckDistance;
+                        int CurrentMonths = PakistanDateTime.GetMonthsBetween(PakistanDateTime.Now, p.LastCheckTime);
+
+                        List<PeriodicMaintenanceStatus> statusList = new List<PeriodicMaintenanceStatus>();
+
+                        if (CurrentMonths > p.MonthLimit)
+                        {
+                            statusList.Add(PeriodicMaintenanceStatus.Pending);
+                        }
+                        else if (CurrentMonths < p.MonthLimit)
+                        {
+                            statusList.Add(PeriodicMaintenanceStatus.Done);
+                        }
+                        else if (CurrentMonths == p.MonthLimit)
+                        {
+                            statusList.Add(PeriodicMaintenanceStatus.Pending);
+                        }
+
+                        if (CurrentKMS > p.DistanceLimit)
+                        {
+                            statusList.Add(PeriodicMaintenanceStatus.Pending);
+                        }
+                        else if (CurrentKMS < p.DistanceLimit)
+                        {
+                            statusList.Add(PeriodicMaintenanceStatus.Done);
+                        }
+                        else if (CurrentKMS == p.DistanceLimit)
+                        {
+                            statusList.Add(PeriodicMaintenanceStatus.Pending);
+                        }
+
+
+                        if (statusList.Contains(PeriodicMaintenanceStatus.Pending))
+                        {
+                            vehicle.PeriodicStatus = PeriodicMaintenanceStatus.Pending;
+                        }
+                        else
+                        {
+                            vehicle.PeriodicStatus = PeriodicMaintenanceStatus.Done;
+                        }
+                        dbContext.SaveChanges();
+                    }
+                }
+                else
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+             
             }
         }
     }
