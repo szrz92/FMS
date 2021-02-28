@@ -15,6 +15,7 @@ namespace SOS.FMS.Shared.ViewModels.Accident
         [Required]
         [Range(1, Int32.MaxValue)]
         public int TotalAmount { get; set; }
+
         public IList<string> images = new List<string>();
     }
 

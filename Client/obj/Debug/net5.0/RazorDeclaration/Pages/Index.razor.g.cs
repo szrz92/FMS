@@ -318,7 +318,7 @@ using Microsoft.AspNetCore.SignalR.Client;
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         mentionId = "mention1";
-        //await JSRuntime.InvokeVoidAsync("mention", dotNetObjectReference, usersList);
+        await JSRuntime.InvokeVoidAsync("mention", dotNetObjectReference, usersList);
         if (firstRender)
         {
             await JSRuntime.InvokeVoidAsync("initialize", dotNetObjectReference, filteredVehiclesList);
@@ -430,17 +430,26 @@ using Microsoft.AspNetCore.SignalR.Client;
     [JSInvokable]
     public async void Emergency_JSInvoked(string vehicleNumber)
     {
+
         emergencyCheckListVehicleNumber = vehicleNumber;
+
+        var emergencyStatusResponse = await Http.PostAsJsonAsync("api/Emergency/FMS/checkEmergencyStatus", new ApiRequest() { VehicleNumber = vehicleNumber });
+
         var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new ApiRequest() { VehicleNumber = vehicleNumber });
+<<<<<<< HEAD
         string res = await vehicleResponse.Content.ReadAsStringAsync();
         var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<VehicleVM>(res);
         if (vehicle.Type == "emergency")
+=======
+        var vehicle = JsonConvert.DeserializeObject<VehicleVM>(await vehicleResponse.Content.ReadAsStringAsync());
+
+        if (vehicle.Type == "emergency" || emergencyStatusResponse.StatusCode== System.Net.HttpStatusCode.OK)
+>>>>>>> bugfixes
         {
             var getEmergencyCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Emergency/FMS/CheckList", new ApiRequest() { VehicleNumber = vehicleNumber });
             if (getEmergencyCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                string response = await (getEmergencyCheckListResponse).Content.ReadAsStringAsync();
-                emergencyCheckList = JsonConvert.DeserializeObject<List<FMSEmergencyCheckVM>>(response);
+                emergencyCheckList = JsonConvert.DeserializeObject<List<FMSEmergencyCheckVM>>(await getEmergencyCheckListResponse.Content.ReadAsStringAsync());
                 ShowEmergencyCheckList(emergencyCheckList);
             }
             else
@@ -459,18 +468,19 @@ using Microsoft.AspNetCore.SignalR.Client;
         try
         {
             accidentalCheckListVehicleNumber = vehicleNumber;
+
+            var accidentStatusResponse = await Http.PostAsJsonAsync("api/Accident/FMS/checkAccidentalStatus", new ApiRequest() { VehicleNumber = vehicleNumber });
+
             var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new ApiRequest() { VehicleNumber = vehicleNumber });
-            string res = await vehicleResponse.Content.ReadAsStringAsync();
-            var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<VehicleVM>(res);
-            if (vehicle.Type == "accidental")
+            var vehicle = JsonConvert.DeserializeObject<VehicleVM>(await vehicleResponse.Content.ReadAsStringAsync());
+
+            if (vehicle.Type == "accidental" || accidentStatusResponse.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 var getAccidentalCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/FMS/CheckList", new ApiRequest() { VehicleNumber = vehicleNumber });
 
                 if (getAccidentalCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-
-                    string response = await (getAccidentalCheckListResponse).Content.ReadAsStringAsync();
-                    accidentalCheckList = JsonConvert.DeserializeObject<List<FMSAccidentalCheckVM>>(response);
+                    accidentalCheckList=JsonConvert.DeserializeObject<List<FMSAccidentalCheckVM>>(await getAccidentalCheckListResponse.Content.ReadAsStringAsync());
                     ShowAccidentalCheckList(accidentalCheckList);
                 }
                 else
@@ -496,6 +506,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         StateHasChanged();
     }
 
+<<<<<<< HEAD
     [JSInvokable]
     public void Periodic_JSInvoked(string vehicleNumber)
     {
@@ -505,6 +516,8 @@ using Microsoft.AspNetCore.SignalR.Client;
     }
 
 
+=======
+>>>>>>> bugfixes
     List<HistoryVM> histories { get; set; }
     [JSInvokable]
     public async void History_JSInvoked(string vehicleNumber)
@@ -691,14 +704,12 @@ using Microsoft.AspNetCore.SignalR.Client;
         commentSideModalHeading = "Comment Box";
 
         emergencyCommentModal = true;
-
     }
 
 
     public async void PostEmergencyComment()
     {
         visibleCommentBox = false;
-        EmergencyCheckComment.FMSUserId = new Guid("E7BA5D45-5EAC-4195-AB93-1060DF7EE7AE");
         var postCommentResponse = await Http.PostAsJsonAsync<FMSEmergencyCheckCommentVM>("api/Emergency/FMS/CheckList/Point/Comment/Add", EmergencyCheckComment);
         if (postCommentResponse.StatusCode == System.Net.HttpStatusCode.OK)
         {

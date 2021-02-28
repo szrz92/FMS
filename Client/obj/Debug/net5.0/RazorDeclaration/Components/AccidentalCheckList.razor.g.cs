@@ -273,7 +273,7 @@ using SOS.FMS.Client.Components.AccidentalComments;
     public async void AccidentalCarOperational()
     {
         var vehicleResponse = await Http.PostAsJsonAsync("api/Accident/FMS/Demo/CarOperational",
-            new VehicleVM() { VehicleNumber = VehicleNumber });
+            new ApiRequest() { VehicleNumber = VehicleNumber });
         if (vehicleResponse.StatusCode == System.Net.HttpStatusCode.OK)
         {
             responseHeader = "Operation Successful";

@@ -1673,6 +1673,46 @@ namespace SOS.FMS.Server.Migrations
                     b.ToTable("Zones");
                 });
 
+            modelBuilder.Entity("SOS.FMS.Shared.ViewModels.Accident.AccidentBill", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<double>("BillAmount")
+                        .HasColumnType("float");
+
+                    b.Property<string>("BillImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("CheckPointId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AccidentBills");
+                });
+
+            modelBuilder.Entity("SOS.FMS.Shared.ViewModels.EmergencyBill", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<double>("BillAmount")
+                        .HasColumnType("float");
+
+                    b.Property<string>("BillImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("CheckPointId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmergencyBills");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)

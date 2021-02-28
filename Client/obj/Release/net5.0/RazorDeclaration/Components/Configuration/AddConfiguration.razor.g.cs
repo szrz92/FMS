@@ -13,175 +13,275 @@ namespace SOS.FMS.Client.Components.Configuration
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
+<<<<<<< HEAD
 #line 1 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+=======
+#line 1 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
+>>>>>>> bugfixes
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 2 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+=======
+#line 2 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
+>>>>>>> bugfixes
 using System.Net.Http.Json;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 3 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+=======
+#line 3 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
+>>>>>>> bugfixes
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 4 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+=======
+#line 4 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
+>>>>>>> bugfixes
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 5 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+=======
+#line 5 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
+>>>>>>> bugfixes
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 6 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+=======
+#line 6 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
+>>>>>>> bugfixes
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 7 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+=======
+#line 7 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
+>>>>>>> bugfixes
 using Microsoft.AspNetCore.Components.WebAssembly.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 8 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+=======
+#line 8 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
+>>>>>>> bugfixes
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 9 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+=======
+#line 9 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
+>>>>>>> bugfixes
 using SOS.FMS.Client;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 10 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+=======
+#line 10 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
+>>>>>>> bugfixes
 using SOS.FMS.Client.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 11 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+=======
+#line 11 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
+>>>>>>> bugfixes
 using SOS.FMS.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 12 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+=======
+#line 12 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
+>>>>>>> bugfixes
 using System.Security.Claims;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 13 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+=======
+#line 13 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
+>>>>>>> bugfixes
 using Newtonsoft.Json;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 16 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+=======
+#line 16 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
+>>>>>>> bugfixes
 using SOS.FMS.Client.Components;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 19 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+=======
+#line 19 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
+>>>>>>> bugfixes
 using SOS.FMS.Shared.ViewModels;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 22 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+=======
+#line 22 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
+>>>>>>> bugfixes
 using Syncfusion.Blazor.Inputs;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 23 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+=======
+#line 23 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
+>>>>>>> bugfixes
 using Syncfusion.Blazor.Grids;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 24 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+=======
+#line 24 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
+>>>>>>> bugfixes
 using Syncfusion.Blazor.Spinner;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 25 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+=======
+#line 25 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
+>>>>>>> bugfixes
 using Syncfusion.Blazor.DropDowns;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 26 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+=======
+#line 26 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
+>>>>>>> bugfixes
 using Syncfusion.Blazor.Popups;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 27 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+=======
+#line 27 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
+>>>>>>> bugfixes
 using Syncfusion.Blazor.Navigations;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 30 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+=======
+#line 30 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
+>>>>>>> bugfixes
 using Append.Blazor.Notifications;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 33 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+=======
+#line 33 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
+>>>>>>> bugfixes
 using SOS.FMS.Client.Services;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 34 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+=======
+#line 34 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
+>>>>>>> bugfixes
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 36 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+=======
+#line 36 "C:\Users\HP\Source\Repos\fms\Client\_Imports.razor"
+>>>>>>> bugfixes
 using Microsoft.AspNetCore.SignalR.Client;
 
 #line default
@@ -195,7 +295,11 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
+<<<<<<< HEAD
 #line 52 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Configuration\AddConfiguration.razor"
+=======
+#line 52 "C:\Users\HP\Source\Repos\fms\Client\Components\Configuration\AddConfiguration.razor"
+>>>>>>> bugfixes
        
     [Parameter]
     public string VehicleNumber { get; set; }

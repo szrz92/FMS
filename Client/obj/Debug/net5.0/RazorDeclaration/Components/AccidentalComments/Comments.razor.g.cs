@@ -224,10 +224,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         dotNetObjectReference = DotNetObjectReference.Create(this);
 
         NewCommentModel();
-
         usersList = await Http.GetFromJsonAsync<List<GBMSUserVM>>("api/Users/FMS/All");
-
-
         await base.OnInitializedAsync();
     }
 

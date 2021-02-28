@@ -187,6 +187,13 @@ using Microsoft.AspNetCore.SignalR.Client;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\AccidentalComments\BillPosting.razor"
+using SOS.FMS.Shared.ViewModels.Accident;
+
+#line default
+#line hidden
+#nullable disable
     public partial class BillPosting : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -195,7 +202,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 42 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\AccidentalComments\BillPosting.razor"
+#line 44 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\AccidentalComments\BillPosting.razor"
        
     [Parameter]
     public ApiRequest CheckPointId { get; set; }
@@ -206,15 +213,22 @@ using Microsoft.AspNetCore.SignalR.Client;
     [Parameter]
     public EventCallback<bool> OnVisibilityChanged { get; set; }
 
-    public SOS.FMS.Shared.ViewModels.Accident.BillPostingVM BillPostingVM = new FMS.Shared.ViewModels.Accident.BillPostingVM();
+    FMSAccidentalCheckCommentVM AccidentalCheckComment;
+
+    public BillPostingVM BillPostingVM = new BillPostingVM();
+    public AccidentBill bill = new AccidentBill();
+
+    public List<AccidentBill> BillsList = new List<AccidentBill>();
 
     protected override async Task OnInitializedAsync()
     {
+        BillsList = await GetBills();
         await base.OnInitializedAsync();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        bill.CheckPointId = CheckPointId.FMSAccidentalCheckId;
         BillPostingVM.CheckPointId = CheckPointId.FMSAccidentalCheckId;
         await base.OnAfterRenderAsync(firstRender);
     }
@@ -222,17 +236,28 @@ using Microsoft.AspNetCore.SignalR.Client;
     public void OnImagePost(string image)
     {
         BillPostingVM.images.Add(image);
+        bill.BillImage = image;
     }
     public Task CloseBillPosting()
     {
         return OnVisibilityChanged.InvokeAsync(false);
     }
+
+    public async Task<List<AccidentBill>> GetBills()
+    {
+        ApiRequest request = new ApiRequest() { FMSAccidentalCheckId = CheckPointId.FMSAccidentalCheckId };
+        var getBillResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/GetBills", request);
+        return JsonConvert.DeserializeObject<List<AccidentBill>>(await getBillResponse.Content.ReadAsStringAsync());
+    }
+
     public async void PostBill()
     {
-        var postBillResponse = await Http.PostAsJsonAsync<SOS.FMS.Shared.ViewModels.Accident.BillPostingVM>("api/Accident/PostBill", BillPostingVM);
+        var postBillResponse = await Http.PostAsJsonAsync<AccidentBill>("api/Accident/PostBill", bill);
 
         if (postBillResponse.StatusCode == System.Net.HttpStatusCode.OK)
         {
+            BillsList = await GetBills();
+            StateHasChanged();
         }
         else
         {

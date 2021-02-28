@@ -9,7 +9,8 @@ namespace SOS.FMS.Shared.Enums
     public enum MaintenanceStatus
     {
         Done,
-        NotInitiated
+        NotInitiated,
+        Operational
     }
     public enum PeriodicMaintenanceStatus
     {

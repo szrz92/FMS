@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using SOS.FMS.Shared.ViewModels;
+using SOS.FMS.Shared.ViewModels.Accident;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +39,8 @@ namespace SOS.FMS.Server.Models
         public DbSet<FMSDailyEvening> FMSDailyEveningChecks { get; set; }
         public DbSet<PeriodicHistory> PeriodicHistories { get; set; }
 
+        public DbSet<AccidentBill> AccidentBills{ get; set; }
+        public DbSet<EmergencyBill> EmergencyBills { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
