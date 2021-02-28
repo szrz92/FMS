@@ -436,15 +436,9 @@ using Microsoft.AspNetCore.SignalR.Client;
         var emergencyStatusResponse = await Http.PostAsJsonAsync("api/Emergency/FMS/checkEmergencyStatus", new ApiRequest() { VehicleNumber = vehicleNumber });
 
         var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new ApiRequest() { VehicleNumber = vehicleNumber });
-<<<<<<< HEAD
         string res = await vehicleResponse.Content.ReadAsStringAsync();
         var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<VehicleVM>(res);
         if (vehicle.Type == "emergency")
-=======
-        var vehicle = JsonConvert.DeserializeObject<VehicleVM>(await vehicleResponse.Content.ReadAsStringAsync());
-
-        if (vehicle.Type == "emergency" || emergencyStatusResponse.StatusCode== System.Net.HttpStatusCode.OK)
->>>>>>> bugfixes
         {
             var getEmergencyCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Emergency/FMS/CheckList", new ApiRequest() { VehicleNumber = vehicleNumber });
             if (getEmergencyCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
@@ -506,7 +500,6 @@ using Microsoft.AspNetCore.SignalR.Client;
         StateHasChanged();
     }
 
-<<<<<<< HEAD
     [JSInvokable]
     public void Periodic_JSInvoked(string vehicleNumber)
     {
@@ -516,8 +509,6 @@ using Microsoft.AspNetCore.SignalR.Client;
     }
 
 
-=======
->>>>>>> bugfixes
     List<HistoryVM> histories { get; set; }
     [JSInvokable]
     public async void History_JSInvoked(string vehicleNumber)

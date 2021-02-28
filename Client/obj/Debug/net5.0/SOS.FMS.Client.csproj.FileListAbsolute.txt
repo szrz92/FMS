@@ -930,32 +930,6 @@ C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Pages\Authent
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Periodic\ShortPeriodicHistory.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Periodic\ShortPeriodicHistory.razor.g.cs
 =======
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\AccidentalComments\BillPosting.razor.g.cs
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\AccidentalComments\BillPosting.razor.g.cs
-C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\Microsoft.Win32.SystemEvents.dll.gz
-C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\System.Configuration.ConfigurationManager.dll.gz
-C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\System.Drawing.Common.dll.gz
-C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\System.Security.Cryptography.ProtectedData.dll.gz
-C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\System.Windows.Extensions.dll.gz
-C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\Microsoft.Win32.SystemEvents.dll
-C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\System.Configuration.ConfigurationManager.dll
-C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\System.Drawing.Common.dll
-C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\System.Security.Cryptography.ProtectedData.dll
-C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\System.Windows.Extensions.dll
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\build-gz\yyburCE+.gz
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\build-gz\UHKN7HoK.gz
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\build-gz\8XG4zo99.gz
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\build-gz\YMQPJ0TJ.gz
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\build-gz\dcgkgPXf.gz
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\build-gz\CVybsjsQ.gz
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\EmergencyComments\AssigningWorkshop.razor.g.cs
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\EmergencyComments\AssigningWorkshop.razor.g.cs
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Configuration\AddConfiguration.razor.g.cs
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Pages\VehicleConfiguration.razor.g.cs
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Configuration\AddConfiguration.razor.g.cs
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Pages\VehicleConfiguration.razor.g.cs
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\VehicleSummary.razor.g.cs
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\VehicleSummary.razor.g.cs
 C:\Users\HP\Source\Repos\fms\Client\bin\Debug\net5.0\wwwroot\_framework\blazor.boot.json
 C:\Users\HP\Source\Repos\fms\Client\bin\Debug\net5.0\SOS.FMS.Client.StaticWebAssets.xml
 C:\Users\HP\Source\Repos\fms\Client\bin\Debug\net5.0\SOS.FMS.Client.dll

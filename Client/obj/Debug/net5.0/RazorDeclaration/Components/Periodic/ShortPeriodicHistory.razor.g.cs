@@ -221,6 +221,18 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        if (VehicleNumber != null)
+        {
+            PeriodicList = JsonConvert.DeserializeObject<List<PeriodicVM>>(
+                await (await Http.PostAsJsonAsync("api/Periodic/Status", new ApiRequest() { VehicleNumber = VehicleNumber }))
+            .Content.ReadAsStringAsync());
+        }
+        else
+        {
+            PeriodicList = (await Http.GetFromJsonAsync<List<PeriodicVM>>("api/Periodic/Status/All"))
+            .ToList();
+        };
+        PeriodicList = PeriodicList.OrderByDescending(x => x.LastCheckTime).ToList();
         await base.OnAfterRenderAsync(firstRender);
     }
 
