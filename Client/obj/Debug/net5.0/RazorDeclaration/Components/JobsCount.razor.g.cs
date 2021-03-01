@@ -195,7 +195,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 34 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\JobsCount.razor"
+#line 44 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\JobsCount.razor"
        
     [Parameter]
     public int Periodic { get; set; }

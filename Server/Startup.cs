@@ -56,11 +56,11 @@ namespace SOS.FMS.Server
             //
             services.AddScoped<ICronJobScopedService, CronJobScopedService>();
 
-            //services.AddCronJob<GbmsSyncCronJob>(c =>
-            //{
-            //    c.TimeZoneInfo = TimeZoneInfo.Local;
-            //    c.CronExpression = @"*/5 * * * *";
-            //});
+            services.AddCronJob<GbmsSyncCronJob>(c =>
+            {
+                c.TimeZoneInfo = TimeZoneInfo.Local;
+                c.CronExpression = @"*/5 * * * *";
+            });
             services.AddCronJob<PeriodicCronJob>(c =>
             {
                 c.TimeZoneInfo = TimeZoneInfo.Local;
