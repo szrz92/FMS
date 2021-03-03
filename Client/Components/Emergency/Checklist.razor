@@ -111,6 +111,33 @@
               VehicleNumber="@VehicleNumber"
               CheckPointId="@PointId" />
 }
+@if (billPostingVisible)
+{
+    <BillPosting Visible="billPostingVisible"
+                 OnVisibilityChanged="ShowHideBillPosting"
+                 VehicleNumber="@VehicleNumber"
+                 CheckPointId="@PointId" />
+}
+
+@if (assignWorkShopVisible)
+{
+    <AssigningWorkshop Visible="assignWorkShopVisible"
+                       OnVisibilityChanged="ShowHideAssignWorkshop"
+                       VehicleNumber="@VehicleNumber"
+                       CheckPointId="@PointId" />
+}
+
+<SfDialog Target="#target" Width="500px" ShowCloseIcon="true" @bind-Visible="responseDialogVisibility">
+    <DialogTemplates>
+        <Header> @responseHeader </Header>
+        <Content>
+            <p>
+                @responseBody
+            </p>
+        </Content>
+    </DialogTemplates>
+    <DialogEvents Closed="@DialogClose"></DialogEvents>
+</SfDialog>
 @code{
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }

@@ -75,6 +75,7 @@
         BillPostingVM.images.Add(image);
         bill.BillImage = image;
     }
+
     public Task CloseBillPosting()
     {
         return OnVisibilityChanged.InvokeAsync(false);

@@ -194,6 +194,75 @@ using Microsoft.AspNetCore.SignalR.Client;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 43 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\BillPosting.razor"
+       
+    [Parameter]
+    public ApiRequest CheckPointId { get; set; }
+    [Parameter]
+    public string VehicleNumber { get; set; }
+    [Parameter]
+    public bool Visible { get; set; }
+    [Parameter]
+    public EventCallback<bool> OnVisibilityChanged { get; set; }
+
+    FMSEmergencyCheckCommentVM EmergencyCheckComment;
+
+    public BillPostingVM BillPostingVM = new BillPostingVM();
+    public EmergencyBill bill = new EmergencyBill();
+
+    public List<EmergencyBill> BillsList = new List<EmergencyBill>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        BillsList = await GetBills();
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        bill.CheckPointId = CheckPointId.FMSEmergencyCheckId;
+        BillPostingVM.CheckPointId = CheckPointId.FMSEmergencyCheckId;
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    public void OnImagePost(string image)
+    {
+        BillPostingVM.images.Add(image);
+        bill.BillImage = image;
+    }
+
+    public Task CloseBillPosting()
+    {
+        return OnVisibilityChanged.InvokeAsync(false);
+    }
+
+    public async Task<List<EmergencyBill>> GetBills()
+    {
+        ApiRequest request = new ApiRequest() { FMSEmergencyCheckId = CheckPointId.FMSEmergencyCheckId };
+        var getBillResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Emergency/GetBills", request);
+        return JsonConvert.DeserializeObject<List<EmergencyBill>>(await getBillResponse.Content.ReadAsStringAsync());
+    }
+
+    public async void PostBill()
+    {
+        var postBillResponse = await Http.PostAsJsonAsync<EmergencyBill>("api/Emergency/PostBill", bill);
+
+        if (postBillResponse.StatusCode == System.Net.HttpStatusCode.OK)
+        {
+            BillsList = await GetBills();
+            StateHasChanged();
+        }
+        else
+        {
+        }
+    }
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IJSRuntime JSRuntime { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private HttpClient Http { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private INotificationService NotificationService { get; set; }
     }

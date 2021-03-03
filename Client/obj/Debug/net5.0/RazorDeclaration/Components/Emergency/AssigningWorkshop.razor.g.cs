@@ -187,7 +187,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 #line default
 #line hidden
 #nullable disable
-    public partial class Checklist : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class AssigningWorkshop : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -195,155 +195,18 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 141 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\Checklist.razor"
-      
-    [CascadingParameter]
-    private Task<AuthenticationState> authenticationStateTask { get; set; }
-
-    public ClaimsPrincipal CurrentUser { get; set; }
+#line 21 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\AssigningWorkshop.razor"
+       
+    [Parameter]
+    public ApiRequest CheckPointId { get; set; }
     [Parameter]
     public string VehicleNumber { get; set; }
     [Parameter]
     public bool Visible { get; set; }
     [Parameter]
     public EventCallback<bool> OnVisibilityChanged { get; set; }
-    [Parameter]
-    public List<FMSEmergencyCheckVM> EmergencyCheckList { get; set; }
 
-    public List<FMSEmergencyCheckVM> CheckList { get; set; }
-
-    FMSEmergencyCheckCommentVM EmergencyCheckComment;
-
-    public Task CloseAccidentalCheckListSideBar()
-    {
-        return OnVisibilityChanged.InvokeAsync(false);
-    }
-    protected override async Task OnInitializedAsync()
-    {
-        CurrentUser = (await authenticationStateTask).User;
-        CheckList = EmergencyCheckList;
-        await base.OnInitializedAsync();
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-    }
-    public async void MarkEmergencyPointDone(Guid pointId)
-    {
-        EmergencyCheckComment = new FMSEmergencyCheckCommentVM();
-        var getMarkEmergencyPointDoneResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Emergency/FMS/CheckList/Point/MarkDone",
-            new ApiRequest() { FMSEmergencyCheckId = pointId, VehicleNumber = VehicleNumber });
-
-        if (getMarkEmergencyPointDoneResponse.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-            ReloadCheckList();
-        }
-        else
-        {
-        }
-    }
-
-    public async void ReloadCheckList()
-    {
-        var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new VehicleVM() { VehicleNumber = VehicleNumber });
-        var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<VehicleVM>(await vehicleResponse.Content.ReadAsStringAsync());
-        if (vehicle.Type == "emergency")
-        {
-            var getEmergencyCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Emergency/FMS/CheckList", new ApiRequest() { VehicleNumber = VehicleNumber });
-
-            if (getEmergencyCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                string response = await (getEmergencyCheckListResponse).Content.ReadAsStringAsync();
-                CheckList = JsonConvert.DeserializeObject<List<FMSEmergencyCheckVM>>(response);
-            }
-            else
-            {
-            }
-        }
-        else
-        {
-        }
-        StateHasChanged();
-    }
-
-    #region Comment Box
-    public bool commentBoxVisible { get; set; } = false;
-    public ApiRequest PointId { get; set; }
-    FMSEmergencyCommentModalVM EmergencyCommentModal;
-    public void ShowHideCommentBox()
-    {
-        commentBoxVisible = !commentBoxVisible;
-        if (!commentBoxVisible) ReloadCheckList();
-    }
-    #endregion
-    #region Bill Posting
-    public bool billPostingVisible { get; set; } = false;
-    public void ShowHideBillPosting()
-    {
-        billPostingVisible = !billPostingVisible;
-        if (!billPostingVisible) ReloadCheckList();
-    }
-    public void ShowBillPostingModal(Guid pointId)
-    {
-        PointId = new ApiRequest() { FMSEmergencyCheckId = pointId, Remarks = CheckList.Where(x => x.Id == pointId).FirstOrDefault().Description };
-        billPostingVisible = true;
-    }
-    #endregion
-    #region Assign Work Shop
-    public bool assignWorkShopVisible { get; set; } = false;
-    public void ShowHideAssignWorkshop()
-    {
-        assignWorkShopVisible = !assignWorkShopVisible;
-        if (!assignWorkShopVisible) ReloadCheckList();
-    }
-    public void ShowAssignWorkshopModal(Guid pointId)
-    {
-        PointId = new ApiRequest() { FMSEmergencyCheckId = pointId, Remarks = CheckList.Where(x => x.Id == pointId).FirstOrDefault().Description };
-        assignWorkShopVisible = true;
-    }
-    #endregion
-    public void ShowAccidentalCommentModal(Guid pointId)
-    {
-        PointId = new ApiRequest() { FMSEmergencyCheckId = pointId };
-        commentBoxVisible = true;
-    }
-    public async void AccidentalCarOperational()
-    {
-        var vehicleResponse = await Http.PostAsJsonAsync("api/Emergency/FMS/Demo/CarOperational",
-            new ApiRequest() { VehicleNumber = VehicleNumber });
-        if (vehicleResponse.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-            responseHeader = "Operation Successful";
-            responseBody = "Car is marked as operational";
-            responseDialogVisibility = true;
-        }
-        StateHasChanged();
-    }
-    public async void AccidentalCloseJob()
-    {
-        var vehicleResponse = await Http.PostAsJsonAsync("api/Emergency/FMS/Demo/CloseJob",
-            new VehicleVM() { VehicleNumber = VehicleNumber });
-        if (vehicleResponse.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-
-            responseHeader = "Operation Successful";
-            responseBody = "Job is marked as closed.";
-            responseDialogVisibility = true;
-        }
-        StateHasChanged();
-    }
-    #region Dialog
-    public bool responseDialogVisibility { get; set; }
-    public string responseHeader { get; set; }
-    public string responseBody { get; set; }
-
-    private void DialogClose(CloseEventArgs args)
-    {
-        CloseEmergencyCheckListSideBar();
-    }
-    #endregion
-    public Task CloseEmergencyCheckListSideBar()
+    public Task Close()
     {
         return OnVisibilityChanged.InvokeAsync(false);
     }
@@ -352,6 +215,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IJSRuntime JSRuntime { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private HttpClient Http { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private INotificationService NotificationService { get; set; }
