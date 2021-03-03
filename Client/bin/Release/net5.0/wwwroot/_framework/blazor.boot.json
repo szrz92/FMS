@@ -266,12 +266,12 @@
       "netstandard.dll": "sha256-FbW0xcZkySFb6B8yBpUE8XmaiMacDVdXdN9GeDH6xu4=",
       "System.Private.CoreLib.dll": "sha256-AQbVm+Z+NByScjRZWDWQnNUk5PBVgwCSWPLQN4YxxZs=",
       "SOS.FMS.Shared.dll": "sha256-TGQSCYPldDGIH9SVCKGlZAKUwWPEiOu63XuAkJQt99s=",
-      "SOS.FMS.Client.dll": "sha256-gGGerpoRCUuKDcXjFmpvck2CgT2VmbG2gbHqCuec5\/g="
+      "SOS.FMS.Client.dll": "sha256-uQescIhLdKwyyTaDrli8wd5fpxqo5ck+JbOfBwDYq64="
     },
     "lazyAssembly": null,
     "pdb": {
       "SOS.FMS.Shared.pdb": "sha256-m5GOx0VeeINBOkOqGfKJUYiOAq8qwN581GHm0MIh7vM=",
-      "SOS.FMS.Client.pdb": "sha256-PFXSMa2945YDq56yB5cnwm+okSCOb05PbXcE3xmTjGk="
+      "SOS.FMS.Client.pdb": "sha256-sKlz\/lP1ByzHj\/NXl3\/RfK7y92+XxWcCebWY0YU7A2g="
     },
     "runtime": {
       "dotnet.timezones.blat": "sha256-rFG55cwkAnfHzxmxwBL2tTwfj8X8cjcSEAlco4bc1eo=",

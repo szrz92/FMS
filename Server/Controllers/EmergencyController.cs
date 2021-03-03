@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using SOS.FMS.Server.Hubs;
 using SOS.FMS.Server.Models;
 using SOS.FMS.Shared;
 using SOS.FMS.Shared.Enums;
@@ -17,9 +19,11 @@ namespace SOS.FMS.Server.Controllers
     public class EmergencyController : ControllerBase
     {
         AppDbContext dbContext;
-        public EmergencyController(AppDbContext dbContext)
+        private readonly IHubContext<NotificationHub> hubContext;
+        public EmergencyController(AppDbContext dbContext, IHubContext<NotificationHub> hubContext)
         {
             this.dbContext = dbContext;
+            this.hubContext = hubContext;
         }
         [HttpGet("All")]
         public async Task<IActionResult> GetAllEmergencies()
@@ -159,6 +163,13 @@ namespace SOS.FMS.Server.Controllers
                 await dbContext.AddRangeAsync(fmsEmergencyCheckList);
                 await dbContext.SaveChangesAsync();
 
+                string title = $"Emergency Job Vehicle Number {emergency.VehicleNumber}";
+                string notification = $"Vehicle Number {emergency.VehicleNumber} marked as emergency";
+                await hubContext.Clients.All.SendAsync("ReceiveMessageAllUsers",
+                    User.Identity.Name,
+                    title,
+                    notification);
+
                 return Ok(fmsEmergencyCheckList);
             }
             catch (Exception ex)
@@ -248,8 +259,17 @@ namespace SOS.FMS.Server.Controllers
             try
             {
                 FMSEmergencyCheck check = await dbContext.FMSEmergencyCheckList.Where(x => x.Id == request.FMSEmergencyCheckId).Select(x => x).SingleOrDefaultAsync();
+                FMSEmergency emergency = await dbContext.FMSEmergencies.Where(x => x.Id == check.FMSEmergencyId).SingleOrDefaultAsync();
                 check.MaintenanceStatus = MaintenanceStatus.Done;
+                emergency.LastUpdated = PakistanDateTime.Now;
                 await dbContext.SaveChangesAsync();
+                string title = $"Accidental Job Vehicle Number {check.VehicleNumber}";
+                string notification = $"Check Point {check.Description} marked as done";
+                await hubContext.Clients.All.SendAsync("ReceiveMessageAllUsers",
+                    User.Identity.Name,
+                    title,
+                    notification);
+
                 return Ok();
             }
             catch (Exception ex)
@@ -287,6 +307,24 @@ namespace SOS.FMS.Server.Controllers
                                             where c.FMSEmergencyCheckId == comment.FMSEmergencyCheckId
                                             select c).CountAsync();
                 await dbContext.SaveChangesAsync();
+
+
+                if (!string.IsNullOrEmpty(comment.Mentions))
+                {
+                    string[] mentions = comment.Mentions.Split(',');
+                    foreach (var mention in mentions)
+                    {
+                        ApplicationUser user = (from u in dbContext.Users
+                                                where u.Id == mention
+                                                select u).FirstOrDefault();
+
+                        await hubContext.Clients.All.SendAsync("ReceiveMessage",
+                            user.Email,
+                            $"Notification for Vehicle Number {check.VehicleNumber}",
+                            $"{currentUser.Name} mentioned you in a comment under emergency check list point {check.Description}");
+                    }
+                }
+
                 return Ok();
             }
             catch (Exception ex)
@@ -330,6 +368,11 @@ namespace SOS.FMS.Server.Controllers
 
                 await dbContext.SaveChangesAsync();
 
+                string notification = $"Emergency Job with Vehicle Number {request.VehicleNumber} marked as closed";
+                await hubContext.Clients.All.SendAsync("ReceiveMessageAllUsers",
+                    User.Identity.Name,
+                    "Notification",
+                    notification);
                 return Ok();
             }
             catch (Exception ex)
