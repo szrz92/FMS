@@ -195,7 +195,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 107 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\Checklist.razor"
+#line 114 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\Checklist.razor"
       
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }

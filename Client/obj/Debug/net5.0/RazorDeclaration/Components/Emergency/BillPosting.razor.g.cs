@@ -187,77 +187,13 @@ using Microsoft.AspNetCore.SignalR.Client;
 #line default
 #line hidden
 #nullable disable
-    public partial class Comments : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class BillPosting : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
-#nullable restore
-#line 111 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\Comments.razor"
-       
-    [Parameter]
-    public FMSEmergencyCommentModalVM EmergencyCommentModal { get; set; }
-    [Parameter]
-    public ApiRequest CheckPointId { get; set; }
-    [Parameter]
-    public string VehicleNumber { get; set; }
-    [Parameter]
-    public bool Visible { get; set; }
-    [Parameter]
-    public EventCallback<bool> OnVisibilityChanged { get; set; }
-
-    public bool resetCommentBox { get; set; } = false;
-
-    FMSEmergencyCheckCommentVM EmergencyCheckComment;
-
-    public Task CloseEmergencyCommentModal()
-    {
-        return OnVisibilityChanged.InvokeAsync(false);
-    }
-    public async void PostEmergencyComment()
-    {
-        resetCommentBox = true;
-        var postCommentResponse = await Http.PostAsJsonAsync<FMSEmergencyCheckCommentVM>("api/Emergency/FMS/CheckList/Point/Comment/Add", EmergencyCheckComment);
-        if (postCommentResponse.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-            await NewCommentModel();
-            resetCommentBox = false;
-            StateHasChanged();
-        }
-        else
-        {
-        }
-
-    }
-    public async Task NewCommentModel()
-    {
-        EmergencyCheckComment = new FMSEmergencyCheckCommentVM();
-        var getFMSEmergencyCommentModalResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Emergency/FMS/CheckList/Point",
-            new ApiRequest() { FMSEmergencyCheckId = CheckPointId.FMSEmergencyCheckId, VehicleNumber = VehicleNumber });
-
-        if (getFMSEmergencyCommentModalResponse.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-            string response = await (getFMSEmergencyCommentModalResponse).Content.ReadAsStringAsync();
-            EmergencyCommentModal = JsonConvert.DeserializeObject<FMSEmergencyCommentModalVM>(response);
-            EmergencyCheckComment.FMSEmergencyCheckId = CheckPointId.FMSEmergencyCheckId;
-            EmergencyCheckComment.FMSEmergencyId = EmergencyCommentModal.FMSEmergencyId;
-            EmergencyCheckComment.FMSVehicleId = EmergencyCommentModal.FMSVehicleId;
-            EmergencyCheckComment.VehicleNumber = EmergencyCommentModal.VehicleNumber;
-            StateHasChanged();
-        }
-        else
-        {
-        }
-    }
-
-
-#line default
-#line hidden
-#nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IJSRuntime JSRuntime { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private HttpClient Http { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private INotificationService NotificationService { get; set; }
     }

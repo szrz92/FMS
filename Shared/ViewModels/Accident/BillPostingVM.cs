@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SOS.FMS.Shared.ViewModels.Accident
+namespace SOS.FMS.Shared.ViewModels
 {
     public class BillPostingVM
     {
