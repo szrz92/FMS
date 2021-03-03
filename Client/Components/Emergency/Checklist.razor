@@ -104,6 +104,13 @@
         </div>
     </div>
 }
+@if (commentBoxVisible)
+{
+    <Comments Visible="commentBoxVisible"
+              OnVisibilityChanged="ShowHideCommentBox"
+              VehicleNumber="@VehicleNumber"
+              CheckPointId="@PointId" />
+}
 @code{
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
