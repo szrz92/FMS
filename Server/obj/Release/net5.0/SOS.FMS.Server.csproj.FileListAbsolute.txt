@@ -251,3 +251,8 @@ C:\Users\BA Tech\source\repos\sosfms\Server\bin\Release\net5.0\Microsoft.AspNetC
 C:\Users\BA Tech\source\repos\sosfms\Server\bin\Release\net5.0\Microsoft.AspNetCore.SignalR.Client.Core.dll
 C:\Users\BA Tech\source\repos\sosfms\Server\bin\Release\net5.0\Microsoft.AspNetCore.SignalR.Common.dll
 C:\Users\BA Tech\source\repos\sosfms\Server\bin\Release\net5.0\Microsoft.AspNetCore.SignalR.Protocols.Json.dll
+C:\Users\BA Tech\source\repos\sosfms\Server\bin\Release\net5.0\LiveSharp.dll
+C:\Users\BA Tech\source\repos\sosfms\Server\bin\Release\net5.0\LiveSharp.Runtime.dll
+C:\Users\BA Tech\source\repos\sosfms\Server\bin\Release\net5.0\LiveSharp.Support.Blazor.dll
+C:\Users\BA Tech\source\repos\sosfms\Server\bin\Release\net5.0\LiveSharp.Support.Blazor.pdb
+C:\Users\BA Tech\source\repos\sosfms\Server\bin\Release\net5.0\LiveSharp.Runtime.pdb

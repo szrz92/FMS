@@ -1,0 +1,36 @@
+﻿@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+
+<div id="kt_quick_cart" class="offcanvas offcanvas-right p-10 offcanvas-on" style="width:50%">
+    <!--begin::Header-->
+    <div class="offcanvas-header d-flex align-items-center justify-content-between pb-7" kt-hidden-height="46" style="">
+        <h4 class="font-weight-bold m-0">@CheckPointId.Remarks @VehicleNumber</h4>
+        <a @onclick="Close" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_cart_close">
+            <i class="ki ki-close icon-xs text-muted"></i>
+        </a>
+    </div>
+    <!--end::Header-->
+    <!--begin::Content-->
+    <div class="offcanvas-content pr-5 mr-n5 scroll ps ps--active-y">
+        <div class="d-flex flex-column">
+
+        </div>
+        <!--end::Content-->
+    </div>
+</div>
+@code {
+    [Parameter]
+    public ApiRequest CheckPointId { get; set; }
+    [Parameter]
+    public string VehicleNumber { get; set; }
+    [Parameter]
+    public bool Visible { get; set; }
+    [Parameter]
+    public EventCallback<bool> OnVisibilityChanged { get; set; }
+
+    public Task Close()
+    {
+        return OnVisibilityChanged.InvokeAsync(false);
+    }
+
+}

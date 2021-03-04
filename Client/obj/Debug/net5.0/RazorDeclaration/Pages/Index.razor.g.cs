@@ -197,7 +197,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 536 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Index.razor"
+#line 317 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Index.razor"
  
     [CascadingParameter]
     Task<AuthenticationState> AuthenticationState { get; set; }
@@ -261,44 +261,12 @@ using Microsoft.AspNetCore.SignalR.Client;
     #endregion
 
     public List<VehicleVM> vehiclesList { get; set; } = new List<VehicleVM>();
-    public List<GBMSUserVM> usersList { get; set; } = new List<GBMSUserVM>();
-    public List<FMSAccidentalCheckCommentVM> commentsList = new List<FMSAccidentalCheckCommentVM>();
-
-
-    public List<FMSEmergencyCheckVM> emergencyCheckList { get; set; }
-    public Guid emergencyId { get; set; }
-    public Guid emergencyCheckPointId { get; set; }
 
     public int AccidentalVehiclesCount { get; set; } = 0;
     public int EmergencyVehiclesCount { get; set; } = 0;
     public int PeriodicVehiclesCount { get; set; } = 0;
     public int MaintainedVehiclesCount { get; set; } = 0;
     public int TotalVehiclesCount { get; set; } = 0;
-
-    public bool emergencyCheckListSideModal { get; set; } = false;
-    public bool dailyCheckListSideModal { get; set; } = false;
-    public bool periodicCheckListSideModal { get; set; } = false;
-
-    public string emergencyCheckListVehicleNumber;
-    public string dailyCheckListVehicleNumber;
-    public string periodicCheckVehicleNumber;
-
-    public bool visibleCommentBox { get; set; } = true;
-    public bool emergencyCommentModal { get; set; } = false;
-
-    FMSEmergencyCommentModalVM EmergencyCommentModal;
-    FMSEmergencyCheckCommentVM EmergencyCheckComment;
-
-    public string commentSideModalHeading;
-
-    public string mentionId;
-
-    public string displayImage;
-
-    public void DisplayImage(string item)
-    {
-        displayImage = item;
-    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -309,7 +277,6 @@ using Microsoft.AspNetCore.SignalR.Client;
         regionsList = vehiclesList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         subRegionsList = vehiclesList.GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         filteredVehiclesList = vehiclesList;
-        usersList = await Http.GetFromJsonAsync<List<GBMSUserVM>>("api/Users/FMS/All");
         CountVehicles(filteredVehiclesList);
         StartTimer();
         await base.OnInitializedAsync();
@@ -317,8 +284,6 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        mentionId = "mention1";
-        await JSRuntime.InvokeVoidAsync("mention", dotNetObjectReference, usersList);
         if (firstRender)
         {
             await JSRuntime.InvokeVoidAsync("initialize", dotNetObjectReference, filteredVehiclesList);
@@ -370,39 +335,16 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
     }
 
-    private IList<string> imageDataUrls = new List<string>();
+    #region Daily Check List
+    public bool dailyCheckListSideModal { get; set; } = false;
 
-    private async Task OnInputFileChange(InputFileChangeEventArgs e)
-    {
-        var maxAllowedFiles = 3;
-        var format = "image/png";
-
-        foreach (var imageFile in e.GetMultipleFiles(maxAllowedFiles))
-        {
-            var resizedImageFile = await imageFile.RequestImageFileAsync(format,
-                100, 100);
-            var buffer = new byte[resizedImageFile.Size];
-            await resizedImageFile.OpenReadStream().ReadAsync(buffer);
-            var imageDataUrl =
-                $"data:{format};base64,{Convert.ToBase64String(buffer)}";
-            imageDataUrls.Add(imageDataUrl);
-        }
-    }
-
-    public void closeSideModals()
-    {
-        HideEmergencyCheckList();
-        dailyCheckListSideModal = false;
-        emergencyCommentModal = false;
-
-        dailyCheckListVehicleNumber = null;
-        commentSideModalHeading = null;
-    }
+    public string dailyCheckListVehicleNumber;
     public void ShowHideDailyCheckList()
     {
         Description = null;
         dailyCheckListSideModal = !dailyCheckListSideModal;
     }
+    #endregion
 
     #region Accidental Check List
 
@@ -418,22 +360,35 @@ using Microsoft.AspNetCore.SignalR.Client;
         accidentalCheckListSideModal = !accidentalCheckListSideModal;
     }
 
+    public void ShowAccidentalCheckList(List<FMSAccidentalCheckVM> checkVMs)
+    {
+        accidentalCheckListSideModal = true;
+    }
+
+
     #endregion
 
+    #region Emergency Check List
+    public List<FMSEmergencyCheckVM> emergencyCheckList { get; set; }
 
-    public void closeEmergencyCommentModal()
+    public string emergencyCheckListVehicleNumber;
+
+    public bool emergencyCheckListSideModal { get; set; } = false;
+    public void ShowHideEmergencyCheckList()
     {
-        Emergency_JSInvoked(EmergencyCommentModal.VehicleNumber);
-        StateHasChanged();
+        Description = null;
+        emergencyCheckListSideModal = !emergencyCheckListSideModal;
+    }
+    public void ShowEmergencyCheckList(List<FMSEmergencyCheckVM> checkVMs)
+    {
+        emergencyCheckListSideModal = true;
     }
 
-    public void closeCommentModals()
-    {
-
-        commentSideModalHeading = null;
-    }
+    #endregion
 
     #region Periodic Checklist
+    public bool periodicCheckListSideModal { get; set; } = false;
+    public string periodicCheckVehicleNumber;
     public void ShowHidePeriodicCheckList()
     {
         Description = null;
@@ -491,7 +446,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 
                 if (getAccidentalCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    accidentalCheckList=JsonConvert.DeserializeObject<List<FMSAccidentalCheckVM>>(await getAccidentalCheckListResponse.Content.ReadAsStringAsync());
+                    accidentalCheckList = JsonConvert.DeserializeObject<List<FMSAccidentalCheckVM>>(await getAccidentalCheckListResponse.Content.ReadAsStringAsync());
                     ShowAccidentalCheckList(accidentalCheckList);
                 }
                 else
@@ -538,17 +493,6 @@ using Microsoft.AspNetCore.SignalR.Client;
             HistoryDlgVisible = true;
             StateHasChanged();
         }
-    }
-    [JSInvokable]
-    public void mention_JSInvoked(List<FMSUserVM> mentionedUsers, string comment)
-    {
-        if (EmergencyCheckComment != null)
-        {
-            EmergencyCheckComment.Comment = comment;
-            EmergencyCheckComment.Mentions = (string.Join(",", mentionedUsers.Select(x => x.Id).ToArray()));
-        }
-
-        StateHasChanged();
     }
     #endregion
 
@@ -663,93 +607,8 @@ using Microsoft.AspNetCore.SignalR.Client;
 
 
 
-    public void ShowAccidentalCheckList(List<FMSAccidentalCheckVM> checkVMs)
-    {
-        accidentalCheckListSideModal = true;
-    }
-
-    public void ShowEmergencyCheckList(List<FMSEmergencyCheckVM> checkVMs)
-    {
-        emergencyId = checkVMs.FirstOrDefault().FMSEmergencyId;
-        emergencyCheckListSideModal = true;
-        emergencyCommentModal = false;
-    }
-
-    public async void MarkEmergencyPointDone(Guid pointId)
-    {
-        EmergencyCheckComment = new FMSEmergencyCheckCommentVM();
-        var getMarkEmergencyPointDoneResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Emergency/FMS/CheckList/Point/MarkDone",
-            new ApiRequest() { FMSEmergencyCheckId = pointId, VehicleNumber = emergencyCheckListVehicleNumber });
-
-        if (getMarkEmergencyPointDoneResponse.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-            Emergency_JSInvoked(emergencyCheckListVehicleNumber);
-        }
-        else
-        {
-        }
-
-    }
-    public async void ShowEmergencyCommentModal(Guid pointId)
-    {
-        EmergencyCheckComment = new FMSEmergencyCheckCommentVM();
-        var getFMSEmergencyCommentModalResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Emergency/FMS/CheckList/Point", new ApiRequest() { FMSEmergencyCheckId = pointId, VehicleNumber = emergencyCheckListVehicleNumber });
-
-        if (getFMSEmergencyCommentModalResponse.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-            string response = await (getFMSEmergencyCommentModalResponse).Content.ReadAsStringAsync();
-            EmergencyCommentModal = JsonConvert.DeserializeObject<FMSEmergencyCommentModalVM>(response);
-            EmergencyCheckComment.FMSEmergencyCheckId = pointId;
-            EmergencyCheckComment.FMSEmergencyId = EmergencyCommentModal.FMSEmergencyId;
-            EmergencyCheckComment.FMSVehicleId = EmergencyCommentModal.FMSVehicleId;
-            EmergencyCheckComment.VehicleNumber = EmergencyCommentModal.VehicleNumber;
-        }
-        else
-        {
-        }
-
-        closeSideModals();
-        commentSideModalHeading = "Comment Box";
-
-        emergencyCommentModal = true;
-    }
 
 
-    public async void PostEmergencyComment()
-    {
-        visibleCommentBox = false;
-        var postCommentResponse = await Http.PostAsJsonAsync<FMSEmergencyCheckCommentVM>("api/Emergency/FMS/CheckList/Point/Comment/Add", EmergencyCheckComment);
-        if (postCommentResponse.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-            ShowEmergencyCommentModal(EmergencyCheckComment.FMSEmergencyCheckId);
-            visibleCommentBox = true;
-            StateHasChanged();
-            closeSideModals();
-
-        }
-        else
-        {
-        }
-
-    }
-
-    public void HideEmergencyCheckList()
-    {
-        emergencyCheckListSideModal = false;
-        //emergencyCheckListVehicleNumber = null;
-        emergencyId = Guid.Empty;
-        emergencyCheckList = null;
-    }
-    public async void EmergencyCloseJob()
-    {
-        var vehicleResponse = await Http.PostAsJsonAsync("api/Emergency/FMS/Demo/CloseJob",
-            new ApiRequest() { VehicleNumber = emergencyCheckListVehicleNumber });
-        if (vehicleResponse.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-            closeSideModals();
-        }
-        StateHasChanged();
-    }
     public void Dispose()
     {
         Timer.Dispose();

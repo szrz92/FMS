@@ -197,6 +197,12 @@ using Microsoft.AspNetCore.SignalR.Client;
 #nullable restore
 #line 111 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\Comments.razor"
        
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    public ClaimsPrincipal CurrentUser { get; set; }
+
+    private DotNetObjectReference<Comments> dotNetObjectReference;
     [Parameter]
     public FMSEmergencyCommentModalVM EmergencyCommentModal { get; set; }
     [Parameter]
@@ -208,9 +214,43 @@ using Microsoft.AspNetCore.SignalR.Client;
     [Parameter]
     public EventCallback<bool> OnVisibilityChanged { get; set; }
 
+    public List<GBMSUserVM> usersList { get; set; } = new List<GBMSUserVM>();
+
     public bool resetCommentBox { get; set; } = false;
 
     FMSEmergencyCheckCommentVM EmergencyCheckComment;
+
+    protected override async Task OnInitializedAsync()
+    {
+        CurrentUser = (await authenticationStateTask).User;
+        dotNetObjectReference = DotNetObjectReference.Create(this);
+
+        NewCommentModel();
+        usersList = await Http.GetFromJsonAsync<List<GBMSUserVM>>("api/Users/FMS/All");
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (usersList != null)
+        {
+            await JSRuntime.InvokeVoidAsync("mention", dotNetObjectReference, usersList);
+        }
+
+        if (!(await authenticationStateTask).User.Identity.IsAuthenticated)
+        {
+            navigationManager.NavigateTo("/login");
+        }
+        else
+        {
+            CurrentUser = (await authenticationStateTask).User;
+        }
+        if (EmergencyCommentModal == null)
+        {
+            NewCommentModel();
+        }
+        await base.OnAfterRenderAsync(firstRender);
+    }
 
     public Task CloseEmergencyCommentModal()
     {
@@ -252,6 +292,17 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
     }
 
+    [JSInvokable]
+    public void mention_JSInvoked(List<GBMSUserVM> mentionedUsers, string comment)
+    {
+        if (EmergencyCheckComment != null)
+        {
+            EmergencyCheckComment.Comment = comment;
+            EmergencyCheckComment.Mentions = (string.Join(",", mentionedUsers.Select(x => x.Id).ToArray()));
+        }
+
+        StateHasChanged();
+    }
 
 #line default
 #line hidden
