@@ -39,8 +39,10 @@ namespace SOS.FMS.Server.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterRequest parameters)
         {
-            var user = new ApplicationUser();
-            user.UserName = parameters.UserName;
+            var user = new ApplicationUser
+            {
+                UserName = parameters.UserName
+            };
             var result = await _userManager.CreateAsync(user, parameters.Password);
             if (!result.Succeeded) return BadRequest(result.Errors.FirstOrDefault()?.Description);
             return await Login(new LoginRequest
@@ -59,10 +61,12 @@ namespace SOS.FMS.Server.Controllers
                 var fmsuser = await _userManager.FindByNameAsync(userVM.UserName);
                 if (fmsuser == null)
                 {
-                    var user = new ApplicationUser();
-                    user.UserName = userVM.UserName;
-                    user.Email = userVM.Email;
-                    user.NormalizedEmail = userVM.Email.ToUpper();
+                    var user = new ApplicationUser
+                    {
+                        UserName = userVM.UserName,
+                        Email = userVM.Email,
+                        NormalizedEmail = userVM.Email.ToUpper()
+                    };
                     user.NormalizedUserName = user.UserName.ToUpper();
                     user.EmailConfirmed = true;
                     user.Id = userVM.Id;

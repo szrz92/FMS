@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SOS.FMS.Server.Models
 {
-    public class FMSEmergency
+    public class Emergency
     {
         public Guid Id { get; set; }
         public Guid FMSVehicleId { get; set; }

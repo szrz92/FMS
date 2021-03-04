@@ -15,7 +15,7 @@ namespace SOS.FMS.Server.Services
     public class PeriodicCronJob: CronJobService
     {
         private readonly ILogger<PeriodicCronJob> _logger;
-        IServiceScopeFactory _serviceScope;
+        readonly IServiceScopeFactory _serviceScope;
 
         public PeriodicCronJob(IScheduleConfig<PeriodicCronJob> config, ILogger<PeriodicCronJob> logger, IServiceScopeFactory serviceScope)
             : base(config.CronExpression, config.TimeZoneInfo)
@@ -77,7 +77,7 @@ namespace SOS.FMS.Server.Services
         public void GetLastStatus(ApiRequest request, IServiceScope scope)
         {
             List<PeriodicHistory> histories;
-            List<PeriodicVM> periodicHistory = new List<PeriodicVM>();
+            List<PeriodicVM> periodicHistory = new();
             try
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
@@ -118,7 +118,7 @@ namespace SOS.FMS.Server.Services
                         double CurrentKMS = vehicle.Distance - p.LastCheckDistance;
                         int CurrentMonths = PakistanDateTime.GetMonthsBetween(PakistanDateTime.Now, p.LastCheckTime);
 
-                        List<PeriodicMaintenanceStatus> statusList = new List<PeriodicMaintenanceStatus>();
+                        List<PeriodicMaintenanceStatus> statusList = new();
 
                         if (CurrentMonths > p.MonthLimit)
                         {

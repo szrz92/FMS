@@ -195,7 +195,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 141 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\Checklist.razor"
+#line 142 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\Checklist.razor"
       
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -214,10 +214,6 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     FMSEmergencyCheckCommentVM EmergencyCheckComment;
 
-    public Task CloseAccidentalCheckListSideBar()
-    {
-        return OnVisibilityChanged.InvokeAsync(false);
-    }
     protected override async Task OnInitializedAsync()
     {
         CurrentUser = (await authenticationStateTask).User;
@@ -303,14 +299,14 @@ using Microsoft.AspNetCore.SignalR.Client;
         assignWorkShopVisible = true;
     }
     #endregion
-    public void ShowAccidentalCommentModal(Guid pointId)
+    public void ShowCommentModal(Guid pointId)
     {
         PointId = new ApiRequest() { FMSEmergencyCheckId = pointId };
         commentBoxVisible = true;
     }
-    public async void AccidentalCarOperational()
+    public async void CarOperational()
     {
-        var vehicleResponse = await Http.PostAsJsonAsync("api/Emergency/FMS/Demo/CarOperational",
+        var vehicleResponse = await Http.PostAsJsonAsync("api/Emergency/CarOperational",
             new ApiRequest() { VehicleNumber = VehicleNumber });
         if (vehicleResponse.StatusCode == System.Net.HttpStatusCode.OK)
         {
@@ -320,9 +316,9 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         StateHasChanged();
     }
-    public async void AccidentalCloseJob()
+    public async void CloseJob()
     {
-        var vehicleResponse = await Http.PostAsJsonAsync("api/Emergency/FMS/Demo/CloseJob",
+        var vehicleResponse = await Http.PostAsJsonAsync("api/Emergency/CloseJob",
             new VehicleVM() { VehicleNumber = VehicleNumber });
         if (vehicleResponse.StatusCode == System.Net.HttpStatusCode.OK)
         {
@@ -340,10 +336,10 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     private void DialogClose(CloseEventArgs args)
     {
-        CloseEmergencyCheckListSideBar();
+        Close();
     }
     #endregion
-    public Task CloseEmergencyCheckListSideBar()
+    public Task Close()
     {
         return OnVisibilityChanged.InvokeAsync(false);
     }

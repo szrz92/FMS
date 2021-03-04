@@ -18,7 +18,7 @@ namespace SOS.FMS.Server.Controllers
     [ApiController]
     public class EmergencyController : ControllerBase
     {
-        AppDbContext dbContext;
+        readonly AppDbContext dbContext;
         private readonly IHubContext<NotificationHub> hubContext;
         public EmergencyController(AppDbContext dbContext, IHubContext<NotificationHub> hubContext)
         {
@@ -30,11 +30,11 @@ namespace SOS.FMS.Server.Controllers
         {
             try
             {
-                List<FMSEmergencyVM> emergencyList = new List<FMSEmergencyVM>();
-                List<FMSEmergency> emergencies = new List<FMSEmergency>();
+                List<FMSEmergencyVM> emergencyList = new();
+                List<Emergency> emergencies = new();
                 if (User.IsInRole("SA") || User.IsInRole("HMT"))
                 {
-                    emergencyList = await (from e in dbContext.FMSEmergencies
+                    emergencyList = await (from e in dbContext.Emergencies
                                          join d in dbContext.Drivers on e.DriverId equals d.Id
                                          join r in dbContext.Regions on e.RegionId equals r.Id
                                          join s in dbContext.SubRegions on e.SubRegionId equals s.Id
@@ -59,7 +59,7 @@ namespace SOS.FMS.Server.Controllers
                     ApplicationUser user = (from u in dbContext.Users where u.Email == User.Identity.Name select u).FirstOrDefault();
                     Region region = (from r in dbContext.Regions where r.XDescription == user.Region select r).FirstOrDefault();
 
-                    emergencyList = await (from e in dbContext.FMSEmergencies
+                    emergencyList = await (from e in dbContext.Emergencies
                                            join d in dbContext.Drivers on e.DriverId equals d.Id
                                            join r in dbContext.Regions on e.RegionId equals r.Id
                                            join s in dbContext.SubRegions on e.SubRegionId equals s.Id
@@ -95,7 +95,7 @@ namespace SOS.FMS.Server.Controllers
                 Vehicle fmsVehicle = (from v in dbContext.Vehicles
                                       where v.VehicleNumber == emergency.VehicleNumber
                                       select v).SingleOrDefault();
-                FMSEmergency emergencyCheck = await dbContext.FMSEmergencies
+                Emergency emergencyCheck = await dbContext.Emergencies
                    .Where(x => x.FMSVehicleId == fmsVehicle.Id && x.MaintenanceStatus == MaintenanceStatus.NotInitiated)
                    .SingleOrDefaultAsync();
 
@@ -111,7 +111,7 @@ namespace SOS.FMS.Server.Controllers
                 vehicle.Breakdowns++;
                 driver.Emergencies++;
 
-                FMSEmergency newEmergency = new FMSEmergency()
+                Emergency newEmergency = new()
                 {
                     Id = emergencyId,
                     Description = emergency.Description,
@@ -125,12 +125,12 @@ namespace SOS.FMS.Server.Controllers
                     LastUpdated = DateTime.Now
 
                 };
-                await dbContext.FMSEmergencies.AddAsync(newEmergency);
+                await dbContext.Emergencies.AddAsync(newEmergency);
                 await dbContext.SaveChangesAsync();
                 vehicle.Status = "emergency";
                 await dbContext.SaveChangesAsync();
 
-                List<string> descriptionList = new List<string>()
+                List<string> descriptionList = new()
                 {
                     "Region/Control inform about vehicle incident",
                     "Vehicle Lifting / Movement Inform To Risk Department",
@@ -143,7 +143,7 @@ namespace SOS.FMS.Server.Controllers
                     "Bills Posting / Pics Uploading In System"
                 };
 
-                List<FMSEmergencyCheck> fmsEmergencyCheckList = new List<FMSEmergencyCheck>();
+                List<FMSEmergencyCheck> fmsEmergencyCheckList = new();
                 foreach (var point in descriptionList)
                 {
                     fmsEmergencyCheckList.Add(new FMSEmergencyCheck()
@@ -183,7 +183,7 @@ namespace SOS.FMS.Server.Controllers
             try
             {
                 Vehicle fmsVehicle = await (from v in dbContext.Vehicles where v.VehicleNumber == request.VehicleNumber && (v.Status == "emergency" || v.Status == "accidental") select v).SingleOrDefaultAsync();
-                FMSEmergency fmsEmergency = await (from e in dbContext.FMSEmergencies where e.FMSVehicleId == fmsVehicle.Id && e.MaintenanceStatus == MaintenanceStatus.NotInitiated select e).FirstOrDefaultAsync();
+                Emergency fmsEmergency = await (from e in dbContext.Emergencies where e.FMSVehicleId == fmsVehicle.Id && e.MaintenanceStatus == MaintenanceStatus.NotInitiated select e).FirstOrDefaultAsync();
                 List<FMSEmergencyCheckVM> checkList = await (from c in dbContext.FMSEmergencyCheckList
                                                              where c.FMSEmergencyId == fmsEmergency.Id && c.FMSVehicleId == fmsVehicle.Id
                                                              select new FMSEmergencyCheckVM()
@@ -210,7 +210,7 @@ namespace SOS.FMS.Server.Controllers
         {
             try
             {
-                FMSEmergencyCommentModalVM modal = new FMSEmergencyCommentModalVM();
+                FMSEmergencyCommentModalVM modal = new();
                 FMSEmergencyCheck check = await (from c in dbContext.FMSEmergencyCheckList where c.Id == request.FMSEmergencyCheckId select c).SingleOrDefaultAsync();
                 modal.FMSEmergencyCheckId = check.Id;
                 modal.FMSEmergencyId = check.FMSEmergencyId;
@@ -259,7 +259,7 @@ namespace SOS.FMS.Server.Controllers
             try
             {
                 FMSEmergencyCheck check = await dbContext.FMSEmergencyCheckList.Where(x => x.Id == request.FMSEmergencyCheckId).Select(x => x).SingleOrDefaultAsync();
-                FMSEmergency emergency = await dbContext.FMSEmergencies.Where(x => x.Id == check.FMSEmergencyId).SingleOrDefaultAsync();
+                Emergency emergency = await dbContext.Emergencies.Where(x => x.Id == check.FMSEmergencyId).SingleOrDefaultAsync();
                 check.MaintenanceStatus = MaintenanceStatus.Done;
                 emergency.LastUpdated = PakistanDateTime.Now;
                 await dbContext.SaveChangesAsync();
@@ -285,7 +285,7 @@ namespace SOS.FMS.Server.Controllers
                 var currentUser = (from u in dbContext.Users
                                    where u.Email == User.Identity.Name
                                    select u).FirstOrDefault();
-                FMSEmergencyCheckComment newComment = new FMSEmergencyCheckComment()
+                FMSEmergencyCheckComment newComment = new()
                 {
                     Id = Guid.NewGuid(),
                     FMSEmergencyCheckId = comment.FMSEmergencyCheckId,
@@ -332,7 +332,41 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
-        [HttpPost("FMS/Demo/CloseJob")]
+        [HttpPost("CarOperational")]
+        public async Task<IActionResult> CarOperational(ApiRequest vehicle)
+        {
+            try
+            {
+                Vehicle fmsVehicle = (from v in dbContext.Vehicles
+                                      where v.VehicleNumber == vehicle.VehicleNumber
+                                      select v).SingleOrDefault();
+                fmsVehicle.Status = "maintained";
+
+                dbContext.SaveChanges();
+
+                Emergency emergency = (from a in dbContext.Emergencies
+                                        where a.FMSVehicleId == fmsVehicle.Id && a.MaintenanceStatus == MaintenanceStatus.NotInitiated
+                                        select a).SingleOrDefault();
+
+                emergency.MaintenanceStatus = MaintenanceStatus.Operational;
+                emergency.CarOperationalTime = PakistanDateTime.Now;
+                emergency.LastUpdated = PakistanDateTime.Now;
+                dbContext.SaveChanges();
+
+                string title = $"Emergency Job Vehicle Number {vehicle.VehicleNumber}";
+                string notification = $"Vehicle Number {vehicle.VehicleNumber} marked as operational";
+                await hubContext.Clients.All.SendAsync("ReceiveMessageAllUsers",
+                    User.Identity.Name,
+                    title,
+                    notification);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+        [HttpPost("CloseJob")]
         public async Task<IActionResult> CloseJob(ApiRequest request)
         {
             try
@@ -341,7 +375,7 @@ namespace SOS.FMS.Server.Controllers
                                             where v.VehicleNumber == request.VehicleNumber
                                       select v).SingleOrDefault();
 
-                FMSEmergency emergency = await dbContext.FMSEmergencies
+                Emergency emergency = await dbContext.Emergencies
                     .Where(x => x.FMSVehicleId == fmsVehicle.Id && x.MaintenanceStatus == MaintenanceStatus.NotInitiated)
                     .SingleOrDefaultAsync();
 
@@ -354,7 +388,7 @@ namespace SOS.FMS.Server.Controllers
                 emergency.JobClosingTime = PakistanDateTime.Now;
                 emergency.LastUpdated = PakistanDateTime.Now;
 
-                FMSAccident accident = await dbContext.FMSAccidents
+                Accident accident = await dbContext.Accidents
                     .Where(x => x.FMSVehicleId == fmsVehicle.Id && (x.MaintenanceStatus == MaintenanceStatus.NotInitiated || x.MaintenanceStatus == MaintenanceStatus.Operational))
                     .SingleOrDefaultAsync();
                 if (accident != null)
@@ -382,7 +416,7 @@ namespace SOS.FMS.Server.Controllers
         }
 
         [HttpPost("FMS/checkEmergencyStatus")]
-        public async Task<IActionResult> checkEmergencyStatus(ApiRequest request)
+        public async Task<IActionResult> CheckEmergencyStatus(ApiRequest request)
         {
             try
             {
@@ -390,7 +424,7 @@ namespace SOS.FMS.Server.Controllers
                                       where v.VehicleNumber == request.VehicleNumber
                                       select v).SingleOrDefault();
 
-                FMSEmergency emergency = await dbContext.FMSEmergencies
+                Emergency emergency = await dbContext.Emergencies
                     .Where(x => x.FMSVehicleId == fmsVehicle.Id && x.MaintenanceStatus == MaintenanceStatus.NotInitiated)
                     .SingleOrDefaultAsync();
                 if (emergency != null)
@@ -419,7 +453,7 @@ namespace SOS.FMS.Server.Controllers
                                             where c.Id == bill.CheckPointId
                                             select c).SingleOrDefault();
 
-                FMSEmergencyCheckComment newComment = new FMSEmergencyCheckComment()
+                FMSEmergencyCheckComment newComment = new()
                 {
                     Id = Guid.NewGuid(),
                     FMSEmergencyCheckId = check.Id,
@@ -442,7 +476,7 @@ namespace SOS.FMS.Server.Controllers
                 check.CommentCount = await (from c in dbContext.FMSEmergencyCheckComments
                                             where c.FMSEmergencyCheckId == bill.CheckPointId
                                             select c).CountAsync();
-                FMSEmergency emergency = await dbContext.FMSEmergencies.Where(x => x.Id == check.FMSEmergencyId).Select(x => x).SingleOrDefaultAsync();
+                Emergency emergency = await dbContext.Emergencies.Where(x => x.Id == check.FMSEmergencyId).Select(x => x).SingleOrDefaultAsync();
                 emergency.LastUpdated = PakistanDateTime.Now;
                 await dbContext.SaveChangesAsync();
 

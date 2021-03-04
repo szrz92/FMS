@@ -15,7 +15,7 @@ namespace SOS.FMS.Server.Controllers
     [ApiController]
     public class JobsController : ControllerBase
     {
-        AppDbContext dbContext;
+        readonly AppDbContext dbContext;
         public JobsController(AppDbContext dbContext)
         {
             this.dbContext = dbContext;
@@ -32,18 +32,18 @@ namespace SOS.FMS.Server.Controllers
                 {
                     if (User.IsInRole("SA") || User.IsInRole("HMT"))
                     {
-                        AccidentsCount = (from a in dbContext.FMSAccidents where a.MaintenanceStatus == Shared.Enums.MaintenanceStatus.Done select a).Count();
-                        EmergencyCount = (from e in dbContext.FMSEmergencies where e.MaintenanceStatus == Shared.Enums.MaintenanceStatus.Done select e).Count();
+                        AccidentsCount = (from a in dbContext.Accidents where a.MaintenanceStatus == Shared.Enums.MaintenanceStatus.Done select a).Count();
+                        EmergencyCount = (from e in dbContext.Emergencies where e.MaintenanceStatus == Shared.Enums.MaintenanceStatus.Done select e).Count();
                     }
                     else
                     {
                         ApplicationUser user = (from u in dbContext.Users where u.Email == User.Identity.Name select u).FirstOrDefault();
                         Region region = (from r in dbContext.Regions where r.XDescription == user.Region select r).FirstOrDefault();
-                        AccidentsCount = (from a in dbContext.FMSAccidents
+                        AccidentsCount = (from a in dbContext.Accidents
                                           where a.MaintenanceStatus == Shared.Enums.MaintenanceStatus.Done
                                           && a.RegionId == region.Id
                                           select a).Count();
-                        EmergencyCount = (from e in dbContext.FMSEmergencies
+                        EmergencyCount = (from e in dbContext.Emergencies
                                           where e.MaintenanceStatus == Shared.Enums.MaintenanceStatus.Done
                                           && e.RegionId == region.Id
                                           select e).Count();
@@ -68,18 +68,18 @@ namespace SOS.FMS.Server.Controllers
                 {
                     if (User.IsInRole("SA") || User.IsInRole("HMT"))
                     {
-                        AccidentsCount = (from a in dbContext.FMSAccidents where a.MaintenanceStatus == Shared.Enums.MaintenanceStatus.NotInitiated select a).Count();
-                        EmergencyCount = (from e in dbContext.FMSEmergencies where e.MaintenanceStatus == Shared.Enums.MaintenanceStatus.NotInitiated select e).Count();
+                        AccidentsCount = (from a in dbContext.Accidents where a.MaintenanceStatus == Shared.Enums.MaintenanceStatus.NotInitiated select a).Count();
+                        EmergencyCount = (from e in dbContext.Emergencies where e.MaintenanceStatus == Shared.Enums.MaintenanceStatus.NotInitiated select e).Count();
                     }
                     else
                     {
                         ApplicationUser user = (from u in dbContext.Users where u.Email == User.Identity.Name select u).FirstOrDefault();
                         Region region = (from r in dbContext.Regions where r.XDescription == user.Region select r).FirstOrDefault();
-                        AccidentsCount = (from a in dbContext.FMSAccidents
+                        AccidentsCount = (from a in dbContext.Accidents
                                           where a.MaintenanceStatus == Shared.Enums.MaintenanceStatus.NotInitiated
                                           && a.RegionId == region.Id
                                           select a).Count();
-                        EmergencyCount = (from e in dbContext.FMSEmergencies
+                        EmergencyCount = (from e in dbContext.Emergencies
                                           where e.MaintenanceStatus == Shared.Enums.MaintenanceStatus.NotInitiated
                                           && e.RegionId == region.Id
                                           select e).Count();
@@ -94,7 +94,7 @@ namespace SOS.FMS.Server.Controllers
             }
         }
         [HttpGet("All/PendingSoon")]
-        public async Task<IActionResult> PendingSoon()
+        public IActionResult PendingSoon()
         {
             try
             {
@@ -126,7 +126,7 @@ namespace SOS.FMS.Server.Controllers
         [HttpGet("All/Completed")]
         public async Task<IActionResult> CompletedJobs()
         {
-            List<FMSJobsVM> Jobs = new List<FMSJobsVM>();
+            List<FMSJobsVM> Jobs = new();
             try
             {
                 var Accidents = new List<FMSJobsVM>();
@@ -135,7 +135,7 @@ namespace SOS.FMS.Server.Controllers
                 {
                     if (User.IsInRole("SA") || User.IsInRole("HMT"))
                     {
-                        Accidents = await (from a in dbContext.FMSAccidents
+                        Accidents = await (from a in dbContext.Accidents
                                            join r in dbContext.Regions on a.RegionId equals r.Id
                                            join s in dbContext.SubRegions on a.SubRegionId equals s.Id
                                            join d in dbContext.Drivers on a.DriverId equals d.Id
@@ -151,7 +151,7 @@ namespace SOS.FMS.Server.Controllers
                                                JobType = "Accidental",
                                                LastUpdated = a.LastUpdated
                                            }).ToListAsync();
-                        Emergencies = await (from e in dbContext.FMSEmergencies
+                        Emergencies = await (from e in dbContext.Emergencies
                                              join r in dbContext.Regions on e.RegionId equals r.Id
                                              join s in dbContext.SubRegions on e.SubRegionId equals s.Id
                                              join d in dbContext.Drivers on e.DriverId equals d.Id
@@ -172,7 +172,7 @@ namespace SOS.FMS.Server.Controllers
                     {
                         ApplicationUser user = (from u in dbContext.Users where u.Email == User.Identity.Name select u).FirstOrDefault();
                         Region region = (from r in dbContext.Regions where r.XDescription == user.Region select r).FirstOrDefault();
-                        Accidents = await (from a in dbContext.FMSAccidents
+                        Accidents = await (from a in dbContext.Accidents
                                            join r in dbContext.Regions on a.RegionId equals r.Id
                                            join s in dbContext.SubRegions on a.SubRegionId equals s.Id
                                            join d in dbContext.Drivers on a.DriverId equals d.Id
@@ -189,7 +189,7 @@ namespace SOS.FMS.Server.Controllers
                                                JobType = "Accidental",
                                                LastUpdated = a.LastUpdated
                                            }).ToListAsync();
-                        Emergencies = await (from e in dbContext.FMSEmergencies
+                        Emergencies = await (from e in dbContext.Emergencies
                                              join r in dbContext.Regions on e.RegionId equals r.Id
                                              join s in dbContext.SubRegions on e.SubRegionId equals s.Id
                                              join d in dbContext.Drivers on e.DriverId equals d.Id
@@ -219,7 +219,7 @@ namespace SOS.FMS.Server.Controllers
         [HttpGet("All/Pending")]
         public async Task<IActionResult> PendingJobs()
         {
-            List<FMSJobsVM> Jobs = new List<FMSJobsVM>();
+            List<FMSJobsVM> Jobs = new();
             try
             {
                 var Accidents = new List<FMSJobsVM>();
@@ -228,7 +228,7 @@ namespace SOS.FMS.Server.Controllers
                 {
                     if (User.IsInRole("SA") || User.IsInRole("HMT"))
                     {
-                        Accidents = await (from a in dbContext.FMSAccidents
+                        Accidents = await (from a in dbContext.Accidents
                                            join r in dbContext.Regions on a.RegionId equals r.Id
                                            join s in dbContext.SubRegions on a.SubRegionId equals s.Id
                                            join d in dbContext.Drivers on a.DriverId equals d.Id
@@ -244,7 +244,7 @@ namespace SOS.FMS.Server.Controllers
                                                JobType = "Accidental",
                                                LastUpdated = a.LastUpdated
                                            }).ToListAsync();
-                        Emergencies = await (from e in dbContext.FMSEmergencies
+                        Emergencies = await (from e in dbContext.Emergencies
                                              join r in dbContext.Regions on e.RegionId equals r.Id
                                              join s in dbContext.SubRegions on e.SubRegionId equals s.Id
                                              join d in dbContext.Drivers on e.DriverId equals d.Id
@@ -265,7 +265,7 @@ namespace SOS.FMS.Server.Controllers
                     {
                         ApplicationUser user = (from u in dbContext.Users where u.Email == User.Identity.Name select u).FirstOrDefault();
                         Region region = (from r in dbContext.Regions where r.XDescription == user.Region select r).FirstOrDefault();
-                        Accidents = await (from a in dbContext.FMSAccidents
+                        Accidents = await (from a in dbContext.Accidents
                                            join r in dbContext.Regions on a.RegionId equals r.Id
                                            join s in dbContext.SubRegions on a.SubRegionId equals s.Id
                                            join d in dbContext.Drivers on a.DriverId equals d.Id
@@ -282,7 +282,7 @@ namespace SOS.FMS.Server.Controllers
                                                JobType = "Accidental",
                                                LastUpdated = a.LastUpdated
                                            }).ToListAsync();
-                        Emergencies = await (from e in dbContext.FMSEmergencies
+                        Emergencies = await (from e in dbContext.Emergencies
                                              join r in dbContext.Regions on e.RegionId equals r.Id
                                              join s in dbContext.SubRegions on e.SubRegionId equals s.Id
                                              join d in dbContext.Drivers on e.DriverId equals d.Id
@@ -312,7 +312,7 @@ namespace SOS.FMS.Server.Controllers
         [HttpGet("All")]
         public async Task<IActionResult> AllJobs()
         {
-            List<FMSJobsVM> Jobs = new List<FMSJobsVM>();
+            List<FMSJobsVM> Jobs = new();
             try
             {
                 var Accidents = new List<FMSJobsVM>();
@@ -321,7 +321,7 @@ namespace SOS.FMS.Server.Controllers
                 {
                     if (User.IsInRole("SA") || User.IsInRole("HMT"))
                     {
-                        Accidents = await (from a in dbContext.FMSAccidents
+                        Accidents = await (from a in dbContext.Accidents
                                            join r in dbContext.Regions on a.RegionId equals r.Id
                                            join s in dbContext.SubRegions on a.SubRegionId equals s.Id
                                            join d in dbContext.Drivers on a.DriverId equals d.Id
@@ -336,7 +336,7 @@ namespace SOS.FMS.Server.Controllers
                                                JobType = "Accidental",
                                                LastUpdated = a.LastUpdated
                                            }).ToListAsync();
-                        Emergencies = await (from e in dbContext.FMSEmergencies
+                        Emergencies = await (from e in dbContext.Emergencies
                                              join r in dbContext.Regions on e.RegionId equals r.Id
                                              join s in dbContext.SubRegions on e.SubRegionId equals s.Id
                                              join d in dbContext.Drivers on e.DriverId equals d.Id
@@ -356,7 +356,7 @@ namespace SOS.FMS.Server.Controllers
                     {
                         ApplicationUser user = (from u in dbContext.Users where u.Email == User.Identity.Name select u).FirstOrDefault();
                         Region region = (from r in dbContext.Regions where r.XDescription == user.Region select r).FirstOrDefault();
-                        Accidents = await (from a in dbContext.FMSAccidents
+                        Accidents = await (from a in dbContext.Accidents
                                            join r in dbContext.Regions on a.RegionId equals r.Id
                                            join s in dbContext.SubRegions on a.SubRegionId equals s.Id
                                            join d in dbContext.Drivers on a.DriverId equals d.Id
@@ -372,7 +372,7 @@ namespace SOS.FMS.Server.Controllers
                                                JobType = "Accidental",
                                                LastUpdated = a.LastUpdated
                                            }).ToListAsync();
-                        Emergencies = await (from e in dbContext.FMSEmergencies
+                        Emergencies = await (from e in dbContext.Emergencies
                                              join r in dbContext.Regions on e.RegionId equals r.Id
                                              join s in dbContext.SubRegions on e.SubRegionId equals s.Id
                                              join d in dbContext.Drivers on e.DriverId equals d.Id
@@ -401,13 +401,13 @@ namespace SOS.FMS.Server.Controllers
         [HttpPost("History")]
         public async Task<IActionResult> HistoryByVehicleNumber(ApiRequest request)
         {
-            List<HistoryVM> history = new List<HistoryVM>();
+            List<HistoryVM> history = new();
             try
             {
                 var Accidents = new List<HistoryVM>();
                 var Emergencies = new List<HistoryVM>();
 
-                Accidents = await (from a in dbContext.FMSAccidents
+                Accidents = await (from a in dbContext.Accidents
                                    where a.VehicleNumber == request.VehicleNumber
                                    select new HistoryVM()
                                    {
@@ -416,7 +416,7 @@ namespace SOS.FMS.Server.Controllers
                                        Status = (a.MaintenanceStatus == Shared.Enums.MaintenanceStatus.Done) ? "Done" : "Pending",
                                        LastUpdated = a.LastUpdated
                                    }).ToListAsync();
-                Emergencies = await (from e in dbContext.FMSEmergencies
+                Emergencies = await (from e in dbContext.Emergencies
                                      where e.VehicleNumber == request.VehicleNumber
                                      select new HistoryVM()
                                      {

@@ -14,15 +14,10 @@ namespace SOS.FMS.Server.Controllers
     [ApiController]
     public class StationsController : ControllerBase
     {
-        private AppDbContext dbContext;
+        private readonly AppDbContext dbContext;
         public StationsController(AppDbContext dbContext)
         {
             this.dbContext = dbContext;
-        }
-        [HttpGet]
-        public async Task<IActionResult> GetStations()
-        {
-            return Ok(0);
         }
         [HttpGet("SelectList")]
         public async Task<IActionResult> GetSelectList()

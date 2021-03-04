@@ -218,7 +218,7 @@ using Microsoft.AspNetCore.SignalR.Client;
     {
         if (Visible && !string.IsNullOrEmpty(VehicleNumber) && firstRender)
         {
-            PopulateCheckList();
+            await PopulateCheckList();
         }
         await base.OnAfterRenderAsync(firstRender);
     }
@@ -230,22 +230,6 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     public async Task PopulateCheckList()
     {
-        //bool IsSupportedByBrowser = await NotificationService.IsSupportedByBrowserAsync();
-        //string title = "Notification Test";
-        //NotificationOptions options = new NotificationOptions
-        //{
-        //    Body = "Random Notification",
-        //    Icon = "sos-fms-logo.png"
-        //};
-        //if (IsSupportedByBrowser)
-        //{
-        //    await NotificationService.CreateAsync(title, options);
-        //}
-        //else
-        //{
-        //    PermissionType permission = await NotificationService.RequestPermissionAsync();
-        //    await NotificationService.CreateAsync(title, options);
-        //}
 
         var getDailyCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Daily/FMS/CheckList", new ApiRequest() { VehicleNumber = VehicleNumber });
         if (getDailyCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
@@ -264,7 +248,7 @@ using Microsoft.AspNetCore.SignalR.Client;
             new ApiRequest() { CheckListPointCode = pointCode, VehicleNumber = VehicleNumber });
         if (postCheckListPointMarkDone.IsSuccessStatusCode)
         {
-            PopulateCheckList();
+            await PopulateCheckList();
         }
     }
 
@@ -281,6 +265,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         {
         }
     }
+
     public async Task ShowRemarksList()
     {
         await PopulateCheckList();

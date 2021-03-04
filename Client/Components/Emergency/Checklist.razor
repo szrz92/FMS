@@ -1,11 +1,12 @@
 ﻿@inject HttpClient Http
+
 @if (Visible)
 {
     <div id="kt_quick_cart2" class="offcanvas offcanvas-right p-10 offcanvas-on" style="width:50%">
         <!--begin::Header-->
         <div class="offcanvas-header d-flex align-items-center justify-content-between pb-7" kt-hidden-height="46" style="">
             <h4 class="font-weight-bold m-0">Emergency Check List for @(VehicleNumber)</h4>
-            <a @onclick="CloseAccidentalCheckListSideBar" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_cart_close">
+            <a @onclick="Close" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_cart_close">
                 <i class="ki ki-close icon-xs text-muted"></i>
             </a>
         </div>
@@ -59,7 +60,7 @@
                                         }
                                         else
                                         {
-                                            <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowAccidentalCommentModal(item.Id)" />
+                                            <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowCommentModal(item.Id)" />
                                         }
                                     </td>
                                 }
@@ -82,7 +83,7 @@
                                         }
                                         else
                                         {
-                                            <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowAccidentalCommentModal(item.Id)" />
+                                            <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowCommentModal(item.Id)" />
                                         }
                                     </td>
                                 }
@@ -99,8 +100,8 @@
         </div>
 
         <div class="offcanvas-footer" kt-hidden-height="112" style="">
-            <button class="btn btn-fms mr-2" @onclick="AccidentalCarOperational">CAR OPERATIONAL</button>
-            <button class="btn btn-secondary" @onclick="AccidentalCloseJob">CLOSE JOB</button>
+            <button class="btn btn-fms mr-2" @onclick="CarOperational">CAR OPERATIONAL</button>
+            <button class="btn btn-secondary" @onclick="CloseJob">CLOSE JOB</button>
         </div>
     </div>
 }
@@ -156,10 +157,6 @@
 
     FMSEmergencyCheckCommentVM EmergencyCheckComment;
 
-    public Task CloseAccidentalCheckListSideBar()
-    {
-        return OnVisibilityChanged.InvokeAsync(false);
-    }
     protected override async Task OnInitializedAsync()
     {
         CurrentUser = (await authenticationStateTask).User;
@@ -245,14 +242,14 @@
         assignWorkShopVisible = true;
     }
     #endregion
-    public void ShowAccidentalCommentModal(Guid pointId)
+    public void ShowCommentModal(Guid pointId)
     {
         PointId = new ApiRequest() { FMSEmergencyCheckId = pointId };
         commentBoxVisible = true;
     }
-    public async void AccidentalCarOperational()
+    public async void CarOperational()
     {
-        var vehicleResponse = await Http.PostAsJsonAsync("api/Emergency/FMS/Demo/CarOperational",
+        var vehicleResponse = await Http.PostAsJsonAsync("api/Emergency/CarOperational",
             new ApiRequest() { VehicleNumber = VehicleNumber });
         if (vehicleResponse.StatusCode == System.Net.HttpStatusCode.OK)
         {
@@ -262,9 +259,9 @@
         }
         StateHasChanged();
     }
-    public async void AccidentalCloseJob()
+    public async void CloseJob()
     {
-        var vehicleResponse = await Http.PostAsJsonAsync("api/Emergency/FMS/Demo/CloseJob",
+        var vehicleResponse = await Http.PostAsJsonAsync("api/Emergency/CloseJob",
             new VehicleVM() { VehicleNumber = VehicleNumber });
         if (vehicleResponse.StatusCode == System.Net.HttpStatusCode.OK)
         {
@@ -282,10 +279,10 @@
 
     private void DialogClose(CloseEventArgs args)
     {
-        CloseEmergencyCheckListSideBar();
+        Close();
     }
     #endregion
-    public Task CloseEmergencyCheckListSideBar()
+    public Task Close()
     {
         return OnVisibilityChanged.InvokeAsync(false);
     }

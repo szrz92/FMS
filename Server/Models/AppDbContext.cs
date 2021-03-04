@@ -27,11 +27,11 @@ namespace SOS.FMS.Server.Models
         public DbSet<FMSVehicleScoreCard> FMSVehicleScoreCards { get; set; }
         public DbSet<Driver> Drivers { get; set; }
         public DbSet<GBMSUser> GBMSUsers { get; set; }
-        public DbSet<FMSAccident> FMSAccidents { get; set; }
+        public DbSet<Accident> Accidents { get; set; }
         public DbSet<FMSAccidentalCheck> FMSAccidentalCheckList { get; set; }
         public DbSet<FMSAccidentalCheckComment> FMSAccidentalCheckComments { get; set; }
         public DbSet<FMSAccidentalCheckImage> FMSAccidentalCheckImages { get; set; }
-        public DbSet<FMSEmergency> FMSEmergencies { get; set; }
+        public DbSet<Emergency> Emergencies { get; set; }
         public DbSet<FMSEmergencyCheck> FMSEmergencyCheckList { get; set; }
         public DbSet<FMSEmergencyCheckComment> FMSEmergencyCheckComments { get; set; }
         public DbSet<FMSEmergencyCheckImage> FMSEmergencyCheckImages { get; set; }
