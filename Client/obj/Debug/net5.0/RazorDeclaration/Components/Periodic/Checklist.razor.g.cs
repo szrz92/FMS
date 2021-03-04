@@ -187,13 +187,6 @@ using Microsoft.AspNetCore.SignalR.Client;
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 2 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Periodic\Checklist.razor"
-using SOS.FMS.Client.Components.AccidentalComments;
-
-#line default
-#line hidden
-#nullable disable
     public partial class Checklist : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -202,7 +195,7 @@ using SOS.FMS.Client.Components.AccidentalComments;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 52 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Periodic\Checklist.razor"
+#line 51 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Periodic\Checklist.razor"
        
     [Parameter]
     public string VehicleNumber { get; set; }

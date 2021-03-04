@@ -1,0 +1,308 @@
+﻿@inject HttpClient Http
+@using SOS.FMS.Client.Components.Accident
+@if (Visible)
+{
+    <div id="kt_quick_cart2" class="offcanvas offcanvas-right p-10 offcanvas-on" style="width:50%">
+        <!--begin::Header-->
+        <div class="offcanvas-header d-flex align-items-center justify-content-between pb-7" kt-hidden-height="46" style="">
+            <h4 class="font-weight-bold m-0">Accidental Check List for @(VehicleNumber)</h4>
+            <a @onclick="CloseAccidentalCheckListSideBar" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_cart_close">
+                <i class="ki ki-close icon-xs text-muted"></i>
+            </a>
+        </div>
+        <!--end::Header-->
+        <!--begin::Content-->
+        <div class="offcanvas-content pr-5 mr-n5 scroll ps ps--active-y">
+
+            <!--begin::Item-->
+            <div class="d-flex align-items-center justify-content-between py-4">
+                @if (Checklist != null)
+                {
+                    <table class="w-100">
+                        <tr class="row px-1 py-2 border-bottom">
+                            <td class="col-6 text-dark font-weight-bolder">Description</td>
+                            <td class="col-2 text-dark font-weight-bolder">Status</td>
+                            <td class="col-2 text-dark font-weight-bolder">Updated</td>
+                            <td class="col-2 text-dark font-weight-bolder">Action</td>
+                        </tr>
+                        @foreach (var item in Checklist)
+                        {
+                            <tr class="row px-1 py-2 border-bottom">
+                                <td class="col-6">@item.Description</td>
+                                @if (item.MaintenanceStatus == FMS.Shared.Enums.MaintenanceStatus.NotInitiated)
+                                {
+                                    <td class="col-2 text-danger">Not Initiated</td>
+                                    <td class="col-2 text-danger"> NA</td>
+                                    <td class="col-2">
+                                        @if (item.CommentCount == 0)
+                                        {
+                                            <label class="checkbox checkbox-disabled pb-2">
+                                                <input type="checkbox" disabled>
+                                                <span></span>
+                                            </label>
+                                        }
+                                        else
+                                        {
+                                            <label class="checkbox checkbox-success pb-2">
+                                                <input type="checkbox" @onclick="() => MarkAccidentalPointDone(item.Id)">
+                                                <span></span>
+                                            </label>
+                                        }
+
+
+                                        @if (item.Description.Contains("Bills Posting"))
+                                        {
+                                            <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowBillPostingModal(item.Id)" />
+                                        }
+                                        else if (item.Description.Contains("Assigning Workshop"))
+                                        {
+                                            <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowAssignWorkshopModal(item.Id)" />
+                                        }
+                                        else
+                                        {
+                                            <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowAccidentalCommentModal(item.Id)" />
+                                        }
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td class="col-2 text-success">Done</td>
+                                    <td class="col-2"> @item.LastUpdated.ToString("dd-MMM-yy")</td>
+                                    <td class="col-2">
+                                        <label class="checkbox checkbox-success pb-2">
+                                            <input type="checkbox" checked="checked" disabled>
+                                            <span></span>
+                                        </label>
+                                        @if (item.Description.Contains("Bills Posting"))
+                                        {
+                                            <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowBillPostingModal(item.Id)" />
+                                        }
+                                        else if (item.Description.Contains("Assigning Workshop"))
+                                        {
+                                            <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowAssignWorkshopModal(item.Id)" />
+                                        }
+                                        else
+                                        {
+                                            <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowAccidentalCommentModal(item.Id)" />
+                                        }
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </table>
+                }
+                else
+                {
+                    <p>Loading...</p>
+                }
+            </div>
+            <!--end::Content-->
+        </div>
+
+        <div class="offcanvas-footer" kt-hidden-height="112" style="">
+            <button class="btn btn-fms mr-2" @onclick="AccidentalCarOperational">CAR OPERATIONAL</button>
+            <button class="btn btn-secondary" @onclick="AccidentalCloseJob">CLOSE JOB</button>
+        </div>
+    </div>
+}
+@if (commentBoxVisible)
+{
+    <AccidentalCheckListCommentBox Visible="commentBoxVisible"
+                                   OnVisibilityChanged="ShowHideCommentBox"
+                                   VehicleNumber="@VehicleNumber"
+                                   CheckPointId="@PointId" />
+}
+@if (billPostingVisible)
+{
+    <BillPosting Visible="billPostingVisible"
+                 OnVisibilityChanged="ShowHideBillPosting"
+                 VehicleNumber="@VehicleNumber"
+                 CheckPointId="@PointId" />
+}
+@if (assignWorkShopVisible)
+{
+    <AssigningWorkshop Visible="assignWorkShopVisible"
+                       OnVisibilityChanged="ShowHideAssignWorkshop"
+                       VehicleNumber="@VehicleNumber"
+                       CheckPointId="@PointId" />
+}
+
+<SfDialog Target="#target" Width="500px" ShowCloseIcon="true" @bind-Visible="responseDialogVisibility">
+    <DialogTemplates>
+        <Header> @responseHeader </Header>
+        <Content>
+            <p>
+                @responseBody
+            </p>
+        </Content>
+    </DialogTemplates>
+    <DialogEvents Closed="@DialogClose"></DialogEvents>
+</SfDialog>
+
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    public ClaimsPrincipal CurrentUser { get; set; }
+    [Parameter]
+    public string VehicleNumber { get; set; }
+    [Parameter]
+    public bool Visible { get; set; }
+    [Parameter]
+    public EventCallback<bool> OnVisibilityChanged { get; set; }
+    [Parameter]
+    public List<FMSAccidentalCheckVM> AccidentalsCheckList { get; set; }
+
+    public List<FMSAccidentalCheckVM> Checklist { get; set; }
+
+    FMSAccidentalCheckCommentVM AccidentalCheckComment;
+
+    #region Comment Box
+    public bool commentBoxVisible { get; set; } = false;
+    public ApiRequest PointId { get; set; }
+    FMSAccidentalCommentModalVM AccidentalCommentModal;
+    public void ShowHideCommentBox()
+    {
+        commentBoxVisible = !commentBoxVisible;
+        if (!commentBoxVisible) ReloadCheckList();
+    }
+    #endregion
+    #region Bill Posting
+    public bool billPostingVisible { get; set; } = false;
+    public void ShowHideBillPosting()
+    {
+        billPostingVisible = !billPostingVisible;
+        if (!billPostingVisible) ReloadCheckList();
+    }
+    public void ShowBillPostingModal(Guid pointId)
+    {
+        PointId = new ApiRequest() { FMSAccidentalCheckId = pointId, Remarks = Checklist.Where(x => x.Id == pointId).FirstOrDefault().Description };
+        billPostingVisible = true;
+    }
+    #endregion
+    #region Assign Work Shop
+    public bool assignWorkShopVisible { get; set; } = false;
+    public void ShowHideAssignWorkshop()
+    {
+        assignWorkShopVisible = !assignWorkShopVisible;
+        if (!assignWorkShopVisible) ReloadCheckList();
+    }
+    public void ShowAssignWorkshopModal(Guid pointId)
+    {
+        PointId = new ApiRequest() { FMSAccidentalCheckId = pointId, Remarks = Checklist.Where(x => x.Id == pointId).FirstOrDefault().Description };
+        assignWorkShopVisible = true;
+    }
+    #endregion
+
+    protected override async Task OnInitializedAsync()
+    {
+        CurrentUser = (await authenticationStateTask).User;
+        Checklist = AccidentalsCheckList;
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    public async void AccidentalCarOperational()
+    {
+        var vehicleResponse = await Http.PostAsJsonAsync("api/Accident/FMS/Demo/CarOperational",
+            new ApiRequest() { VehicleNumber = VehicleNumber });
+        if (vehicleResponse.StatusCode == System.Net.HttpStatusCode.OK)
+        {
+            responseHeader = "Operation Successful";
+            responseBody = "Car is marked as operational";
+            responseDialogVisibility = true;
+        }
+        StateHasChanged();
+    }
+    public async void AccidentalCloseJob()
+    {
+        var vehicleResponse = await Http.PostAsJsonAsync("api/Accident/FMS/Demo/CloseJob",
+            new VehicleVM() { VehicleNumber = VehicleNumber });
+        if (vehicleResponse.StatusCode == System.Net.HttpStatusCode.OK)
+        {
+
+            responseHeader = "Operation Successful";
+            responseBody = "Job is marked as closed.";
+            responseDialogVisibility = true;
+        }
+        StateHasChanged();
+    }
+    public async void MarkAccidentalPointDone(Guid pointId)
+    {
+        AccidentalCheckComment = new FMSAccidentalCheckCommentVM();
+        var getMarkAccidentalPointDoneResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/FMS/CheckList/Point/MarkDone",
+            new ApiRequest() { FMSAccidentalCheckId = pointId, VehicleNumber = VehicleNumber });
+
+        if (getMarkAccidentalPointDoneResponse.StatusCode == System.Net.HttpStatusCode.OK)
+        {
+            ReloadCheckList();
+        }
+        else
+        {
+        }
+    }
+
+    public async void ReloadCheckList()
+    {
+        var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new VehicleVM() { VehicleNumber = VehicleNumber });
+        var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<VehicleVM>(await vehicleResponse.Content.ReadAsStringAsync());
+        if (vehicle.Type == "accidental")
+        {
+            var getAccidentalCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/FMS/CheckList", new ApiRequest() { VehicleNumber = VehicleNumber });
+
+            if (getAccidentalCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                string response = await (getAccidentalCheckListResponse).Content.ReadAsStringAsync();
+                Checklist = JsonConvert.DeserializeObject<List<FMSAccidentalCheckVM>>(response);
+                //ShowAccidentalCheckList(CheckList);
+            }
+            else
+            {
+            }
+        }
+        else
+        {
+            //ConfirmAccidentDlgVisible = true;
+        }
+        StateHasChanged();
+    }
+    #region Dialog
+    public bool responseDialogVisibility { get; set; }
+    public string responseHeader { get; set; }
+    public string responseBody { get; set; }
+
+    private void DialogClose(CloseEventArgs args)
+    {
+        CloseAccidentalCheckListSideBar();
+    }
+    #endregion
+
+    public Guid accidentalId { get; set; }
+    public Guid accidentalCheckPointId { get; set; }
+    public bool accidentalCheckListSideModal { get; set; } = false;
+    public bool accidentalCommentModal { get; set; } = false;
+
+    public void ShowAccidentalCheckList(List<FMSAccidentalCheckVM> checkVMs)
+    {
+        accidentalId = checkVMs.FirstOrDefault().FMSAccidentId;
+        accidentalCheckListSideModal = true;
+        accidentalCommentModal = false;
+    }
+
+    public Task CloseAccidentalCheckListSideBar()
+    {
+        return OnVisibilityChanged.InvokeAsync(false);
+    }
+
+    public void ShowAccidentalCommentModal(Guid pointId)
+    {
+        PointId = new ApiRequest() { FMSAccidentalCheckId = pointId };
+        commentBoxVisible = true;
+    }
+
+}

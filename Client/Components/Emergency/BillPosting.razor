@@ -1,0 +1,105 @@
+﻿@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+
+
+<div id="kt_quick_cart" class="offcanvas offcanvas-right p-10 offcanvas-on" style="width:50%">
+    <!--begin::Header-->
+    <div class="offcanvas-header d-flex align-items-center justify-content-between pb-7" kt-hidden-height="46" style="">
+        <h4 class="font-weight-bold m-0">@CheckPointId.Remarks @VehicleNumber</h4>
+        <a @onclick="CloseBillPosting" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_cart_close">
+            <i class="ki ki-close icon-xs text-muted"></i>
+        </a>
+    </div>
+    <!--end::Header-->
+    <!--begin::Content-->
+    <div class="offcanvas-content pr-5 mr-n5 scroll ps ps--active-y">
+        <div class="d-flex flex-column">
+            <EditForm Model="bill" OnValidSubmit="PostBill">
+                <DataAnnotationsValidator></DataAnnotationsValidator>
+                <ValidationSummary></ValidationSummary>
+                <div class="card w-100">
+                    <div class="card-header">
+                        Total Amount:
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <div class="form-group">
+                                <SfNumericTextBox @bind-Value="bill.BillAmount" class="form-control"></SfNumericTextBox>
+                                <span class="form-text text-muted">Please enter total amount paid</span>
+                            </div>
+                            <SOS.FMS.Client.Components.AccidentalComments.ImageUpload OnImagePost="OnImagePost" />
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                        <button type="reset" @onclick="CloseBillPosting" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </div>
+            </EditForm>
+        </div>
+        <!--end::Content-->
+    </div>
+</div>
+@code {
+    [Parameter]
+    public ApiRequest CheckPointId { get; set; }
+    [Parameter]
+    public string VehicleNumber { get; set; }
+    [Parameter]
+    public bool Visible { get; set; }
+    [Parameter]
+    public EventCallback<bool> OnVisibilityChanged { get; set; }
+
+    FMSEmergencyCheckCommentVM EmergencyCheckComment;
+
+    public BillPostingVM BillPostingVM = new BillPostingVM();
+    public EmergencyBill bill = new EmergencyBill();
+
+    public List<EmergencyBill> BillsList = new List<EmergencyBill>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        BillsList = await GetBills();
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        bill.CheckPointId = CheckPointId.FMSEmergencyCheckId;
+        BillPostingVM.CheckPointId = CheckPointId.FMSEmergencyCheckId;
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    public void OnImagePost(string image)
+    {
+        BillPostingVM.images.Add(image);
+        bill.BillImage = image;
+    }
+
+    public Task CloseBillPosting()
+    {
+        return OnVisibilityChanged.InvokeAsync(false);
+    }
+
+    public async Task<List<EmergencyBill>> GetBills()
+    {
+        ApiRequest request = new ApiRequest() { FMSEmergencyCheckId = CheckPointId.FMSEmergencyCheckId };
+        var getBillResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Emergency/GetBills", request);
+        return JsonConvert.DeserializeObject<List<EmergencyBill>>(await getBillResponse.Content.ReadAsStringAsync());
+    }
+
+    public async void PostBill()
+    {
+        var postBillResponse = await Http.PostAsJsonAsync<EmergencyBill>("api/Emergency/PostBill", bill);
+
+        if (postBillResponse.StatusCode == System.Net.HttpStatusCode.OK)
+        {
+            BillsList = await GetBills();
+            StateHasChanged();
+        }
+        else
+        {
+        }
+    }
+}
+

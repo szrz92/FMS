@@ -197,7 +197,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 536 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Index.razor"
+#line 317 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Index.razor"
  
     [CascadingParameter]
     Task<AuthenticationState> AuthenticationState { get; set; }
@@ -417,6 +417,11 @@ using Microsoft.AspNetCore.SignalR.Client;
         Description = null;
         accidentalCheckListSideModal = !accidentalCheckListSideModal;
     }
+    public void ShowHideEmergencyCheckList()
+    {
+        Description = null;
+        emergencyCheckListSideModal = !emergencyCheckListSideModal;
+    }
 
     #endregion
 
@@ -491,7 +496,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 
                 if (getAccidentalCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    accidentalCheckList=JsonConvert.DeserializeObject<List<FMSAccidentalCheckVM>>(await getAccidentalCheckListResponse.Content.ReadAsStringAsync());
+                    accidentalCheckList = JsonConvert.DeserializeObject<List<FMSAccidentalCheckVM>>(await getAccidentalCheckListResponse.Content.ReadAsStringAsync());
                     ShowAccidentalCheckList(accidentalCheckList);
                 }
                 else
