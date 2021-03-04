@@ -678,9 +678,6 @@
 
         if (getEmergencyCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
         {
-            //if (IsConnected)
-            //    await hubConnection.SendAsync("SendMessage", "z.raza@batech.com.pk", "Notification", $"Vehicle {accidentalCheckListVehicleNumber} marked as Emergency");
-
             string response = await (getEmergencyCheckListResponse).Content.ReadAsStringAsync();
             emergencyCheckList = JsonConvert.DeserializeObject<List<FMSEmergencyCheckVM>>(response);
             ShowEmergencyCheckList(emergencyCheckList);
@@ -705,9 +702,6 @@
             string response = await (getAccidentalCheckListResponse).Content.ReadAsStringAsync();
             accidentalCheckList = JsonConvert.DeserializeObject<List<FMSAccidentalCheckVM>>(response);
 
-            //if (IsConnected)
-            //    await hubConnection.SendAsync("SendMessage", "z.raza@batech.com.pk", "Notification", $"Vehicle {accidentalCheckListVehicleNumber} marked as Accidental");
-
             ShowAccidentalCheckList(accidentalCheckList);
             this.ConfirmAccidentDlgVisible = false;
             StateHasChanged();
@@ -720,10 +714,6 @@
         dailyCheckListSideModal = true;
     }
     #endregion
-
-
-
-
 
     public void Dispose()
     {
