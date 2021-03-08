@@ -61,11 +61,14 @@
                                                                                     @i.Description
                                                                                 </td>
                                                                                 <td class="col-2">
-                                                                                    @i.Code
+                                                                                    <label class="checkbox checkbox-danger pb-2">
+                                                                                        <input type="checkbox" checked="@i.Value" @onclick="()=> MarkPointNotOK(i.Code)"> Not OK
+                                                                                        <span></span>
+                                                                                    </label>
                                                                                 </td>
                                                                                 <td class="col-2">
-                                                                                    <label class="checkbox pb-2">
-                                                                                        <input type="checkbox" checked="@i.Value" @onclick="()=> MarkPointDone(i.Code)">
+                                                                                    <label class="checkbox checkbox-primary pb-2">
+                                                                                        <input type="checkbox" checked="@i.Value" @onclick="()=> MarkPointDone(i.Code)"> OK
                                                                                         <span></span>
                                                                                     </label>
                                                                                 </td>
@@ -178,6 +181,15 @@
         }
     }
 
+    public async void MarkPointNotOK(string pointCode)
+    {
+        var postCheckListPointMarkDone = await Http.PostAsJsonAsync<ApiRequest>("api/Daily/FMS/CheckList/Point/MarkDone",
+            new ApiRequest() { CheckListPointCode = pointCode, VehicleNumber = VehicleNumber });
+        if (postCheckListPointMarkDone.IsSuccessStatusCode)
+        {
+            await PopulateCheckList();
+        }
+    }
     public async void MarkPointDone(string pointCode)
     {
         var postCheckListPointMarkDone = await Http.PostAsJsonAsync<ApiRequest>("api/Daily/FMS/CheckList/Point/MarkDone",

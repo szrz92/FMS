@@ -35,8 +35,8 @@ namespace SOS.FMS.Server.Models
         public DbSet<FMSEmergencyCheck> FMSEmergencyCheckList { get; set; }
         public DbSet<FMSEmergencyCheckComment> FMSEmergencyCheckComments { get; set; }
         public DbSet<FMSEmergencyCheckImage> FMSEmergencyCheckImages { get; set; }
-        public DbSet<FMSDailyMorning> FMSDailyMorningChecks { get; set; }
-        public DbSet<FMSDailyEvening> FMSDailyEveningChecks { get; set; }
+        public DbSet<DailyMorning> DailyMorningChecks { get; set; }
+        public DbSet<DailyEvening> DailyEveningChecks { get; set; }
         public DbSet<PeriodicHistory> PeriodicHistories { get; set; }
 
         public DbSet<AccidentBill> AccidentBills{ get; set; }

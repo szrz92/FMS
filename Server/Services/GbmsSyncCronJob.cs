@@ -574,30 +574,30 @@ namespace SOS.FMS.Server.Services
                 string DriverName = (from d in dbContext.Drivers 
                                      where d.VehicleNumber == vehicleNumber
                                      select d.Name).SingleOrDefault();
-                IEnumerable<FMSDailyMorning> fMSDailyMornings = from m in dbContext.FMSDailyMorningChecks where m.VehicleNumber == vehicleNumber && m.LastUpdated.Date == (PakistanDateTime.Today) select m;
+                IEnumerable<DailyMorning> fMSDailyMornings = from m in dbContext.DailyMorningChecks where m.VehicleNumber == vehicleNumber && m.LastUpdated.Date == (PakistanDateTime.Today) select m;
                 if (!fMSDailyMornings.Any())
                 {
-                    FMSDailyMorning dailyMorning = new FMSDailyMorning();
+                    DailyMorning dailyMorning = new();
                     dailyMorning.Id = Guid.NewGuid();
                     dailyMorning.LastUpdated = PakistanDateTime.Now;
                     dailyMorning.VehicleNumber = vehicleNumber;
                     dailyMorning.DriverName = DriverName;
                     dailyMorning.Region = region.XDescription;
                     dailyMorning.Subregion = subRegion.XDescription;
-                    await dbContext.FMSDailyMorningChecks.AddAsync(dailyMorning);
+                    await dbContext.DailyMorningChecks.AddAsync(dailyMorning);
                     await dbContext.SaveChangesAsync();
                 }
-                IEnumerable<FMSDailyEvening> fMSDailyEvenings = from e in dbContext.FMSDailyEveningChecks where e.VehicleNumber == vehicleNumber && e.LastUpdated.Date == (PakistanDateTime.Today) select e;
+                IEnumerable<DailyEvening> fMSDailyEvenings = from e in dbContext.DailyEveningChecks where e.VehicleNumber == vehicleNumber && e.LastUpdated.Date == (PakistanDateTime.Today) select e;
                 if (!fMSDailyEvenings.Any())
                 {
-                    FMSDailyEvening dailyEvening = new FMSDailyEvening();
+                    DailyEvening dailyEvening = new();
                     dailyEvening.Id = Guid.NewGuid();
                     dailyEvening.LastUpdated = PakistanDateTime.Now;
                     dailyEvening.VehicleNumber = vehicleNumber;
                     dailyEvening.DriverName = DriverName;
                     dailyEvening.Region = region.XDescription;
                     dailyEvening.Subregion = subRegion.XDescription;
-                    await dbContext.FMSDailyEveningChecks.AddAsync(dailyEvening);
+                    await dbContext.DailyEveningChecks.AddAsync(dailyEvening);
                     await dbContext.SaveChangesAsync();
                 }
             }

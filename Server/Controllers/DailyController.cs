@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using SOS.FMS.Server.Models;
 using SOS.FMS.Server.Services;
 using SOS.FMS.Shared;
+using SOS.FMS.Shared.Enums;
 using SOS.FMS.Shared.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -35,10 +36,10 @@ namespace SOS.FMS.Server.Controllers
                                                select gv.Description).ToList();
                 foreach (var vehicleNumber in vehicleNumbers)
                 {
-                    IEnumerable <FMSDailyMorning> fMSDailyMornings = from m in dbContext.FMSDailyMorningChecks where m.VehicleNumber == vehicleNumber && m.LastUpdated.Date == (PakistanDateTime.Today) select m;
+                    IEnumerable <DailyMorning> fMSDailyMornings = from m in dbContext.DailyMorningChecks where m.VehicleNumber == vehicleNumber && m.LastUpdated.Date == (PakistanDateTime.Today) select m;
                     if (fMSDailyMornings.Any())
                     {
-                        FMSDailyMorning dailyMorning = fMSDailyMornings.FirstOrDefault();
+                        DailyMorning dailyMorning = fMSDailyMornings.FirstOrDefault();
                         checklist.Add(CheckListService.DailyMorningCheckListToViewModel(dailyMorning));
                     }
                     else
@@ -58,22 +59,22 @@ namespace SOS.FMS.Server.Controllers
                                              join v in dbContext.GBMSVehicles on f.VehicleNumber equals v.Description
                                              where v.Description == vehicleNumber
                                              select d.Name).SingleOrDefault();
-                        FMSDailyMorning dailyMorning = new FMSDailyMorning();
+                        DailyMorning dailyMorning = new();
                         dailyMorning.Id = Guid.NewGuid();
                         dailyMorning.LastUpdated = PakistanDateTime.Now;
                         dailyMorning.VehicleNumber = vehicleNumber;
                         dailyMorning.DriverName = DriverName;
                         dailyMorning.Region = region.XDescription;
                         dailyMorning.Subregion = subRegion.XDescription;
-                        await dbContext.FMSDailyMorningChecks.AddAsync(dailyMorning);
+                        await dbContext.DailyMorningChecks.AddAsync(dailyMorning);
                         await dbContext.SaveChangesAsync();
 
                         checklist.Add(CheckListService.DailyMorningCheckListToViewModel(dailyMorning));
                     }
-                    IEnumerable<FMSDailyEvening> fMSDailyEvenings = from e in dbContext.FMSDailyEveningChecks where e.VehicleNumber == vehicleNumber && e.LastUpdated.Date == (PakistanDateTime.Today) select e;
+                    IEnumerable<DailyEvening> fMSDailyEvenings = from e in dbContext.DailyEveningChecks where e.VehicleNumber == vehicleNumber && e.LastUpdated.Date == (PakistanDateTime.Today) select e;
                     if (fMSDailyEvenings.Any())
                     {
-                        FMSDailyEvening dailyEvening = fMSDailyEvenings.FirstOrDefault();
+                        DailyEvening dailyEvening = fMSDailyEvenings.FirstOrDefault();
 
                         checklist.Add(CheckListService.DailyEveningEngineCheckListToViewModel(dailyEvening));
                         checklist.Add(CheckListService.DailyEveningBodyCheckListToViewModel(dailyEvening));
@@ -98,14 +99,14 @@ namespace SOS.FMS.Server.Controllers
                                              join v in dbContext.GBMSVehicles on f.VehicleNumber equals v.Description
                                              where v.Description == vehicleNumber
                                              select d.Name).SingleOrDefault();
-                        FMSDailyEvening dailyEvening = new FMSDailyEvening();
+                        DailyEvening dailyEvening = new DailyEvening();
                         dailyEvening.Id = Guid.NewGuid();
                         dailyEvening.LastUpdated = PakistanDateTime.Now;
                         dailyEvening.VehicleNumber = vehicleNumber;
                         dailyEvening.DriverName = DriverName;
                         dailyEvening.Region = region.XDescription;
                         dailyEvening.Subregion = subRegion.XDescription;
-                        await dbContext.FMSDailyEveningChecks.AddAsync(dailyEvening);
+                        await dbContext.DailyEveningChecks.AddAsync(dailyEvening);
                         await dbContext.SaveChangesAsync();
 
                         checklist.Add(CheckListService.DailyEveningEngineCheckListToViewModel(dailyEvening));
@@ -129,10 +130,10 @@ namespace SOS.FMS.Server.Controllers
             List<FMSDailyCheckListVM> checklist = new List<FMSDailyCheckListVM>();
             try
             {
-                IEnumerable<FMSDailyMorning> fMSDailyMornings = from m in dbContext.FMSDailyMorningChecks where m.VehicleNumber == request.VehicleNumber && m.LastUpdated.Date == (PakistanDateTime.Today) select m;
+                IEnumerable<DailyMorning> fMSDailyMornings = from m in dbContext.DailyMorningChecks where m.VehicleNumber == request.VehicleNumber && m.LastUpdated.Date == (PakistanDateTime.Today) select m;
                 if (fMSDailyMornings.Any())
                 {
-                    FMSDailyMorning dailyMorning = fMSDailyMornings.FirstOrDefault();
+                    DailyMorning dailyMorning = fMSDailyMornings.FirstOrDefault();
                     checklist.Add(CheckListService.DailyMorningCheckListToViewModel(dailyMorning));
                 }
                 else
@@ -152,22 +153,22 @@ namespace SOS.FMS.Server.Controllers
                                          join v in dbContext.GBMSVehicles on f.VehicleNumber equals v.Description
                                          where v.Description == request.VehicleNumber
                                          select d.Name).SingleOrDefault();
-                    FMSDailyMorning dailyMorning = new FMSDailyMorning();
+                    DailyMorning dailyMorning = new DailyMorning();
                     dailyMorning.Id = Guid.NewGuid();
                     dailyMorning.LastUpdated = PakistanDateTime.Now;
                     dailyMorning.VehicleNumber = request.VehicleNumber;
                     dailyMorning.DriverName = DriverName;
                     dailyMorning.Region = region.XDescription;
                     dailyMorning.Subregion = subRegion.XDescription;
-                    await dbContext.FMSDailyMorningChecks.AddAsync(dailyMorning);
+                    await dbContext.DailyMorningChecks.AddAsync(dailyMorning);
                     await dbContext.SaveChangesAsync();
 
                     checklist.Add(CheckListService.DailyMorningCheckListToViewModel(dailyMorning));
                 }
-                IEnumerable<FMSDailyEvening> fMSDailyEvenings = from e in dbContext.FMSDailyEveningChecks where e.VehicleNumber == request.VehicleNumber && e.LastUpdated.Date == (PakistanDateTime.Today) select e;
+                IEnumerable<DailyEvening> fMSDailyEvenings = from e in dbContext.DailyEveningChecks where e.VehicleNumber == request.VehicleNumber && e.LastUpdated.Date == (PakistanDateTime.Today) select e;
                 if (fMSDailyEvenings.Any())
                 {
-                    FMSDailyEvening dailyEvening = fMSDailyEvenings.FirstOrDefault();
+                    DailyEvening dailyEvening = fMSDailyEvenings.FirstOrDefault();
 
                     checklist.Add(CheckListService.DailyEveningEngineCheckListToViewModel(dailyEvening));
                     checklist.Add(CheckListService.DailyEveningBodyCheckListToViewModel(dailyEvening));
@@ -192,14 +193,14 @@ namespace SOS.FMS.Server.Controllers
                                          join v in dbContext.GBMSVehicles on f.VehicleNumber equals v.Description
                                          where v.Description == request.VehicleNumber
                                          select d.Name).SingleOrDefault();
-                    FMSDailyEvening dailyEvening = new FMSDailyEvening();
+                    DailyEvening dailyEvening = new DailyEvening();
                     dailyEvening.Id = Guid.NewGuid();
                     dailyEvening.LastUpdated = PakistanDateTime.Now;
                     dailyEvening.VehicleNumber = request.VehicleNumber;
                     dailyEvening.DriverName = DriverName;
                     dailyEvening.Region = region.XDescription;
                     dailyEvening.Subregion = subRegion.XDescription;
-                    await dbContext.FMSDailyEveningChecks.AddAsync(dailyEvening);
+                    await dbContext.DailyEveningChecks.AddAsync(dailyEvening);
                     await dbContext.SaveChangesAsync();
 
                     checklist.Add(CheckListService.DailyEveningEngineCheckListToViewModel(dailyEvening));
@@ -222,9 +223,9 @@ namespace SOS.FMS.Server.Controllers
             {
                 if (request.CheckListPointCode.StartsWith('E'))
                 {
-                    var parameter = Expression.Parameter(typeof(FMSDailyEvening));
+                    var parameter = Expression.Parameter(typeof(DailyEvening));
                     var property = Expression.Property(parameter, $"{request.CheckListPointCode}");
-                    var selector = Expression.Lambda<Func<FMSDailyEvening, bool>>(property, parameter);
+                    var selector = Expression.Lambda<Func<DailyEvening, bool>>(property, parameter);
 
                     SqlParameter vehiclenumber = new SqlParameter("@vehiclenumber", System.Data.SqlDbType.NVarChar)
                     {
@@ -244,13 +245,13 @@ namespace SOS.FMS.Server.Controllers
                         Value = PakistanDateTime.Now
                     };
 
-                    var rowsAffected = dbContext.Database.ExecuteSqlRaw($"UPDATE FMSDailyEveningChecks SET " + request.CheckListPointCode + " = 'true', LastUpdated = @now WHERE VehicleNumber = @vehiclenumber AND CAST(LastUpdated AS DATE) = CAST(@date AS DATE) ", vehiclenumber, date, now);
+                    var rowsAffected = dbContext.Database.ExecuteSqlRaw($"UPDATE FMSDailyEveningChecks SET " + request.CheckListPointCode + " = '" + DailyCheckStatus.Checked + "', LastUpdated = @now WHERE VehicleNumber = @vehiclenumber AND CAST(LastUpdated AS DATE) = CAST(@date AS DATE) ", vehiclenumber, date, now);
                 }
                 if (request.CheckListPointCode.StartsWith('M'))
                 {
-                    var parameter = Expression.Parameter(typeof(FMSDailyMorning));
+                    var parameter = Expression.Parameter(typeof(DailyMorning));
                     var property = Expression.Property(parameter, $"{request.CheckListPointCode}");
-                    var selector = Expression.Lambda<Func<FMSDailyMorning, bool>>(property, parameter);
+                    var selector = Expression.Lambda<Func<DailyMorning, bool>>(property, parameter);
 
                     SqlParameter vehiclenumber = new SqlParameter("@vehiclenumber", System.Data.SqlDbType.NVarChar)
                     {
@@ -270,7 +271,7 @@ namespace SOS.FMS.Server.Controllers
                         Value = PakistanDateTime.Now
                     };
 
-                    var rowsAffected = dbContext.Database.ExecuteSqlRaw($"UPDATE FMSDailyMorningChecks SET " + request.CheckListPointCode + " = 'true', LastUpdated = @now WHERE VehicleNumber = @vehiclenumber AND CAST(LastUpdated AS DATE) = CAST(@date AS DATE) ", vehiclenumber, date, now);
+                    var rowsAffected = dbContext.Database.ExecuteSqlRaw($"UPDATE FMSDailyMorningChecks SET " + request.CheckListPointCode + " = '" + DailyCheckStatus.Checked + "', LastUpdated = @now WHERE VehicleNumber = @vehiclenumber AND CAST(LastUpdated AS DATE) = CAST(@date AS DATE) ", vehiclenumber, date, now);
                 }
 
                 return Ok();
@@ -285,8 +286,8 @@ namespace SOS.FMS.Server.Controllers
         {
             try
             {
-                FMSDailyMorning fMSDailyMorning = (from m in dbContext.FMSDailyMorningChecks where m.VehicleNumber == request.VehicleNumber && m.LastUpdated.Date == (PakistanDateTime.Today) select m).SingleOrDefault();
-                FMSDailyEvening fMSDailyEvening = (from e in dbContext.FMSDailyEveningChecks where e.VehicleNumber == request.VehicleNumber && e.LastUpdated.Date == (PakistanDateTime.Today) select e).SingleOrDefault();
+                DailyMorning fMSDailyMorning = (from m in dbContext.DailyMorningChecks where m.VehicleNumber == request.VehicleNumber && m.LastUpdated.Date == (PakistanDateTime.Today) select m).SingleOrDefault();
+                DailyEvening fMSDailyEvening = (from e in dbContext.DailyEveningChecks where e.VehicleNumber == request.VehicleNumber && e.LastUpdated.Date == (PakistanDateTime.Today) select e).SingleOrDefault();
                 fMSDailyEvening.Remarks += "* " + request.Remarks + " | " + PakistanDateTime.Now;
                 fMSDailyMorning.Remarks += "* " + request.Remarks + " | " + PakistanDateTime.Now;
                 dbContext.SaveChanges();

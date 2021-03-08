@@ -195,7 +195,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 135 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\DailyCheckList.razor"
+#line 138 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\DailyCheckList.razor"
       
     [Parameter]
     public string VehicleNumber { get; set; }
@@ -242,6 +242,15 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
     }
 
+    public async void MarkPointNotOK(string pointCode)
+    {
+        var postCheckListPointMarkDone = await Http.PostAsJsonAsync<ApiRequest>("api/Daily/FMS/CheckList/Point/MarkDone",
+            new ApiRequest() { CheckListPointCode = pointCode, VehicleNumber = VehicleNumber });
+        if (postCheckListPointMarkDone.IsSuccessStatusCode)
+        {
+            await PopulateCheckList();
+        }
+    }
     public async void MarkPointDone(string pointCode)
     {
         var postCheckListPointMarkDone = await Http.PostAsJsonAsync<ApiRequest>("api/Daily/FMS/CheckList/Point/MarkDone",

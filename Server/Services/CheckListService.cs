@@ -9,7 +9,7 @@ namespace SOS.FMS.Server.Services
 {
     public static class CheckListService
     {
-        public static FMSDailyCheckListVM DailyMorningCheckListToViewModel(FMSDailyMorning dailyMorning)
+        public static FMSDailyCheckListVM DailyMorningCheckListToViewModel(DailyMorning dailyMorning)
         {
             FMSDailyCheckListVM checkListVM = new FMSDailyCheckListVM();
             checkListVM.VehicleNumber = dailyMorning.VehicleNumber;
@@ -186,7 +186,7 @@ namespace SOS.FMS.Server.Services
 
             return checkListVM;
         }
-        public static FMSDailyCheckListVM DailyEveningEngineCheckListToViewModel(FMSDailyEvening dailyEvening)
+        public static FMSDailyCheckListVM DailyEveningEngineCheckListToViewModel(DailyEvening dailyEvening)
         {
             FMSDailyCheckListVM checkListVM = new FMSDailyCheckListVM();
             checkListVM.Category = "Evening";
@@ -277,7 +277,7 @@ namespace SOS.FMS.Server.Services
             }
             return checkListVM;
         }
-        public static FMSDailyCheckListVM DailyEveningBodyCheckListToViewModel(FMSDailyEvening dailyEvening)
+        public static FMSDailyCheckListVM DailyEveningBodyCheckListToViewModel(DailyEvening dailyEvening)
         {
             FMSDailyCheckListVM checkListVM = new FMSDailyCheckListVM();
             checkListVM.Category = "Evening";
@@ -344,7 +344,7 @@ namespace SOS.FMS.Server.Services
             }
             return checkListVM;
         }
-        public static FMSDailyCheckListVM DailyEveningInteriorCheckListToViewModel(FMSDailyEvening dailyEvening)
+        public static FMSDailyCheckListVM DailyEveningInteriorCheckListToViewModel(DailyEvening dailyEvening)
         {
             FMSDailyCheckListVM checkListVM = new FMSDailyCheckListVM();
             checkListVM.Category = "Evening";
@@ -507,7 +507,7 @@ namespace SOS.FMS.Server.Services
             }
             return checkListVM;
         }
-        public static FMSDailyCheckListVM DailyEveningAcCheckListToViewModel(FMSDailyEvening dailyEvening)
+        public static FMSDailyCheckListVM DailyEveningAcCheckListToViewModel(DailyEvening dailyEvening)
         {
             FMSDailyCheckListVM checkListVM = new FMSDailyCheckListVM();
             checkListVM.Category = "Evening";
@@ -568,7 +568,7 @@ namespace SOS.FMS.Server.Services
             }
             return checkListVM;
         }
-        public static FMSDailyCheckListVM DailyEveningGeneralCheckListToViewModel(FMSDailyEvening dailyEvening)
+        public static FMSDailyCheckListVM DailyEveningGeneralCheckListToViewModel(DailyEvening dailyEvening)
         {
             FMSDailyCheckListVM checkListVM = new FMSDailyCheckListVM();
             checkListVM.Category = "Evening";
