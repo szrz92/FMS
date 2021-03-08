@@ -239,7 +239,7 @@ namespace SOS.FMS.Server.Controllers
                         Value = PakistanDateTime.Today
                     };
 
-                    SqlParameter now = new SqlParameter("@now", System.Data.SqlDbType.DateTime2)
+                    SqlParameter now = new("@now", System.Data.SqlDbType.DateTime2)
                     {
                         Direction = System.Data.ParameterDirection.Input,
                         Value = PakistanDateTime.Now

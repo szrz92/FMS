@@ -57,8 +57,8 @@ namespace SOS.FMS.Server.Services
                 //var subregions = (from s in context.RbSubRegions select s).ToList();
                 //SyncSubRegions(subregions, scope);
 
-                var vehicles = (from v in context.RbVehicles select v).ToList();
-                SyncVehicles(vehicles, scope);
+                //var vehicles = (from v in context.RbVehicles select v).ToList();
+                //SyncVehicles(vehicles, scope);
 
                 //var vehicletypes = (from t in context.RbVehicleTypes select t).ToList();
                 //SyncVehicleTypes(vehicletypes, scope);

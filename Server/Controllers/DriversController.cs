@@ -33,7 +33,7 @@ namespace SOS.FMS.Server.Controllers
                         Region region = (from r in dbContext.Regions where r.XDescription == user.Region select r).FirstOrDefault();
 
                         List<DriverVM> rbVehicles = await (from fd in dbContext.Drivers
-                                                           where fd.Region == region.XDescription
+                                                           where fd.Region == region.XDescription && !string.IsNullOrEmpty(fd.VehicleNumber)
                                                            select ModelService.FMSDriverViewModel(fd)).ToListAsync();
                         return Ok(rbVehicles);
                     }
@@ -41,6 +41,7 @@ namespace SOS.FMS.Server.Controllers
                     {
 
                         List<DriverVM> rbVehicles = await (from fd in dbContext.Drivers
+                                                           where !string.IsNullOrEmpty(fd.VehicleNumber)
                                                            select ModelService.FMSDriverViewModel(fd)).ToListAsync();
                         return Ok(rbVehicles);
                     }

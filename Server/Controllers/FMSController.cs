@@ -48,6 +48,8 @@ namespace SOS.FMS.Server.Controllers
                                         Name = member.name,
                                         Code = member.code,
                                         VehicleNumber = crew.vehicle,
+                                        Region = dbContext.Vehicles.Where(x=>x.VehicleNumber == crew.vehicle).FirstOrDefault().Region,
+                                        SubRegion = dbContext.Vehicles.Where(x => x.VehicleNumber == crew.vehicle).FirstOrDefault().SubRegion,
                                         Score = 100
                                     };
                                     await dbContext.Drivers.AddAsync(driver);
@@ -90,24 +92,35 @@ namespace SOS.FMS.Server.Controllers
                                         VehicleSummary vehicleSummary = (from v in dbContext.VehicleSummaries
                                                                          where v.DriverCode == driver.Code
                                                                          select v).OrderByDescending(x => x.LastUpdate).FirstOrDefault();
-                                        vehicleSummary.LeavingDate = DateTime.Now;
-
-                                        VehicleSummary newVehicleSummary = new VehicleSummary()
+                                        if (vehicleSummary != null)
                                         {
-                                            Id = Guid.NewGuid(),
-                                            AssignmentDate = DateTime.Now,
-                                            DriverCode = member.code,
-                                            DriverName = member.name,
-                                            VehicleNumber = crew.vehicle,
-                                            LeavingDate = DateTime.MinValue
-                                        };
-                                        await dbContext.VehicleSummaries.AddAsync(newVehicleSummary);
+                                            vehicleSummary.LeavingDate = DateTime.Now;
+
+                                            VehicleSummary newVehicleSummary = new VehicleSummary()
+                                            {
+                                                Id = Guid.NewGuid(),
+                                                AssignmentDate = DateTime.Now,
+                                                DriverCode = member.code,
+                                                DriverName = member.name,
+                                                VehicleNumber = crew.vehicle,
+                                                LeavingDate = DateTime.MinValue
+                                            };
+                                            await dbContext.VehicleSummaries.AddAsync(newVehicleSummary);
+                                        }
                                     }
                                     if(driver.Score==0)
                                     {
                                         driver.Score = 100;
                                     }
                                     driver.VehicleNumber = crew.vehicle;
+                                    driver.Region = (from v in dbContext.GBMSVehicles
+                                                     join s in dbContext.SubRegions on v.Location equals s.XDescription
+                                                     where v.Description == crew.vehicle
+                                                     select s.XRegionDescription).SingleOrDefault();
+                                    driver.SubRegion = (from v in dbContext.GBMSVehicles
+                                                        join s in dbContext.SubRegions on v.Location equals s.XDescription
+                                                        where v.Description == crew.vehicle
+                                                        select s.XDescription).SingleOrDefault();
                                 }
                             }
                         }
