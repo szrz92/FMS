@@ -272,7 +272,8 @@ using Microsoft.AspNetCore.SignalR.Client;
     {
 
         dotNetObjectReference = DotNetObjectReference.Create(this);
-        vehiclesList = await Http.GetFromJsonAsync<List<VehicleVM>>("api/Vehicles/FMS/All");
+        vehiclesList = await Http.GetFromJsonAsync<List<VehicleVM>>("api/Vehicles/FMS/Demo/All");
+        //vehiclesList = await Http.GetFromJsonAsync<List<VehicleVM>>("api/Vehicles/FMS/All");
         vehicleNumbersList = vehiclesList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         regionsList = vehiclesList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         subRegionsList = vehiclesList.GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
@@ -507,7 +508,8 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     private async void TimerElapsedHandler()
     {
-        vehiclesList = await Http.GetFromJsonAsync<List<VehicleVM>>("api/Vehicles/FMS/All");
+        vehiclesList = await Http.GetFromJsonAsync<List<VehicleVM>>("api/Vehicles/FMS/Demo/All");
+        //vehiclesList = await Http.GetFromJsonAsync<List<VehicleVM>>("api/Vehicles/FMS/All");
         filteredVehiclesList = vehiclesList;
         FilterDataWithoutUpdateMarkers();
         CountVehicles(filteredVehiclesList);

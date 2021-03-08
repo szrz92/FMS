@@ -203,7 +203,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     protected override async Task OnInitializedAsync()
     {
-        FMSVehiclesList = await Http.GetFromJsonAsync<List<VehicleVM>>("api/Vehicles/FMS/All");
+        FMSVehiclesList = await Http.GetFromJsonAsync<List<VehicleVM>>("api/Vehicles/FMS/Demo/All");
         SummaryList = await Http.GetFromJsonAsync<List<SummaryVM>>("api/Drivers/Summary");
         await base.OnInitializedAsync();
     }

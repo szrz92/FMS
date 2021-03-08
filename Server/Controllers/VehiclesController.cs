@@ -77,24 +77,6 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-
-        [HttpGet("FMS/Demo/All")]
-        public IActionResult GetAllDemoFMS()
-        {
-            try
-            {
-                List<VehicleVM> rbVehicles = new List<VehicleVM>();
-                return Ok(rbVehicles);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.ToString());
-            }
-        }
         [HttpPost("FMS/Demo/GetByNumber")]
         public IActionResult GetByNumber(ApiRequest vehicle)
         {
@@ -303,6 +285,190 @@ namespace SOS.FMS.Server.Controllers
                                                                     Ranking = s.Ranking
                                                                 }).ToListAsync();
                 return Ok(scoreCards);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+        [HttpGet("FMS/Demo/All")]
+        public IActionResult GetAllDemoFMS()
+        {
+            try
+            {
+                List<VehicleVM> rbVehicles = new List<VehicleVM>();
+                List<Vehicle> vehicles = new List<Vehicle>();
+                if (User.IsInRole("SA") || User.IsInRole("HMT"))
+                {
+                    vehicles = (from v in dbContext.Vehicles
+                                   select v).ToList();
+                    if (vehicles == null || vehicles.Count == 0)
+                    {
+                        vehicles = new List<Vehicle>()
+                        {
+                            new Vehicle()
+                            {
+                                Id = Guid.NewGuid(),
+                                Active = true,
+                                FuelAverage = 0,
+                                Breakdowns = 0,
+                                CostThisMonth = 0,
+                                Distance = 0,
+                                IMEI = 111222333444555,
+                                PeriodicStatus = Shared.Enums.PeriodicMaintenanceStatus.Pending,
+                                Ranking = 0,
+                                Region = "North Region-1",
+                                SubRegion = "Islamabad",
+                                Score = 135,
+                                SIM = 0320000000,
+                                Status = "maintained",
+                                VehicleNumber = "MNS-18-946"
+                            },
+                                new Vehicle()
+                            {
+                                Id = Guid.NewGuid(),
+                                Active = true,
+                                FuelAverage = 0,
+                                Breakdowns = 0,
+                                CostThisMonth = 0,
+                                Distance = 0,
+                                IMEI = 111222333444555,
+                                PeriodicStatus = Shared.Enums.PeriodicMaintenanceStatus.Pending,
+                                Ranking = 0,
+                                Region = "Central Region-6",
+                                SubRegion = "Lahore",
+                                Score = 135,
+                                SIM = 0320000000,
+                                Status = "maintained",
+                                VehicleNumber = "MNS-19-9009"
+                            }
+                        };
+                        dbContext.Vehicles.AddRange(vehicles);
+                        dbContext.SaveChanges();
+                    }
+                }
+                else
+                {
+                    ApplicationUser user = (from u in dbContext.Users where u.Email == User.Identity.Name select u).FirstOrDefault();
+                    Region region = (from r in dbContext.Regions where r.XDescription == user.Region select r).FirstOrDefault();
+                    vehicles = (from v in dbContext.Vehicles
+                                   select v).ToList();
+                    if (vehicles == null)
+                    {
+                        vehicles = new List<Vehicle>()
+                        {
+                            new Vehicle()
+                            {
+                                Id = Guid.NewGuid(),
+                                Active = true,
+                                FuelAverage = 0,
+                                Breakdowns = 0,
+                                CostThisMonth = 0,
+                                Distance = 0,
+                                IMEI = 111222333444555,
+                                PeriodicStatus = Shared.Enums.PeriodicMaintenanceStatus.Pending,
+                                Ranking = 0,
+                                Region = "North Region-1",
+                                SubRegion = "Islamabad",
+                                Score = 135,
+                                SIM = 0320000000,
+                                Status = "maintained",
+                                VehicleNumber = "MNS-18-946"
+                            },
+                                new Vehicle()
+                            {
+                                Id = Guid.NewGuid(),
+                                Active = true,
+                                FuelAverage = 0,
+                                Breakdowns = 0,
+                                CostThisMonth = 0,
+                                Distance = 0,
+                                IMEI = 111222333444555,
+                                PeriodicStatus = Shared.Enums.PeriodicMaintenanceStatus.Pending,
+                                Ranking = 0,
+                                Region = "Central Region-6",
+                                SubRegion = "Lahore",
+                                Score = 135,
+                                SIM = 0320000000,
+                                Status = "maintained",
+                                VehicleNumber = "MNS-19-9009"
+                            }
+                        };
+                        dbContext.Vehicles.AddRange(vehicles);
+                        dbContext.SaveChanges();
+                    }
+                }
+                if (vehicles.Count == 1)
+                {
+                    //FMSVehicleDev vehicleDev = new FMSVehicleDev();
+                    //vehicleDev.Id = Guid.NewGuid();
+                    //vehicleDev.VehicleId = new Guid("C5704B36-57E4-489A-B7CB-1C676F97AB3B");
+                    //vehicleDev.DriverId = new Guid("D5B09BF7-24B1-44D2-8AFE-10EC44AC4FA1");
+                    //vehicleDev.IMEI = 100010001000100;
+                    //vehicleDev.SIM = 923331001000;
+                    //vehicleDev.Region = new Guid("C192434E-142F-4666-AD8C-E62B81208DDC");
+                    //vehicleDev.SubRegion = new Guid("2B63422E-30F6-4A8B-9199-B89CCE45BC0A");
+                    //vehicleDev.Active = true;
+                    //vehicleDev.Breakdowns = 0;
+                    //vehicleDev.CostThisMonth = 0;
+                    //vehicleDev.FuelAverage = 0;
+                    //vehicleDev.Ranking = 0;
+                    //vehicleDev.Status = "maintained";
+                    //dbContext.FMSVehiclesDev.Add(vehicleDev);
+                    //dbContext.SaveChanges();
+                }
+                foreach (var v in vehicles)
+                {
+                    double Latitude = 0;
+                    double Longitude = 0;
+                    string subRegion = (from r in dbContext.SubRegions where r.XDescription == v.SubRegion select r.XDescription).SingleOrDefault();
+                    var driver = dbContext.Drivers.Where(x => x.VehicleNumber == v.VehicleNumber).FirstOrDefault();
+                    switch (subRegion)
+                    {
+                        case "Karachi":
+                            Latitude = 24.8607;
+                            Longitude = 67.0011;
+                            break;
+                        case "Quetta":
+                            Latitude = 30.1798;
+                            Longitude = 66.9750;
+                            break;
+                        case "Lahore":
+                            Latitude = 31.5204;
+                            Longitude = 74.3587;
+                            break;
+                        case "Rawalpindi":
+                            Latitude = 33.6844;
+                            Longitude = 73.0479;
+                            break;
+                        case "Islamabad":
+                            Latitude = 33.6844;
+                            Longitude = 73.0479;
+                            break;
+                    }
+                    rbVehicles.Add(new VehicleVM()
+                    {
+                        Active = v.Active,
+                        FuelAverage = v.FuelAverage,
+                        Breakdowns = v.Breakdowns,
+                        CostThisMonth = v.CostThisMonth,
+                        DriverId = driver.Id,
+                        DriverName = driver.Name,
+                        Id = v.Id,
+                        IMEI = v.IMEI,
+                        Ranking = v.Ranking,
+                        Region = v.Region,
+                        SIM = v.SIM,
+                        SubRegion = subRegion,
+                        VehicleId = v.Id,
+                        VehicleNumber = v.VehicleNumber,
+                        Latitude = Latitude,
+                        Longitude = Longitude,
+                        Type = v.Status,
+                        PeriodicRemarks = v.PeriodicStatus == Shared.Enums.PeriodicMaintenanceStatus.Done ? "Periodically Maintained" : "Periodic Maintenance Pending"
+                    });
+                }
+                return Ok(rbVehicles);
             }
             catch (Exception ex)
             {
