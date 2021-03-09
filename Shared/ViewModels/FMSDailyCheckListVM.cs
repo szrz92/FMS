@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SOS.FMS.Shared.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,6 @@ namespace SOS.FMS.Shared.ViewModels
     {
         public string Description { get; set; }
         public string Code { get; set; }
-        public bool Value { get; set; }
+        public DailyCheckStatus Value { get; set; }
     }
 }

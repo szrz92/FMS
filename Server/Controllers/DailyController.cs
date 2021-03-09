@@ -225,7 +225,7 @@ namespace SOS.FMS.Server.Controllers
                 {
                     var parameter = Expression.Parameter(typeof(DailyEvening));
                     var property = Expression.Property(parameter, $"{request.CheckListPointCode}");
-                    var selector = Expression.Lambda<Func<DailyEvening, bool>>(property, parameter);
+                    var selector = Expression.Lambda<Func<DailyEvening, DailyCheckStatus>>(property, parameter);
 
                     SqlParameter vehiclenumber = new SqlParameter("@vehiclenumber", System.Data.SqlDbType.NVarChar)
                     {
@@ -245,13 +245,13 @@ namespace SOS.FMS.Server.Controllers
                         Value = PakistanDateTime.Now
                     };
 
-                    var rowsAffected = dbContext.Database.ExecuteSqlRaw($"UPDATE FMSDailyEveningChecks SET " + request.CheckListPointCode + " = '" + DailyCheckStatus.Checked + "', LastUpdated = @now WHERE VehicleNumber = @vehiclenumber AND CAST(LastUpdated AS DATE) = CAST(@date AS DATE) ", vehiclenumber, date, now);
+                    var rowsAffected = dbContext.Database.ExecuteSqlRaw($"UPDATE DailyEveningChecks SET " + request.CheckListPointCode + " = '" + (int)DailyCheckStatus.Checked + "', LastUpdated = @now WHERE VehicleNumber = @vehiclenumber AND CAST(LastUpdated AS DATE) = CAST(@date AS DATE) ", vehiclenumber, date, now);
                 }
                 if (request.CheckListPointCode.StartsWith('M'))
                 {
                     var parameter = Expression.Parameter(typeof(DailyMorning));
                     var property = Expression.Property(parameter, $"{request.CheckListPointCode}");
-                    var selector = Expression.Lambda<Func<DailyMorning, bool>>(property, parameter);
+                    var selector = Expression.Lambda<Func<DailyMorning, DailyCheckStatus>>(property, parameter);
 
                     SqlParameter vehiclenumber = new SqlParameter("@vehiclenumber", System.Data.SqlDbType.NVarChar)
                     {
@@ -271,7 +271,102 @@ namespace SOS.FMS.Server.Controllers
                         Value = PakistanDateTime.Now
                     };
 
-                    var rowsAffected = dbContext.Database.ExecuteSqlRaw($"UPDATE FMSDailyMorningChecks SET " + request.CheckListPointCode + " = '" + DailyCheckStatus.Checked + "', LastUpdated = @now WHERE VehicleNumber = @vehiclenumber AND CAST(LastUpdated AS DATE) = CAST(@date AS DATE) ", vehiclenumber, date, now);
+                    var rowsAffected = dbContext.Database.ExecuteSqlRaw($"UPDATE DailyMorningChecks SET " + request.CheckListPointCode + " = '" + (int)DailyCheckStatus.Checked + "', LastUpdated = @now WHERE VehicleNumber = @vehiclenumber AND CAST(LastUpdated AS DATE) = CAST(@date AS DATE) ", vehiclenumber, date, now);
+                }
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+        [HttpPost("FMS/CheckList/Point/MarkNotOk")]
+        public IActionResult GetCheckListPointMarkNotOk(ApiRequest request)
+        {
+            try
+            {
+                if (request.CheckListPointCode.StartsWith('E'))
+                {
+                    var parameter = Expression.Parameter(typeof(DailyEvening));
+                    var property = Expression.Property(parameter, $"{request.CheckListPointCode}");
+                    var selector = Expression.Lambda<Func<DailyEvening, DailyCheckStatus>>(property, parameter);
+
+                    SqlParameter vehiclenumber = new SqlParameter("@vehiclenumber", System.Data.SqlDbType.NVarChar)
+                    {
+                        Direction = System.Data.ParameterDirection.Input,
+                        Value = request.VehicleNumber
+                    };
+
+                    SqlParameter date = new SqlParameter("@date", System.Data.SqlDbType.DateTime2)
+                    {
+                        Direction = System.Data.ParameterDirection.Input,
+                        Value = PakistanDateTime.Today
+                    };
+
+                    SqlParameter now = new("@now", System.Data.SqlDbType.DateTime2)
+                    {
+                        Direction = System.Data.ParameterDirection.Input,
+                        Value = PakistanDateTime.Now
+                    };
+
+                    var rowsAffected = dbContext.Database.ExecuteSqlRaw($"UPDATE DailyEveningChecks SET " + request.CheckListPointCode + " = '" + (int)DailyCheckStatus.NotOk + "', LastUpdated = @now WHERE VehicleNumber = @vehiclenumber AND CAST(LastUpdated AS DATE) = CAST(@date AS DATE) ", vehiclenumber, date, now);
+                    if (rowsAffected > 0)
+                    {
+                        Complaint complaint = new Complaint() 
+                        {
+                            Id = Guid.NewGuid(),
+                            VehicleNumber = request.VehicleNumber,
+                            DriverName = dbContext.Drivers.Where(x=>x.VehicleNumber == request.VehicleNumber).SingleOrDefault().Name,
+                            ComplaintDescription = request.Remarks,
+                            PointCode = request.CheckListPointCode,
+                            PointCodeDescription = request.CheckListPoint,
+                            ReportTime = PakistanDateTime.Now
+                        };
+                        dbContext.Complaints.Add(complaint);
+                        dbContext.SaveChanges();
+                    }
+                }
+                if (request.CheckListPointCode.StartsWith('M'))
+                {
+                    var parameter = Expression.Parameter(typeof(DailyMorning));
+                    var property = Expression.Property(parameter, $"{request.CheckListPointCode}");
+                    var selector = Expression.Lambda<Func<DailyMorning, DailyCheckStatus>>(property, parameter);
+
+                    SqlParameter vehiclenumber = new SqlParameter("@vehiclenumber", System.Data.SqlDbType.NVarChar)
+                    {
+                        Direction = System.Data.ParameterDirection.Input,
+                        Value = request.VehicleNumber
+                    };
+
+                    SqlParameter date = new SqlParameter("@date", System.Data.SqlDbType.DateTime2)
+                    {
+                        Direction = System.Data.ParameterDirection.Input,
+                        Value = PakistanDateTime.Today
+                    };
+
+                    SqlParameter now = new SqlParameter("@now", System.Data.SqlDbType.DateTime2)
+                    {
+                        Direction = System.Data.ParameterDirection.Input,
+                        Value = PakistanDateTime.Now
+                    };
+
+                    var rowsAffected = dbContext.Database.ExecuteSqlRaw($"UPDATE DailyMorningChecks SET " + request.CheckListPointCode + " = '" + (int)DailyCheckStatus.NotOk + "', LastUpdated = @now WHERE VehicleNumber = @vehiclenumber AND CAST(LastUpdated AS DATE) = CAST(@date AS DATE) ", vehiclenumber, date, now);
+                    if (rowsAffected > 0)
+                    {
+                        Complaint complaint = new Complaint()
+                        {
+                            Id = Guid.NewGuid(),
+                            VehicleNumber = request.VehicleNumber,
+                            DriverName = dbContext.Drivers.Where(x => x.VehicleNumber == request.VehicleNumber).SingleOrDefault().Name,
+                            ComplaintDescription = request.Remarks,
+                            PointCode = request.CheckListPointCode,
+                            PointCodeDescription = request.CheckListPoint,
+                            ReportTime = PakistanDateTime.Now
+                        };
+                        dbContext.Complaints.Add(complaint);
+                        dbContext.SaveChanges();
+                    }
                 }
 
                 return Ok();
