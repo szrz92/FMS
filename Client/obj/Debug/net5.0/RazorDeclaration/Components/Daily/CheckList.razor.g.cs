@@ -308,8 +308,25 @@ using Microsoft.AspNetCore.SignalR.Client;
     {
     }
 
-    public void PostComplaint()
+    public async void PostComplaint()
     {
+        var postCheckListPointMarkNotOk = await Http.PostAsJsonAsync<ApiRequest>("api/Daily/FMS/CheckList/Point/MarkNotOk",
+            new ApiRequest()
+            {
+                CheckListPointCode = ComplaintPointCode,
+                CheckListPoint = ComplaintPoint,
+                Remarks = ComplaintDescription,
+                VehicleNumber = VehicleNumber
+            });
+
+        if (postCheckListPointMarkNotOk.IsSuccessStatusCode)
+        {
+            ComplaintPoint = null;
+            ComplaintPointCode = null;
+            ComplaintDescription = null;
+            ConfirmNotOkDlgVisible = false;
+            await PopulateCheckList();
+        }
     }
     #endregion
 

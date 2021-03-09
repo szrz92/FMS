@@ -100,7 +100,7 @@
                                                                         {
                                                                             <td class="col-2">
                                                                                 <label class="checkbox checkbox-disabled pb-2">
-                                                                                    <input type="checkbox" disabled> Not OK
+                                                                                    <input type="checkbox" disabled> OK
                                                                                     <span></span>
                                                                                 </label>
                                                                             </td>
@@ -312,16 +312,20 @@
     public async void PostComplaint()
     {
         var postCheckListPointMarkNotOk = await Http.PostAsJsonAsync<ApiRequest>("api/Daily/FMS/CheckList/Point/MarkNotOk",
-            new ApiRequest() 
-            { 
-                CheckListPointCode = ComplaintPointCode, 
-                CheckListPoint = ComplaintPoint, 
-                Remarks = ComplaintDescription, 
-                VehicleNumber = VehicleNumber 
+            new ApiRequest()
+            {
+                CheckListPointCode = ComplaintPointCode,
+                CheckListPoint = ComplaintPoint,
+                Remarks = ComplaintDescription,
+                VehicleNumber = VehicleNumber
             });
 
         if (postCheckListPointMarkNotOk.IsSuccessStatusCode)
         {
+            ComplaintPoint = null;
+            ComplaintPointCode = null;
+            ComplaintDescription = null;
+            ConfirmNotOkDlgVisible = false;
             await PopulateCheckList();
         }
     }

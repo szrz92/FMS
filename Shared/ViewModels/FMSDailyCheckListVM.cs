@@ -25,5 +25,7 @@ namespace SOS.FMS.Shared.ViewModels
         public string Description { get; set; }
         public string Code { get; set; }
         public DailyCheckStatus Value { get; set; }
+        public bool IsChecked { get; set; }
+        public bool IsNotOk { get; set; }
     }
 }

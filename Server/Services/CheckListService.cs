@@ -26,151 +26,201 @@ namespace SOS.FMS.Server.Services
             { 
                 Code = "M1", 
                 Description = "Check Engine Oil Level with dip stick", 
-                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M1").GetValue(dailyMorning, null).ToString(), true)
+                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M1").GetValue(dailyMorning, null).ToString(), true),
+                IsChecked = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M1").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.Checked,
+                IsNotOk = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M1").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.NotOk
             });
             checkListVM.Checklist.Add(new Check()
             {
                 Code = "M2",
                 Description = "Check Battery watter/Terminal",
-                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M2").GetValue(dailyMorning, null).ToString(), true)
+                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M2").GetValue(dailyMorning, null).ToString(), true),
+                IsChecked = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M2").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.Checked,
+                IsNotOk = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M2").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.NotOk
             });
             checkListVM.Checklist.Add(new Check()
             {
                 Code = "M3",
                 Description = "Check Brake",
-                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M3").GetValue(dailyMorning, null).ToString(), true)
+                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M3").GetValue(dailyMorning, null).ToString(), true),
+                IsChecked = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M3").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.Checked,
+                IsNotOk = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M3").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.NotOk
             });
             checkListVM.Checklist.Add(new Check()
             {
                 Code = "M4",
                 Description = "Check Coolant water",
-                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M4").GetValue(dailyMorning, null).ToString(), true)
+                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M4").GetValue(dailyMorning, null).ToString(), true),
+                IsChecked = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M4").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.Checked,
+                IsNotOk = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M4").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.NotOk
             });
             checkListVM.Checklist.Add(new Check()
             {
                 Code = "M5",
                 Description = "Check Ac Belt",
-                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M5").GetValue(dailyMorning, null).ToString(), true)
+                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M5").GetValue(dailyMorning, null).ToString(), true),
+                IsChecked = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M5").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.Checked,
+                IsNotOk = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M5").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.NotOk
             });
             checkListVM.Checklist.Add(new Check()
             {
                 Code = "M6",
                 Description = "Check Genrator Belt",
-                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M6").GetValue(dailyMorning, null).ToString(), true)
+                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M6").GetValue(dailyMorning, null).ToString(), true),
+                IsChecked = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M6").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.Checked,
+                IsNotOk = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M6").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.NotOk
             });
             checkListVM.Checklist.Add(new Check()
             {
                 Code = "M7",
                 Description = "Check Accelerator",
-                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M7").GetValue(dailyMorning, null).ToString(), true)
+                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M7").GetValue(dailyMorning, null).ToString(), true),
+                IsChecked = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M7").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.Checked,
+                IsNotOk = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M7").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.NotOk
             });
             checkListVM.Checklist.Add(new Check()
             {
                 Code = "M8",
                 Description = "Check Ac/Heater",
-                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M8").GetValue(dailyMorning, null).ToString(), true)
+                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M8").GetValue(dailyMorning, null).ToString(), true),
+                IsChecked = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M8").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.Checked,
+                IsNotOk = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M8").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.NotOk
             });
             checkListVM.Checklist.Add(new Check()
             {
                 Code = "M9",
                 Description = "Check All Electric Components",
-                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M9").GetValue(dailyMorning, null).ToString(), true)
+                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M9").GetValue(dailyMorning, null).ToString(), true),
+                IsChecked = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M9").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.Checked,
+                IsNotOk = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M9").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.NotOk
             });
             checkListVM.Checklist.Add(new Check()
             {
                 Code = "M10",
                 Description = "Check All Doors",
-                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M10").GetValue(dailyMorning, null).ToString(), true)
+                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M10").GetValue(dailyMorning, null).ToString(), true),
+                IsChecked = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M10").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.Checked,
+                IsNotOk = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M10").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.NotOk
             });
             checkListVM.Checklist.Add(new Check()
             {
                 Code = "M11",
                 Description = "Check Tyres Condition",
-                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M11").GetValue(dailyMorning, null).ToString(), true)
+                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M11").GetValue(dailyMorning, null).ToString(), true),
+                IsChecked = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M11").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.Checked,
+                IsNotOk = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M11").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.NotOk
             });
             checkListVM.Checklist.Add(new Check()
             {
                 Code = "M12",
                 Description = "Body Check",
-                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M12").GetValue(dailyMorning, null).ToString(), true)
+                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M12").GetValue(dailyMorning, null).ToString(), true),
+                IsChecked = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M12").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.Checked,
+                IsNotOk = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M12").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.NotOk
             });
             checkListVM.Checklist.Add(new Check()
             {
                 Code = "M13",
                 Description = "Check Exuast System",
-                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M13").GetValue(dailyMorning, null).ToString(), true)
+                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M13").GetValue(dailyMorning, null).ToString(), true),
+                IsChecked = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M13").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.Checked,
+                IsNotOk = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M13").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.NotOk
             });
             checkListVM.Checklist.Add(new Check()
             {
                 Code = "M14",
                 Description = "Check All Cameras",
-                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M14").GetValue(dailyMorning, null).ToString(), true)
+                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M14").GetValue(dailyMorning, null).ToString(), true),
+                IsChecked = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M14").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.Checked,
+                IsNotOk = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M14").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.NotOk
             });
             checkListVM.Checklist.Add(new Check()
             {
                 Code = "M15",
                 Description = "Check Radiator Hose Pipe",
-                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M15").GetValue(dailyMorning, null).ToString(), true)
+                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M15").GetValue(dailyMorning, null).ToString(), true),
+                IsChecked = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M15").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.Checked,
+                IsNotOk = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M15").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.NotOk
             });
             checkListVM.Checklist.Add(new Check()
             {
                 Code = "M16",
                 Description = "Air Filter Cleaning",
-                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M16").GetValue(dailyMorning, null).ToString(), true)
+                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M16").GetValue(dailyMorning, null).ToString(), true),
+                IsChecked = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M16").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.Checked,
+                IsNotOk = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M16").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.NotOk
             });
             checkListVM.Checklist.Add(new Check()
             {
                 Code = "M17",
                 Description = "Check Tyres Air Pressure",
-                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M17").GetValue(dailyMorning, null).ToString(), true)
+                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M17").GetValue(dailyMorning, null).ToString(), true),
+                IsChecked = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M17").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.Checked,
+                IsNotOk = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M17").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.NotOk
             });
             checkListVM.Checklist.Add(new Check()
             {
                 Code = "M18",
                 Description = "Check Steering Noise",
-                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M18").GetValue(dailyMorning, null).ToString(), true)
+                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M18").GetValue(dailyMorning, null).ToString(), true),
+                IsChecked = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M18").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.Checked,
+                IsNotOk = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M18").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.NotOk
             });
             checkListVM.Checklist.Add(new Check()
             {
                 Code = "M19",
                 Description = "Check Interior Cleaning",
-                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M19").GetValue(dailyMorning, null).ToString(), true)
+                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M19").GetValue(dailyMorning, null).ToString(), true),
+                IsChecked = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M19").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.Checked,
+                IsNotOk = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M19").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.NotOk
             });
             checkListVM.Checklist.Add(new Check()
             {
                 Code = "M20",
                 Description = "Check Operate key Log",
-                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M20").GetValue(dailyMorning, null).ToString(), true)
+                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M20").GetValue(dailyMorning, null).ToString(), true),
+                IsChecked = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M20").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.Checked,
+                IsNotOk = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M20").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.NotOk
             });
             checkListVM.Checklist.Add(new Check()
             {
                 Code = "M21",
                 Description = "Check ignition Switch",
-                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M21").GetValue(dailyMorning, null).ToString(), true)
+                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M21").GetValue(dailyMorning, null).ToString(), true),
+                IsChecked = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M21").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.Checked,
+                IsNotOk = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M21").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.NotOk
             });
             checkListVM.Checklist.Add(new Check()
             {
                 Code = "M22",
                 Description = "Check Trurn On Head Lights",
-                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M22").GetValue(dailyMorning, null).ToString(), true)
+                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M22").GetValue(dailyMorning, null).ToString(), true),
+                IsChecked = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M22").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.Checked,
+                IsNotOk = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M22").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.NotOk
             });
             checkListVM.Checklist.Add(new Check()
             {
                 Code = "M23",
                 Description = "Turn On Indicators Lights",
-                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M23").GetValue(dailyMorning, null).ToString(), true)
+                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M23").GetValue(dailyMorning, null).ToString(), true),
+                IsChecked = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M23").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.Checked,
+                IsNotOk = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M23").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.NotOk
             });
             checkListVM.Checklist.Add(new Check()
             {
                 Code = "M24",
                 Description = "Check Clutch Pedal",
-                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M24").GetValue(dailyMorning, null).ToString(), true)
+                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M24").GetValue(dailyMorning, null).ToString(), true),
+                IsChecked = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M24").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.Checked,
+                IsNotOk = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M24").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.NotOk
             });
             checkListVM.Checklist.Add(new Check()
             {
                 Code = "M25",
                 Description = "Check Vault Door lock Function",
-                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M25").GetValue(dailyMorning, null).ToString(), true)
+                Value = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M25").GetValue(dailyMorning, null).ToString(), true),
+                IsChecked = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M25").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.Checked,
+                IsNotOk = (DailyCheckStatus)Enum.Parse(typeof(DailyCheckStatus), dailyMorning.GetType().GetProperty("M25").GetValue(dailyMorning, null).ToString(), true) == DailyCheckStatus.NotOk
             });
 
             int totalChecks = checkListVM.Checklist.Count;
