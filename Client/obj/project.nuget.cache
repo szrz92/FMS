@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "UVYQOk3Pz42WcNF3M9CTzNtN/SMwQJjnnvX6P4LeuVFZCUmxI7HUYh39CfXG1TguuYinBV2bEKT4/01O9wt3Eg==",
+  "dgSpecHash": "MD1QhD6lVvnGGzZGj+T+Bu4gRQxRY/DtgiR/JCEuF5F+sd+dY9EC7IktN0pRiOR+A2Q6rNg01tIljDs1Lrqr2g==",
   "success": true,
   "projectFilePath": "C:\\Users\\BA Tech\\source\\repos\\sosfms\\Client\\SOS.FMS.Client.csproj",
   "expectedPackageFiles": [
@@ -203,7 +203,7 @@
     "C:\\Users\\BA Tech\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Users\\BA Tech\\.nuget\\packages\\system.xml.xpath\\4.3.0\\system.xml.xpath.4.3.0.nupkg.sha512",
     "C:\\Users\\BA Tech\\.nuget\\packages\\system.xml.xpath.xdocument\\4.3.0\\system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\BA Tech\\.nuget\\packages\\microsoft.netcore.app.runtime.browser-wasm\\5.0.3\\microsoft.netcore.app.runtime.browser-wasm.5.0.3.nupkg.sha512"
+    "C:\\Users\\BA Tech\\.nuget\\packages\\microsoft.netcore.app.runtime.browser-wasm\\5.0.4\\microsoft.netcore.app.runtime.browser-wasm.5.0.4.nupkg.sha512"
   ],
   "logs": []
 }
