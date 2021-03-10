@@ -15,6 +15,7 @@ namespace SOS.FMS.Shared
         public Guid FMSEmergencyId { get; set; }
         public Guid FMSVehicleId { get; set; }
         public string VehicleNumber { get; set; }
+        public string CheckListPoint { get; set; }
         public string CheckListPointCode { get; set; }
         public string Remarks { get; set; }
         public string UserName { get; set; }

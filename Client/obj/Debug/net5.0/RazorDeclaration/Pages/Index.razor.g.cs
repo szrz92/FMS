@@ -197,7 +197,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 317 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Index.razor"
+#line 297 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Index.razor"
  
     [CascadingParameter]
     Task<AuthenticationState> AuthenticationState { get; set; }
@@ -469,7 +469,7 @@ using Microsoft.AspNetCore.SignalR.Client;
     public void Daily_JSInvoked(string vehicleNumber)
     {
         dailyCheckListVehicleNumber = vehicleNumber;
-        ConfirmDailyDlgVisible = true;
+        dailyCheckListSideModal = true;
         StateHasChanged();
     }
 
@@ -522,7 +522,6 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     public bool ConfirmEmergencyDlgVisible { get; set; } = false;
     public bool ConfirmAccidentDlgVisible { get; set; } = false;
-    public bool ConfirmDailyDlgVisible { get; set; } = false;
     public bool HistoryDlgVisible { get; set; } = false;
     public bool PeriodicHistoryDlgVisible { get; set; } = false;
 
@@ -532,7 +531,6 @@ using Microsoft.AspNetCore.SignalR.Client;
     {
         this.ConfirmEmergencyDlgVisible = false;
         this.ConfirmAccidentDlgVisible = false;
-        this.ConfirmDailyDlgVisible = false;
         this.PeriodicHistoryDlgVisible = false;
     }
 
@@ -540,7 +538,6 @@ using Microsoft.AspNetCore.SignalR.Client;
     {
         this.ConfirmEmergencyDlgVisible = false;
         this.ConfirmAccidentDlgVisible = false;
-        this.ConfirmDailyDlgVisible = false;
         this.HistoryDlgVisible = false;
         this.PeriodicHistoryDlgVisible = false;
     }
@@ -594,11 +591,6 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
     }
 
-    public void ConfirmDaily()
-    {
-        this.ConfirmDailyDlgVisible = false;
-        dailyCheckListSideModal = true;
-    }
     #endregion
 
     public void Dispose()

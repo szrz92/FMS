@@ -323,19 +323,57 @@ namespace SOS.FMS.Server.Migrations
                         {
                             Id = "c58e1a9d-1c28-46db-830a-7b3f0b9663f1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "dc3389d0-35ab-4878-a5ce-1852e4226b0a",
+                            ConcurrencyStamp = "2e983d53-aae2-4c8d-8619-90bf6da09023",
                             Email = "z.raza@batech.com.pk",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             Name = "Zain Raza",
                             NormalizedEmail = "Z.RAZA@BATECH.COM.PK",
                             NormalizedUserName = "Z.RAZA@BATECH.COM.PK",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOtXG+mX62rK+0Dy0IxRmuBu5YOL0hK+ocTqytKUrcgFFoJZo2wwchBtsJImPSMdaQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDlvuDhjtrm6ugwnx8BMd1KMV0MaLqbaHPMi0jLRQCghY63FJnTVrFO9QPMwFNXZmA==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "f7c7281e-5c1f-45a5-a440-907b9f81eb94",
+                            SecurityStamp = "4e8f0cb3-0348-49ee-8644-8b1b1f0d12c6",
                             TwoFactorEnabled = false,
                             UserName = "z.raza@batech.com.pk"
                         });
+                });
+
+            modelBuilder.Entity("SOS.FMS.Server.Models.Complaint", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ComplaintDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DriverName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PointCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PointCodeDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Region")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ReportTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Subregion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VehicleNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Complaints");
                 });
 
             modelBuilder.Entity("SOS.FMS.Server.Models.DailyEvening", b =>

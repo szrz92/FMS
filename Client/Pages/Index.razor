@@ -190,8 +190,7 @@
 
 @if (dailyCheckListSideModal)
 {
-    <DailyCheckList OnVisibilityChanged="ShowHideDailyCheckList" Visible="@dailyCheckListSideModal" VehicleNumber="@dailyCheckListVehicleNumber" />
-
+    <SOS.FMS.Client.Components.Daily.CheckList OnVisibilityChanged="ShowHideDailyCheckList" Visible="@dailyCheckListSideModal" VehicleNumber="@dailyCheckListVehicleNumber" />
 }
 
 @if (periodicCheckListSideModal)
@@ -237,25 +236,6 @@
     <DialogEvents Closed="@DialogClose"></DialogEvents>
     <DialogButtons>
         <DialogButton Content="Yes" IsPrimary="true" OnClick="@ConfirmAccident" />
-        <DialogButton Content="No" OnClick="@HideDialog" />
-    </DialogButtons>
-</SfDialog>
-<SfDialog @bind-Visible="@ConfirmDailyDlgVisible" Width="400px" Target="#target" ShowCloseIcon="true">
-    <DialogTemplates>
-        <Header>
-            Confirmation
-        </Header>
-        <Content>
-            <span>Brief Description</span>
-            <span class="e-input-group w-100">
-                <input type="text" id="password" name="Required" @bind-value="Description" class="e-input w-100">
-            </span>
-            Are you sure you want to mark vehicle @(dailyCheckListVehicleNumber) as daily maintenance?
-        </Content>
-    </DialogTemplates>
-    <DialogEvents Closed="@DialogClose"></DialogEvents>
-    <DialogButtons>
-        <DialogButton Content="Yes" IsPrimary="true" OnClick="@ConfirmDaily" />
         <DialogButton Content="No" OnClick="@HideDialog" />
     </DialogButtons>
 </SfDialog>
@@ -585,7 +565,7 @@
     public void Daily_JSInvoked(string vehicleNumber)
     {
         dailyCheckListVehicleNumber = vehicleNumber;
-        ConfirmDailyDlgVisible = true;
+        dailyCheckListSideModal = true;
         StateHasChanged();
     }
 
@@ -638,7 +618,6 @@
 
     public bool ConfirmEmergencyDlgVisible { get; set; } = false;
     public bool ConfirmAccidentDlgVisible { get; set; } = false;
-    public bool ConfirmDailyDlgVisible { get; set; } = false;
     public bool HistoryDlgVisible { get; set; } = false;
     public bool PeriodicHistoryDlgVisible { get; set; } = false;
 
@@ -648,7 +627,6 @@
     {
         this.ConfirmEmergencyDlgVisible = false;
         this.ConfirmAccidentDlgVisible = false;
-        this.ConfirmDailyDlgVisible = false;
         this.PeriodicHistoryDlgVisible = false;
     }
 
@@ -656,7 +634,6 @@
     {
         this.ConfirmEmergencyDlgVisible = false;
         this.ConfirmAccidentDlgVisible = false;
-        this.ConfirmDailyDlgVisible = false;
         this.HistoryDlgVisible = false;
         this.PeriodicHistoryDlgVisible = false;
     }
@@ -710,11 +687,6 @@
         }
     }
 
-    public void ConfirmDaily()
-    {
-        this.ConfirmDailyDlgVisible = false;
-        dailyCheckListSideModal = true;
-    }
     #endregion
 
     public void Dispose()

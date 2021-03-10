@@ -1,0 +1,359 @@
+﻿@inject HttpClient Http
+
+<style>
+    .overflow-bottom {
+        height: 300px;
+        overflow: auto;
+        display: flex;
+        flex-direction: column-reverse;
+    }
+</style>
+
+@if (Visible)
+{
+    <div id="kt_quick_cart3" class="offcanvas offcanvas-right p-10 offcanvas-on" style="width:50%">
+        <!--begin::Header-->
+        <div class="offcanvas-header d-flex align-items-center justify-content-between pb-7" kt-hidden-height="46" style="">
+            <h4 class="font-weight-bold m-0">Daily Check List for @VehicleNumber</h4>
+            <a @onclick="closeDailyCheckList" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_cart_close">
+                <i class="ki ki-close icon-xs text-muted"></i>
+            </a>
+        </div>
+        <!--end::Header-->
+        <!--begin::Content-->
+        <div class="offcanvas-content">
+            @if (FMSDailyCheckList.Any())
+            {
+                <div class="offcanvas-wrapper mb-2 scroll-pull scroll ps ps--active-y" style="height: auto;overflow:visible">
+                    <div class="d-flex align-items-center justify-content-between py-4">
+                        <!--begin::Accordion-->
+                        <div class="accordion accordion-toggle-arrow w-100" id="DailyCheckAccordion">
+                            @foreach (var cat in FMSDailyCheckList.GroupBy(s => s.Category))
+                            {
+                                <div class="card mt-1">
+                                    <div class="card-header">
+                                        <div class="card-title collapsed" data-toggle="collapse" data-target="#@(cat.Key)" aria-expanded="false">
+                                            @cat.Key
+
+                                            <span class="font-weight-light font-size-sm text-muted text-right mt-1 ml-5">Last Updated: @cat.FirstOrDefault().LastUpdated.ToString("dd-MMM-yy HH:mm:ss") </span>
+                                        </div>
+                                    </div>
+                                    <div id="@(cat.Key)" class="collapse" data-parent="#DailyCheckAccordion" style="">
+                                        <div class="card-body">
+                                            @foreach (var subcat in cat.GroupBy(s => s.SubCategeory))
+                                            {
+                                                <div class="card mt-1">
+                                                    <div class="card-header">
+                                                        <div class="card-title collapsed" data-toggle="collapse" data-target="#@(cat.Key + subcat.Key)" aria-expanded="false">
+                                                            @subcat.Key
+                                                        </div>
+                                                    </div>
+                                                    <div id="@(cat.Key + subcat.Key)" class="collapse" data-parent="#@(cat.Key)" style="">
+                                                        <div class="card-body">
+                                                            <table class="table w-100">
+                                                                <tbody>
+                                                                    @foreach (var itemList in subcat.GroupBy(x => new { x.Category, x.SubCategeory, x.Checklist }))
+                                                                    {
+                                                                        foreach (var i in itemList.Key.Checklist)
+                                                                        {
+                                                                            <tr class="row">
+                                                                                <td class="col-8">
+                                                                                    @i.Description
+                                                                                </td>
+                                                                                @if (i.Value == FMS.Shared.Enums.DailyCheckStatus.NotOk)
+                                                                                {
+                                                                                    <td class="col-2">
+                                                                                        <label class="checkbox checkbox-disabled pb-2">
+                                                                                            <input type="checkbox" checked="checked" disabled> Not OK
+                                                                                            <span></span>
+                                                                                        </label>
+                                                                                    </td>
+                                                                                }
+                                                                                else if (i.Value == FMS.Shared.Enums.DailyCheckStatus.Checked)
+                                                                                {
+                                                                                    <td class="col-2">
+                                                                                        <label class="checkbox checkbox-disabled pb-2">
+                                                                                            <input type="checkbox" disabled> Not OK
+                                                                                            <span></span>
+                                                                                        </label>
+                                                                                    </td>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <td class="col-2">
+                                                                                        <label class="checkbox checkbox-danger pb-2">
+                                                                                            <input type="checkbox" @onclick="()=> MarkPointNotOK(i.Code, i.Description)"> Not OK
+                                                                                            <span></span>
+                                                                                        </label>
+                                                                                    </td>
+                                                                                }
+                                                                                @if ((i.Value == FMS.Shared.Enums.DailyCheckStatus.Checked))
+                                                                                {
+                                                                                    <td class="col-2">
+                                                                                        <label class="checkbox checkbox-disabled pb-2">
+                                                                                            <input type="checkbox" checked="checked" disabled> OK
+                                                                                            <span></span>
+                                                                                        </label>
+                                                                                    </td>
+                                                                                }
+                                                                                else if (i.Value == FMS.Shared.Enums.DailyCheckStatus.NotOk)
+                                                                                {
+                                                                                    <td class="col-2">
+                                                                                        <label class="checkbox checkbox-disabled pb-2">
+                                                                                            <input type="checkbox" disabled> OK
+                                                                                            <span></span>
+                                                                                        </label>
+                                                                                    </td>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <td class="col-2">
+                                                                                        <label class="checkbox checkbox-primary pb-2">
+                                                                                            <input type="checkbox" @onclick="()=> MarkPointDone(i.Code)"> OK
+                                                                                            <span></span>
+                                                                                        </label>
+                                                                                    </td>
+
+                                                                                }
+                                                                            </tr>
+                                                                        }
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <!--end::Accordion-->
+                    </div>
+                </div>
+                <div class="offcanvas-footer" kt-hidden-height="112" style="">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Place remarks here" @bind="Remarks"></textarea>
+                    </div>
+                    <div class="text-right">
+                        <button type="button" class="btn btn-secondary text-weight-bold" @onclick="ShowRemarksList">Show Remarks</button>
+                        <button type="button" class="btn btn-fms text-weight-bold" @onclick="PostRemarks">Submit</button>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <img style="position:fixed;top:50%;left:70%;" src="assets/media/loading.gif" />
+            }
+        </div>
+    </div>
+}
+
+
+<SfDialog @bind-Visible="@RemarksDialog" Width="600px" CloseOnEscape="true" Target="#main" ShowCloseIcon="true">
+    <DialogTemplates>
+        <Header>
+            <h1>Today's Remarks</h1>
+        </Header>
+        <Content>
+            @if (RemarksList != null)
+            {
+                <div class="overflow-bottom">
+                    @foreach (var rem in RemarksList)
+                    {
+                        <div class="row">
+                            <div class="col-8">@rem.Remark</div>
+                            <div class="col-4">@rem.TimeStamp.ToString("HH:mm:ss")</div>
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col-8"><h5 class="font-weight-bolder">Remark</h5></div>
+                        <div class="col-4"><h5 class="font-weight-bolder">Timestamp</h5></div>
+                    </div>
+                </div>
+            }
+        </Content>
+    </DialogTemplates>
+    <DialogEvents Closed="@DialogClose"></DialogEvents>
+</SfDialog>
+
+<SfDialog @bind-Visible="@ConfirmNotOkDlgVisible" Width="400px" Target="#target" ShowCloseIcon="true">
+    <DialogTemplates>
+        <Header>
+            Confirmation
+        </Header>
+        <Content>
+            <span>Brief Description</span>
+            <span class="e-input-group w-100">
+                <input type="text" id="password" name="Required" @bind-value="ComplaintDescription" class="e-input w-100">
+            </span>
+            Are you sure about this complaint?
+        </Content>
+    </DialogTemplates>
+    <DialogEvents Closed="@DialogClose"></DialogEvents>
+    <DialogButtons>
+        <DialogButton Content="Yes" IsPrimary="true" OnClick="@PostComplaint" />
+        <DialogButton Content="No" OnClick="@DialogClose" />
+    </DialogButtons>
+</SfDialog>
+<SfDialog @bind-Visible="@ResponseDialog" Width="400px" Target="#target" ShowCloseIcon="true">
+    <DialogTemplates>
+        <Header>
+            @ResponseHeader
+        </Header>
+        <Content>
+            @ResponseBody
+        </Content>
+    </DialogTemplates>
+    <DialogEvents Closed="@DialogClose"></DialogEvents>
+    <DialogButtons>
+        <DialogButton Content="Ok" OnClick="@DialogClose" />
+    </DialogButtons>
+</SfDialog>
+@code{
+    [Parameter]
+    public string VehicleNumber { get; set; }
+    [Parameter]
+    public bool Visible { get; set; }
+    [Parameter]
+    public EventCallback<bool> OnVisibilityChanged { get; set; }
+
+    List<FMSDailyCheckListVM> FMSDailyCheckList = new List<FMSDailyCheckListVM>();
+    List<RemarksVM> RemarksList;
+
+    public string Remarks { get; set; } = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (Visible && !string.IsNullOrEmpty(VehicleNumber) && firstRender)
+        {
+            await PopulateCheckList();
+        }
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    public Task closeDailyCheckList()
+    {
+        return OnVisibilityChanged.InvokeAsync(false);
+    }
+
+    public async Task PopulateCheckList()
+    {
+
+        var getDailyCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Daily/FMS/CheckList", new ApiRequest() { VehicleNumber = VehicleNumber });
+        if (getDailyCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
+        {
+            string response = await (getDailyCheckListResponse).Content.ReadAsStringAsync();
+            FMSDailyCheckList = JsonConvert.DeserializeObject<List<FMSDailyCheckListVM>>(response);
+        }
+        else
+        {
+        }
+    }
+
+    public void MarkPointNotOK(string pointCode, string point)
+    {
+        ComplaintPoint = point;
+        ComplaintPointCode = pointCode;
+        ConfirmNotOkDlgVisible = true;
+        StateHasChanged();
+    }
+    public async Task MarkPointDone(string pointCode)
+    {
+        var postCheckListPointMarkDone = await Http.PostAsJsonAsync<ApiRequest>("api/Daily/FMS/CheckList/Point/MarkDone",
+            new ApiRequest() { CheckListPointCode = pointCode, VehicleNumber = VehicleNumber });
+        if (postCheckListPointMarkDone.IsSuccessStatusCode)
+        {
+            await PopulateCheckList();
+        }
+    }
+
+    public async void PostRemarks()
+    {
+        ApiRequest request = new ApiRequest() { VehicleNumber = FMSDailyCheckList.FirstOrDefault().VehicleNumber, Remarks = Remarks };
+        var postRemarksResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Daily/FMS/CheckList/Remarks/Add", request);
+        if (postRemarksResponse.IsSuccessStatusCode)
+        {
+            Remarks = "";
+            await ShowRemarksList();
+        }
+        else
+        {
+        }
+    }
+
+    public async Task ShowRemarksList()
+    {
+        await PopulateCheckList();
+        List<RemarksVM> remList = new List<RemarksVM>();
+        string rem = FMSDailyCheckList.FirstOrDefault().Remarks;
+        List<string> remSeparator = rem.Split('*').ToList();
+        foreach (var r in remSeparator)
+        {
+            try
+            {
+                string[] data = r.Split('|');
+                remList.Add(new RemarksVM() { Remark = data[0], TimeStamp = Convert.ToDateTime(data[1]) });
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+        RemarksList = remList.OrderByDescending(x => x.TimeStamp).ToList();
+        RemarksDialog = true;
+        StateHasChanged();
+    }
+
+    #region Dialog
+    public bool RemarksDialog { get; set; }
+
+    public bool ConfirmNotOkDlgVisible { get; set; } = false;
+    public string ComplaintDescription { get; set; }
+    public string ComplaintPoint { get; set; }
+    public string ComplaintPointCode { get; set; }
+
+
+    public bool ResponseDialog { get; set; } = false;
+    public string ResponseHeader { get; set; }
+    public string ResponseBody { get; set; }
+
+    public void DialogClose()
+    {
+        ComplaintPoint = null;
+        ComplaintPointCode = null;
+        ComplaintDescription = null;
+        ConfirmNotOkDlgVisible = false;
+
+        ResponseHeader = null;
+        ResponseBody = null;
+        ResponseDialog = false;
+    }
+
+    public async void PostComplaint()
+    {
+        var postCheckListPointMarkNotOk = await Http.PostAsJsonAsync<ApiRequest>("api/Daily/FMS/CheckList/Point/MarkNotOk",
+            new ApiRequest()
+            {
+                CheckListPointCode = ComplaintPointCode,
+                CheckListPoint = ComplaintPoint,
+                Remarks = ComplaintDescription,
+                VehicleNumber = VehicleNumber
+            });
+
+        if (postCheckListPointMarkNotOk.IsSuccessStatusCode)
+        {
+            await PopulateCheckList();
+            ResponseHeader = "Response";
+            ResponseBody = await postCheckListPointMarkNotOk.Content.ReadAsStringAsync();
+            ResponseDialog = true;
+            StateHasChanged();
+        }
+    }
+    #endregion
+}

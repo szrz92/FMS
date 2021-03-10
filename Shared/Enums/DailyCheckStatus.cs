@@ -8,8 +8,8 @@ namespace SOS.FMS.Shared.Enums
 {
     public enum DailyCheckStatus
     {
-        Checked,
         UnChecked,
+        Checked,
         NotOk
     }
 }

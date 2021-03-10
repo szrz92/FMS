@@ -38,7 +38,7 @@ namespace SOS.FMS.Server.Models
         public DbSet<DailyMorning> DailyMorningChecks { get; set; }
         public DbSet<DailyEvening> DailyEveningChecks { get; set; }
         public DbSet<PeriodicHistory> PeriodicHistories { get; set; }
-
+        public DbSet<Complaint> Complaints { get; set; }
         public DbSet<AccidentBill> AccidentBills{ get; set; }
         public DbSet<EmergencyBill> EmergencyBills { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
