@@ -195,7 +195,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 200 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Daily\CheckList.razor"
+#line 214 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Daily\CheckList.razor"
       
     [Parameter]
     public string VehicleNumber { get; set; }
@@ -297,15 +297,27 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     #region Dialog
     public bool RemarksDialog { get; set; }
+
     public bool ConfirmNotOkDlgVisible { get; set; } = false;
-
     public string ComplaintDescription { get; set; }
-
     public string ComplaintPoint { get; set; }
     public string ComplaintPointCode { get; set; }
 
+
+    public bool ResponseDialog { get; set; } = false;
+    public string ResponseHeader { get; set; }
+    public string ResponseBody { get; set; }
+
     public void DialogClose()
     {
+        ComplaintPoint = null;
+        ComplaintPointCode = null;
+        ComplaintDescription = null;
+        ConfirmNotOkDlgVisible = false;
+
+        ResponseHeader = null;
+        ResponseBody = null;
+        ResponseDialog = false;
     }
 
     public async void PostComplaint()
@@ -321,11 +333,11 @@ using Microsoft.AspNetCore.SignalR.Client;
 
         if (postCheckListPointMarkNotOk.IsSuccessStatusCode)
         {
-            ComplaintPoint = null;
-            ComplaintPointCode = null;
-            ComplaintDescription = null;
-            ConfirmNotOkDlgVisible = false;
             await PopulateCheckList();
+            ResponseHeader = "Response";
+            ResponseBody = await postCheckListPointMarkNotOk.Content.ReadAsStringAsync();
+            ResponseDialog = true;
+            StateHasChanged();
         }
     }
     #endregion

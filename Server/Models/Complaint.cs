@@ -13,6 +13,8 @@ namespace SOS.FMS.Server.Models
         public string ComplaintDescription { get; set; }
         public string VehicleNumber { get; set; }
         public string DriverName { get; set; }
+        public string Region { get; set; }
+        public string Subregion { get; set; }
         public DateTime ReportTime { get; set; }
     }
 }

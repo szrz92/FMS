@@ -56,66 +56,66 @@
                                                                     {
                                                                         foreach (var i in itemList.Key.Checklist)
                                                                         {
-                                                                    <tr class="row">
-                                                                        <td class="col-8">
-                                                                            @i.Description
-                                                                        </td>
-                                                                        @if (i.Value == FMS.Shared.Enums.DailyCheckStatus.NotOk)
-                                                                        {
-                                                                            <td class="col-2">
-                                                                                <label class="checkbox checkbox-disabled pb-2">
-                                                                                    <input type="checkbox" checked="checked" disabled> Not OK
-                                                                                    <span></span>
-                                                                                </label>
-                                                                            </td>
-                                                                        }
-                                                                        else if (i.Value == FMS.Shared.Enums.DailyCheckStatus.Checked)
-                                                                        {
-                                                                            <td class="col-2">
-                                                                                <label class="checkbox checkbox-disabled pb-2">
-                                                                                    <input type="checkbox" disabled> Not OK
-                                                                                    <span></span>
-                                                                                </label>
-                                                                            </td>
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            <td class="col-2">
-                                                                                <label class="checkbox checkbox-danger pb-2">
-                                                                                    <input type="checkbox" @onclick="()=> MarkPointNotOK(i.Code, i.Description)"> Not OK
-                                                                                    <span></span>
-                                                                                </label>
-                                                                            </td>
-                                                                        }
-                                                                        @if ((i.Value == FMS.Shared.Enums.DailyCheckStatus.Checked))
-                                                                        {
-                                                                            <td class="col-2">
-                                                                                <label class="checkbox checkbox-disabled pb-2">
-                                                                                    <input type="checkbox" checked="checked" disabled> OK
-                                                                                    <span></span>
-                                                                                </label>
-                                                                            </td>
-                                                                        }
-                                                                        else if (i.Value == FMS.Shared.Enums.DailyCheckStatus.NotOk)
-                                                                        {
-                                                                            <td class="col-2">
-                                                                                <label class="checkbox checkbox-disabled pb-2">
-                                                                                    <input type="checkbox" disabled> OK
-                                                                                    <span></span>
-                                                                                </label>
-                                                                            </td>
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            <td class="col-2">
-                                                                                <label class="checkbox checkbox-primary pb-2">
-                                                                                    <input type="checkbox" @onclick="()=> MarkPointDone(i.Code)"> OK
-                                                                                    <span></span>
-                                                                                </label>
-                                                                            </td>
+                                                                            <tr class="row">
+                                                                                <td class="col-8">
+                                                                                    @i.Description
+                                                                                </td>
+                                                                                @if (i.Value == FMS.Shared.Enums.DailyCheckStatus.NotOk)
+                                                                                {
+                                                                                    <td class="col-2">
+                                                                                        <label class="checkbox checkbox-disabled pb-2">
+                                                                                            <input type="checkbox" checked="checked" disabled> Not OK
+                                                                                            <span></span>
+                                                                                        </label>
+                                                                                    </td>
+                                                                                }
+                                                                                else if (i.Value == FMS.Shared.Enums.DailyCheckStatus.Checked)
+                                                                                {
+                                                                                    <td class="col-2">
+                                                                                        <label class="checkbox checkbox-disabled pb-2">
+                                                                                            <input type="checkbox" disabled> Not OK
+                                                                                            <span></span>
+                                                                                        </label>
+                                                                                    </td>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <td class="col-2">
+                                                                                        <label class="checkbox checkbox-danger pb-2">
+                                                                                            <input type="checkbox" @onclick="()=> MarkPointNotOK(i.Code, i.Description)"> Not OK
+                                                                                            <span></span>
+                                                                                        </label>
+                                                                                    </td>
+                                                                                }
+                                                                                @if ((i.Value == FMS.Shared.Enums.DailyCheckStatus.Checked))
+                                                                                {
+                                                                                    <td class="col-2">
+                                                                                        <label class="checkbox checkbox-disabled pb-2">
+                                                                                            <input type="checkbox" checked="checked" disabled> OK
+                                                                                            <span></span>
+                                                                                        </label>
+                                                                                    </td>
+                                                                                }
+                                                                                else if (i.Value == FMS.Shared.Enums.DailyCheckStatus.NotOk)
+                                                                                {
+                                                                                    <td class="col-2">
+                                                                                        <label class="checkbox checkbox-disabled pb-2">
+                                                                                            <input type="checkbox" disabled> OK
+                                                                                            <span></span>
+                                                                                        </label>
+                                                                                    </td>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <td class="col-2">
+                                                                                        <label class="checkbox checkbox-primary pb-2">
+                                                                                            <input type="checkbox" @onclick="()=> MarkPointDone(i.Code)"> OK
+                                                                                            <span></span>
+                                                                                        </label>
+                                                                                    </td>
 
-                                                                        }
-                                                                    </tr>
+                                                                                }
+                                                                            </tr>
                                                                         }
                                                                     }
                                                                 </tbody>
@@ -195,6 +195,20 @@
     <DialogButtons>
         <DialogButton Content="Yes" IsPrimary="true" OnClick="@PostComplaint" />
         <DialogButton Content="No" OnClick="@DialogClose" />
+    </DialogButtons>
+</SfDialog>
+<SfDialog @bind-Visible="@ResponseDialog" Width="400px" Target="#target" ShowCloseIcon="true">
+    <DialogTemplates>
+        <Header>
+            @ResponseHeader
+        </Header>
+        <Content>
+            @ResponseBody
+        </Content>
+    </DialogTemplates>
+    <DialogEvents Closed="@DialogClose"></DialogEvents>
+    <DialogButtons>
+        <DialogButton Content="Ok" OnClick="@DialogClose" />
     </DialogButtons>
 </SfDialog>
 @code{
@@ -298,15 +312,27 @@
 
     #region Dialog
     public bool RemarksDialog { get; set; }
+
     public bool ConfirmNotOkDlgVisible { get; set; } = false;
-
     public string ComplaintDescription { get; set; }
-
     public string ComplaintPoint { get; set; }
     public string ComplaintPointCode { get; set; }
 
+
+    public bool ResponseDialog { get; set; } = false;
+    public string ResponseHeader { get; set; }
+    public string ResponseBody { get; set; }
+
     public void DialogClose()
     {
+        ComplaintPoint = null;
+        ComplaintPointCode = null;
+        ComplaintDescription = null;
+        ConfirmNotOkDlgVisible = false;
+
+        ResponseHeader = null;
+        ResponseBody = null;
+        ResponseDialog = false;
     }
 
     public async void PostComplaint()
@@ -322,11 +348,11 @@
 
         if (postCheckListPointMarkNotOk.IsSuccessStatusCode)
         {
-            ComplaintPoint = null;
-            ComplaintPointCode = null;
-            ComplaintDescription = null;
-            ConfirmNotOkDlgVisible = false;
             await PopulateCheckList();
+            ResponseHeader = "Response";
+            ResponseBody = await postCheckListPointMarkNotOk.Content.ReadAsStringAsync();
+            ResponseDialog = true;
+            StateHasChanged();
         }
     }
     #endregion

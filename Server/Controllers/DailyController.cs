@@ -313,18 +313,34 @@ namespace SOS.FMS.Server.Controllers
                     var rowsAffected = dbContext.Database.ExecuteSqlRaw($"UPDATE DailyEveningChecks SET " + request.CheckListPointCode + " = '" + (int)DailyCheckStatus.NotOk + "', LastUpdated = @now WHERE VehicleNumber = @vehiclenumber AND CAST(LastUpdated AS DATE) = CAST(@date AS DATE) ", vehiclenumber, date, now);
                     if (rowsAffected > 0)
                     {
-                        Complaint complaint = new Complaint() 
+                        IEnumerable<Complaint> complaints = dbContext.Complaints.Where(x => x.VehicleNumber == request.VehicleNumber && x.PointCode == request.CheckListPointCode);
+                        if (!complaints.Any())
                         {
-                            Id = Guid.NewGuid(),
-                            VehicleNumber = request.VehicleNumber,
-                            DriverName = dbContext.Drivers.Where(x=>x.VehicleNumber == request.VehicleNumber).SingleOrDefault().Name,
-                            ComplaintDescription = request.Remarks,
-                            PointCode = request.CheckListPointCode,
-                            PointCodeDescription = request.CheckListPoint,
-                            ReportTime = PakistanDateTime.Now
-                        };
-                        dbContext.Complaints.Add(complaint);
-                        dbContext.SaveChanges();
+                            Complaint complaint = new()
+                            {
+                                Id = Guid.NewGuid(),
+                                VehicleNumber = request.VehicleNumber,
+                                DriverName = dbContext.Drivers.Where(x => x.VehicleNumber == request.VehicleNumber).SingleOrDefault().Name,
+                                Region = dbContext.Drivers.Where(x => x.VehicleNumber == request.VehicleNumber).SingleOrDefault().Region,
+                                Subregion = dbContext.Drivers.Where(x => x.VehicleNumber == request.VehicleNumber).SingleOrDefault().SubRegion,
+                                ComplaintDescription = request.Remarks,
+                                PointCode = request.CheckListPointCode,
+                                PointCodeDescription = request.CheckListPoint,
+                                ReportTime = PakistanDateTime.Now
+                            };
+                            dbContext.Complaints.Add(complaint);
+                            dbContext.SaveChanges();
+
+                            return Ok($"Complaint registered against point {request.CheckListPoint} for vehicle number {request.VehicleNumber}.");
+                        }
+                        else
+                        {
+                            return Ok($"Complaint is already registered against point {request.CheckListPoint} for vehicle number {request.VehicleNumber}.");
+                        }
+                    }
+                    else
+                    {
+                        return Ok($"Complaint could not be registered against point {request.CheckListPoint} for vehicle number {request.VehicleNumber}. Please try again later. If the problem persists, please contact systems administrator.");
                     }
                 }
                 if (request.CheckListPointCode.StartsWith('M'))
@@ -354,18 +370,34 @@ namespace SOS.FMS.Server.Controllers
                     var rowsAffected = dbContext.Database.ExecuteSqlRaw($"UPDATE DailyMorningChecks SET " + request.CheckListPointCode + " = '" + (int)DailyCheckStatus.NotOk + "', LastUpdated = @now WHERE VehicleNumber = @vehiclenumber AND CAST(LastUpdated AS DATE) = CAST(@date AS DATE) ", vehiclenumber, date, now);
                     if (rowsAffected > 0)
                     {
-                        Complaint complaint = new Complaint()
+                        IEnumerable<Complaint> complaints = dbContext.Complaints.Where(x => x.VehicleNumber == request.VehicleNumber && x.PointCode == request.CheckListPointCode);
+                        if (!complaints.Any())
                         {
-                            Id = Guid.NewGuid(),
-                            VehicleNumber = request.VehicleNumber,
-                            DriverName = dbContext.Drivers.Where(x => x.VehicleNumber == request.VehicleNumber).SingleOrDefault().Name,
-                            ComplaintDescription = request.Remarks,
-                            PointCode = request.CheckListPointCode,
-                            PointCodeDescription = request.CheckListPoint,
-                            ReportTime = PakistanDateTime.Now
-                        };
-                        dbContext.Complaints.Add(complaint);
-                        dbContext.SaveChanges();
+                            Complaint complaint = new()
+                            {
+                                Id = Guid.NewGuid(),
+                                VehicleNumber = request.VehicleNumber,
+                                DriverName = dbContext.Drivers.Where(x => x.VehicleNumber == request.VehicleNumber).SingleOrDefault().Name,
+                                Region = dbContext.Drivers.Where(x => x.VehicleNumber == request.VehicleNumber).SingleOrDefault().Region,
+                                Subregion = dbContext.Drivers.Where(x => x.VehicleNumber == request.VehicleNumber).SingleOrDefault().SubRegion,
+                                ComplaintDescription = request.Remarks,
+                                PointCode = request.CheckListPointCode,
+                                PointCodeDescription = request.CheckListPoint,
+                                ReportTime = PakistanDateTime.Now
+                            };
+                            dbContext.Complaints.Add(complaint);
+                            dbContext.SaveChanges();
+
+                            return Ok($"Complaint registered against point {request.CheckListPoint} for vehicle number {request.VehicleNumber}.");
+                        }
+                        else
+                        {
+                            return Ok($"Complaint is already registered against point {request.CheckListPoint} for vehicle number {request.VehicleNumber}.");
+                        }
+                    }
+                    else
+                    {
+                        return Ok($"Complaint could not be registered against point {request.CheckListPoint} for vehicle number {request.VehicleNumber}. Please try again later. If the problem persists, please contact systems administrator.");
                     }
                 }
 
