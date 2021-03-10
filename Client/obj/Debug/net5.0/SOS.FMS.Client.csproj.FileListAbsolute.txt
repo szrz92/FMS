@@ -270,6 +270,7 @@ C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\
 C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\icudt_CJK.dat.gz
 C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\icudt_EFIGS.dat.gz
 C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\icudt_no_CJK.dat.gz
+C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\dotnet.5.0.4.js.gz
 C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\SOS.FMS.Shared.dll.gz
 C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\Append.Blazor.Notifications.dll
 C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\Microsoft.AspNetCore.Antiforgery.dll
@@ -535,6 +536,7 @@ C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\
 C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\icudt_CJK.dat
 C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\icudt_EFIGS.dat
 C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\icudt_no_CJK.dat
+C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\dotnet.5.0.4.js
 C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\SOS.FMS.Shared.dll
 C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\SOS.FMS.Shared.pdb
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\SOS.FMS.Client.csprojAssemblyReference.cache
@@ -554,7 +556,7 @@ C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Co
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\ActiveComplaintsCount.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\CompletedJobsCount.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Configuration\AddConfiguration.razor.g.cs
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\DailyCheckList.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Daily\CheckList.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Emergency\AssigningWorkshop.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Emergency\BillPosting.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Emergency\Checklist.razor.g.cs
@@ -575,6 +577,7 @@ C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Co
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\VehicleSummary.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Vehicles\AddVehicle.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Pages\Accident.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Pages\ActiveComplaints.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Pages\Authentication\Login.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Pages\Authentication\Periodic.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Pages\Authentication\Register.razor.g.cs
@@ -612,7 +615,7 @@ C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Ac
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\ActiveComplaintsCount.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\CompletedJobsCount.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Configuration\AddConfiguration.razor.g.cs
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\DailyCheckList.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Daily\CheckList.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Emergency\AssigningWorkshop.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Emergency\BillPosting.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Emergency\Checklist.razor.g.cs
@@ -633,6 +636,7 @@ C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Us
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\VehicleSummary.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Vehicles\AddVehicle.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Pages\Accident.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Pages\ActiveComplaints.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Pages\Authentication\Login.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Pages\Authentication\Periodic.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Pages\Authentication\Register.razor.g.cs
@@ -748,20 +752,6 @@ C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\build-gz\YMQPJ0TJ.g
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\build-gz\FOjuERNc.gz
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\build-gz\dcgkgPXf.gz
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\build-gz\CVybsjsQ.gz
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\build-gz\esCg5QxG.gz
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\staticwebassets\SOS.FMS.Client.StaticWebAssets.Manifest.cache
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\staticwebassets\SOS.FMS.Client.StaticWebAssets.xml
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\scopedcss\Shared\NavMenu.razor.rz.scp.css
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\scopedcss\bundle\SOS.FMS.Client.styles.css
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\scopedcss\projectbundle\SOS.FMS.Client.bundle.scp.css
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\SOS.FMS.Client.RazorTargetAssemblyInfo.cache
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\SOS.FMS.Client.csproj.CopyComplete
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\SOS.FMS.Client.dll
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\ref\SOS.FMS.Client.dll
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\SOS.FMS.Client.pdb
-C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\dotnet.5.0.4.js.gz
-C:\Users\BA Tech\source\repos\sosfms\Client\bin\Debug\net5.0\wwwroot\_framework\dotnet.5.0.4.js
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\build-gz\WHhUinjI.gz
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\build-gz\4U27di5A.gz
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\build-gz\dh7yngc5.gz
@@ -934,3 +924,15 @@ C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\build-gz\IOaARUUX.g
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\build-gz\RXxjlGL+.gz
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\build-gz\0VoX5xn5.gz
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\build-gz\ElQ3auYx.gz
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\build-gz\esCg5QxG.gz
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\staticwebassets\SOS.FMS.Client.StaticWebAssets.Manifest.cache
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\staticwebassets\SOS.FMS.Client.StaticWebAssets.xml
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\scopedcss\Shared\NavMenu.razor.rz.scp.css
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\scopedcss\bundle\SOS.FMS.Client.styles.css
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\scopedcss\projectbundle\SOS.FMS.Client.bundle.scp.css
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\SOS.FMS.Client.RazorTargetAssemblyInfo.cache
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\SOS.FMS.Client.csproj.CopyComplete
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\SOS.FMS.Client.dll
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\ref\SOS.FMS.Client.dll
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\SOS.FMS.Client.pdb
