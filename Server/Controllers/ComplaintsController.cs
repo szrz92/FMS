@@ -14,7 +14,7 @@ namespace SOS.FMS.Server.Controllers
     [ApiController]
     public class ComplaintsController : ControllerBase
     {
-        readonly AppDbContext dbContext;
+        AppDbContext dbContext;
         public ComplaintsController(AppDbContext dbContext)
         {
             this.dbContext = dbContext;

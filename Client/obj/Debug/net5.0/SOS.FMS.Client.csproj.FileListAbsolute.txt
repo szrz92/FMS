@@ -577,7 +577,6 @@ C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Co
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\VehicleSummary.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Vehicles\AddVehicle.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Pages\Accident.razor.g.cs
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Pages\ActiveComplaints.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Pages\Authentication\Login.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Pages\Authentication\Periodic.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Pages\Authentication\Register.razor.g.cs
@@ -636,7 +635,6 @@ C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Us
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\VehicleSummary.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Vehicles\AddVehicle.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Pages\Accident.razor.g.cs
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Pages\ActiveComplaints.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Pages\Authentication\Login.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Pages\Authentication\Periodic.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Pages\Authentication\Register.razor.g.cs
@@ -936,3 +934,5 @@ C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\SOS.FMS.Client.cspr
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\SOS.FMS.Client.dll
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\ref\SOS.FMS.Client.dll
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\SOS.FMS.Client.pdb
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Pages\Complaints.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Pages\Complaints.razor.g.cs
