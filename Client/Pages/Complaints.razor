@@ -90,6 +90,14 @@
                                             <GridColumn Field=@nameof(ComplaintVM.Region) HeaderText="Region" Width="100"></GridColumn>
                                             <GridColumn Field=@nameof(ComplaintVM.Subregion) HeaderText="Subregion" Width="100"></GridColumn>
                                             <GridColumn Field=@nameof(ComplaintVM.ReportTime) Format="dd/MM/yy hh:mm" Type="ColumnType.DateTime" HeaderText="Reported At" Width="150"></GridColumn>
+                                            <GridColumn HeaderText="Action" AllowFiltering="false" AllowSorting="false" Width="70">
+                                                <Template>
+                                                    @{
+                                                        var ComplaintInfo = (context as ComplaintVM);
+                                                        <button class="btn btn-sm btn-success" @onclick="()=>TakeAction(ComplaintInfo.PointCode, ComplaintInfo.VehicleNumber)">ACTION</button>
+                                                    }
+                                                </Template>
+                                            </GridColumn>
                                         </GridColumns>
                                     </SfGrid>
                                 </div>
@@ -108,6 +116,21 @@
     </div>
     <!--end::Container-->
 </div>
+
+<SfDialog @bind-Visible="@ConfirmDialog" Width="400px" Target="#target" ShowCloseIcon="true">
+    <DialogTemplates>
+        <Header>
+            @ConfirmHeader
+        </Header>
+        <Content>
+            @ConfirmBody
+        </Content>
+    </DialogTemplates>
+    <DialogEvents Closed="@DialogClose"></DialogEvents>
+    <DialogButtons>
+        <DialogButton Content="Ok" OnClick="@DialogClose" />
+    </DialogButtons>
+</SfDialog>
 @code {
     public List<ComplaintVM> ComplaintsList { get; set; }
     public List<ComplaintVM> FilteredComplaintsList { get; set; }
@@ -172,4 +195,22 @@
         }
     }
     #endregion
+
+    #region Dialog
+    public bool ConfirmDialog { get; set; } = false;
+    public string ConfirmHeader { get; set; }
+    public string ConfirmBody { get; set; }
+
+    public void DialogClose()
+    {
+        ConfirmHeader = null;
+        ConfirmBody = null;
+        ConfirmDialog = false;
+    }
+    #endregion
+
+    public void TakeAction(string PointCode, string VehicleNumber)
+    {
+
+    }
 }

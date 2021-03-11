@@ -160,28 +160,35 @@ using Syncfusion.Blazor.Navigations;
 #line hidden
 #nullable disable
 #nullable restore
-#line 30 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 28 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+using Syncfusion.Blazor.PivotView;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 31 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Append.Blazor.Notifications;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 33 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 34 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using SOS.FMS.Client.Services;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 34 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 35 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 36 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 37 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Microsoft.AspNetCore.SignalR.Client;
 
 #line default
@@ -196,7 +203,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 111 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Complaints.razor"
+#line 134 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Complaints.razor"
        
     public List<ComplaintVM> ComplaintsList { get; set; }
     public List<ComplaintVM> FilteredComplaintsList { get; set; }
@@ -261,6 +268,25 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
     }
     #endregion
+
+    #region Dialog
+    public bool ConfirmDialog { get; set; } = false;
+    public string ConfirmHeader { get; set; }
+    public string ConfirmBody { get; set; }
+
+    public void DialogClose()
+    {
+
+        ConfirmHeader = null;
+        ConfirmBody = null;
+        ConfirmDialog = false;
+    }
+    #endregion
+
+    public void TakeAction(string PointCode, string VehicleNumber)
+    {
+
+    }
 
 #line default
 #line hidden

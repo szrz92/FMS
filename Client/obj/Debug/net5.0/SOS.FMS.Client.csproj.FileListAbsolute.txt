@@ -580,6 +580,7 @@ C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Pa
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Pages\Authentication\Login.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Pages\Authentication\Periodic.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Pages\Authentication\Register.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Pages\Complaints.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Pages\CompletedJobs.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Pages\Counter.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Pages\Daily.razor.g.cs
@@ -638,6 +639,7 @@ C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Pages\Acciden
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Pages\Authentication\Login.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Pages\Authentication\Periodic.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Pages\Authentication\Register.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Pages\Complaints.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Pages\CompletedJobs.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Pages\Counter.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Pages\Daily.razor.g.cs
@@ -934,5 +936,3 @@ C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\SOS.FMS.Client.cspr
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\SOS.FMS.Client.dll
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\ref\SOS.FMS.Client.dll
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\SOS.FMS.Client.pdb
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Pages\Complaints.razor.g.cs
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Pages\Complaints.razor.g.cs

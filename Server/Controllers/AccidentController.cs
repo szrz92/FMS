@@ -163,7 +163,7 @@ namespace SOS.FMS.Server.Controllers
                     title,
                     notification);
 
-                return Ok(fmsAccidentalCheckList);
+                return Ok(fmsAccidentalCheckList.OrderBy(x=>x.Description).ToList());
             }
             catch (Exception ex)
             {
@@ -313,7 +313,7 @@ namespace SOS.FMS.Server.Controllers
                                                                   ImageCount = c.ImageCount
                                                               }).ToListAsync();
 
-                return Ok(checkList);
+                return Ok(checkList.OrderBy(x => x.Description).ToList());
             }
             catch (Exception ex)
             {

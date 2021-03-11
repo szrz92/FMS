@@ -1,42 +1,199 @@
 ﻿@page "/Test"
 @inject IJSRuntime JSRuntime
-<h3>Upload PNG images</h3>
-
-<p>
-    <InputFile OnChange="@OnInputFileChange" multiple />
-</p>
-
-@if (imageDataUrls.Count > 0)
-{
-    <h4>Images</h4>
-
-    <div class="card" style="width:30rem;">
-        <div class="card-body">
-            @foreach (var imageDataUrl in imageDataUrls)
-            {
-                <img class="rounded m-1" src="@imageDataUrl" />
-            }
+@inject HttpClient Http
+<!--begin::Subheader-->
+<div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
+    <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+        <!--begin::Details-->
+        <div class="d-flex align-items-center flex-wrap mr-2">
+            <!--begin::Title-->
+            <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">FMS</h5>
+            <!--end::Title-->
+            <!--begin::Separator-->
+            <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-5 bg-gray-200"></div>
+            <!--end::Separator-->
+            <!--begin::Breadcrumb-->
+            <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+                <li class="breadcrumb-item">
+                    <a href="/" class="text-muted">Daily Maintenance Information</a>
+                </li>
+            </ul>
+            <!--end::Breadcrumb-->
+        </div>
+        <!--end::Details-->
+        <div class="d-flex align-items-center">
+            <div class="mr-2" style="width:135%">
+                <div class="control-wrapper">
+                    <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a region" @bind-Value="Filter.Region" AllowFiltering="true" DataSource="@regionsList">
+                        <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                        <DropDownListEvents TValue="string" ValueChange="OnRegionChange"></DropDownListEvents>
+                    </SfDropDownList>
+                </div>
+            </div>
+            <div class="mr-2" style="width:135%">
+                <div class="control-wrapper">
+                    <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a subregion" @bind-Value="Filter.Subregion" AllowFiltering="true" DataSource="@subRegionsList">
+                        <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                        <DropDownListEvents TValue="string" ValueChange="OnSubRegionChange"></DropDownListEvents>
+                    </SfDropDownList>
+                </div>
+            </div>
+            <div class="mr-2" style="width:135%">
+                <div class="control-wrapper">
+                    <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a status" @bind-Value="Filter.Status" AllowFiltering="true" DataSource="@statusList">
+                        <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                        <DropDownListEvents TValue="string" ValueChange="OnStatusChange"></DropDownListEvents>
+                    </SfDropDownList>
+                </div>
+            </div>
+            <div class="mr-2" style="width:135%">
+                <div class="control-wrapper">
+                    <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a vehicle" @bind-Value="Filter.VehicleNumber" AllowFiltering="true" DataSource="@vehiclesList">
+                        <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                    </SfDropDownList>
+                </div>
+            </div>
+            <button class="btn btn-bg-danger text-white mr-2" @onclick="FilterData">FILTER</button>
+            <button class="btn btn-bg-info text-white mr-2" @onclick="ResetData">RESET</button>
         </div>
     </div>
-}
+</div>
+<!--end::Subheader-->
+
+<div class="d-flex flex-column-fluid">
+    <!--begin::Container-->
+    <div class="container-fluid">
+        <!--begin::Card-->
+        <div class="card card-custom card-stretch">
+            <!--begin::Header-->
+            @*<div class="card-header flex-wrap border-0 pt-6 pb-0">
+                    <div class="card-title">
+                        <h3 class="card-label">
+                            Daily
+                            <span class="d-block text-muted pt-2 font-size-sm">All Daily Maintenance</span>
+                        </h3>
+                    </div>
+                </div>*@
+            <!--end::Header-->
+            <!--begin::Body-->
+            <div class="card-body">
+                @if (FilteredDailyChecksList != null)
+                {
+                    <div class="col-lg-12 control-section">
+                        <div class="content-wrapper">
+                            <div class="row">
+                                <div id="container">
+                                    <SfPivotView TValue="FMSDailyCheckListVM" @ref="Pivot" AllowPdfExport="true" Height="300" Width="100%" AllowExcelExport="true" ShowFieldList="true" EnableValueSorting=true ShowTooltip=false>
+                                        <PivotViewDataSourceSettings DataSource="@FilteredDailyChecksList" 
+                                                                     ShowGrandTotals="false" ShowSubTotals="false"
+                                                                     ExpandAll=false EnableSorting=true>
+                                        </PivotViewDataSourceSettings>
+                                        <PivotViewGridSettings ColumnWidth="120"></PivotViewGridSettings>
+                                    </SfPivotView>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <h5>Loading.....</h5>
+                }
+            </div>
+            <!--end::Body-->
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Container-->
+</div>
 
 @code {
-    private IList<string> imageDataUrls = new List<string>();
+    SfPivotView<FMSDailyCheckListVM> Pivot;
+    public List<FMSDailyCheckListVM> DailyChecksList { get; set; }
+    public List<FMSDailyCheckListVM> FilteredDailyChecksList { get; set; }
+    public List<SelectListItem> regionsList { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> subRegionsList { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> statusList { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> vehiclesList { get; set; } = new List<SelectListItem>();
 
-    private async Task OnInputFileChange(InputFileChangeEventArgs e)
+    public FMSDailyCheckListVM Filter { get; set; } = new FMSDailyCheckListVM();
+
+    protected override async Task OnInitializedAsync()
     {
-        var maxAllowedFiles = 3;
-        var format = "image/png";
+        DailyChecksList = (await Http.GetFromJsonAsync<List<FMSDailyCheckListVM>>("api/Daily/All"))
+                                .OrderByDescending(x => x.LastUpdated)
+                                .ToList();
+        FilteredDailyChecksList = DailyChecksList;
+        regionsList = DailyChecksList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        subRegionsList = DailyChecksList.GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        statusList = DailyChecksList.GroupBy(x => x.Status).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        vehiclesList = DailyChecksList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        await base.OnInitializedAsync();
+    }
 
-        foreach (var imageFile in e.GetMultipleFiles(maxAllowedFiles))
+    public async Task OnRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        subRegionsList = DailyChecksList.Where(x => x.Region == args.Value).GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        statusList = DailyChecksList.Where(x => x.Region == args.Value).GroupBy(x => x.Status).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        vehiclesList = DailyChecksList.Where(x => x.Region == args.Value).GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        StateHasChanged();
+    }
+    public async Task OnSubRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        statusList = DailyChecksList.Where(x => x.Subregion == args.Value).GroupBy(x => x.Status).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        vehiclesList = DailyChecksList.Where(x => x.Subregion == args.Value).GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        StateHasChanged();
+    }
+    public async Task OnStatusChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        vehiclesList = DailyChecksList
+            .Where(x => x.Status == args.Value && (string.IsNullOrEmpty(Filter.Subregion) || x.Subregion == Filter.Subregion))
+            .GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        StateHasChanged();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    public void FilterData()
+    {
+        FilteredDailyChecksList = DailyChecksList
+            .Where(x => (string.IsNullOrEmpty(Filter.Region) || x.Region == Filter.Region))
+            .Where(x => (string.IsNullOrEmpty(Filter.Subregion) || x.Subregion == Filter.Subregion))
+            .Where(x => (string.IsNullOrEmpty(Filter.Status) || x.Status == Filter.Status))
+            .Where(x => (string.IsNullOrEmpty(Filter.VehicleNumber) || x.VehicleNumber == Filter.VehicleNumber))
+            .ToList();
+    }
+
+    public void ResetData()
+    {
+        Filter = new FMSDailyCheckListVM();
+        FilteredDailyChecksList = DailyChecksList;
+    }
+
+    #region Syncfusion
+
+    SfGrid<FMSDailyCheckListVM> DailyGrid;
+
+    public void DailyToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
+    {
+        if (args.Item.Id == "DailyGrid_pdfexport")
         {
-            var resizedImageFile = await imageFile.RequestImageFileAsync(format,
-                100, 100);
-            var buffer = new byte[resizedImageFile.Size];
-            await resizedImageFile.OpenReadStream().ReadAsync(buffer);
-            var imageDataUrl =
-                $"data:{format};base64,{Convert.ToBase64String(buffer)}";
-            imageDataUrls.Add(imageDataUrl);
+            PdfExportProperties Props = new PdfExportProperties();
+            Props.PageOrientation = PageOrientation.Landscape;
+            Props.PageSize = PdfPageSize.A4;
+            this.DailyGrid.PdfExport(Props);
+        }
+        if (args.Item.Id == "DailyGrid_excelexport")
+        {
+            this.DailyGrid.ExcelExport();
+        }
+        if (args.Item.Id == "DailyGrid_csvexport")
+        {
+            this.DailyGrid.CsvExport();
         }
     }
+    #endregion
 }
