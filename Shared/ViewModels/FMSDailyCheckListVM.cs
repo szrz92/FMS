@@ -17,6 +17,8 @@ namespace SOS.FMS.Shared.ViewModels
         public string SubCategeory { get; set; }
         public string Remarks { get; set; }
         public string Status { get; set; }
+        public int OdometerIn { get; set; }
+        public int OdometerOut { get; set; }
         public List<Check> Checklist { get; set; }
         public DateTime LastUpdated { get; set; }
     }

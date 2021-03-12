@@ -137,6 +137,7 @@
                         <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Place remarks here" @bind="Remarks"></textarea>
                     </div>
                     <div class="text-right">
+                        <button type="button" class="btn btn-info text-weight-bold" @onclick="OdometerReading">Odometer reading</button>
                         <button type="button" class="btn btn-secondary text-weight-bold" @onclick="ShowRemarksList">Show Remarks</button>
                         <button type="button" class="btn btn-fms text-weight-bold" @onclick="PostRemarks">Submit</button>
                     </div>
@@ -211,6 +212,42 @@
         <DialogButton Content="Ok" OnClick="@DialogClose" />
     </DialogButtons>
 </SfDialog>
+<SfDialog @bind-Visible="@OdometerDialog" Width="400px" Target="#target" ShowCloseIcon="true">
+    <DialogTemplates>
+        <Header>
+            Odometer Reading
+        </Header>
+        <Content>
+            <div class="form-group">
+                <label>Odometer in:</label>
+                @if (OdometerIn > 0)
+                {
+                    <SfNumericTextBox @bind-Value="OdometerIn" class="form-control form-control-solid" Readonly="true"></SfNumericTextBox>
+                }
+                else
+                {
+                    <SfNumericTextBox @bind-Value="OdometerIn" class="form-control form-control-solid"></SfNumericTextBox>
+                }
+            </div>
+            <div class="form-group">
+                <label>Odometer out:</label>
+                @if (OdometerOut > 0)
+                {
+                    <SfNumericTextBox @bind-Value="OdometerOut" class="form-control form-control-solid" Readonly="true"></SfNumericTextBox>
+                }
+                else
+                {
+                    <SfNumericTextBox @bind-Value="OdometerOut" class="form-control form-control-solid"></SfNumericTextBox>
+                }
+            </div>
+        </Content>
+    </DialogTemplates>
+    <DialogEvents Closed="@DialogClose"></DialogEvents>
+    <DialogButtons>
+        <DialogButton Content="Update" IsPrimary="true" OnClick="@UpdateOdometer" />
+        <DialogButton Content="Cancel" OnClick="@DialogClose" />
+    </DialogButtons>
+</SfDialog>
 @code{
     [Parameter]
     public string VehicleNumber { get; set; }
@@ -223,6 +260,9 @@
     List<RemarksVM> RemarksList;
 
     public string Remarks { get; set; } = "";
+
+    public int OdometerIn { get; set; }
+    public int OdometerOut { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -251,6 +291,8 @@
         {
             string response = await (getDailyCheckListResponse).Content.ReadAsStringAsync();
             FMSDailyCheckList = JsonConvert.DeserializeObject<List<FMSDailyCheckListVM>>(response);
+            OdometerIn = FMSDailyCheckList.FirstOrDefault().OdometerIn;
+            OdometerOut = FMSDailyCheckList.FirstOrDefault().OdometerOut;
         }
         else
         {
@@ -312,6 +354,7 @@
     }
 
     #region Dialog
+    public bool OdometerDialog { get; set; }
     public bool RemarksDialog { get; set; }
 
     public bool ConfirmNotOkDlgVisible { get; set; } = false;
@@ -326,6 +369,8 @@
 
     public void DialogClose()
     {
+        OdometerDialog = false;
+
         ComplaintPoint = null;
         ComplaintPointCode = null;
         ComplaintDescription = null;
@@ -357,4 +402,28 @@
         }
     }
     #endregion
+
+    public void OdometerReading()
+    {
+        OdometerDialog = true;
+    }
+    public async void UpdateOdometer()
+    {
+        var updateResponse = await Http.PostAsJsonAsync("api/daily/odometer", new ApiRequest() { VehicleNumber = VehicleNumber, OdometerIn = OdometerIn, OdometerOut = OdometerOut });
+        if (updateResponse.IsSuccessStatusCode)
+        {
+
+            ResponseHeader = "Success";
+            ResponseBody = $"Odometer successfully updated against Vehicle {VehicleNumber}";
+            ResponseDialog = true;
+        }
+        else
+        {
+            ResponseHeader = "Failure";
+            ResponseBody = $"Odometer failed to be updated against Vehicle {VehicleNumber}";
+            ResponseDialog = true;
+        }
+        await PopulateCheckList();
+        StateHasChanged();
+    }
 }

@@ -202,7 +202,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 214 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Daily\CheckList.razor"
+#line 251 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Daily\CheckList.razor"
       
     [Parameter]
     public string VehicleNumber { get; set; }
@@ -215,6 +215,9 @@ using Microsoft.AspNetCore.SignalR.Client;
     List<RemarksVM> RemarksList;
 
     public string Remarks { get; set; } = "";
+
+    public int OdometerIn { get; set; }
+    public int OdometerOut { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -243,6 +246,8 @@ using Microsoft.AspNetCore.SignalR.Client;
         {
             string response = await (getDailyCheckListResponse).Content.ReadAsStringAsync();
             FMSDailyCheckList = JsonConvert.DeserializeObject<List<FMSDailyCheckListVM>>(response);
+            OdometerIn = FMSDailyCheckList.FirstOrDefault().OdometerIn;
+            OdometerOut = FMSDailyCheckList.FirstOrDefault().OdometerOut;
         }
         else
         {
@@ -304,6 +309,7 @@ using Microsoft.AspNetCore.SignalR.Client;
     }
 
     #region Dialog
+    public bool OdometerDialog { get; set; }
     public bool RemarksDialog { get; set; }
 
     public bool ConfirmNotOkDlgVisible { get; set; } = false;
@@ -318,6 +324,8 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     public void DialogClose()
     {
+        OdometerDialog = false;
+
         ComplaintPoint = null;
         ComplaintPointCode = null;
         ComplaintDescription = null;
@@ -349,6 +357,30 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
     }
     #endregion
+
+    public void OdometerReading()
+    {
+        OdometerDialog = true;
+    }
+    public async void UpdateOdometer()
+    {
+        var updateResponse = await Http.PostAsJsonAsync("api/daily/odometer", new ApiRequest() { VehicleNumber = VehicleNumber, OdometerIn = OdometerIn, OdometerOut = OdometerOut });
+        if (updateResponse.IsSuccessStatusCode)
+        {
+
+            ResponseHeader = "Success";
+            ResponseBody = $"Odometer successfully updated against Vehicle {VehicleNumber}";
+            ResponseDialog = true;
+        }
+        else
+        {
+            ResponseHeader = "Failure";
+            ResponseBody = $"Odometer failed to be updated against Vehicle {VehicleNumber}";
+            ResponseDialog = true;
+        }
+        await PopulateCheckList();
+        StateHasChanged();
+    }
 
 #line default
 #line hidden

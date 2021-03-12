@@ -66,7 +66,6 @@ namespace SOS.FMS.Server.Controllers
                         dailyMorning.DriverName = DriverName;
                         dailyMorning.Region = region.XDescription;
                         dailyMorning.Subregion = subRegion.XDescription;
-
                         await dbContext.DailyMorningChecks.AddAsync(dailyMorning);
                         await dbContext.SaveChangesAsync();
 
@@ -446,6 +445,25 @@ namespace SOS.FMS.Server.Controllers
                 DailyEvening fMSDailyEvening = (from e in dbContext.DailyEveningChecks where e.VehicleNumber == request.VehicleNumber && e.LastUpdated.Date == (PakistanDateTime.Today) select e).SingleOrDefault();
                 fMSDailyEvening.Remarks += "* " + request.Remarks + " | " + PakistanDateTime.Now;
                 fMSDailyMorning.Remarks += "* " + request.Remarks + " | " + PakistanDateTime.Now;
+                dbContext.SaveChanges();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+        [HttpPost("Odometer")]
+        public IActionResult DailyOdometerReading(ApiRequest request)
+        {
+            try
+            {
+                DailyMorning DailyMorning = (from m in dbContext.DailyMorningChecks where m.VehicleNumber == request.VehicleNumber && m.LastUpdated.Date == (PakistanDateTime.Today) select m).SingleOrDefault();
+                DailyEvening DailyEvening = (from e in dbContext.DailyEveningChecks where e.VehicleNumber == request.VehicleNumber && e.LastUpdated.Date == (PakistanDateTime.Today) select e).SingleOrDefault();
+                DailyEvening.OdometerIn = request.OdometerIn;
+                DailyEvening.OdometerOut = request.OdometerOut; 
+                DailyMorning.OdometerIn = request.OdometerIn;
+                DailyMorning.OdometerOut = request.OdometerOut;
                 dbContext.SaveChanges();
                 return Ok();
             }

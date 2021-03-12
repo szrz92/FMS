@@ -19,5 +19,7 @@ namespace SOS.FMS.Shared
         public string CheckListPointCode { get; set; }
         public string Remarks { get; set; }
         public string UserName { get; set; }
+        public int OdometerIn { get; set; }
+        public int OdometerOut { get; set; }
     }
 }
