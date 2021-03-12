@@ -116,7 +116,20 @@ namespace SOS.FMS.Server.Controllers
                         checklist.Add(CheckListService.DailyEveningGeneralCheckListToViewModel(dailyEvening));
                     }
                 }
-
+                foreach (var check in checklist)
+                {
+                    foreach (var point in check.Checklist)
+                    {
+                        IEnumerable<Complaint> complaint = from c in dbContext.Complaints
+                                                           where c.VehicleNumber == check.VehicleNumber && c.PointCode == point.Code && c.IsActive
+                                                           select c;
+                        if (complaint.Any())
+                        {
+                            point.IsNotOk = true;
+                            point.Value = DailyCheckStatus.NotOk;
+                        }
+                    }
+                }
                 return Ok(checklist);
             }
             catch (Exception ex)
@@ -208,6 +221,20 @@ namespace SOS.FMS.Server.Controllers
                     checklist.Add(CheckListService.DailyEveningInteriorCheckListToViewModel(dailyEvening));
                     checklist.Add(CheckListService.DailyEveningAcCheckListToViewModel(dailyEvening));
                     checklist.Add(CheckListService.DailyEveningGeneralCheckListToViewModel(dailyEvening));
+                }
+                foreach (var check in checklist)
+                {
+                    foreach (var point in check.Checklist)
+                    {
+                        IEnumerable<Complaint> complaint = from c in dbContext.Complaints
+                                                           where c.VehicleNumber == check.VehicleNumber && c.PointCode == point.Code && c.IsActive
+                                                           select c;
+                        if (complaint.Any())
+                        {
+                            point.IsNotOk = true;
+                            point.Value = DailyCheckStatus.NotOk;
+                        }
+                    }
                 }
                 return Ok(checklist);
             }

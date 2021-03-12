@@ -276,16 +276,29 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     public void DialogClose()
     {
+        ConfirmDialog = false;
 
         ConfirmHeader = null;
         ConfirmBody = null;
-        ConfirmDialog = false;
+
+        PointCodeToMaintain = null;
+        VehicleNumberToMaintain = null;
     }
     #endregion
 
+    public string PointCodeToMaintain { get; set; }
+    public string VehicleNumberToMaintain { get; set; }
+
     public void TakeAction(string PointCode, string VehicleNumber)
     {
+        PointCodeToMaintain = PointCode;
+        VehicleNumberToMaintain = VehicleNumber;
 
+        ConfirmHeader = "Confirmation";
+        ConfirmBody = $"Are you sure to mark selected complaint against Vehicle {VehicleNumber} as resolved?";
+
+        ConfirmDialog = true;
+        StateHasChanged();
     }
 
 #line default

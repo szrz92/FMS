@@ -146,7 +146,6 @@ namespace SOS.FMS.Server.Services
                             statusList.Add(PeriodicMaintenanceStatus.Pending);
                         }
 
-
                         if (statusList.Contains(PeriodicMaintenanceStatus.Pending))
                         {
                             vehicle.PeriodicStatus = PeriodicMaintenanceStatus.Pending;
@@ -155,6 +154,7 @@ namespace SOS.FMS.Server.Services
                         {
                             vehicle.PeriodicStatus = PeriodicMaintenanceStatus.Done;
                         }
+
                         dbContext.SaveChanges();
                     }
                 }

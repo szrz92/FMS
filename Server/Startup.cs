@@ -59,12 +59,12 @@ namespace SOS.FMS.Server
             services.AddCronJob<GbmsSyncCronJob>(c =>
             {
                 c.TimeZoneInfo = TimeZoneInfo.Local;
-                c.CronExpression = @"*/5 * * * *";
+                c.CronExpression = @"*/20 * * * *";
             });
             services.AddCronJob<PeriodicCronJob>(c =>
             {
                 c.TimeZoneInfo = TimeZoneInfo.Local;
-                c.CronExpression = @"*/1 * * * *";
+                c.CronExpression = @"*/25 * * * *";
             });
 
             services.AddSignalR();

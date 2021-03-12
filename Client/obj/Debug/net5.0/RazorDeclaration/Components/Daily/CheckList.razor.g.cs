@@ -256,6 +256,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         ConfirmNotOkDlgVisible = true;
         StateHasChanged();
     }
+
     public async Task MarkPointDone(string pointCode)
     {
         var postCheckListPointMarkDone = await Http.PostAsJsonAsync<ApiRequest>("api/Daily/FMS/CheckList/Point/MarkDone",
