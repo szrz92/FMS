@@ -117,6 +117,20 @@
     <!--end::Container-->
 </div>
 
+<SfDialog @bind-Visible="@ResponseDialog" Width="400px" Target="#target" ShowCloseIcon="true">
+    <DialogTemplates>
+        <Header>
+            @ConfirmHeader
+        </Header>
+        <Content>
+            @ConfirmBody
+        </Content>
+    </DialogTemplates>
+    <DialogEvents Closed="@DialogClose"></DialogEvents>
+    <DialogButtons>
+        <DialogButton Content="Ok" OnClick="@DialogClose" />
+    </DialogButtons>
+</SfDialog>
 <SfDialog @bind-Visible="@ConfirmDialog" Width="400px" Target="#target" ShowCloseIcon="true">
     <DialogTemplates>
         <Header>
@@ -157,13 +171,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        ComplaintsList = (await Http.GetFromJsonAsync<List<ComplaintVM>>("api/complaints/all/active"))
-        .OrderByDescending(x => x.ReportTime)
-        .ToList();
-        FilteredComplaintsList = ComplaintsList;
-        regionsList = ComplaintsList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        subRegionsList = ComplaintsList.GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        vehiclesList = ComplaintsList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        await GetActiveComplaints();
         await base.OnInitializedAsync();
     }
 
@@ -197,12 +205,14 @@
     #endregion
 
     #region Dialog
+    public bool ResponseDialog { get; set; } = false;
     public bool ConfirmDialog { get; set; } = false;
     public string ConfirmHeader { get; set; }
     public string ConfirmBody { get; set; }
 
     public void DialogClose()
     {
+        ResponseDialog = false;
         ConfirmDialog = false;
 
         ConfirmHeader = null;
@@ -228,7 +238,39 @@
         StateHasChanged();
     }
 
-    public void ConfirmResolution()
-    { 
+    public async void ConfirmResolution()
+    {
+        var resolutionResponse = await Http.PostAsJsonAsync("api/complaints/resolve", new ApiRequest() { CheckListPointCode = PointCodeToMaintain, VehicleNumber = VehicleNumberToMaintain });
+        if (resolutionResponse.IsSuccessStatusCode)
+        {
+            DialogClose();
+
+            ConfirmHeader = "Success";
+            ConfirmBody = await resolutionResponse.Content.ReadAsStringAsync();
+            ResponseDialog = true;
+
+
+            await GetActiveComplaints();
+        }
+        else
+        {
+            DialogClose();
+
+            ConfirmHeader = "Failed";
+            ConfirmBody = await resolutionResponse.Content.ReadAsStringAsync();
+            ResponseDialog = true;
+        }
+        StateHasChanged();
+    }
+
+    public async Task GetActiveComplaints()
+    {
+        ComplaintsList = (await Http.GetFromJsonAsync<List<ComplaintVM>>("api/complaints/all/active"))
+        .OrderByDescending(x => x.ReportTime)
+        .ToList();
+        FilteredComplaintsList = ComplaintsList;
+        regionsList = ComplaintsList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        subRegionsList = ComplaintsList.GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        vehiclesList = ComplaintsList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
     }
 }

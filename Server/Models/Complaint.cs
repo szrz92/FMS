@@ -17,5 +17,6 @@ namespace SOS.FMS.Server.Models
         public string Subregion { get; set; }
         public bool IsActive { get; set; }
         public DateTime ReportTime { get; set; }
+        public DateTime ResolutionTime { get; set; }
     }
 }

@@ -38,6 +38,8 @@ namespace SOS.FMS.Server.Models
         public DailyCheckStatus M23 { get; set; }
         public DailyCheckStatus M24 { get; set; }
         public DailyCheckStatus M25 { get; set; }
+        public int OdometerIn { get; set; }
+        public int OdometerOut { get; set; }
         public string Remarks { get; set; }
         public DateTime LastUpdated { get; set; }
     }

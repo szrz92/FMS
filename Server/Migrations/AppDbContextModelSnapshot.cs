@@ -323,16 +323,16 @@ namespace SOS.FMS.Server.Migrations
                         {
                             Id = "c58e1a9d-1c28-46db-830a-7b3f0b9663f1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2e983d53-aae2-4c8d-8619-90bf6da09023",
+                            ConcurrencyStamp = "6dcb74b1-94c6-4ffe-bdc0-5dc1bc7b4b17",
                             Email = "z.raza@batech.com.pk",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             Name = "Zain Raza",
                             NormalizedEmail = "Z.RAZA@BATECH.COM.PK",
                             NormalizedUserName = "Z.RAZA@BATECH.COM.PK",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDlvuDhjtrm6ugwnx8BMd1KMV0MaLqbaHPMi0jLRQCghY63FJnTVrFO9QPMwFNXZmA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAED2/mtLNs0gXEb8XYMbYwLqPJfHy+BIDo59zViL3U1vgpS4qX3pyCHy2U7qNYhpOHQ==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "4e8f0cb3-0348-49ee-8644-8b1b1f0d12c6",
+                            SecurityStamp = "493c2869-8b72-4178-8136-f34e3bcdc4ff",
                             TwoFactorEnabled = false,
                             UserName = "z.raza@batech.com.pk"
                         });
@@ -363,6 +363,9 @@ namespace SOS.FMS.Server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ReportTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ResolutionTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Subregion")
@@ -547,6 +550,12 @@ namespace SOS.FMS.Server.Migrations
                     b.Property<DateTime>("LastUpdated")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("OdometerIn")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OdometerOut")
+                        .HasColumnType("int");
+
                     b.Property<string>("Region")
                         .HasColumnType("nvarchar(max)");
 
@@ -649,6 +658,12 @@ namespace SOS.FMS.Server.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("M9")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OdometerIn")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OdometerOut")
                         .HasColumnType("int");
 
                     b.Property<string>("Region")

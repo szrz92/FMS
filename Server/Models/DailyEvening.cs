@@ -66,6 +66,8 @@ namespace SOS.FMS.Server.Models
         public DailyCheckStatus EG4 { get; set; }
         public DailyCheckStatus EG5 { get; set; }
         public DailyCheckStatus EG6 { get; set; }
+        public int OdometerIn { get; set; }
+        public int OdometerOut { get; set; }
         public string Remarks { get; set; }
         public DateTime LastUpdated { get; set; }
     }

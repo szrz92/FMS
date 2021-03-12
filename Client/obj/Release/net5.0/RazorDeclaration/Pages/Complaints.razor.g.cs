@@ -160,28 +160,35 @@ using Syncfusion.Blazor.Navigations;
 #line hidden
 #nullable disable
 #nullable restore
-#line 30 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 28 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+using Syncfusion.Blazor.PivotView;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 31 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Append.Blazor.Notifications;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 33 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 34 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using SOS.FMS.Client.Services;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 34 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 35 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 36 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 37 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Microsoft.AspNetCore.SignalR.Client;
 
 #line default
@@ -196,7 +203,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 111 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Complaints.razor"
+#line 148 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Complaints.razor"
        
     public List<ComplaintVM> ComplaintsList { get; set; }
     public List<ComplaintVM> FilteredComplaintsList { get; set; }
@@ -223,13 +230,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     protected override async Task OnInitializedAsync()
     {
-        ComplaintsList = (await Http.GetFromJsonAsync<List<ComplaintVM>>("api/complaints/all/active"))
-        .OrderByDescending(x => x.ReportTime)
-        .ToList();
-        FilteredComplaintsList = ComplaintsList;
-        regionsList = ComplaintsList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        subRegionsList = ComplaintsList.GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        vehiclesList = ComplaintsList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        await GetActiveComplaints();
         await base.OnInitializedAsync();
     }
 
@@ -261,6 +262,76 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
     }
     #endregion
+
+    #region Dialog
+    public bool ResponseDialog { get; set; } = false;
+    public bool ConfirmDialog { get; set; } = false;
+    public string ConfirmHeader { get; set; }
+    public string ConfirmBody { get; set; }
+
+    public void DialogClose()
+    {
+        ResponseDialog = false;
+        ConfirmDialog = false;
+
+        ConfirmHeader = null;
+        ConfirmBody = null;
+
+        PointCodeToMaintain = null;
+        VehicleNumberToMaintain = null;
+    }
+    #endregion
+
+    public string PointCodeToMaintain { get; set; }
+    public string VehicleNumberToMaintain { get; set; }
+
+    public void TakeAction(string PointCode, string VehicleNumber)
+    {
+        PointCodeToMaintain = PointCode;
+        VehicleNumberToMaintain = VehicleNumber;
+
+        ConfirmHeader = "Confirmation";
+        ConfirmBody = $"Are you sure to mark selected complaint against Vehicle {VehicleNumber} as resolved?";
+
+        ConfirmDialog = true;
+        StateHasChanged();
+    }
+
+    public async void ConfirmResolution()
+    {
+        var resolutionResponse = await Http.PostAsJsonAsync("api/complaints/resolve", new ApiRequest() { CheckListPointCode = PointCodeToMaintain, VehicleNumber = VehicleNumberToMaintain });
+        if (resolutionResponse.IsSuccessStatusCode)
+        {
+            DialogClose();
+
+            ConfirmHeader = "Success";
+            ConfirmBody = await resolutionResponse.Content.ReadAsStringAsync();
+            ResponseDialog = true;
+
+
+            await GetActiveComplaints();
+        }
+        else
+        {
+            DialogClose();
+
+            ConfirmHeader = "Failed";
+            ConfirmBody = await resolutionResponse.Content.ReadAsStringAsync();
+            ResponseDialog = true;
+        }
+        StateHasChanged();
+    }
+
+    public async Task GetActiveComplaints()
+    {
+        ComplaintsList = (await Http.GetFromJsonAsync<List<ComplaintVM>>("api/complaints/all/active"))
+        .OrderByDescending(x => x.ReportTime)
+        .ToList();
+        FilteredComplaintsList = ComplaintsList;
+        regionsList = ComplaintsList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        subRegionsList = ComplaintsList.GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        vehiclesList = ComplaintsList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+    }
 
 #line default
 #line hidden

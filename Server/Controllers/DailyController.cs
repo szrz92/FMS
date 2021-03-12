@@ -66,6 +66,7 @@ namespace SOS.FMS.Server.Controllers
                         dailyMorning.DriverName = DriverName;
                         dailyMorning.Region = region.XDescription;
                         dailyMorning.Subregion = subRegion.XDescription;
+
                         await dbContext.DailyMorningChecks.AddAsync(dailyMorning);
                         await dbContext.SaveChangesAsync();
 
@@ -340,7 +341,7 @@ namespace SOS.FMS.Server.Controllers
                     var rowsAffected = dbContext.Database.ExecuteSqlRaw($"UPDATE DailyEveningChecks SET " + request.CheckListPointCode + " = '" + (int)DailyCheckStatus.NotOk + "', LastUpdated = @now WHERE VehicleNumber = @vehiclenumber AND CAST(LastUpdated AS DATE) = CAST(@date AS DATE) ", vehiclenumber, date, now);
                     if (rowsAffected > 0)
                     {
-                        IEnumerable<Complaint> complaints = dbContext.Complaints.Where(x => x.VehicleNumber == request.VehicleNumber && x.PointCode == request.CheckListPointCode);
+                        IEnumerable<Complaint> complaints = dbContext.Complaints.Where(x => x.IsActive && x.VehicleNumber == request.VehicleNumber && x.PointCode == request.CheckListPointCode);
                         if (!complaints.Any())
                         {
                             Complaint complaint = new()
@@ -397,7 +398,7 @@ namespace SOS.FMS.Server.Controllers
                     var rowsAffected = dbContext.Database.ExecuteSqlRaw($"UPDATE DailyMorningChecks SET " + request.CheckListPointCode + " = '" + (int)DailyCheckStatus.NotOk + "', LastUpdated = @now WHERE VehicleNumber = @vehiclenumber AND CAST(LastUpdated AS DATE) = CAST(@date AS DATE) ", vehiclenumber, date, now);
                     if (rowsAffected > 0)
                     {
-                        IEnumerable<Complaint> complaints = dbContext.Complaints.Where(x => x.VehicleNumber == request.VehicleNumber && x.PointCode == request.CheckListPointCode);
+                        IEnumerable<Complaint> complaints = dbContext.Complaints.Where(x => x.IsActive && x.VehicleNumber == request.VehicleNumber && x.PointCode == request.CheckListPointCode);
                         if (!complaints.Any())
                         {
                             Complaint complaint = new()
@@ -410,6 +411,7 @@ namespace SOS.FMS.Server.Controllers
                                 ComplaintDescription = request.Remarks,
                                 PointCode = request.CheckListPointCode,
                                 PointCodeDescription = request.CheckListPoint,
+                                IsActive = true,
                                 ReportTime = PakistanDateTime.Now
                             };
                             dbContext.Complaints.Add(complaint);

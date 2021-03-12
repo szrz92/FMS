@@ -160,14 +160,21 @@ using Syncfusion.Blazor.Navigations;
 #line hidden
 #nullable disable
 #nullable restore
-#line 33 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
-using SOS.FMS.Client.Services;
+#line 28 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+using Syncfusion.Blazor.PivotView;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 34 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+using SOS.FMS.Client.Services;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 35 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default

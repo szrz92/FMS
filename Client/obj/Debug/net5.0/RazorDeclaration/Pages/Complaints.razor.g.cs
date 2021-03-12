@@ -203,7 +203,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 134 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Complaints.razor"
+#line 148 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Complaints.razor"
        
     public List<ComplaintVM> ComplaintsList { get; set; }
     public List<ComplaintVM> FilteredComplaintsList { get; set; }
@@ -230,13 +230,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     protected override async Task OnInitializedAsync()
     {
-        ComplaintsList = (await Http.GetFromJsonAsync<List<ComplaintVM>>("api/complaints/all/active"))
-        .OrderByDescending(x => x.ReportTime)
-        .ToList();
-        FilteredComplaintsList = ComplaintsList;
-        regionsList = ComplaintsList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        subRegionsList = ComplaintsList.GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        vehiclesList = ComplaintsList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        await GetActiveComplaints();
         await base.OnInitializedAsync();
     }
 
@@ -270,12 +264,14 @@ using Microsoft.AspNetCore.SignalR.Client;
     #endregion
 
     #region Dialog
+    public bool ResponseDialog { get; set; } = false;
     public bool ConfirmDialog { get; set; } = false;
     public string ConfirmHeader { get; set; }
     public string ConfirmBody { get; set; }
 
     public void DialogClose()
     {
+        ResponseDialog = false;
         ConfirmDialog = false;
 
         ConfirmHeader = null;
@@ -299,6 +295,42 @@ using Microsoft.AspNetCore.SignalR.Client;
 
         ConfirmDialog = true;
         StateHasChanged();
+    }
+
+    public async void ConfirmResolution()
+    {
+        var resolutionResponse = await Http.PostAsJsonAsync("api/complaints/resolve", new ApiRequest() { CheckListPointCode = PointCodeToMaintain, VehicleNumber = VehicleNumberToMaintain });
+        if (resolutionResponse.IsSuccessStatusCode)
+        {
+            DialogClose();
+
+            ConfirmHeader = "Success";
+            ConfirmBody = await resolutionResponse.Content.ReadAsStringAsync();
+            ResponseDialog = true;
+
+
+            await GetActiveComplaints();
+        }
+        else
+        {
+            DialogClose();
+
+            ConfirmHeader = "Failed";
+            ConfirmBody = await resolutionResponse.Content.ReadAsStringAsync();
+            ResponseDialog = true;
+        }
+        StateHasChanged();
+    }
+
+    public async Task GetActiveComplaints()
+    {
+        ComplaintsList = (await Http.GetFromJsonAsync<List<ComplaintVM>>("api/complaints/all/active"))
+        .OrderByDescending(x => x.ReportTime)
+        .ToList();
+        FilteredComplaintsList = ComplaintsList;
+        regionsList = ComplaintsList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        subRegionsList = ComplaintsList.GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        vehiclesList = ComplaintsList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
     }
 
 #line default
