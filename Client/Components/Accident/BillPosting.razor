@@ -18,22 +18,57 @@
             <EditForm Model="bill" OnValidSubmit="PostBill">
                 <DataAnnotationsValidator></DataAnnotationsValidator>
                 <ValidationSummary></ValidationSummary>
-                <div class="card w-100">
-                    <div class="card-header">
-                        Total Amount:
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex flex-column">
-                            <div class="form-group">
-                                <SfNumericTextBox @bind-Value="bill.BillAmount" class="form-control"></SfNumericTextBox>
-                                <span class="form-text text-muted">Please enter total amount paid</span>
+                <div class="row">
+                    <div class="col-5">
+                        <div class="card">
+                            <div class="card-header">
+                                Total Amount
                             </div>
-                            <SOS.FMS.Client.Components.Accident.ImageUpload OnImagePost="OnImagePost" />
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <SfNumericTextBox @bind-Value="bill.BillAmount" class="form-control"></SfNumericTextBox>
+                                    <span class="form-text text-muted">Please enter total amount paid</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                Remarks
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <SfTextBox @bind-Value="bill.Remarks" class="form-control" Multiline="true"></SfTextBox>
+                                    <span class="form-text text-muted">Please enter remarks</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                Uploaded Files
+                            </div>
+                            <div class="card-body">
+                                <ul>
+                                    <li>
+                                        <a @onclick="() => Play()">Video</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                        <button type="reset" @onclick="CloseBillPosting" class="btn btn-secondary">Cancel</button>
+                    <div class="col-1">
+                    </div>
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-header">
+                                Upload Files
+                            </div>
+                            <div class="card-body">
+                                <div ID="DropArea" style="padding: 60px 100px; border: 1px solid #c3c3c3; text-align: center; width: 100%; display: inline-flex;">
+                                    Drop files here to upload
+                                </div>
+                                <SfUploader DropArea="#DropArea"></SfUploader>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </EditForm>
@@ -41,6 +76,13 @@
         <!--end::Content-->
     </div>
 </div>
+<Modal @ref="modal" Visible="ModalVisibility">
+    <Title>Video Player</Title>
+    <Body><VideoPlayer source="@source"></VideoPlayer></Body>
+    <Footer>
+        <button type="button" class="btn btn-info" data-dismiss="modal" @onclick="() => modal.Close()">Close</button>
+    </Footer>
+</Modal>
 @code {
     [Parameter]
     public ApiRequest CheckPointId { get; set; }
@@ -50,6 +92,8 @@
     public bool Visible { get; set; }
     [Parameter]
     public EventCallback<bool> OnVisibilityChanged { get; set; }
+
+    public Modal modal { get; set; }
 
     FMSAccidentalCheckCommentVM AccidentalCheckComment;
 
@@ -76,6 +120,7 @@
         BillPostingVM.images.Add(image);
         bill.BillImage = image;
     }
+
     public Task CloseBillPosting()
     {
         return OnVisibilityChanged.InvokeAsync(false);
@@ -101,5 +146,16 @@
         {
         }
     }
+
+    public bool ModalVisibility { get; set; }
+    public string source { get; set; } 
+
+    public void Play(string url = "https://res.cloudinary.com/blazoredgitter/video/upload/v1557015491/samples/elephants.mp4")
+    {
+        source = url;
+        ModalVisibility = true;
+        StateHasChanged();
+    }
+
 }
 

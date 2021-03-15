@@ -209,7 +209,7 @@ using SOS.FMS.Shared.ViewModels.Accident;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 44 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\BillPosting.razor"
+#line 86 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\BillPosting.razor"
        
     [Parameter]
     public ApiRequest CheckPointId { get; set; }
@@ -219,6 +219,8 @@ using SOS.FMS.Shared.ViewModels.Accident;
     public bool Visible { get; set; }
     [Parameter]
     public EventCallback<bool> OnVisibilityChanged { get; set; }
+
+    public Modal modal { get; set; }
 
     FMSAccidentalCheckCommentVM AccidentalCheckComment;
 
@@ -245,6 +247,7 @@ using SOS.FMS.Shared.ViewModels.Accident;
         BillPostingVM.images.Add(image);
         bill.BillImage = image;
     }
+
     public Task CloseBillPosting()
     {
         return OnVisibilityChanged.InvokeAsync(false);
@@ -270,6 +273,17 @@ using SOS.FMS.Shared.ViewModels.Accident;
         {
         }
     }
+
+    public bool ModalVisibility { get; set; }
+    public string source { get; set; } 
+
+    public void Play(string url = "https://res.cloudinary.com/blazoredgitter/video/upload/v1557015491/samples/elephants.mp4")
+    {
+        source = url;
+        ModalVisibility = true;
+        StateHasChanged();
+    }
+
 
 #line default
 #line hidden

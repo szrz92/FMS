@@ -21,4 +21,10 @@
     <ProjectReference Include="..\Shared\SOS.FMS.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Blazored.Video">
+      <HintPath>..\..\..\..\Downloads\Video-main\Video-main\src\Blazored.Video\bin\Debug\netstandard2.1\Blazored.Video.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
