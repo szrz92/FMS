@@ -40,7 +40,9 @@ namespace SOS.FMS.Server.Models
         public DbSet<PeriodicHistory> PeriodicHistories { get; set; }
         public DbSet<Complaint> Complaints { get; set; }
         public DbSet<AccidentBill> AccidentBills{ get; set; }
+        public DbSet<AccidentalBillDetail> AccidentalBillDetails { get; set; }
         public DbSet<EmergencyBill> EmergencyBills { get; set; }
+        public DbSet<File> Files { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 

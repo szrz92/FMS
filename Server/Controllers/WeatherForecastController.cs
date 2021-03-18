@@ -43,7 +43,7 @@ namespace SOS.FMS.Server.Controllers
         {
             try
             {
-                var vehicles = (from v in _gbmsContext.RbVehicles select v).ToList();
+                //var vehicles = (from v in _gbmsContext.RbVehicles select v).ToList();
                 return Ok();
             }
             catch (Exception ex)

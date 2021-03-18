@@ -27,5 +27,9 @@
     <ProjectReference Include="..\Shared\SOS.FMS.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Uploads\" />
+  </ItemGroup>
+
 
 </Project>

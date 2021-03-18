@@ -1,130 +1,142 @@
-﻿@page "/vid"
-@using Blazored.Video
-@using Blazored.Video.Support
+﻿@page "/upload-files"
+@using System.Linq
+@using Microsoft.Extensions.Logging
+@inject HttpClient Http
+@inject ILogger<Test1> logger
 
-<h1>Blazored Video</h1>
+<h1>Upload Files</h1>
 
-<style>
-    .flash0 {
-        animation: FLASH0 200ms ease-in-out;
-    }
+<p>
+    <label>
+        Upload up to @maxAllowedFiles files:
+        <InputFile OnChange="@OnInputFileChange" multiple />
+    </label>
+</p>
 
-    .flash1 {
-        animation: FLASH1 200ms ease-in-out;
-    }
-
-    @@keyframes FLASH0 {
-        0% {
-            background-color: rgba(255, 216, 0, 0.8);
-        }
-
-        100% {
-            background-color: rgba(255, 216, 0, 0);
-        }
-    }
-
-    @@keyframes FLASH1 {
-        0% {
-            background-color: rgba(255, 216, 0, 0.8);
-        }
-
-        100% {
-            background-color: rgba(255, 216, 0, 0);
-        }
-    }
-</style>
-<div class="d-flex align-items-start justify-content-center">
-    @*<div class="d-flex flex-column w-100 p-2">
-        <div class="d-flex flex-column w-100 p-2">
-            <div class="alert-primary">Events</div>
-            <div class="d-flex p-1 m-1 flex-wrap">
-                @foreach (var eventName in Enum.GetNames(typeof(VideoEvents)))
+@if (files.Count > 0)
+{
+    <div class="card">
+        <div class="card-body">
+            <ul>
+                @foreach (var file in files)
                 {
-                    var eventValue = (VideoEvents)Enum.Parse(typeof(VideoEvents), eventName);
-                    if (eventCounter.ContainsKey(eventValue))
-                    {
-    <div class="d-flex flex-column m-1 p-1 border border-dark">
-        <label class="bg-dark text-white p-1">@eventName</label>
-        <span class="flash@(eventCounter[eventValue] % 2)">@eventCounter[eventValue]</span>
-    </div>}
-                }
-            </div>
-        </div>
-        <div class="d-flex flex-column w-100 p-2">
-            <div class="alert-primary">State</div>
-            <div class="d-flex p-1 m-1 flex-wrap">
-                @if (videoState is object)
-                {
-                    foreach (var item in typeof(VideoState).GetProperties())
-                    {
-                        try
+                    <li>
+                        File: @file.Name
+                        <br>
+                        @if (FileUpload(uploadResults, file.Name, logger,
+                           out var result))
                         {
-    <div class="d-flex flex-column m-1 p-1 border border-dark">
-        <label class="bg-dark text-white p-1">@item.Name</label>
-        <span>@item.GetValue(videoState)?.ToString()</span>
-    </div>}
-                        catch { }
-                    }
+                            <span>
+                                Stored File Name: @result.StoredFileName
+                            </span>
+                        }
+                        else
+                        {
+                            <span>
+                                There was an error uploading the file
+                                (Error: @result.ErrorCode).
+                            </span>
+                        }
+                    </li>
                 }
-            </div>
+            </ul>
         </div>
-    </div>*@
-    <div class="d-flex flex-column p-2 align-content-center border border-info">
-        <BlazoredVideo EventFired="OnEvent"
-                       VideoEventOptions="options"
-                       class="w-100"
-                       style="max-width:800px;"
-                       controls="controls">
-            <source src="https://res.cloudinary.com/blazoredgitter/video/upload/v1557015491/samples/elephants.mp4" type="video/mp4" />
-        </BlazoredVideo>
     </div>
-</div>
+}
 
-@code { 
-    Dictionary<VideoEvents, VideoStateOptions> options = new Dictionary<VideoEvents, VideoStateOptions>();
-            VideoState videoState;
-            Dictionary<VideoEvents, int> eventCounter = new Dictionary<VideoEvents, int>();
+@code {
+    public class UploadResult
+    {
+        public bool Uploaded { get; set; }
 
-            protected override void OnInitialized()
-            {
-                foreach (var item in (VideoEvents[])(Enum.GetValues(typeof(VideoEvents))))
-                {
-                    if (item != VideoEvents.NotSet)
-                    {
-                        eventCounter[item] = 0;
-                    }
-                }
-                var option = new VideoStateOptions() { All = true };
-                options[VideoEvents.Abort] = option;
-                options[VideoEvents.CanPlay] = option;
-                options[VideoEvents.CanPlayThrough] = option;
-                options[VideoEvents.DurationChange] = option;
-                options[VideoEvents.Emptied] = option;
-                options[VideoEvents.Ended] = option;
-                options[VideoEvents.Error] = option;
-                options[VideoEvents.LoadedData] = option;
-                options[VideoEvents.LoadedMetadata] = option;
-                options[VideoEvents.LoadStart] = option;
-                options[VideoEvents.Pause] = option;
-                options[VideoEvents.Play] = option;
-                options[VideoEvents.Playing] = option;
-                options[VideoEvents.Progress] = option;
-                options[VideoEvents.RateChange] = option;
-                options[VideoEvents.Seeked] = option;
-                options[VideoEvents.Seeking] = option;
-                options[VideoEvents.Stalled] = option;
-                options[VideoEvents.Suspend] = option;
-                options[VideoEvents.TimeUpdate] = option;
-                options[VideoEvents.VolumeChange] = option;
-                options[VideoEvents.Waiting] = option;
-            }
-            void OnEvent(VideoEventData videoData)
-            {
-                videoState = videoData.State;
-                if (videoData.EventName != VideoEvents.NotSet)
-                {
-                    eventCounter[videoData.EventName]++;
-                }
-                StateHasChanged();
-            } 
+        public string FileName { get; set; }
+
+        public string StoredFileName { get; set; }
+
+        public int ErrorCode { get; set; }
     }
+    private IList<File> files = new List<File>();
+    private IList<UploadResult> uploadResults = new List<UploadResult>();
+    private int maxAllowedFiles = 3;
+    private bool shouldRender;
+
+    protected override bool ShouldRender() => shouldRender;
+
+    private async Task OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        shouldRender = false;
+        long maxFileSize = 1024 * 1024 * 15;
+        var upload = false;
+
+        using var content = new MultipartFormDataContent();
+
+        foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+        {
+            if (uploadResults.SingleOrDefault(
+                f => f.FileName == file.Name) is null)
+            {
+                var fileContent = new StreamContent(file.OpenReadStream());
+
+                files.Add(
+                    new File()
+                    {
+                        Name = file.Name,
+                    });
+
+                if (file.Size < maxFileSize)
+                {
+                    content.Add(
+                        content: fileContent,
+                        name: "\"files\"",
+                        fileName: file.Name);
+
+                    upload = true;
+                }
+                else
+                {
+                    logger.LogInformation("{FileName} not uploaded", file.Name);
+
+                    uploadResults.Add(
+                        new UploadResult()
+                        {
+                            FileName = file.Name,
+                            ErrorCode = 6,
+                            Uploaded = false,
+                        });
+                }
+            }
+        }
+
+        if (upload)
+        {
+            var response = await Http.PostAsync("api/Files", content);
+
+            var newUploadResults = await response.Content
+                .ReadFromJsonAsync<IList<UploadResult>>();
+
+            uploadResults = uploadResults.Concat(newUploadResults).ToList();
+        }
+
+        shouldRender = true;
+    }
+
+    private static bool FileUpload(IList<UploadResult> uploadResults,
+        string fileName, ILogger<Test1> logger, out UploadResult result)
+    {
+        result = uploadResults.SingleOrDefault(f => f.FileName == fileName);
+
+        if (result is null)
+        {
+            logger.LogInformation("{FileName} not uploaded", fileName);
+            result = new UploadResult();
+            result.ErrorCode = 5;
+        }
+
+        return result.Uploaded;
+    }
+
+    private class File
+    {
+        public string Name { get; set; }
+    }
+}

@@ -180,17 +180,20 @@
 @if (emergencyCheckListSideModal)
 {
     <SOS.FMS.Client.Components.Emergency.Checklist OnVisibilityChanged="ShowHideEmergencyCheckList" Visible="@emergencyCheckListSideModal"
-                         VehicleNumber="@emergencyCheckListVehicleNumber" EmergencyCheckList="@emergencyCheckList" />
+                                                   VehicleNumber="@emergencyCheckListVehicleNumber" EmergencyCheckList="@emergencyCheckList" />
 }
 @if (accidentalCheckListSideModal)
 {
     <SOS.FMS.Client.Components.Accident.CheckList OnVisibilityChanged="ShowHideAccidentalCheckList" Visible="@accidentalCheckListSideModal"
-                         VehicleNumber="@accidentalCheckListVehicleNumber" AccidentalsCheckList="@accidentalCheckList" />
+                                                  VehicleNumber="@accidentalCheckListVehicleNumber" AccidentalsCheckList="@accidentalCheckList" />
 }
 
 @if (dailyCheckListSideModal)
 {
-    <SOS.FMS.Client.Components.Daily.CheckList OnVisibilityChanged="ShowHideDailyCheckList" Visible="@dailyCheckListSideModal" VehicleNumber="@dailyCheckListVehicleNumber" />
+    if (!string.IsNullOrEmpty(dailyCheckListVehicleNumber))
+    {
+        <SOS.FMS.Client.Components.Daily.CheckList OnVisibilityChanged="ShowHideDailyCheckList" Visible="@dailyCheckListSideModal" VehicleNumber="@dailyCheckListVehicleNumber" />
+    }
 }
 
 @if (periodicCheckListSideModal)

@@ -26,6 +26,8 @@ namespace SOS.FMS.Server.GBMSModels
         public string XAlramSystemDescription { get; set; }
         public string XBranchStatus { get; set; }
         public string XBranchStatusDescription { get; set; }
+        public string XAtmCitBill { get; set; }
+        public string XAtmCitBillDescription { get; set; }
         public string XGeoStatus { get; set; }
         public string XGeoStatusDescription { get; set; }
         public string XLatitude { get; set; }

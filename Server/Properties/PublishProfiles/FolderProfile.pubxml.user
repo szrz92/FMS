@@ -5,6 +5,6 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\BA Tech\source\repos\sosfms\Server\bin\Release\net5.0\publish\</_PublishTargetUrl>
-    <History>True|2021-03-12T13:23:40.1216694Z;True|2021-03-12T16:45:39.2392463+05:00;True|2021-03-12T14:44:10.9331329+05:00;True|2021-03-12T14:41:37.6501234+05:00;False|2021-03-12T13:17:43.4702478+05:00;True|2021-03-11T12:17:49.5550805+05:00;</History>
+    <History>True|2021-03-17T14:45:29.3137761Z;False|2021-03-17T19:44:47.8491335+05:00;True|2021-03-17T18:02:30.2878086+05:00;False|2021-03-17T18:01:43.9699717+05:00;True|2021-03-12T18:23:40.1216694+05:00;True|2021-03-12T16:45:39.2392463+05:00;True|2021-03-12T14:44:10.9331329+05:00;True|2021-03-12T14:41:37.6501234+05:00;False|2021-03-12T13:17:43.4702478+05:00;True|2021-03-11T12:17:49.5550805+05:00;</History>
   </PropertyGroup>
 </Project>

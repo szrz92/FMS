@@ -18,6 +18,84 @@ namespace SOS.FMS.Server.GBMSModels
         }
 
         public virtual DbSet<Dbview> Dbviews { get; set; }
+        public virtual DbSet<InvAttribute> InvAttributes { get; set; }
+        public virtual DbSet<InvCostCenter> InvCostCenters { get; set; }
+        public virtual DbSet<InvCustomerManagementContactPerson> InvCustomerManagementContactPeople { get; set; }
+        public virtual DbSet<InvDefaultSettingsManagement> InvDefaultSettingsManagements { get; set; }
+        public virtual DbSet<InvDefaultSettingsManagementGlAccountCode> InvDefaultSettingsManagementGlAccountCodes { get; set; }
+        public virtual DbSet<InvDemandDecision> InvDemandDecisions { get; set; }
+        public virtual DbSet<InvDemandDecisionDocumentDetail> InvDemandDecisionDocumentDetails { get; set; }
+        public virtual DbSet<InvDemandDecisionTransferLocation> InvDemandDecisionTransferLocations { get; set; }
+        public virtual DbSet<InvDepartment> InvDepartments { get; set; }
+        public virtual DbSet<InvDirectSalesInvoice> InvDirectSalesInvoices { get; set; }
+        public virtual DbSet<InvDirectSalesInvoiceDirectSalesDetail> InvDirectSalesInvoiceDirectSalesDetails { get; set; }
+        public virtual DbSet<InvGoodsReceivedNote> InvGoodsReceivedNotes { get; set; }
+        public virtual DbSet<InvGoodsReceivedNoteFromDemand> InvGoodsReceivedNoteFromDemands { get; set; }
+        public virtual DbSet<InvGoodsReceivedNoteFromDemandDocumentDetail> InvGoodsReceivedNoteFromDemandDocumentDetails { get; set; }
+        public virtual DbSet<InvGoodsReceivedNoteFromPurchaseOrder> InvGoodsReceivedNoteFromPurchaseOrders { get; set; }
+        public virtual DbSet<InvGoodsReceivedNoteFromPurchaseOrderDocumentDetail> InvGoodsReceivedNoteFromPurchaseOrderDocumentDetails { get; set; }
+        public virtual DbSet<InvInventoryTransferIn> InvInventoryTransferIns { get; set; }
+        public virtual DbSet<InvInventoryTransferInDocumentDetail> InvInventoryTransferInDocumentDetails { get; set; }
+        public virtual DbSet<InvInventoryTransferOut> InvInventoryTransferOuts { get; set; }
+        public virtual DbSet<InvInventoryTransferOutDocumentDetail> InvInventoryTransferOutDocumentDetails { get; set; }
+        public virtual DbSet<InvIssueAdjustment> InvIssueAdjustments { get; set; }
+        public virtual DbSet<InvIssueRequisition> InvIssueRequisitions { get; set; }
+        public virtual DbSet<InvIssueRequisitionDetail> InvIssueRequisitionDetails { get; set; }
+        public virtual DbSet<InvIssueRequisitionFromDemandDecision> InvIssueRequisitionFromDemandDecisions { get; set; }
+        public virtual DbSet<InvManufacturer> InvManufacturers { get; set; }
+        public virtual DbSet<InvManufacturersContactPerson> InvManufacturersContactPeople { get; set; }
+        public virtual DbSet<InvPaymentTermTemplate> InvPaymentTermTemplates { get; set; }
+        public virtual DbSet<InvPaymentTermTemplatesPaymentTerm> InvPaymentTermTemplatesPaymentTerms { get; set; }
+        public virtual DbSet<InvProductClassification> InvProductClassifications { get; set; }
+        public virtual DbSet<InvProductClassificationCostLink> InvProductClassificationCostLinks { get; set; }
+        public virtual DbSet<InvProductClassificationRate> InvProductClassificationRates { get; set; }
+        public virtual DbSet<InvProductClassificationSalesLink> InvProductClassificationSalesLinks { get; set; }
+        public virtual DbSet<InvProductClassificationSegmentWiseCode> InvProductClassificationSegmentWiseCodes { get; set; }
+        public virtual DbSet<InvProductMasterFileAlternateItem> InvProductMasterFileAlternateItems { get; set; }
+        public virtual DbSet<InvProductMasterFileAttribute> InvProductMasterFileAttributes { get; set; }
+        public virtual DbSet<InvProductMasterFileInventoryLevel> InvProductMasterFileInventoryLevels { get; set; }
+        public virtual DbSet<InvProductMasterFileIssuanceMandatoryField> InvProductMasterFileIssuanceMandatoryFields { get; set; }
+        public virtual DbSet<InvProductMasterFileLocation> InvProductMasterFileLocations { get; set; }
+        public virtual DbSet<InvProductMasterFileManufacturer> InvProductMasterFileManufacturers { get; set; }
+        public virtual DbSet<InvProductMasterFileSpecification> InvProductMasterFileSpecifications { get; set; }
+        public virtual DbSet<InvProductMasterFileSupplier> InvProductMasterFileSuppliers { get; set; }
+        public virtual DbSet<InvProject> InvProjects { get; set; }
+        public virtual DbSet<InvPurchaseDemand> InvPurchaseDemands { get; set; }
+        public virtual DbSet<InvPurchaseDemandDetail> InvPurchaseDemandDetails { get; set; }
+        public virtual DbSet<InvPurchaseDemandSpecification> InvPurchaseDemandSpecifications { get; set; }
+        public virtual DbSet<InvPurchaseEnquiry> InvPurchaseEnquiries { get; set; }
+        public virtual DbSet<InvPurchaseEnquiryDetail> InvPurchaseEnquiryDetails { get; set; }
+        public virtual DbSet<InvPurchaseOrder> InvPurchaseOrders { get; set; }
+        public virtual DbSet<InvPurchaseOrderPaymentTerm> InvPurchaseOrderPaymentTerms { get; set; }
+        public virtual DbSet<InvPurchaseOrderPurchaseOrderDetail> InvPurchaseOrderPurchaseOrderDetails { get; set; }
+        public virtual DbSet<InvPurchaseOrderSpecification> InvPurchaseOrderSpecifications { get; set; }
+        public virtual DbSet<InvPurchaseRequisition> InvPurchaseRequisitions { get; set; }
+        public virtual DbSet<InvPurchaseRequisitionDetail> InvPurchaseRequisitionDetails { get; set; }
+        public virtual DbSet<InvPurchaseReturnNote> InvPurchaseReturnNotes { get; set; }
+        public virtual DbSet<InvPurchaseReturnNoteDetail> InvPurchaseReturnNoteDetails { get; set; }
+        public virtual DbSet<InvReceiptAdjustment> InvReceiptAdjustments { get; set; }
+        public virtual DbSet<InvRejectionReason> InvRejectionReasons { get; set; }
+        public virtual DbSet<InvReplyOfEnquiry> InvReplyOfEnquiries { get; set; }
+        public virtual DbSet<InvReplyOfEnquiryDetail> InvReplyOfEnquiryDetails { get; set; }
+        public virtual DbSet<InvRequestForStockTransfer> InvRequestForStockTransfers { get; set; }
+        public virtual DbSet<InvRequestForStockTransferDetail> InvRequestForStockTransferDetails { get; set; }
+        public virtual DbSet<InvServicesReceivedNote> InvServicesReceivedNotes { get; set; }
+        public virtual DbSet<InvServicesReceivedNoteDetail> InvServicesReceivedNoteDetails { get; set; }
+        public virtual DbSet<InvSiteDemand> InvSiteDemands { get; set; }
+        public virtual DbSet<InvSiteDemandDetail> InvSiteDemandDetails { get; set; }
+        public virtual DbSet<InvStockTransferNote> InvStockTransferNotes { get; set; }
+        public virtual DbSet<InvStockTransferNoteDetail> InvStockTransferNoteDetails { get; set; }
+        public virtual DbSet<InvStoreReturnNote> InvStoreReturnNotes { get; set; }
+        public virtual DbSet<InvStoreReturnNoteDetail> InvStoreReturnNoteDetails { get; set; }
+        public virtual DbSet<InvSupplierManagement> InvSupplierManagements { get; set; }
+        public virtual DbSet<InvSupplierManagementContactPerson> InvSupplierManagementContactPeople { get; set; }
+        public virtual DbSet<InvSupplierManagementGlAccountCode> InvSupplierManagementGlAccountCodes { get; set; }
+        public virtual DbSet<InvUnBilledGoodsReceivedNote> InvUnBilledGoodsReceivedNotes { get; set; }
+        public virtual DbSet<InvUnBilledGoodsReceivedNoteDetail> InvUnBilledGoodsReceivedNoteDetails { get; set; }
+        public virtual DbSet<InvUnitOfMeasurement> InvUnitOfMeasurements { get; set; }
+        public virtual DbSet<InvVehicle> InvVehicles { get; set; }
+        public virtual DbSet<InvWarehouse> InvWarehouses { get; set; }
+        public virtual DbSet<InvWarehouseServingLocation> InvWarehouseServingLocations { get; set; }
         public virtual DbSet<PayBankCode> PayBankCodes { get; set; }
         public virtual DbSet<PayCadre> PayCadres { get; set; }
         public virtual DbSet<PayCategory> PayCategories { get; set; }
@@ -29,6 +107,43 @@ namespace SOS.FMS.Server.GBMSModels
         public virtual DbSet<PayLeaveCode> PayLeaveCodes { get; set; }
         public virtual DbSet<PayReligion> PayReligions { get; set; }
         public virtual DbSet<PayShift> PayShifts { get; set; }
+        public virtual DbSet<PblAgingTemplate> PblAgingTemplates { get; set; }
+        public virtual DbSet<PblAgingTemplatesTemplateDetail> PblAgingTemplatesTemplateDetails { get; set; }
+        public virtual DbSet<PblCreditNote> PblCreditNotes { get; set; }
+        public virtual DbSet<PblCreditNoteDocumentDetail> PblCreditNoteDocumentDetails { get; set; }
+        public virtual DbSet<PblCreditNoteReason> PblCreditNoteReasons { get; set; }
+        public virtual DbSet<PblCreditNoteReasonsAccount> PblCreditNoteReasonsAccounts { get; set; }
+        public virtual DbSet<PblDebitNote> PblDebitNotes { get; set; }
+        public virtual DbSet<PblDebitNoteDocumentDetail> PblDebitNoteDocumentDetails { get; set; }
+        public virtual DbSet<PblDebitNoteReason> PblDebitNoteReasons { get; set; }
+        public virtual DbSet<PblDebitNoteReasonsAccountCode> PblDebitNoteReasonsAccountCodes { get; set; }
+        public virtual DbSet<PblDefaultSettingsManagement> PblDefaultSettingsManagements { get; set; }
+        public virtual DbSet<PblDefaultSettingsManagementGlAccountCode> PblDefaultSettingsManagementGlAccountCodes { get; set; }
+        public virtual DbSet<PblLocation> PblLocations { get; set; }
+        public virtual DbSet<PblMasterLocation> PblMasterLocations { get; set; }
+        public virtual DbSet<PblOtherGrnSupplierPaymentVoucher> PblOtherGrnSupplierPaymentVouchers { get; set; }
+        public virtual DbSet<PblOtherGrnSupplierPaymentVoucherPaymentDetail> PblOtherGrnSupplierPaymentVoucherPaymentDetails { get; set; }
+        public virtual DbSet<PblPaymentApproval> PblPaymentApprovals { get; set; }
+        public virtual DbSet<PblPaymentApprovalApprovalDetail> PblPaymentApprovalApprovalDetails { get; set; }
+        public virtual DbSet<PblPaymentApprovalDebitNoteAdjustment> PblPaymentApprovalDebitNoteAdjustments { get; set; }
+        public virtual DbSet<PblPaymentTermTemplate> PblPaymentTermTemplates { get; set; }
+        public virtual DbSet<PblPaymentTermTemplatesPaymentTerm> PblPaymentTermTemplatesPaymentTerms { get; set; }
+        public virtual DbSet<PblService> PblServices { get; set; }
+        public virtual DbSet<PblServicesAccountCode> PblServicesAccountCodes { get; set; }
+        public virtual DbSet<PblServicesNature> PblServicesNatures { get; set; }
+        public virtual DbSet<PblServicesReceivedNote> PblServicesReceivedNotes { get; set; }
+        public virtual DbSet<PblServicesReceivedNoteDetail> PblServicesReceivedNoteDetails { get; set; }
+        public virtual DbSet<PblSupplierInvoice> PblSupplierInvoices { get; set; }
+        public virtual DbSet<PblSupplierInvoiceDocumentMatching> PblSupplierInvoiceDocumentMatchings { get; set; }
+        public virtual DbSet<PblSupplierInvoicePaymentVoucher> PblSupplierInvoicePaymentVouchers { get; set; }
+        public virtual DbSet<PblSupplierInvoicePaymentVoucherApprovalAdjustment> PblSupplierInvoicePaymentVoucherApprovalAdjustments { get; set; }
+        public virtual DbSet<PblSupplierInvoicePaymentVoucherPaymentDetail> PblSupplierInvoicePaymentVoucherPaymentDetails { get; set; }
+        public virtual DbSet<PblSupplierInvoicePoAdvance> PblSupplierInvoicePoAdvances { get; set; }
+        public virtual DbSet<PblVendorClass> PblVendorClasses { get; set; }
+        public virtual DbSet<PblVendorClassAccountCode> PblVendorClassAccountCodes { get; set; }
+        public virtual DbSet<PblVendorGrade> PblVendorGrades { get; set; }
+        public virtual DbSet<PblVendorManagement> PblVendorManagements { get; set; }
+        public virtual DbSet<PblVendorManagementContactPerson> PblVendorManagementContactPersons { get; set; }
         public virtual DbSet<PdwAllowance> PdwAllowances { get; set; }
         public virtual DbSet<PdwAllowancesToggle> PdwAllowancesToggles { get; set; }
         public virtual DbSet<PdwBankCode> PdwBankCodes { get; set; }
@@ -94,6 +209,7 @@ namespace SOS.FMS.Server.GBMSModels
         public virtual DbSet<RbMainCustomerManagementContactPerson> RbMainCustomerManagementContactPeople { get; set; }
         public virtual DbSet<RbMainCustomerManagementFeatureCode> RbMainCustomerManagementFeatureCodes { get; set; }
         public virtual DbSet<RbMainCustomerManagementFeatureDetail> RbMainCustomerManagementFeatureDetails { get; set; }
+        public virtual DbSet<RbMainCustomerManagementSegmentWiseBankDetail> RbMainCustomerManagementSegmentWiseBankDetails { get; set; }
         public virtual DbSet<RbMainCustomerManagementVehcileDetail> RbMainCustomerManagementVehcileDetails { get; set; }
         public virtual DbSet<RbMainCustomerManagementVehicleDetail> RbMainCustomerManagementVehicleDetails { get; set; }
         public virtual DbSet<RbOrderStatus> RbOrderStatuses { get; set; }
@@ -131,6 +247,7 @@ namespace SOS.FMS.Server.GBMSModels
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Data Source=104.215.144.226,1433;Initial Catalog=SOS_VIEWS;User Id=cit; password=ijnIJN999(((; MultipleActiveResultSets=true;Connection Timeout=3200;");
             }
         }
@@ -174,6 +291,8287 @@ namespace SOS.FMS.Server.GBMSModels
                     .IsRequired()
                     .HasMaxLength(128)
                     .HasColumnName("type");
+            });
+
+            modelBuilder.Entity<InvAttribute>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_ATTRIBUTES");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAbbrevation)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ABBREVATION");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XDescription)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XrowId).HasColumnName("XROW_ID");
+            });
+
+            modelBuilder.Entity<InvCostCenter>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_COST_CENTERS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAbbrevation)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ABBREVATION");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XDescription)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XrowId).HasColumnName("XROW_ID");
+            });
+
+            modelBuilder.Entity<InvCustomerManagementContactPerson>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_CUSTOMER_MANAGEMENT_CONTACT_PERSON");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAddress)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ADDRESS");
+
+                entity.Property(e => e.XCellNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CELL_NO");
+
+                entity.Property(e => e.XCnic)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CNIC");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XDesignation)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESIGNATION");
+
+                entity.Property(e => e.XEmailId)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_EMAIL_ID");
+
+                entity.Property(e => e.XLandline)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_LANDLINE");
+
+                entity.Property(e => e.XName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NAME");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+            });
+
+            modelBuilder.Entity<InvDefaultSettingsManagement>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_DEFAULT_SETTINGS_MANAGEMENT");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAbbrevation)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ABBREVATION");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XName)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NAME");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XrowId).HasColumnName("XROW_ID");
+            });
+
+            modelBuilder.Entity<InvDefaultSettingsManagementGlAccountCode>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_DEFAULT_SETTINGS_MANAGEMENT_GL_ACCOUNT_CODES");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XCreditAccount)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CREDIT_ACCOUNT");
+
+                entity.Property(e => e.XCreditAccountDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CREDIT_ACCOUNT_DESCRIPTION");
+
+                entity.Property(e => e.XDebitAccount)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEBIT_ACCOUNT");
+
+                entity.Property(e => e.XDebitAccountDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEBIT_ACCOUNT_DESCRIPTION");
+
+                entity.Property(e => e.XGeneralRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_GENERAL_REMARKS");
+
+                entity.Property(e => e.XNatureOfAmount)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NATURE_OF_AMOUNT");
+
+                entity.Property(e => e.XNatureOfAmountDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NATURE_OF_AMOUNT_DESCRIPTION");
+
+                entity.Property(e => e.XParticularsForCreditEntry)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PARTICULARS_FOR_CREDIT_ENTRY");
+
+                entity.Property(e => e.XParticularsForDebitEntry)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PARTICULARS_FOR_DEBIT_ENTRY");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+            });
+
+            modelBuilder.Entity<InvDemandDecision>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_DEMAND_DECISION");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XComments)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_COMMENTS");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDemandDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEMAND_DATE");
+
+                entity.Property(e => e.XDemandNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEMAND_NO");
+
+                entity.Property(e => e.XNA)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_N_A");
+
+                entity.Property(e => e.XNADescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_N_A_DESCRIPTION");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSpecificDemand)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SPECIFIC_DEMAND");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<InvDemandDecisionDocumentDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_DEMAND_DECISION_DOCUMENT_DETAILS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDecisionStatus)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DECISION_STATUS");
+
+                entity.Property(e => e.XDemand)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_DEMAND_");
+
+                entity.Property(e => e.XDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XInstructions)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_INSTRUCTIONS");
+
+                entity.Property(e => e.XItemCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ITEM_CODE");
+
+                entity.Property(e => e.XProject)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT");
+
+                entity.Property(e => e.XProjectDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT_DESCRIPTION");
+
+                entity.Property(e => e.XQtyDemanded)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_QTY_DEMANDED");
+
+                entity.Property(e => e.XRejected)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_REJECTED");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSpecifications)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SPECIFICATIONS");
+
+                entity.Property(e => e.XToBeIssued)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_TO_BE_ISSUED");
+
+                entity.Property(e => e.XToBePurchased)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_TO_BE_PURCHASED");
+
+                entity.Property(e => e.XToBeTransferred)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_TO_BE_TRANSFERRED");
+
+                entity.Property(e => e.XTransferLocationsSelection)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_TRANSFER_LOCATIONS_SELECTION");
+
+                entity.Property(e => e.XUom)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_UOM");
+            });
+
+            modelBuilder.Entity<InvDemandDecisionTransferLocation>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_DEMAND_DECISION_TRANSFER_LOCATIONS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MDetailId)
+                    .HasColumnType("numeric(18, 0)")
+                    .HasColumnName("M_DETAIL_ID");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XQuantity)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_QUANTITY");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XWarehouse)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_WAREHOUSE");
+
+                entity.Property(e => e.XWarehouseDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_WAREHOUSE_DESCRIPTION");
+            });
+
+            modelBuilder.Entity<InvDepartment>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_DEPARTMENTS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAbbrevation)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ABBREVATION");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XDescription)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XrowId).HasColumnName("XROW_ID");
+            });
+
+            modelBuilder.Entity<InvDirectSalesInvoice>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_DIRECT_SALES_INVOICE");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XAddSTaxPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ADD_S_TAX_PERCENT");
+
+                entity.Property(e => e.XAddress)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ADDRESS");
+
+                entity.Property(e => e.XAdvITaxPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ADV_I_TAX_PERCENT");
+
+                entity.Property(e => e.XBuiltyNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BUILTY_NUMBER");
+
+                entity.Property(e => e.XContactPerson)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CONTACT_PERSON");
+
+                entity.Property(e => e.XCustomer)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CUSTOMER");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDriverName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DRIVER_NAME");
+
+                entity.Property(e => e.XFreight)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FREIGHT");
+
+                entity.Property(e => e.XLandlineNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_LANDLINE_NO");
+
+                entity.Property(e => e.XLoadingSupervisor)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_LOADING_SUPERVISOR");
+
+                entity.Property(e => e.XMobileNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_MOBILE_NO");
+
+                entity.Property(e => e.XNA)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_N_A");
+
+                entity.Property(e => e.XNADescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_N_A_DESCRIPTION");
+
+                entity.Property(e => e.XName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NAME");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XOwnedVehicleNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_OWNED_VEHICLE_NO");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XRentedVehicleNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_RENTED_VEHICLE_NUMBER");
+
+                entity.Property(e => e.XSTaxPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_S_TAX_PERCENT");
+
+                entity.Property(e => e.XSecurityRegisterNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SECURITY_REGISTER_NO");
+
+                entity.Property(e => e.XSedPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SED_PERCENT");
+
+                entity.Property(e => e.XUploadFromExcel)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_UPLOAD_FROM_EXCEL");
+
+                entity.Property(e => e.XVehicleRent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_VEHICLE_RENT");
+
+                entity.Property(e => e.XVehicleType)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_VEHICLE_TYPE");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<InvDirectSalesInvoiceDirectSalesDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_DIRECT_SALES_INVOICE_DIRECT_SALES_DETAILS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAddSTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ADD_S_TAX");
+
+                entity.Property(e => e.XAdvITax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ADV_I_TAX");
+
+                entity.Property(e => e.XBatchNumber)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BATCH_NUMBER");
+
+                entity.Property(e => e.XBatchNumberDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BATCH_NUMBER_DESCRIPTION");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XDiscPercentage)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_DISC_PERCENTAGE");
+
+                entity.Property(e => e.XDiscount)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_DISCOUNT");
+
+                entity.Property(e => e.XGrossAmount)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_GROSS_AMOUNT");
+
+                entity.Property(e => e.XNetAmount)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_NET_AMOUNT");
+
+                entity.Property(e => e.XOtherDetails)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_OTHER_DETAILS");
+
+                entity.Property(e => e.XProduct)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PRODUCT");
+
+                entity.Property(e => e.XQuantity)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_QUANTITY");
+
+                entity.Property(e => e.XRate)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_RATE");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSalesTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SALES_TAX");
+
+                entity.Property(e => e.XSed)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SED");
+
+                entity.Property(e => e.XUom)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_UOM");
+            });
+
+            modelBuilder.Entity<InvGoodsReceivedNote>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_GOODS_RECEIVED_NOTE");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XBillDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BILL_DATE");
+
+                entity.Property(e => e.XBillNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BILL_NUMBER");
+
+                entity.Property(e => e.XBiltyNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BILTY_NUMBER");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDcDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DC_DATE");
+
+                entity.Property(e => e.XDcNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DC_NUMBER");
+
+                entity.Property(e => e.XDiscount)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_DISCOUNT");
+
+                entity.Property(e => e.XDriverName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DRIVER_NAME");
+
+                entity.Property(e => e.XFreight)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FREIGHT");
+
+                entity.Property(e => e.XIgpDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_IGP_DATE");
+
+                entity.Property(e => e.XIgpNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_IGP_NUMBER");
+
+                entity.Property(e => e.XName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NAME");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XOthers)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_OTHERS");
+
+                entity.Property(e => e.XPoDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PO_DATE");
+
+                entity.Property(e => e.XPoNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PO_NUMBER");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSupplier)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SUPPLIER");
+
+                entity.Property(e => e.XTransporterName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_TRANSPORTER_NAME");
+
+                entity.Property(e => e.XUnloading)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_UNLOADING");
+
+                entity.Property(e => e.XVehicleNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_VEHICLE_NUMBER");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<InvGoodsReceivedNoteFromDemand>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_GOODS_RECEIVED_NOTE_FROM_DEMAND");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XBillDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BILL_DATE");
+
+                entity.Property(e => e.XBillNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BILL_NUMBER");
+
+                entity.Property(e => e.XBiltyNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BILTY_NO");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDcDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DC_DATE");
+
+                entity.Property(e => e.XDcNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DC_NUMBER");
+
+                entity.Property(e => e.XDemDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEM_DATE");
+
+                entity.Property(e => e.XDemNumber)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEM_NUMBER");
+
+                entity.Property(e => e.XDriverName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DRIVER_NAME");
+
+                entity.Property(e => e.XETaxPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_E_TAX_PERCENT");
+
+                entity.Property(e => e.XFTaxPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_F_TAX_PERCENT");
+
+                entity.Property(e => e.XFreight)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FREIGHT");
+
+                entity.Property(e => e.XIgpDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_IGP_DATE");
+
+                entity.Property(e => e.XIgpNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_IGP_NUMBER");
+
+                entity.Property(e => e.XName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NAME");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XOthers)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_OTHERS");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSTaxPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_S_TAX_PERCENT");
+
+                entity.Property(e => e.XSupplier)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SUPPLIER");
+
+                entity.Property(e => e.XTransporterName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_TRANSPORTER_NAME");
+
+                entity.Property(e => e.XUnloading)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_UNLOADING");
+
+                entity.Property(e => e.XVehicleNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_VEHICLE_NO");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<InvGoodsReceivedNoteFromDemandDocumentDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_GOODS_RECEIVED_NOTE_FROM_DEMAND_DOCUMENT_DETAILS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAccepted)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ACCEPTED");
+
+                entity.Property(e => e.XAlreadyReceived)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ALREADY_RECEIVED");
+
+                entity.Property(e => e.XDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XExtraTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_EXTRA_TAX");
+
+                entity.Property(e => e.XFreight)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FREIGHT");
+
+                entity.Property(e => e.XFurtherTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FURTHER_TAX");
+
+                entity.Property(e => e.XInspectionDetails)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_INSPECTION_DETAILS");
+
+                entity.Property(e => e.XItemCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ITEM_CODE");
+
+                entity.Property(e => e.XNetValue)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_NET_VALUE");
+
+                entity.Property(e => e.XOtherCosts)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_OTHER_COSTS");
+
+                entity.Property(e => e.XQtyDemanded)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_QTY_DEMANDED");
+
+                entity.Property(e => e.XRate)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_RATE");
+
+                entity.Property(e => e.XReceivedNow)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_RECEIVED_NOW");
+
+                entity.Property(e => e.XRejected)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_REJECTED");
+
+                entity.Property(e => e.XRejectionReason)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REJECTION_REASON");
+
+                entity.Property(e => e.XRejectionReasonDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REJECTION_REASON_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSalesTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SALES_TAX");
+
+                entity.Property(e => e.XUnloading)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_UNLOADING");
+
+                entity.Property(e => e.XUom)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_UOM");
+
+                entity.Property(e => e.XValue)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_VALUE");
+            });
+
+            modelBuilder.Entity<InvGoodsReceivedNoteFromPurchaseOrder>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_GOODS_RECEIVED_NOTE_FROM_PURCHASE_ORDER");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XBillDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BILL_DATE");
+
+                entity.Property(e => e.XBillNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BILL_NUMBER");
+
+                entity.Property(e => e.XBiltyNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BILTY_NO");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDcDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DC_DATE");
+
+                entity.Property(e => e.XDcNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DC_NUMBER");
+
+                entity.Property(e => e.XDriverName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DRIVER_NAME");
+
+                entity.Property(e => e.XETaxPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_E_TAX_PERCENT");
+
+                entity.Property(e => e.XFTaxPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_F_TAX_PERCENT");
+
+                entity.Property(e => e.XFreight)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FREIGHT");
+
+                entity.Property(e => e.XIgpDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_IGP_DATE");
+
+                entity.Property(e => e.XIgpNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_IGP_NUMBER");
+
+                entity.Property(e => e.XName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NAME");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XOthers)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_OTHERS");
+
+                entity.Property(e => e.XPoDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PO_DATE");
+
+                entity.Property(e => e.XPoNumber)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PO_NUMBER");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSTaxPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_S_TAX_PERCENT");
+
+                entity.Property(e => e.XSupplier)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SUPPLIER");
+
+                entity.Property(e => e.XTransporterName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_TRANSPORTER_NAME");
+
+                entity.Property(e => e.XUnloading)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_UNLOADING");
+
+                entity.Property(e => e.XVehicleNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_VEHICLE_NO");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<InvGoodsReceivedNoteFromPurchaseOrderDocumentDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_GOODS_RECEIVED_NOTE_FROM_PURCHASE_ORDER_DOCUMENT_DETAILS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAccepted)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ACCEPTED");
+
+                entity.Property(e => e.XAlreadyReceived)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ALREADY_RECEIVED");
+
+                entity.Property(e => e.XDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XExtraTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_EXTRA_TAX");
+
+                entity.Property(e => e.XFreight)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FREIGHT");
+
+                entity.Property(e => e.XFurtherTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FURTHER_TAX");
+
+                entity.Property(e => e.XGrirNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_GRIR_NUMBER");
+
+                entity.Property(e => e.XInspectionDetails)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_INSPECTION_DETAILS");
+
+                entity.Property(e => e.XItemCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ITEM_CODE");
+
+                entity.Property(e => e.XNetValue)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_NET_VALUE");
+
+                entity.Property(e => e.XOtherCosts)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_OTHER_COSTS");
+
+                entity.Property(e => e.XProject)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT");
+
+                entity.Property(e => e.XProjectDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT_DESCRIPTION");
+
+                entity.Property(e => e.XQuantityOrdered)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_QUANTITY_ORDERED");
+
+                entity.Property(e => e.XRate)
+                    .HasColumnType("numeric(20, 5)")
+                    .HasColumnName("X_RATE");
+
+                entity.Property(e => e.XReceivedNow)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_RECEIVED_NOW");
+
+                entity.Property(e => e.XRejected)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_REJECTED");
+
+                entity.Property(e => e.XRejectionReason)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REJECTION_REASON");
+
+                entity.Property(e => e.XRejectionReasonDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REJECTION_REASON_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSalesTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SALES_TAX");
+
+                entity.Property(e => e.XToleranceQty)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_TOLERANCE_QTY");
+
+                entity.Property(e => e.XUnloading)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_UNLOADING");
+
+                entity.Property(e => e.XUom)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_UOM");
+
+                entity.Property(e => e.XValue)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_VALUE");
+            });
+
+            modelBuilder.Entity<InvInventoryTransferIn>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_INVENTORY_TRANSFER_IN");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDriverName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DRIVER_NAME");
+
+                entity.Property(e => e.XFreightOwned)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FREIGHT_OWNED");
+
+                entity.Property(e => e.XFreightRented)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FREIGHT_RENTED");
+
+                entity.Property(e => e.XFromLocation)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_FROM_LOCATION");
+
+                entity.Property(e => e.XFromLocationDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_FROM_LOCATION_DESCRIPTION");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XRentedVehicleNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_RENTED_VEHICLE_NUMBER");
+
+                entity.Property(e => e.XSecurityRegisterNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SECURITY_REGISTER_NO");
+
+                entity.Property(e => e.XVehicle)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_VEHICLE");
+
+                entity.Property(e => e.XVehicleDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_VEHICLE_DESCRIPTION");
+
+                entity.Property(e => e.XVehicleType)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_VEHICLE_TYPE");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<InvInventoryTransferInDocumentDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_INVENTORY_TRANSFER_IN_DOCUMENT_DETAILS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XNA)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_N_A");
+
+                entity.Property(e => e.XNADescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_N_A_DESCRIPTION");
+
+                entity.Property(e => e.XQuantity)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_QUANTITY");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XUom)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_UOM");
+            });
+
+            modelBuilder.Entity<InvInventoryTransferOut>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_INVENTORY_TRANSFER_OUT");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDriverName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DRIVER_NAME");
+
+                entity.Property(e => e.XFreightOwned)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FREIGHT_OWNED");
+
+                entity.Property(e => e.XFreightRented)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FREIGHT_RENTED");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XRentedVehicleNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_RENTED_VEHICLE_NUMBER");
+
+                entity.Property(e => e.XSecurityRegisterNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SECURITY_REGISTER_NO");
+
+                entity.Property(e => e.XToLocation)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_TO_LOCATION");
+
+                entity.Property(e => e.XToLocationDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_TO_LOCATION_DESCRIPTION");
+
+                entity.Property(e => e.XVehicle)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_VEHICLE");
+
+                entity.Property(e => e.XVehicleDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_VEHICLE_DESCRIPTION");
+
+                entity.Property(e => e.XVehicleType)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_VEHICLE_TYPE");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<InvInventoryTransferOutDocumentDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_INVENTORY_TRANSFER_OUT_DOCUMENT_DETAILS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XNA)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_N_A");
+
+                entity.Property(e => e.XNADescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_N_A_DESCRIPTION");
+
+                entity.Property(e => e.XQuantity)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_QUANTITY");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XUom)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_UOM");
+            });
+
+            modelBuilder.Entity<InvIssueAdjustment>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_ISSUE_ADJUSTMENT");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XUploadFromExcel)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_UPLOAD_FROM_EXCEL");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<InvIssueRequisition>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_ISSUE_REQUISITION");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDepartment)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEPARTMENT");
+
+                entity.Property(e => e.XDepartmentDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEPARTMENT_DESCRIPTION");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<InvIssueRequisitionDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_ISSUE_REQUISITION_DETAIL");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XBranch)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BRANCH");
+
+                entity.Property(e => e.XBranchDescription)
+                    .HasMaxLength(353)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BRANCH_DESCRIPTION");
+
+                entity.Property(e => e.XChargeableCode)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CHARGEABLE_CODE");
+
+                entity.Property(e => e.XChargeableCodeName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CHARGEABLE_CODE_NAME");
+
+                entity.Property(e => e.XCostCenter)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_COST_CENTER");
+
+                entity.Property(e => e.XCostCenterDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_COST_CENTER_DESCRIPTION");
+
+                entity.Property(e => e.XDepartment)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEPARTMENT");
+
+                entity.Property(e => e.XDepartmentDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEPARTMENT_DESCRIPTION");
+
+                entity.Property(e => e.XDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XEmployee)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_EMPLOYEE");
+
+                entity.Property(e => e.XEmployeeDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_EMPLOYEE_DESCRIPTION");
+
+                entity.Property(e => e.XItemCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ITEM_CODE");
+
+                entity.Property(e => e.XOdometer)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ODOMETER");
+
+                entity.Property(e => e.XProject)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT");
+
+                entity.Property(e => e.XProjectDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT_DESCRIPTION");
+
+                entity.Property(e => e.XQuantityDemanded)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_QUANTITY_DEMANDED");
+
+                entity.Property(e => e.XQuantityIssued)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_QUANTITY_ISSUED");
+
+                entity.Property(e => e.XRegion)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REGION");
+
+                entity.Property(e => e.XRegionDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REGION_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XUom)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_UOM");
+
+                entity.Property(e => e.XVehicle)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_VEHICLE");
+
+                entity.Property(e => e.XVehicleDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_VEHICLE_DESCRIPTION");
+            });
+
+            modelBuilder.Entity<InvIssueRequisitionFromDemandDecision>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_ISSUE_REQUISITION_FROM_DEMAND_DECISION");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDemand)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEMAND_");
+
+                entity.Property(e => e.XDemandDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEMAND_DATE");
+
+                entity.Property(e => e.XDepartment)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEPARTMENT");
+
+                entity.Property(e => e.XDepartmentDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEPARTMENT_DESCRIPTION");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<InvManufacturer>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_MANUFACTURERS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAbbrevation)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ABBREVATION");
+
+                entity.Property(e => e.XAddress1)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ADDRESS_1");
+
+                entity.Property(e => e.XAddress2)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ADDRESS_2");
+
+                entity.Property(e => e.XAddress3)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ADDRESS_3");
+
+                entity.Property(e => e.XCnic)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CNIC");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XEmail)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_EMAIL");
+
+                entity.Property(e => e.XFaxNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_FAX_NO");
+
+                entity.Property(e => e.XLandline)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_LANDLINE");
+
+                entity.Property(e => e.XMobile)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_MOBILE");
+
+                entity.Property(e => e.XName)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NAME");
+
+                entity.Property(e => e.XNtn)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NTN");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSalesTaxNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SALES_TAX_NO");
+
+                entity.Property(e => e.XStatus)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_STATUS");
+
+                entity.Property(e => e.XStatusDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_STATUS_DESCRIPTION");
+
+                entity.Property(e => e.XType)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_TYPE");
+
+                entity.Property(e => e.XTypeDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_TYPE_DESCRIPTION");
+
+                entity.Property(e => e.XUrl)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_URL");
+
+                entity.Property(e => e.XrowId).HasColumnName("XROW_ID");
+            });
+
+            modelBuilder.Entity<InvManufacturersContactPerson>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_MANUFACTURERS_CONTACT_PERSON");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAddress)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ADDRESS");
+
+                entity.Property(e => e.XCellNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CELL_NO");
+
+                entity.Property(e => e.XCnic)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CNIC");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XDesignation)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESIGNATION");
+
+                entity.Property(e => e.XEmailId)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_EMAIL_ID");
+
+                entity.Property(e => e.XLandline)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_LANDLINE");
+
+                entity.Property(e => e.XName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NAME");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+            });
+
+            modelBuilder.Entity<InvPaymentTermTemplate>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PAYMENT_TERM_TEMPLATES");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAbbrevation)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ABBREVATION");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XDescription)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XrowId).HasColumnName("XROW_ID");
+            });
+
+            modelBuilder.Entity<InvPaymentTermTemplatesPaymentTerm>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PAYMENT_TERM_TEMPLATES_PAYMENT_TERMS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSerial)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SERIAL_");
+
+                entity.Property(e => e.XSubSerial)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SUB_SERIAL");
+
+                entity.Property(e => e.XText)
+                    .HasColumnType("text")
+                    .HasColumnName("X_TEXT");
+            });
+
+            modelBuilder.Entity<InvProductClassification>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PRODUCT_CLASSIFICATION");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAbbreviation)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ABBREVIATION");
+
+                entity.Property(e => e.XClassificationCode)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CLASSIFICATION_CODE");
+
+                entity.Property(e => e.XClassificationCodeDescription)
+                    .HasMaxLength(276)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CLASSIFICATION_CODE_DESCRIPTION");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XDescription)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XrowId).HasColumnName("XROW_ID");
+            });
+
+            modelBuilder.Entity<InvProductClassificationCostLink>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PRODUCT_CLASSIFICATION_COST_LINKS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XCostOfStock)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_COST_OF_STOCK");
+
+                entity.Property(e => e.XCostOfStockDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_COST_OF_STOCK_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XStockControlCode)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_STOCK_CONTROL_CODE");
+
+                entity.Property(e => e.XStockControlCodeDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_STOCK_CONTROL_CODE_DESCRIPTION");
+            });
+
+            modelBuilder.Entity<InvProductClassificationRate>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PRODUCT_CLASSIFICATION_RATES");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XFurtherTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FURTHER_TAX");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSalesTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SALES_TAX");
+
+                entity.Property(e => e.XSellingRate)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SELLING_RATE");
+
+                entity.Property(e => e.XStandardCost)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_STANDARD_COST");
+
+                entity.Property(e => e.XWholesaleRate)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_WHOLESALE_RATE");
+            });
+
+            modelBuilder.Entity<InvProductClassificationSalesLink>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PRODUCT_CLASSIFICATION_SALES_LINK");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XComplementary)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_COMPLEMENTARY");
+
+                entity.Property(e => e.XComplementaryDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_COMPLEMENTARY_DESCRIPTION");
+
+                entity.Property(e => e.XDepotSales)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEPOT_SALES");
+
+                entity.Property(e => e.XDepotSalesDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEPOT_SALES_DESCRIPTION");
+
+                entity.Property(e => e.XDirectSales)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DIRECT_SALES");
+
+                entity.Property(e => e.XDirectSalesDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DIRECT_SALES_DESCRIPTION");
+
+                entity.Property(e => e.XExciseDuty)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_EXCISE_DUTY");
+
+                entity.Property(e => e.XExciseDutyDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_EXCISE_DUTY_DESCRIPTION");
+
+                entity.Property(e => e.XFactorySales)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_FACTORY_SALES");
+
+                entity.Property(e => e.XFactorySalesDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_FACTORY_SALES_DESCRIPTION");
+
+                entity.Property(e => e.XMarketingSamples)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_MARKETING_SAMPLES");
+
+                entity.Property(e => e.XMarketingSamplesDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_MARKETING_SAMPLES_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSalesAccount)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SALES_ACCOUNT");
+
+                entity.Property(e => e.XSalesAccountDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SALES_ACCOUNT_DESCRIPTION");
+
+                entity.Property(e => e.XSalesTax)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SALES_TAX");
+
+                entity.Property(e => e.XSalesTaxDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SALES_TAX_DESCRIPTION");
+
+                entity.Property(e => e.XTradeDiscount)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_TRADE_DISCOUNT");
+
+                entity.Property(e => e.XTradeDiscountDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_TRADE_DISCOUNT_DESCRIPTION");
+            });
+
+            modelBuilder.Entity<InvProductClassificationSegmentWiseCode>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PRODUCT_CLASSIFICATION_SEGMENT_WISE_CODES");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XCostOfStock)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_COST_OF_STOCK");
+
+                entity.Property(e => e.XCostOfStockDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_COST_OF_STOCK_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSegment)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SEGMENT");
+
+                entity.Property(e => e.XSegmentDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SEGMENT_DESCRIPTION");
+
+                entity.Property(e => e.XStockControlCode)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_STOCK_CONTROL_CODE");
+
+                entity.Property(e => e.XStockControlCodeDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_STOCK_CONTROL_CODE_DESCRIPTION");
+            });
+
+            modelBuilder.Entity<InvProductMasterFileAlternateItem>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PRODUCT_MASTER_FILE_ALTERNATE_ITEMS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XItemCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ITEM_CODE");
+
+                entity.Property(e => e.XItemCodeDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ITEM_CODE_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+            });
+
+            modelBuilder.Entity<InvProductMasterFileAttribute>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PRODUCT_MASTER_FILE_ATTRIBUTES");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAttributeCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ATTRIBUTE_CODE");
+
+                entity.Property(e => e.XAttributeCodeDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ATTRIBUTE_CODE_DESCRIPTION");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XNumericValue)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_NUMERIC_VALUE");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XTextValue)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_TEXT_VALUE");
+            });
+
+            modelBuilder.Entity<InvProductMasterFileInventoryLevel>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PRODUCT_MASTER_FILE_INVENTORY_LEVELS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XLeadTime)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_LEAD_TIME");
+
+                entity.Property(e => e.XMaxOrderQty)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_MAX_ORDER_QTY");
+
+                entity.Property(e => e.XMaximumBalance)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_MAXIMUM_BALANCE");
+
+                entity.Property(e => e.XMinOrderQty)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_MIN_ORDER_QTY");
+
+                entity.Property(e => e.XMinimumBalance)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_MINIMUM_BALANCE");
+
+                entity.Property(e => e.XReOrderQty)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_RE_ORDER_QTY");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XWarehouseCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_WAREHOUSE_CODE");
+
+                entity.Property(e => e.XWarehouseCodeDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_WAREHOUSE_CODE_DESCRIPTION");
+            });
+
+            modelBuilder.Entity<InvProductMasterFileIssuanceMandatoryField>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PRODUCT_MASTER_FILE_ISSUANCE_MANDATORY_FIELDS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XIssuanceFieldName)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ISSUANCE_FIELD_NAME");
+
+                entity.Property(e => e.XIssuanceFieldNameDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ISSUANCE_FIELD_NAME_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+            });
+
+            modelBuilder.Entity<InvProductMasterFileLocation>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PRODUCT_MASTER_FILE_LOCATIONS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XBin)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BIN");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XRack)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_RACK");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XRoom)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ROOM");
+
+                entity.Property(e => e.XShelf)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SHELF");
+
+                entity.Property(e => e.XWarehouse)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_WAREHOUSE");
+
+                entity.Property(e => e.XWarehouseDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_WAREHOUSE_DESCRIPTION");
+            });
+
+            modelBuilder.Entity<InvProductMasterFileManufacturer>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PRODUCT_MASTER_FILE_MANUFACTURERS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XBrandName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BRAND_NAME");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XCountry)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_COUNTRY");
+
+                entity.Property(e => e.XCountryDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_COUNTRY_DESCRIPTION");
+
+                entity.Property(e => e.XManufacturer)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_MANUFACTURER");
+
+                entity.Property(e => e.XManufacturerDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_MANUFACTURER_DESCRIPTION");
+
+                entity.Property(e => e.XPackingSize)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_PACKING_SIZE");
+
+                entity.Property(e => e.XPackingSize2)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_PACKING_SIZE_2");
+
+                entity.Property(e => e.XPackingSize3)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_PACKING_SIZE_3");
+
+                entity.Property(e => e.XPackingSize4)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_PACKING_SIZE_4");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XUom)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_UOM");
+
+                entity.Property(e => e.XUomDescription)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_UOM_DESCRIPTION");
+            });
+
+            modelBuilder.Entity<InvProductMasterFileSpecification>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PRODUCT_MASTER_FILE_SPECIFICATIONS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAppearance)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_APPEARANCE");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XColour)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_COLOUR");
+
+                entity.Property(e => e.XDimension1)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DIMENSION___1");
+
+                entity.Property(e => e.XDimension2)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DIMENSION___2");
+
+                entity.Property(e => e.XDimension3)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DIMENSION___3");
+
+                entity.Property(e => e.XLifeInMonths)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_LIFE_IN_MONTHS");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XShelfLife)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SHELF_LIFE");
+
+                entity.Property(e => e.XSpecification1)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SPECIFICATION___1");
+
+                entity.Property(e => e.XSpecification2)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SPECIFICATION___2");
+
+                entity.Property(e => e.XSpecification3)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SPECIFICATION___3");
+            });
+
+            modelBuilder.Entity<InvProductMasterFileSupplier>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PRODUCT_MASTER_FILE_SUPPLIERS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XCountryOfOrigin)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_COUNTRY_OF_ORIGIN");
+
+                entity.Property(e => e.XCountryOfOriginDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_COUNTRY_OF_ORIGIN_DESCRIPTION");
+
+                entity.Property(e => e.XPackingSize)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_PACKING_SIZE");
+
+                entity.Property(e => e.XPackingSize2)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_PACKING_SIZE_2");
+
+                entity.Property(e => e.XPackingSize3)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_PACKING_SIZE_3");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSupplier)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SUPPLIER");
+
+                entity.Property(e => e.XSupplierDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SUPPLIER_DESCRIPTION");
+
+                entity.Property(e => e.XSupplierItemCode)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SUPPLIER_ITEM_CODE");
+
+                entity.Property(e => e.XSupplierRate)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SUPPLIER_RATE");
+            });
+
+            modelBuilder.Entity<InvProject>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PROJECTS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAbbrevation)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ABBREVATION");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XDescription)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XrowId).HasColumnName("XROW_ID");
+            });
+
+            modelBuilder.Entity<InvPurchaseDemand>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PURCHASE_DEMAND");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XComments)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_COMMENTS");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDemandType)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEMAND_TYPE");
+
+                entity.Property(e => e.XDemandTypeDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEMAND_TYPE_DESCRIPTION");
+
+                entity.Property(e => e.XDepartment)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEPARTMENT");
+
+                entity.Property(e => e.XDepartmentDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEPARTMENT_DESCRIPTION");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<InvPurchaseDemandDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PURCHASE_DEMAND_DETAIL");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XEstimatedCost)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ESTIMATED_COST");
+
+                entity.Property(e => e.XInstructions)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_INSTRUCTIONS");
+
+                entity.Property(e => e.XItemCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ITEM_CODE");
+
+                entity.Property(e => e.XQuantityRequired)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_QUANTITY_REQUIRED");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSpecifications)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SPECIFICATIONS");
+
+                entity.Property(e => e.XUom)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_UOM");
+            });
+
+            modelBuilder.Entity<InvPurchaseDemandSpecification>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PURCHASE_DEMAND_SPECIFICATIONS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MDetailId)
+                    .HasColumnType("numeric(18, 0)")
+                    .HasColumnName("M_DETAIL_ID");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSerial)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SERIAL");
+
+                entity.Property(e => e.XSpcification)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SPCIFICATION");
+            });
+
+            modelBuilder.Entity<InvPurchaseEnquiry>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PURCHASE_ENQUIRY");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDemand)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEMAND_");
+
+                entity.Property(e => e.XDemandDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEMAND_DATE");
+
+                entity.Property(e => e.XNA)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_N_A");
+
+                entity.Property(e => e.XNADescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_N_A_DESCRIPTION");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSpecificDemand)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SPECIFIC_DEMAND");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<InvPurchaseEnquiryDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PURCHASE_ENQUIRY_DETAIL");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XDemand)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_DEMAND_");
+
+                entity.Property(e => e.XDemandDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEMAND_DATE");
+
+                entity.Property(e => e.XDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XInstructions)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_INSTRUCTIONS");
+
+                entity.Property(e => e.XItemCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ITEM_CODE");
+
+                entity.Property(e => e.XProject)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT");
+
+                entity.Property(e => e.XProjectDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT_DESCRIPTION");
+
+                entity.Property(e => e.XQuantityRequired)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_QUANTITY_REQUIRED");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XRequiredDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REQUIRED_DATE");
+
+                entity.Property(e => e.XSpecifications)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SPECIFICATIONS");
+
+                entity.Property(e => e.XUom)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_UOM");
+            });
+
+            modelBuilder.Entity<InvPurchaseOrder>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PURCHASE_ORDER");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XContactPersonDetails)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CONTACT_PERSON_DETAILS");
+
+                entity.Property(e => e.XCreditPeriod)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CREDIT_PERIOD");
+
+                entity.Property(e => e.XCurrency)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CURRENCY");
+
+                entity.Property(e => e.XCurrencyDescription)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CURRENCY_DESCRIPTION");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDeliveryTerms)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DELIVERY_TERMS");
+
+                entity.Property(e => e.XDepartment)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEPARTMENT");
+
+                entity.Property(e => e.XDepartmentDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEPARTMENT_DESCRIPTION");
+
+                entity.Property(e => e.XDueDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DUE_DATE");
+
+                entity.Property(e => e.XETaxPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_E_TAX_PERCENT");
+
+                entity.Property(e => e.XFTaxPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_F_TAX_PERCENT");
+
+                entity.Property(e => e.XFreightPaidBy)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_FREIGHT_PAID_BY");
+
+                entity.Property(e => e.XModeOfPayment)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_MODE_OF_PAYMENT");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XPartialShipment)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PARTIAL_SHIPMENT");
+
+                entity.Property(e => e.XPartialShipmentDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PARTIAL_SHIPMENT_DESCRIPTION");
+
+                entity.Property(e => e.XPaymentTermsTemplate)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PAYMENT_TERMS_TEMPLATE");
+
+                entity.Property(e => e.XPaymentTermsTemplateDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PAYMENT_TERMS_TEMPLATE_DESCRIPTION");
+
+                entity.Property(e => e.XPoSourceDocument)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PO_SOURCE_DOCUMENT");
+
+                entity.Property(e => e.XPoType)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PO_TYPE");
+
+                entity.Property(e => e.XPoTypeDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PO_TYPE_DESCRIPTION");
+
+                entity.Property(e => e.XRefDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REF_DATE");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSTaxPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_S_TAX_PERCENT");
+
+                entity.Property(e => e.XSourceDoc)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SOURCE_DOC_");
+
+                entity.Property(e => e.XSourceDocDt)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SOURCE_DOC_DT");
+
+                entity.Property(e => e.XSupplier)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SUPPLIER");
+
+                entity.Property(e => e.XSupplierName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SUPPLIER_NAME");
+
+                entity.Property(e => e.XSupplierRef)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SUPPLIER_REF_");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<InvPurchaseOrderPaymentTerm>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PURCHASE_ORDER_PAYMENT_TERMS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XPaymentTermsText)
+                    .HasColumnType("text")
+                    .HasColumnName("X_PAYMENT_TERMS_TEXT");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSerial)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SERIAL_");
+
+                entity.Property(e => e.XSubSerial)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SUB_SERIAL");
+            });
+
+            modelBuilder.Entity<InvPurchaseOrderPurchaseOrderDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PURCHASE_ORDER_PURCHASE_ORDER_DETAILS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XBrandName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BRAND_NAME");
+
+                entity.Property(e => e.XDeliveryAddressInText)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DELIVERY_ADDRESS_IN_TEXT");
+
+                entity.Property(e => e.XDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XDestinationLocation)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESTINATION_LOCATION");
+
+                entity.Property(e => e.XDestinationLocationDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESTINATION_LOCATION_DESCRIPTION");
+
+                entity.Property(e => e.XExtraTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_EXTRA_TAX");
+
+                entity.Property(e => e.XFreight)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FREIGHT");
+
+                entity.Property(e => e.XFurtherTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FURTHER_TAX");
+
+                entity.Property(e => e.XItemCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ITEM_CODE");
+
+                entity.Property(e => e.XMultipleSpecifications)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_MULTIPLE_SPECIFICATIONS");
+
+                entity.Property(e => e.XOtherCosts)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_OTHER_COSTS");
+
+                entity.Property(e => e.XPackingInstructions)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PACKING_INSTRUCTIONS");
+
+                entity.Property(e => e.XPrintedName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PRINTED_NAME");
+
+                entity.Property(e => e.XProject)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT");
+
+                entity.Property(e => e.XProjectDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT_DESCRIPTION");
+
+                entity.Property(e => e.XQuantity)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_QUANTITY");
+
+                entity.Property(e => e.XRate)
+                    .HasColumnType("numeric(20, 5)")
+                    .HasColumnName("X_RATE");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XRequiredDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REQUIRED_DATE");
+
+                entity.Property(e => e.XSalesTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SALES_TAX");
+
+                entity.Property(e => e.XSourceBalance)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SOURCE_BALANCE");
+
+                entity.Property(e => e.XSpecifications)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SPECIFICATIONS");
+
+                entity.Property(e => e.XTolerancePercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_TOLERANCE_PERCENT");
+
+                entity.Property(e => e.XTotalValue)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_TOTAL_VALUE");
+
+                entity.Property(e => e.XUom)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_UOM");
+
+                entity.Property(e => e.XValue)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_VALUE");
+            });
+
+            modelBuilder.Entity<InvPurchaseOrderSpecification>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PURCHASE_ORDER_SPECIFICATIONS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MDetailId)
+                    .HasColumnType("numeric(18, 0)")
+                    .HasColumnName("M_DETAIL_ID");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSerial)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SERIAL_");
+
+                entity.Property(e => e.XSpecifications)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SPECIFICATIONS");
+            });
+
+            modelBuilder.Entity<InvPurchaseRequisition>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PURCHASE_REQUISITION");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDemand)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEMAND_");
+
+                entity.Property(e => e.XDemandDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEMAND_DATE");
+
+                entity.Property(e => e.XDepartment)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEPARTMENT");
+
+                entity.Property(e => e.XDepartmentDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEPARTMENT_DESCRIPTION");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XProject)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT");
+
+                entity.Property(e => e.XProjectDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<InvPurchaseRequisitionDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PURCHASE_REQUISITION_DETAIL");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XInstructions)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_INSTRUCTIONS");
+
+                entity.Property(e => e.XItemCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ITEM_CODE");
+
+                entity.Property(e => e.XProject)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT");
+
+                entity.Property(e => e.XProjectDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT_DESCRIPTION");
+
+                entity.Property(e => e.XQuantityRequired)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_QUANTITY_REQUIRED");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XRequiredDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REQUIRED_DATE");
+
+                entity.Property(e => e.XSpecifications)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SPECIFICATIONS");
+
+                entity.Property(e => e.XUom)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_UOM");
+            });
+
+            modelBuilder.Entity<InvPurchaseReturnNote>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PURCHASE_RETURN_NOTE");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDcDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DC_DATE");
+
+                entity.Property(e => e.XDcNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DC_NUMBER");
+
+                entity.Property(e => e.XETaxPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_E_TAX_PERCENT");
+
+                entity.Property(e => e.XFTaxPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_F_TAX_PERCENT");
+
+                entity.Property(e => e.XFreight)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FREIGHT");
+
+                entity.Property(e => e.XGrnDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_GRN_DATE");
+
+                entity.Property(e => e.XGrnDocumentType)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_GRN_DOCUMENT_TYPE");
+
+                entity.Property(e => e.XGrnDocumentTypeDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_GRN_DOCUMENT_TYPE_DESCRIPTION");
+
+                entity.Property(e => e.XGrnNumber)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_GRN_NUMBER");
+
+                entity.Property(e => e.XName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NAME");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XOgpDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_OGP_DATE");
+
+                entity.Property(e => e.XOgpNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_OGP_NUMBER");
+
+                entity.Property(e => e.XOthers)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_OTHERS");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSTaxPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_S_TAX_PERCENT");
+
+                entity.Property(e => e.XSupplier)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SUPPLIER");
+
+                entity.Property(e => e.XUnloading)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_UNLOADING");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<InvPurchaseReturnNoteDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_PURCHASE_RETURN_NOTE_DETAILS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAlreadyReturned)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ALREADY_RETURNED");
+
+                entity.Property(e => e.XBalance)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_BALANCE");
+
+                entity.Property(e => e.XDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XExtraTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_EXTRA_TAX");
+
+                entity.Property(e => e.XFreight)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FREIGHT");
+
+                entity.Property(e => e.XFurtherTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FURTHER_TAX");
+
+                entity.Property(e => e.XItemCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ITEM_CODE");
+
+                entity.Property(e => e.XNA)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_N_A");
+
+                entity.Property(e => e.XNADescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_N_A_DESCRIPTION");
+
+                entity.Property(e => e.XNetValue)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_NET_VALUE");
+
+                entity.Property(e => e.XOtherCosts)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_OTHER_COSTS");
+
+                entity.Property(e => e.XPurchased)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_PURCHASED");
+
+                entity.Property(e => e.XRate)
+                    .HasColumnType("numeric(18, 3)")
+                    .HasColumnName("X_RATE");
+
+                entity.Property(e => e.XRejectionReason)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REJECTION_REASON");
+
+                entity.Property(e => e.XRejectionReasonDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REJECTION_REASON_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XReturnedNow)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_RETURNED_NOW");
+
+                entity.Property(e => e.XSalesTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SALES_TAX");
+
+                entity.Property(e => e.XUnloading)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_UNLOADING");
+
+                entity.Property(e => e.XUom)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_UOM");
+
+                entity.Property(e => e.XValue)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_VALUE");
+            });
+
+            modelBuilder.Entity<InvReceiptAdjustment>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_RECEIPT_ADJUSTMENT");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XUploadFromExcel)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_UPLOAD_FROM_EXCEL");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<InvRejectionReason>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_REJECTION_REASONS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAbbrevation)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ABBREVATION");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XDescription)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XrowId).HasColumnName("XROW_ID");
+            });
+
+            modelBuilder.Entity<InvReplyOfEnquiry>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_REPLY_OF_ENQUIRY");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XETaxPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_E_TAX_PERCENT");
+
+                entity.Property(e => e.XEnquiryDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ENQUIRY_DATE");
+
+                entity.Property(e => e.XEnquiryNo)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ENQUIRY_NO");
+
+                entity.Property(e => e.XFTaxPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_F_TAX_PERCENT");
+
+                entity.Property(e => e.XName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NAME");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSTaxPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_S_TAX_PERCENT");
+
+                entity.Property(e => e.XSupplier)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SUPPLIER");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<InvReplyOfEnquiryDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_REPLY_OF_ENQUIRY_DETAIL");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XExtraTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_EXTRA_TAX");
+
+                entity.Property(e => e.XFreight)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FREIGHT");
+
+                entity.Property(e => e.XFurtherTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FURTHER_TAX");
+
+                entity.Property(e => e.XItemCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ITEM_CODE");
+
+                entity.Property(e => e.XMake)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_MAKE");
+
+                entity.Property(e => e.XModel)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_MODEL");
+
+                entity.Property(e => e.XNetValue)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_NET_VALUE");
+
+                entity.Property(e => e.XOtherCosts)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_OTHER_COSTS");
+
+                entity.Property(e => e.XProject)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT");
+
+                entity.Property(e => e.XProjectDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT_DESCRIPTION");
+
+                entity.Property(e => e.XPurchaseOrderSelection)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PURCHASE_ORDER_SELECTION");
+
+                entity.Property(e => e.XQuantity)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_QUANTITY");
+
+                entity.Property(e => e.XRate)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_RATE");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSalesTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SALES_TAX");
+
+                entity.Property(e => e.XUom)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_UOM");
+
+                entity.Property(e => e.XValue)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_VALUE");
+            });
+
+            modelBuilder.Entity<InvRequestForStockTransfer>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_REQUEST_FOR_STOCK_TRANSFER");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XReference)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REFERENCE");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XToLocation)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_TO_LOCATION");
+
+                entity.Property(e => e.XToLocationDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_TO_LOCATION_DESCRIPTION");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<InvRequestForStockTransferDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_REQUEST_FOR_STOCK_TRANSFER_DETAIL");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XItemCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ITEM_CODE");
+
+                entity.Property(e => e.XProject)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT");
+
+                entity.Property(e => e.XProjectDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT_DESCRIPTION");
+
+                entity.Property(e => e.XQuantity)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_QUANTITY");
+
+                entity.Property(e => e.XReferenceNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REFERENCE_NO");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XUom)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_UOM");
+
+                entity.Property(e => e.XVehicleNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_VEHICLE_NO");
+            });
+
+            modelBuilder.Entity<InvServicesReceivedNote>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_SERVICES_RECEIVED_NOTE");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XBillDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BILL_DATE");
+
+                entity.Property(e => e.XBillNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BILL_NUMBER");
+
+                entity.Property(e => e.XBiltyNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BILTY_NUMBER");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDcDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DC_DATE");
+
+                entity.Property(e => e.XDcNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DC_NUMBER");
+
+                entity.Property(e => e.XDiscount)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_DISCOUNT");
+
+                entity.Property(e => e.XDriverName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DRIVER_NAME");
+
+                entity.Property(e => e.XFreight)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FREIGHT");
+
+                entity.Property(e => e.XIgpDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_IGP_DATE");
+
+                entity.Property(e => e.XIgpNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_IGP_NUMBER");
+
+                entity.Property(e => e.XName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NAME");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XOthers)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_OTHERS");
+
+                entity.Property(e => e.XPoDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PO_DATE");
+
+                entity.Property(e => e.XPoNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PO_NUMBER");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSupplier)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SUPPLIER");
+
+                entity.Property(e => e.XTransporterName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_TRANSPORTER_NAME");
+
+                entity.Property(e => e.XUnloading)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_UNLOADING");
+
+                entity.Property(e => e.XVehicleNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_VEHICLE_NUMBER");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<InvServicesReceivedNoteDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_SERVICES_RECEIVED_NOTE_DETAIL");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAccepted)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ACCEPTED");
+
+                entity.Property(e => e.XAsset)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ASSET");
+
+                entity.Property(e => e.XAssetDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ASSET_DESCRIPTION");
+
+                entity.Property(e => e.XDepartment)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEPARTMENT");
+
+                entity.Property(e => e.XDepartmentDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEPARTMENT_DESCRIPTION");
+
+                entity.Property(e => e.XDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XEmployee)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_EMPLOYEE");
+
+                entity.Property(e => e.XEmployeeDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_EMPLOYEE_DESCRIPTION");
+
+                entity.Property(e => e.XFreight)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FREIGHT");
+
+                entity.Property(e => e.XFurtherTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FURTHER_TAX");
+
+                entity.Property(e => e.XInspectionDetails)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_INSPECTION_DETAILS");
+
+                entity.Property(e => e.XNetValue)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_NET_VALUE");
+
+                entity.Property(e => e.XOtherCosts)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_OTHER_COSTS");
+
+                entity.Property(e => e.XProject)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT");
+
+                entity.Property(e => e.XProjectDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT_DESCRIPTION");
+
+                entity.Property(e => e.XRate)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_RATE");
+
+                entity.Property(e => e.XReceived)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_RECEIVED");
+
+                entity.Property(e => e.XRejected)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_REJECTED");
+
+                entity.Property(e => e.XRejectionReason)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REJECTION_REASON");
+
+                entity.Property(e => e.XRejectionReasonDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REJECTION_REASON_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSalesTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SALES_TAX");
+
+                entity.Property(e => e.XServiceCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SERVICE_CODE");
+
+                entity.Property(e => e.XUnloading)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_UNLOADING");
+
+                entity.Property(e => e.XUom)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_UOM");
+
+                entity.Property(e => e.XValue)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_VALUE");
+            });
+
+            modelBuilder.Entity<InvSiteDemand>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_SITE_DEMAND");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XComments)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_COMMENTS");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDemandDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEMAND_DESCRIPTION");
+
+                entity.Property(e => e.XDemandType)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEMAND_TYPE");
+
+                entity.Property(e => e.XDemandTypeDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEMAND_TYPE_DESCRIPTION");
+
+                entity.Property(e => e.XDocStatus)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DOC_STATUS");
+
+                entity.Property(e => e.XDocStatusDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DOC_STATUS_DESCRIPTION");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XStation)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_STATION");
+
+                entity.Property(e => e.XStationDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_STATION_DESCRIPTION");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<InvSiteDemandDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_SITE_DEMAND_DETAIL");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XInstructions)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_INSTRUCTIONS");
+
+                entity.Property(e => e.XItemCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ITEM_CODE");
+
+                entity.Property(e => e.XQuantityRequired)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_QUANTITY_REQUIRED");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSpecifications)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SPECIFICATIONS");
+
+                entity.Property(e => e.XUom)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_UOM");
+            });
+
+            modelBuilder.Entity<InvStockTransferNote>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_STOCK_TRANSFER_NOTE");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<InvStockTransferNoteDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_STOCK_TRANSFER_NOTE_DETAIL");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XItemCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ITEM_CODE");
+
+                entity.Property(e => e.XNA)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_N_A");
+
+                entity.Property(e => e.XNADescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_N_A_DESCRIPTION");
+
+                entity.Property(e => e.XQuantity)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_QUANTITY");
+
+                entity.Property(e => e.XReferenceNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REFERENCE_NO");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XToLocation)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_TO_LOCATION");
+
+                entity.Property(e => e.XUom)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_UOM");
+
+                entity.Property(e => e.XVehicleNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_VEHICLE_NO");
+            });
+
+            modelBuilder.Entity<InvStoreReturnNote>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_STORE_RETURN_NOTE");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDepartment)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEPARTMENT");
+
+                entity.Property(e => e.XDepartmentDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEPARTMENT_DESCRIPTION");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<InvStoreReturnNoteDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_STORE_RETURN_NOTE_DETAIL");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XItemCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ITEM_CODE");
+
+                entity.Property(e => e.XQuantityReturned)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_QUANTITY_RETURNED");
+
+                entity.Property(e => e.XRate)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_RATE");
+
+                entity.Property(e => e.XRateType)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_RATE_TYPE");
+
+                entity.Property(e => e.XUom)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_UOM");
+
+                entity.Property(e => e.XValue)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_VALUE");
+            });
+
+            modelBuilder.Entity<InvSupplierManagement>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_SUPPLIER_MANAGEMENT");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAbbrevation)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ABBREVATION");
+
+                entity.Property(e => e.XAddress1)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ADDRESS_1");
+
+                entity.Property(e => e.XAddress2)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ADDRESS_2");
+
+                entity.Property(e => e.XAddress3)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ADDRESS_3");
+
+                entity.Property(e => e.XCnic)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CNIC");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XEmail)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_EMAIL");
+
+                entity.Property(e => e.XFaxNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_FAX_NO");
+
+                entity.Property(e => e.XLandline)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_LANDLINE");
+
+                entity.Property(e => e.XMobile)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_MOBILE");
+
+                entity.Property(e => e.XName)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NAME");
+
+                entity.Property(e => e.XNtn)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NTN");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSalesTaxNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SALES_TAX_NO");
+
+                entity.Property(e => e.XStatus)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_STATUS");
+
+                entity.Property(e => e.XStatusDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_STATUS_DESCRIPTION");
+
+                entity.Property(e => e.XType)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_TYPE");
+
+                entity.Property(e => e.XTypeDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_TYPE_DESCRIPTION");
+
+                entity.Property(e => e.XUrl)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_URL");
+
+                entity.Property(e => e.XrowId).HasColumnName("XROW_ID");
+            });
+
+            modelBuilder.Entity<InvSupplierManagementContactPerson>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_SUPPLIER_MANAGEMENT_CONTACT_PERSON");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAddress)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ADDRESS");
+
+                entity.Property(e => e.XCellNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CELL_NO");
+
+                entity.Property(e => e.XCnic)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CNIC");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XDesignation)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESIGNATION");
+
+                entity.Property(e => e.XEmailId)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_EMAIL_ID");
+
+                entity.Property(e => e.XLandline)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_LANDLINE");
+
+                entity.Property(e => e.XName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NAME");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+            });
+
+            modelBuilder.Entity<InvSupplierManagementGlAccountCode>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_SUPPLIER_MANAGEMENT_GL_ACCOUNT_CODES");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XCreditAccount)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CREDIT_ACCOUNT");
+
+                entity.Property(e => e.XCreditAccountDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CREDIT_ACCOUNT_DESCRIPTION");
+
+                entity.Property(e => e.XCreditAmountToSupplier)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CREDIT_AMOUNT_TO_SUPPLIER");
+
+                entity.Property(e => e.XDebitAccount)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEBIT_ACCOUNT");
+
+                entity.Property(e => e.XDebitAccountDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEBIT_ACCOUNT_DESCRIPTION");
+
+                entity.Property(e => e.XNatureOfAmount)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NATURE_OF_AMOUNT");
+
+                entity.Property(e => e.XNatureOfAmountDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NATURE_OF_AMOUNT_DESCRIPTION");
+
+                entity.Property(e => e.XParticularsForCreditEntry)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PARTICULARS_FOR_CREDIT_ENTRY");
+
+                entity.Property(e => e.XParticularsForDebitEntry)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PARTICULARS_FOR_DEBIT_ENTRY");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+            });
+
+            modelBuilder.Entity<InvUnBilledGoodsReceivedNote>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_UN_BILLED_GOODS_RECEIVED_NOTE");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XBillDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BILL_DATE");
+
+                entity.Property(e => e.XBillNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BILL_NUMBER");
+
+                entity.Property(e => e.XBiltyNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BILTY_NUMBER");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDcDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DC_DATE");
+
+                entity.Property(e => e.XDcNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DC_NUMBER");
+
+                entity.Property(e => e.XDiscount)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_DISCOUNT");
+
+                entity.Property(e => e.XDriverName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DRIVER_NAME");
+
+                entity.Property(e => e.XFreight)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FREIGHT");
+
+                entity.Property(e => e.XIgpDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_IGP_DATE");
+
+                entity.Property(e => e.XIgpNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_IGP_NUMBER");
+
+                entity.Property(e => e.XName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NAME");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XOthers)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_OTHERS");
+
+                entity.Property(e => e.XPoDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PO_DATE");
+
+                entity.Property(e => e.XPoNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PO_NUMBER");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSupplier)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SUPPLIER");
+
+                entity.Property(e => e.XTransporterName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_TRANSPORTER_NAME");
+
+                entity.Property(e => e.XUnloading)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_UNLOADING");
+
+                entity.Property(e => e.XVehicleNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_VEHICLE_NUMBER");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<InvUnBilledGoodsReceivedNoteDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_UN_BILLED_GOODS_RECEIVED_NOTE_DETAIL");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAccepted)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ACCEPTED");
+
+                entity.Property(e => e.XDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XFreight)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FREIGHT");
+
+                entity.Property(e => e.XFurtherTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FURTHER_TAX");
+
+                entity.Property(e => e.XInspectionDetails)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_INSPECTION_DETAILS");
+
+                entity.Property(e => e.XItemCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ITEM_CODE");
+
+                entity.Property(e => e.XNetValue)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_NET_VALUE");
+
+                entity.Property(e => e.XOtherCosts)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_OTHER_COSTS");
+
+                entity.Property(e => e.XProject)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT");
+
+                entity.Property(e => e.XProjectDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT_DESCRIPTION");
+
+                entity.Property(e => e.XRate)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_RATE");
+
+                entity.Property(e => e.XReceived)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_RECEIVED");
+
+                entity.Property(e => e.XRejected)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_REJECTED");
+
+                entity.Property(e => e.XRejectionReason)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REJECTION_REASON");
+
+                entity.Property(e => e.XRejectionReasonDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REJECTION_REASON_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSalesTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SALES_TAX");
+
+                entity.Property(e => e.XUnloading)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_UNLOADING");
+
+                entity.Property(e => e.XUom)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_UOM");
+
+                entity.Property(e => e.XValue)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_VALUE");
+            });
+
+            modelBuilder.Entity<InvUnitOfMeasurement>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_UNIT_OF_MEASUREMENT");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAbbrevation)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ABBREVATION");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XDescription)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XrowId).HasColumnName("XROW_ID");
+            });
+
+            modelBuilder.Entity<InvVehicle>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_VEHICLE");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XDescription)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XRegistration)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REGISTRATION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XrowId).HasColumnName("XROW_ID");
+            });
+
+            modelBuilder.Entity<InvWarehouse>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_WAREHOUSE");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XDescription)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XGrndLimit)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_GRND_LIMIT");
+
+                entity.Property(e => e.XMasterLocation)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_MASTER_LOCATION");
+
+                entity.Property(e => e.XMasterLocationDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_MASTER_LOCATION_DESCRIPTION");
+
+                entity.Property(e => e.XMonthlyLimit)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_MONTHLY_LIMIT");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XStatus)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_STATUS");
+
+                entity.Property(e => e.XStatusDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_STATUS_DESCRIPTION");
+
+                entity.Property(e => e.XWhCode)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_WH_CODE");
+
+                entity.Property(e => e.XrowId).HasColumnName("XROW_ID");
+            });
+
+            modelBuilder.Entity<InvWarehouseServingLocation>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("INV_WAREHOUSE_SERVING_LOCATIONS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XLocation)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_LOCATION");
+
+                entity.Property(e => e.XLocationDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_LOCATION_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
             });
 
             modelBuilder.Entity<PayBankCode>(entity =>
@@ -1080,6 +9478,3506 @@ namespace SOS.FMS.Server.GBMSModels
                     .HasColumnName("X_REMARKS");
 
                 entity.Property(e => e.XrowId).HasColumnName("XROW_ID");
+            });
+
+            modelBuilder.Entity<PblAgingTemplate>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_AGING_TEMPLATES");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAbbrevation)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ABBREVATION");
+
+                entity.Property(e => e.XAgingOn)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_AGING_ON");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XDescription)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XrowId).HasColumnName("XROW_ID");
+            });
+
+            modelBuilder.Entity<PblAgingTemplatesTemplateDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_AGING_TEMPLATES_TEMPLATE_DETAILS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAgingPeriodTitle)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_AGING_PERIOD_TITLE");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XFromDays)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FROM_DAYS");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XToDays)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_TO_DAYS");
+            });
+
+            modelBuilder.Entity<PblCreditNote>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_CREDIT_NOTE");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XAccount)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ACCOUNT");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XExtraTaxPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_EXTRA_TAX_PERCENT");
+
+                entity.Property(e => e.XFTaxPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_F_TAX_PERCENT");
+
+                entity.Property(e => e.XName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NAME");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XRefDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REF_DATE");
+
+                entity.Property(e => e.XRefNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REF_NO");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSTaxPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_S_TAX_PERCENT");
+
+                entity.Property(e => e.XSedPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SED_PERCENT");
+
+                entity.Property(e => e.XSupplier)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SUPPLIER");
+
+                entity.Property(e => e.XSupplierControlAccount)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SUPPLIER_CONTROL_ACCOUNT");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<PblCreditNoteDocumentDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_CREDIT_NOTE_DOCUMENT_DETAILS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAccountCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ACCOUNT_CODE");
+
+                entity.Property(e => e.XAmount)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_AMOUNT");
+
+                entity.Property(e => e.XCreditAccountCodeDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CREDIT_ACCOUNT_CODE_DESCRIPTION");
+
+                entity.Property(e => e.XCreditNoteReason)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CREDIT_NOTE_REASON");
+
+                entity.Property(e => e.XCreditNoteReasonDescription)
+                    .HasMaxLength(226)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CREDIT_NOTE_REASON_DESCRIPTION");
+
+                entity.Property(e => e.XExtraTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_EXTRA_TAX");
+
+                entity.Property(e => e.XFurtherTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FURTHER_TAX");
+
+                entity.Property(e => e.XNetValue)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_NET_VALUE");
+
+                entity.Property(e => e.XOthers)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_OTHERS");
+
+                entity.Property(e => e.XReferenceDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REFERENCE_DATE");
+
+                entity.Property(e => e.XReferenceNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REFERENCE_NO");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSalesTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SALES_TAX");
+
+                entity.Property(e => e.XSed)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SED");
+            });
+
+            modelBuilder.Entity<PblCreditNoteReason>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_CREDIT_NOTE_REASONS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAbbreviation)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ABBREVIATION");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XDescription)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XrowId).HasColumnName("XROW_ID");
+            });
+
+            modelBuilder.Entity<PblCreditNoteReasonsAccount>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_CREDIT_NOTE_REASONS_ACCOUNTS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAccount)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ACCOUNT");
+
+                entity.Property(e => e.XAccountDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ACCOUNT_DESCRIPTION");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+            });
+
+            modelBuilder.Entity<PblDebitNote>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_DEBIT_NOTE");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XAccount)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ACCOUNT");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XExtraTaxPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_EXTRA_TAX_PERCENT");
+
+                entity.Property(e => e.XFTaxPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_F_TAX_PERCENT");
+
+                entity.Property(e => e.XName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NAME");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XRefDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REF_DATE");
+
+                entity.Property(e => e.XRefNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REF_NO");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSTaxPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_S_TAX_PERCENT");
+
+                entity.Property(e => e.XSedPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SED_PERCENT");
+
+                entity.Property(e => e.XSupplier)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SUPPLIER");
+
+                entity.Property(e => e.XSupplierControlAccount)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SUPPLIER_CONTROL_ACCOUNT");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<PblDebitNoteDocumentDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_DEBIT_NOTE_DOCUMENT_DETAILS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAccountCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ACCOUNT_CODE");
+
+                entity.Property(e => e.XAmount)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_AMOUNT");
+
+                entity.Property(e => e.XCreditAccountCodeDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CREDIT_ACCOUNT_CODE_DESCRIPTION");
+
+                entity.Property(e => e.XDebitNoteReason)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEBIT_NOTE_REASON");
+
+                entity.Property(e => e.XDebitNoteReasonDescription)
+                    .HasMaxLength(226)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEBIT_NOTE_REASON_DESCRIPTION");
+
+                entity.Property(e => e.XExtraTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_EXTRA_TAX");
+
+                entity.Property(e => e.XFurtherTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FURTHER_TAX");
+
+                entity.Property(e => e.XNetValue)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_NET_VALUE");
+
+                entity.Property(e => e.XOthers)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_OTHERS");
+
+                entity.Property(e => e.XReferenceDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REFERENCE_DATE");
+
+                entity.Property(e => e.XReferenceNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REFERENCE_NO");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSalesTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SALES_TAX");
+
+                entity.Property(e => e.XSed)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SED");
+            });
+
+            modelBuilder.Entity<PblDebitNoteReason>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_DEBIT_NOTE_REASONS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAbbreviation)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ABBREVIATION");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XDescription)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XrowId).HasColumnName("XROW_ID");
+            });
+
+            modelBuilder.Entity<PblDebitNoteReasonsAccountCode>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_DEBIT_NOTE_REASONS_ACCOUNT_CODES");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAccount)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ACCOUNT");
+
+                entity.Property(e => e.XAccountDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ACCOUNT_DESCRIPTION");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+            });
+
+            modelBuilder.Entity<PblDefaultSettingsManagement>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_DEFAULT_SETTINGS_MANAGEMENT");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAbbrevation)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ABBREVATION");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XName)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NAME");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XrowId).HasColumnName("XROW_ID");
+            });
+
+            modelBuilder.Entity<PblDefaultSettingsManagementGlAccountCode>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_DEFAULT_SETTINGS_MANAGEMENT_GL_ACCOUNT_CODES");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XCreditAccount)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CREDIT_ACCOUNT");
+
+                entity.Property(e => e.XCreditAccountDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CREDIT_ACCOUNT_DESCRIPTION");
+
+                entity.Property(e => e.XDebitAccount)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEBIT_ACCOUNT");
+
+                entity.Property(e => e.XDebitAccountDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEBIT_ACCOUNT_DESCRIPTION");
+
+                entity.Property(e => e.XGeneralRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_GENERAL_REMARKS");
+
+                entity.Property(e => e.XNatureOfAmount)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NATURE_OF_AMOUNT");
+
+                entity.Property(e => e.XNatureOfAmountDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NATURE_OF_AMOUNT_DESCRIPTION");
+
+                entity.Property(e => e.XParticularsForCreditEntry)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PARTICULARS_FOR_CREDIT_ENTRY");
+
+                entity.Property(e => e.XParticularsForDebitEntry)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PARTICULARS_FOR_DEBIT_ENTRY");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+            });
+
+            modelBuilder.Entity<PblLocation>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_LOCATIONS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAbbrevation)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ABBREVATION");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XDescription)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XMasterLocation)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_MASTER_LOCATION");
+
+                entity.Property(e => e.XMasterLocationDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_MASTER_LOCATION_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XrowId).HasColumnName("XROW_ID");
+            });
+
+            modelBuilder.Entity<PblMasterLocation>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_MASTER_LOCATIONS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAbbrevation)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ABBREVATION");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XDescription)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XrowId).HasColumnName("XROW_ID");
+            });
+
+            modelBuilder.Entity<PblOtherGrnSupplierPaymentVoucher>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_OTHER_GRN_SUPPLIER___PAYMENT_VOUCHER");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XAccount)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ACCOUNT");
+
+                entity.Property(e => e.XAdvITax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ADV_I_TAX");
+
+                entity.Property(e => e.XAdvSTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ADV_S_TAX");
+
+                entity.Property(e => e.XAmount)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_AMOUNT");
+
+                entity.Property(e => e.XAnyDeductions)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ANY_DEDUCTIONS");
+
+                entity.Property(e => e.XBankOrCashDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BANK_OR_CASH_DESCRIPTION");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XInstDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_INST_DATE");
+
+                entity.Property(e => e.XInstrumentNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_INSTRUMENT_NO");
+
+                entity.Property(e => e.XInstrumentType)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_INSTRUMENT_TYPE");
+
+                entity.Property(e => e.XInstrumentTypeDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_INSTRUMENT_TYPE_DESCRIPTION");
+
+                entity.Property(e => e.XManualRefNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_MANUAL_REF_NO");
+
+                entity.Property(e => e.XName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NAME");
+
+                entity.Property(e => e.XNetPayment)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_NET_PAYMENT");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XPayAllDocuments)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PAY_ALL_DOCUMENTS");
+
+                entity.Property(e => e.XPaymentType)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PAYMENT_TYPE");
+
+                entity.Property(e => e.XPaymentTypeDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PAYMENT_TYPE_DESCRIPTION");
+
+                entity.Property(e => e.XProject)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT");
+
+                entity.Property(e => e.XProjectDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSupplier)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SUPPLIER");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<PblOtherGrnSupplierPaymentVoucherPaymentDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_OTHER_GRN_SUPPLIER___PAYMENT_VOUCHER_PAYMENT_DETAILS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAlreadyPaid)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ALREADY_PAID");
+
+                entity.Property(e => e.XBalancePayable)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_BALANCE_PAYABLE");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDescription)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XDocumentAmount)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_DOCUMENT_AMOUNT");
+
+                entity.Property(e => e.XDocumentType)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DOCUMENT_TYPE");
+
+                entity.Property(e => e.XDocumentTypeDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DOCUMENT_TYPE_DESCRIPTION");
+
+                entity.Property(e => e.XNa)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_NA");
+
+                entity.Property(e => e.XNetAdjustment)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_NET_ADJUSTMENT");
+
+                entity.Property(e => e.XNowPaying)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_NOW_PAYING");
+
+                entity.Property(e => e.XNumber)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+            });
+
+            modelBuilder.Entity<PblPaymentApproval>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_PAYMENT_APPROVAL");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XAmount)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_AMOUNT");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDbnDed)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_DBN_DED");
+
+                entity.Property(e => e.XName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NAME");
+
+                entity.Property(e => e.XNetPayment)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_NET_PAYMENT");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XPaymentType)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PAYMENT_TYPE");
+
+                entity.Property(e => e.XPaymentTypeDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PAYMENT_TYPE_DESCRIPTION");
+
+                entity.Property(e => e.XProjectWorkOrder)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT_WORK_ORDER");
+
+                entity.Property(e => e.XProjectWorkOrderDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT_WORK_ORDER_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XStwh)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_STWH");
+
+                entity.Property(e => e.XSupplier)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SUPPLIER");
+
+                entity.Property(e => e.XWht)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_WHT");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<PblPaymentApprovalApprovalDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_PAYMENT_APPROVAL_APPROVAL_DETAILS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAlreadyPaid)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ALREADY_PAID");
+
+                entity.Property(e => e.XAmount)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_AMOUNT");
+
+                entity.Property(e => e.XBalancePayable)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_BALANCE_PAYABLE");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDescription)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XDocumentLocation)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DOCUMENT_LOCATION");
+
+                entity.Property(e => e.XDocumentLocationDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DOCUMENT_LOCATION_DESCRIPTION");
+
+                entity.Property(e => e.XDocumentType)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DOCUMENT_TYPE");
+
+                entity.Property(e => e.XDocumentTypeDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DOCUMENT_TYPE_DESCRIPTION");
+
+                entity.Property(e => e.XNa)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_NA");
+
+                entity.Property(e => e.XNetAdjustment)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_NET_ADJUSTMENT");
+
+                entity.Property(e => e.XNowPaying)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_NOW_PAYING");
+
+                entity.Property(e => e.XNumber)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+            });
+
+            modelBuilder.Entity<PblPaymentApprovalDebitNoteAdjustment>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_PAYMENT_APPROVAL_DEBIT_NOTE_ADJUSTMENT");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAdjustedNow)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ADJUSTED_NOW");
+
+                entity.Property(e => e.XAlreadyAdjusted)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ALREADY_ADJUSTED");
+
+                entity.Property(e => e.XAmount)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_AMOUNT");
+
+                entity.Property(e => e.XBalance)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_BALANCE");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDebitNoteLocation)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEBIT_NOTE_LOCATION");
+
+                entity.Property(e => e.XDebitNoteLocationDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEBIT_NOTE_LOCATION_DESCRIPTION");
+
+                entity.Property(e => e.XNetAdjustment)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_NET_ADJUSTMENT");
+
+                entity.Property(e => e.XNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+            });
+
+            modelBuilder.Entity<PblPaymentTermTemplate>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_PAYMENT_TERM_TEMPLATES");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAbbrevation)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ABBREVATION");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XDescription)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XrowId).HasColumnName("XROW_ID");
+            });
+
+            modelBuilder.Entity<PblPaymentTermTemplatesPaymentTerm>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_PAYMENT_TERM_TEMPLATES_PAYMENT_TERMS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSerial)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SERIAL_");
+
+                entity.Property(e => e.XSubSerial)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SUB_SERIAL");
+
+                entity.Property(e => e.XText)
+                    .HasColumnType("text")
+                    .HasColumnName("X_TEXT");
+            });
+
+            modelBuilder.Entity<PblService>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_SERVICES");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAbbrevation)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ABBREVATION");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XDescription)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XType)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_TYPE");
+
+                entity.Property(e => e.XTypeDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_TYPE_DESCRIPTION");
+
+                entity.Property(e => e.XrowId).HasColumnName("XROW_ID");
+            });
+
+            modelBuilder.Entity<PblServicesAccountCode>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_SERVICES_ACCOUNT_CODES");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAccountCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ACCOUNT_CODE");
+
+                entity.Property(e => e.XAccountCodeDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ACCOUNT_CODE_DESCRIPTION");
+
+                entity.Property(e => e.XAccountNature)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ACCOUNT_NATURE");
+
+                entity.Property(e => e.XAccountNatureDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ACCOUNT_NATURE_DESCRIPTION");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XStandardParticulars)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_STANDARD_PARTICULARS");
+            });
+
+            modelBuilder.Entity<PblServicesNature>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_SERVICES_NATURE");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAbbrevation)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ABBREVATION");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XDescription)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XrowId).HasColumnName("XROW_ID");
+            });
+
+            modelBuilder.Entity<PblServicesReceivedNote>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_SERVICES_RECEIVED_NOTE");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XBillDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BILL_DATE");
+
+                entity.Property(e => e.XBillNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BILL_NUMBER");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDcDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DC_DATE");
+
+                entity.Property(e => e.XDcNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DC_NUMBER");
+
+                entity.Property(e => e.XFTaxPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_F_TAX_PERCENT");
+
+                entity.Property(e => e.XName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NAME");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XPoDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PO_DATE");
+
+                entity.Property(e => e.XPoNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PO_NUMBER");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSTaxPercent)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_S_TAX_PERCENT");
+
+                entity.Property(e => e.XSupplier)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SUPPLIER");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<PblServicesReceivedNoteDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_SERVICES_RECEIVED_NOTE_DETAIL");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XFurtherTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FURTHER_TAX");
+
+                entity.Property(e => e.XNetValue)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_NET_VALUE");
+
+                entity.Property(e => e.XOtherCosts)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_OTHER_COSTS");
+
+                entity.Property(e => e.XProject)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT");
+
+                entity.Property(e => e.XProjectDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PROJECT_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSalesTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SALES_TAX");
+
+                entity.Property(e => e.XServiceCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SERVICE_CODE");
+
+                entity.Property(e => e.XServiceCodeDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SERVICE_CODE_DESCRIPTION");
+
+                entity.Property(e => e.XServiceDetails)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SERVICE_DETAILS");
+
+                entity.Property(e => e.XValue)
+                    .HasColumnType("numeric(18, 2)")
+                    .HasColumnName("X_VALUE");
+            });
+
+            modelBuilder.Entity<PblSupplierInvoice>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_SUPPLIER_INVOICE");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XAdjustAllDocuments)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ADJUST_ALL_DOCUMENTS");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDueDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DUE_DATE");
+
+                entity.Property(e => e.XExtraTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_EXTRA_TAX");
+
+                entity.Property(e => e.XFreight)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FREIGHT");
+
+                entity.Property(e => e.XFurtherTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_FURTHER_TAX");
+
+                entity.Property(e => e.XInvoice)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_INVOICE_");
+
+                entity.Property(e => e.XInvoiceDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_INVOICE_DATE");
+
+                entity.Property(e => e.XInvoiceType)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_INVOICE_TYPE");
+
+                entity.Property(e => e.XInvoiceTypeDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_INVOICE_TYPE_DESCRIPTION");
+
+                entity.Property(e => e.XName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NAME");
+
+                entity.Property(e => e.XNetValue)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_NET_VALUE");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XOthers)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_OTHERS");
+
+                entity.Property(e => e.XPaymentTerms)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PAYMENT_TERMS");
+
+                entity.Property(e => e.XPoAdvances)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_PO_ADVANCES");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSalesTax)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_SALES_TAX");
+
+                entity.Property(e => e.XSupplier)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SUPPLIER");
+
+                entity.Property(e => e.XValue)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_VALUE");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<PblSupplierInvoiceDocumentMatching>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_SUPPLIER_INVOICE_DOCUMENT_MATCHING");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAdjustedNow)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ADJUSTED_NOW");
+
+                entity.Property(e => e.XAlreadyAdjusted)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ALREADY_ADJUSTED");
+
+                entity.Property(e => e.XAmount)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_AMOUNT");
+
+                entity.Property(e => e.XBalance)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_BALANCE");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDocumentLocation)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DOCUMENT_LOCATION");
+
+                entity.Property(e => e.XDocumentLocationDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DOCUMENT_LOCATION_DESCRIPTION");
+
+                entity.Property(e => e.XDocumentType)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DOCUMENT_TYPE");
+
+                entity.Property(e => e.XDocumentTypeDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DOCUMENT_TYPE_DESCRIPTION");
+
+                entity.Property(e => e.XIgpDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_IGP_DATE");
+
+                entity.Property(e => e.XIgpNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_IGP_NUMBER");
+
+                entity.Property(e => e.XNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XPoDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PO_DATE");
+
+                entity.Property(e => e.XPoNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PO_NUMBER");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XTotalAdjusted)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_TOTAL_ADJUSTED");
+            });
+
+            modelBuilder.Entity<PblSupplierInvoicePaymentVoucher>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_SUPPLIER_INVOICE_PAYMENT_VOUCHER");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DocumentStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_STATUS");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.LocationCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_CODE");
+
+                entity.Property(e => e.LocationName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("LOCATION_NAME");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.PeriodCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_CODE");
+
+                entity.Property(e => e.PeriodName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIOD_NAME");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("USER_ID");
+
+                entity.Property(e => e.WorkflowStatus)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("WORKFLOW_STATUS");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XGrossAmount)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_GROSS_AMOUNT");
+
+                entity.Property(e => e.XManualRefNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_MANUAL_REF_NO");
+
+                entity.Property(e => e.XName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NAME");
+
+                entity.Property(e => e.XNetPayment)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_NET_PAYMENT");
+
+                entity.Property(e => e.XNumber)
+                    .HasColumnType("numeric(20, 0)")
+                    .HasColumnName("X_NUMBER");
+
+                entity.Property(e => e.XOtherDed)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_OTHER_DED");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XStwh)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_STWH");
+
+                entity.Property(e => e.XSupplier)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SUPPLIER");
+
+                entity.Property(e => e.XWht)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_WHT");
+
+                entity.Property(e => e.YearCode)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_CODE");
+
+                entity.Property(e => e.YearName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("YEAR_NAME");
+            });
+
+            modelBuilder.Entity<PblSupplierInvoicePaymentVoucherApprovalAdjustment>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_SUPPLIER_INVOICE_PAYMENT_VOUCHER_APPROVAL_ADJUSTMENT");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAlreadyPaid)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ALREADY_PAID");
+
+                entity.Property(e => e.XAmount)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_AMOUNT");
+
+                entity.Property(e => e.XBalance)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_BALANCE");
+
+                entity.Property(e => e.XDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DATE");
+
+                entity.Property(e => e.XDocNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DOC_NO");
+
+                entity.Property(e => e.XLocation)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_LOCATION");
+
+                entity.Property(e => e.XLocationDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_LOCATION_DESCRIPTION");
+
+                entity.Property(e => e.XNowPaying)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_NOW_PAYING");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+            });
+
+            modelBuilder.Entity<PblSupplierInvoicePaymentVoucherPaymentDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_SUPPLIER_INVOICE_PAYMENT_VOUCHER_PAYMENT_DETAILS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAccount)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ACCOUNT");
+
+                entity.Property(e => e.XAccountDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ACCOUNT_DESCRIPTION");
+
+                entity.Property(e => e.XAmount)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_AMOUNT");
+
+                entity.Property(e => e.XInstDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_INST_DATE");
+
+                entity.Property(e => e.XInstrumentNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_INSTRUMENT_NO");
+
+                entity.Property(e => e.XInstrumentType)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_INSTRUMENT_TYPE");
+
+                entity.Property(e => e.XInstrumentTypeDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_INSTRUMENT_TYPE_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+            });
+
+            modelBuilder.Entity<PblSupplierInvoicePoAdvance>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_SUPPLIER_INVOICE_PO_ADVANCES");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.MasterId).HasColumnName("MASTER_ID");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAdjustedNow)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ADJUSTED_NOW");
+
+                entity.Property(e => e.XAdvance)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ADVANCE");
+
+                entity.Property(e => e.XAlreadyAdjusted)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ALREADY_ADJUSTED");
+
+                entity.Property(e => e.XBalance)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_BALANCE");
+
+                entity.Property(e => e.XPoAmount)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_PO_AMOUNT");
+
+                entity.Property(e => e.XPoDate)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PO_DATE");
+
+                entity.Property(e => e.XPoLocation)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PO_LOCATION");
+
+                entity.Property(e => e.XPoLocationDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PO_LOCATION_DESCRIPTION");
+
+                entity.Property(e => e.XPoNumber)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PO_NUMBER");
+            });
+
+            modelBuilder.Entity<PblVendorClass>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_VENDOR_CLASS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAbbrevation)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ABBREVATION");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XCreditDays)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_CREDIT_DAYS");
+
+                entity.Property(e => e.XDescription)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XPaymentTerms)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PAYMENT_TERMS");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XrowId).HasColumnName("XROW_ID");
+            });
+
+            modelBuilder.Entity<PblVendorClassAccountCode>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_VENDOR_CLASS_ACCOUNT_CODES");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAccountCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ACCOUNT_CODE");
+
+                entity.Property(e => e.XAccountCodeDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ACCOUNT_CODE_DESCRIPTION");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XNatureOfAccount)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NATURE_OF_ACCOUNT");
+
+                entity.Property(e => e.XNatureOfAccountDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NATURE_OF_ACCOUNT_DESCRIPTION");
+
+                entity.Property(e => e.XParticularsForGlEntry)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PARTICULARS_FOR_GL_ENTRY");
+
+                entity.Property(e => e.XRemrks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMRKS");
+            });
+
+            modelBuilder.Entity<PblVendorGrade>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_VENDOR_GRADES");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAbbrevation)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ABBREVATION");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XDescription)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XrowId).HasColumnName("XROW_ID");
+            });
+
+            modelBuilder.Entity<PblVendorManagement>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_VENDOR_MANAGEMENT");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAddress1)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ADDRESS_1");
+
+                entity.Property(e => e.XAddress2)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ADDRESS_2");
+
+                entity.Property(e => e.XAddress3)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ADDRESS_3");
+
+                entity.Property(e => e.XAdvanceLimit)
+                    .HasColumnType("numeric(20, 2)")
+                    .HasColumnName("X_ADVANCE_LIMIT");
+
+                entity.Property(e => e.XChequeName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CHEQUE_NAME");
+
+                entity.Property(e => e.XClearingAc)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CLEARING_AC");
+
+                entity.Property(e => e.XClearingAcDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CLEARING_AC_DESCRIPTION");
+
+                entity.Property(e => e.XCnic)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CNIC");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XDefaultLocation)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEFAULT_LOCATION");
+
+                entity.Property(e => e.XDefaultLocationDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DEFAULT_LOCATION_DESCRIPTION");
+
+                entity.Property(e => e.XEmail)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_EMAIL");
+
+                entity.Property(e => e.XEmployee)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_EMPLOYEE");
+
+                entity.Property(e => e.XEmployeeDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_EMPLOYEE_DESCRIPTION");
+
+                entity.Property(e => e.XFaxNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_FAX_NO");
+
+                entity.Property(e => e.XGrade)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_GRADE");
+
+                entity.Property(e => e.XGradeDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_GRADE_DESCRIPTION");
+
+                entity.Property(e => e.XLandline)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_LANDLINE");
+
+                entity.Property(e => e.XMobile)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_MOBILE");
+
+                entity.Property(e => e.XName)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NAME");
+
+                entity.Property(e => e.XNtn)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NTN");
+
+                entity.Property(e => e.XPayableAc)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PAYABLE_AC");
+
+                entity.Property(e => e.XPayableAcDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_PAYABLE_AC_DESCRIPTION");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSalesTaxNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SALES_TAX_NO");
+
+                entity.Property(e => e.XStatus)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_STATUS");
+
+                entity.Property(e => e.XStatusDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_STATUS_DESCRIPTION");
+
+                entity.Property(e => e.XSupplierClass)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SUPPLIER_CLASS");
+
+                entity.Property(e => e.XSupplierClassDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SUPPLIER_CLASS_DESCRIPTION");
+
+                entity.Property(e => e.XUrl)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_URL");
+
+                entity.Property(e => e.XrowId).HasColumnName("XROW_ID");
+            });
+
+            modelBuilder.Entity<PblVendorManagementContactPerson>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("PBL_VENDOR_MANAGEMENT_CONTACT_PERSONS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAddress)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ADDRESS");
+
+                entity.Property(e => e.XCellNo)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CELL_NO");
+
+                entity.Property(e => e.XCnic)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CNIC");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XContactType)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CONTACT_TYPE");
+
+                entity.Property(e => e.XContactTypeDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CONTACT_TYPE_DESCRIPTION");
+
+                entity.Property(e => e.XDesignation)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_DESIGNATION");
+
+                entity.Property(e => e.XEmailId)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_EMAIL_ID");
+
+                entity.Property(e => e.XLandline)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_LANDLINE");
+
+                entity.Property(e => e.XName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_NAME");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
             });
 
             modelBuilder.Entity<PdwAllowance>(entity =>
@@ -6267,6 +18165,16 @@ namespace SOS.FMS.Server.GBMSModels
                     .IsUnicode(false)
                     .HasColumnName("X_ATM_BRANCH_DESCRIPTION");
 
+                entity.Property(e => e.XAtmCitBill)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ATM_CIT_BILL");
+
+                entity.Property(e => e.XAtmCitBillDescription)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ATM_CIT_BILL_DESCRIPTION");
+
                 entity.Property(e => e.XBranchCode)
                     .IsRequired()
                     .HasMaxLength(250)
@@ -6999,6 +18907,84 @@ namespace SOS.FMS.Server.GBMSModels
                     .HasMaxLength(250)
                     .IsUnicode(false)
                     .HasColumnName("X_REMARKS");
+            });
+
+            modelBuilder.Entity<RbMainCustomerManagementSegmentWiseBankDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("RB_MAIN_CUSTOMER_MANAGEMENT_SEGMENT_WISE_BANK_DETAILS");
+
+                entity.Property(e => e.AddDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("ADD_DATE");
+
+                entity.Property(e => e.AddId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ADD_ID");
+
+                entity.Property(e => e.DetailId).HasColumnName("DETAIL_ID");
+
+                entity.Property(e => e.IpAdd)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_ADD");
+
+                entity.Property(e => e.IpMod)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("IP_MOD");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MOD_DATE");
+
+                entity.Property(e => e.ModId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("MOD_ID");
+
+                entity.Property(e => e.XAccountNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ACCOUNT_NUMBER");
+
+                entity.Property(e => e.XAccountTitle)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_ACCOUNT_TITLE");
+
+                entity.Property(e => e.XBankName)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_BANK_NAME");
+
+                entity.Property(e => e.XCode)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_CODE");
+
+                entity.Property(e => e.XIbanNumber)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_IBAN_NUMBER");
+
+                entity.Property(e => e.XRemarks)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_REMARKS");
+
+                entity.Property(e => e.XSegment)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SEGMENT");
+
+                entity.Property(e => e.XSegmentDescription)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("X_SEGMENT_DESCRIPTION");
             });
 
             modelBuilder.Entity<RbMainCustomerManagementVehcileDetail>(entity =>

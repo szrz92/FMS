@@ -76,7 +76,8 @@ namespace SOS.FMS.Server.Controllers
                                                 Region = c.Region,
                                                 ReportTime = c.ReportTime,
                                                 Subregion = c.Subregion,
-                                                VehicleNumber = c.VehicleNumber
+                                                VehicleNumber = c.VehicleNumber,
+                                                Status = (c.IsActive) ? "Active" : "Resolved" 
                                             }).ToListAsync();
                     }
                     else
@@ -97,7 +98,63 @@ namespace SOS.FMS.Server.Controllers
                                                 Region = c.Region,
                                                 ReportTime = c.ReportTime,
                                                 Subregion = c.Subregion,
-                                                VehicleNumber = c.VehicleNumber
+                                                VehicleNumber = c.VehicleNumber,
+                                                Status = (c.IsActive) ? "Active" : "Resolved"
+                                            }).ToListAsync();
+                    }
+                }
+                return Ok(complaints);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+        [HttpGet("All")]
+        public async Task<IActionResult> AllSinceLastMonth()
+        {
+            try
+            {
+                List<ComplaintVM> complaints = new List<ComplaintVM>();
+                if (User.Claims.Any())
+                {
+                    if (User.IsInRole("SA") || User.IsInRole("HMT"))
+                    {
+                        complaints = await (from c in dbContext.Complaints
+                                            select new ComplaintVM()
+                                            {
+                                                Id = c.Id,
+                                                IsActive = c.IsActive,
+                                                ComplaintDescription = c.ComplaintDescription,
+                                                DriverName = c.DriverName,
+                                                PointCode = c.PointCode,
+                                                PointCodeDescription = c.PointCodeDescription,
+                                                Region = c.Region,
+                                                ReportTime = c.ReportTime,
+                                                Subregion = c.Subregion,
+                                                VehicleNumber = c.VehicleNumber,
+                                                Status = (c.IsActive) ? "Active" : "Resolved"
+                                            }).ToListAsync();
+                    }
+                    else
+                    {
+                        ApplicationUser user = (from u in dbContext.Users where u.Email == User.Identity.Name select u).FirstOrDefault();
+                        Region region = (from r in dbContext.Regions where r.XDescription == user.Region select r).FirstOrDefault();
+                        complaints = await (from c in dbContext.Complaints
+                                            where c.Region == region.XDescription
+                                            select new ComplaintVM()
+                                            {
+                                                Id = c.Id,
+                                                IsActive = c.IsActive,
+                                                ComplaintDescription = c.ComplaintDescription,
+                                                DriverName = c.DriverName,
+                                                PointCode = c.PointCode,
+                                                PointCodeDescription = c.PointCodeDescription,
+                                                Region = c.Region,
+                                                ReportTime = c.ReportTime,
+                                                Subregion = c.Subregion,
+                                                VehicleNumber = c.VehicleNumber,
+                                                Status = (c.IsActive) ? "Active" : "Resolved"
                                             }).ToListAsync();
                     }
                 }

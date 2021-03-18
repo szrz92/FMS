@@ -8,6 +8,7 @@ using SOS.FMS.Shared;
 using SOS.FMS.Shared.Enums;
 using SOS.FMS.Shared.ViewModels;
 using SOS.FMS.Shared.ViewModels.Accident;
+using SOS.FMS.Shared.ViewModels.Incident;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -446,6 +447,7 @@ namespace SOS.FMS.Server.Controllers
                 FMSAccidentalCheck check = await (from a in dbContext.FMSAccidentalCheckList
                                                   where a.Id == comment.FMSAccidentalCheckId
                                                   select a).SingleOrDefaultAsync();
+                check.LastUpdated = PakistanDateTime.Now;
                 check.CommentCount = await (from c in dbContext.FMSAccidentalCheckComments
                                             where c.FMSAccidentalCheckId == comment.FMSAccidentalCheckId
                                             select c).CountAsync();
@@ -525,7 +527,31 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        [HttpPost("PostBillDetail")]
+        public async Task<IActionResult> PostBillDetail(BillDetailVM billDetail)
+        {
+            try
+            {
 
+                AccidentalBillDetail detail = new ()
+                {
+                    Id = Guid.NewGuid(),
+                    CheckPointId = billDetail.CheckPointId,
+                    ServiceType = billDetail.ServiceType,
+                    SubServiceType = billDetail.SubServiceType,
+                    Amount = Convert.ToString(billDetail.Amount)
+                };
+
+                await dbContext.AccidentalBillDetails.AddAsync(detail);
+                await dbContext.SaveChangesAsync();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
         [HttpPost("GetBills")]
         public async Task<IActionResult> GetBills(ApiRequest request)
         {
@@ -535,6 +561,27 @@ namespace SOS.FMS.Server.Controllers
                                                   where b.CheckPointId == request.FMSAccidentalCheckId
                                                   select b).ToListAsync();
                 return Ok(Bills);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+        [HttpPost("GetBillDetails")]
+        public async Task<IActionResult> GetBillDetails(ApiRequest request)
+        {
+            try
+            {
+                List<BillDetailVM> details = await (from b in dbContext.AccidentalBillDetails
+                                                    where b.CheckPointId == request.FMSAccidentalCheckId
+                                                    select new BillDetailVM()
+                                                    {
+                                                        CheckPointId = b.CheckPointId,
+                                                        ServiceType = b.ServiceType,
+                                                        SubServiceType = b.SubServiceType,
+                                                        Amount = Convert.ToInt32(b.Amount)
+                                                    }).ToListAsync();
+                return Ok(details);
             }
             catch (Exception)
             {

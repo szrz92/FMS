@@ -17,6 +17,7 @@ namespace SOS.FMS.Shared.ViewModels
         public string Region { get; set; }
         public string Subregion { get; set; }
         public bool IsActive { get; set; }
+        public string Status { get;set;}
         public DateTime ReportTime { get; set; }
     }
 }

@@ -202,7 +202,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 251 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Daily\CheckList.razor"
+#line 258 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Daily\CheckList.razor"
       
     [Parameter]
     public string VehicleNumber { get; set; }
@@ -221,6 +221,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     protected override async Task OnInitializedAsync()
     {
+        await PopulateCheckList();
         await base.OnInitializedAsync();
     }
 

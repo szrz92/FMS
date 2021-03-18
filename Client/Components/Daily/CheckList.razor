@@ -51,6 +51,13 @@
                                                     <div id="@(cat.Key + subcat.Key)" class="collapse" data-parent="#@(cat.Key)" style="">
                                                         <div class="card-body">
                                                             <table class="table w-100">
+                                                                <thead>
+                                                                    <tr class="row">
+                                                                        <td class="col-8 text-dark font-weight-bolder">Description</td>
+                                                                        <td class="col-2 text-dark font-weight-bolder">Mark No</td>
+                                                                        <td class="col-2 text-dark font-weight-bolder">Mark Yes</td>
+                                                                    </tr>
+                                                                </thead>
                                                                 <tbody>
                                                                     @foreach (var itemList in subcat.GroupBy(x => new { x.Category, x.SubCategeory, x.Checklist }))
                                                                     {
@@ -64,7 +71,7 @@
                                                                                 {
                                                                                     <td class="col-2">
                                                                                         <label class="checkbox checkbox-disabled pb-2">
-                                                                                            <input type="checkbox" checked="checked" disabled> Not OK
+                                                                                            <input type="checkbox" checked="checked" disabled> No
                                                                                             <span></span>
                                                                                         </label>
                                                                                     </td>
@@ -73,7 +80,7 @@
                                                                                 {
                                                                                     <td class="col-2">
                                                                                         <label class="checkbox checkbox-disabled pb-2">
-                                                                                            <input type="checkbox" disabled> Not OK
+                                                                                            <input type="checkbox" disabled> No
                                                                                             <span></span>
                                                                                         </label>
                                                                                     </td>
@@ -82,7 +89,7 @@
                                                                                 {
                                                                                     <td class="col-2">
                                                                                         <label class="checkbox checkbox-danger pb-2">
-                                                                                            <input type="checkbox" @onclick="()=> MarkPointNotOK(i.Code, i.Description)"> Not OK
+                                                                                            <input type="checkbox" @onclick="()=> MarkPointNotOK(i.Code, i.Description)"> No
                                                                                             <span></span>
                                                                                         </label>
                                                                                     </td>
@@ -91,7 +98,7 @@
                                                                                 {
                                                                                     <td class="col-2">
                                                                                         <label class="checkbox checkbox-disabled pb-2">
-                                                                                            <input type="checkbox" checked="checked" disabled> OK
+                                                                                            <input type="checkbox" checked="checked" disabled> Yes
                                                                                             <span></span>
                                                                                         </label>
                                                                                     </td>
@@ -100,7 +107,7 @@
                                                                                 {
                                                                                     <td class="col-2">
                                                                                         <label class="checkbox checkbox-disabled pb-2">
-                                                                                            <input type="checkbox" disabled> OK
+                                                                                            <input type="checkbox" disabled> Yes
                                                                                             <span></span>
                                                                                         </label>
                                                                                     </td>
@@ -109,7 +116,7 @@
                                                                                 {
                                                                                     <td class="col-2">
                                                                                         <label class="checkbox checkbox-primary pb-2">
-                                                                                            <input type="checkbox" @onclick="()=> MarkPointDone(i.Code)"> OK
+                                                                                            <input type="checkbox" @onclick="()=> MarkPointDone(i.Code)"> Yes
                                                                                             <span></span>
                                                                                         </label>
                                                                                     </td>
@@ -266,6 +273,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        await PopulateCheckList();
         await base.OnInitializedAsync();
     }
 

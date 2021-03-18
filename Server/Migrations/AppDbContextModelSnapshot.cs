@@ -245,6 +245,29 @@ namespace SOS.FMS.Server.Migrations
                     b.ToTable("Accidents");
                 });
 
+            modelBuilder.Entity("SOS.FMS.Server.Models.AccidentalBillDetail", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Amount")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("CheckPointId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ServiceType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SubServiceType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AccidentalBillDetails");
+                });
+
             modelBuilder.Entity("SOS.FMS.Server.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -323,16 +346,16 @@ namespace SOS.FMS.Server.Migrations
                         {
                             Id = "c58e1a9d-1c28-46db-830a-7b3f0b9663f1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6dcb74b1-94c6-4ffe-bdc0-5dc1bc7b4b17",
+                            ConcurrencyStamp = "e516c4b3-1c39-401f-8691-eaa19be0121d",
                             Email = "z.raza@batech.com.pk",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             Name = "Zain Raza",
                             NormalizedEmail = "Z.RAZA@BATECH.COM.PK",
                             NormalizedUserName = "Z.RAZA@BATECH.COM.PK",
-                            PasswordHash = "AQAAAAEAACcQAAAAED2/mtLNs0gXEb8XYMbYwLqPJfHy+BIDo59zViL3U1vgpS4qX3pyCHy2U7qNYhpOHQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJhOs6vkXI9q0xNGoFR8pJZfIRGSJFULinsyrx3coL7lmJk1CYi8FF2v3lV7pWBUcg==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "493c2869-8b72-4178-8136-f34e3bcdc4ff",
+                            SecurityStamp = "28834d68-7ba6-4b3e-b6f8-a7afd34f3020",
                             TwoFactorEnabled = false,
                             UserName = "z.raza@batech.com.pk"
                         });
@@ -1031,6 +1054,23 @@ namespace SOS.FMS.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FMSVehicleScoreCards");
+                });
+
+            modelBuilder.Entity("SOS.FMS.Server.Models.File", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CheckPoint")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Files");
                 });
 
             modelBuilder.Entity("SOS.FMS.Server.Models.GBMSUser", b =>
@@ -1740,6 +1780,9 @@ namespace SOS.FMS.Server.Migrations
 
                     b.Property<Guid>("CheckPointId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

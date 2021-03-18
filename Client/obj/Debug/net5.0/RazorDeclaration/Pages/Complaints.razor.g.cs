@@ -194,7 +194,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Complaints")]
+    [Microsoft.AspNetCore.Components.RouteAttribute("/ActiveComplaints")]
     public partial class Complaints : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998

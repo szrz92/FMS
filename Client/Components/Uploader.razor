@@ -1,0 +1,115 @@
+﻿@using System.Linq
+@using Microsoft.Extensions.Logging
+@inject HttpClient Http
+@inject ILogger<Uploader> logger
+
+
+<label>
+    <InputFile OnChange="@OnInputFileChange" />
+</label>
+
+@code {
+    [Parameter]
+    public ApiRequest IncidentData { get; set; }
+
+    public class UploadResult
+    {
+        public bool Uploaded { get; set; }
+
+        public string FileName { get; set; }
+
+        public string StoredFileName { get; set; }
+
+        public int ErrorCode { get; set; }
+    }
+
+    public class DataToPost
+    {
+        public MultipartFormDataContent MultipartFormDataContent { get; set; }
+        public Guid CheckPointId { get; set; }
+    }
+
+    private IList<File> files = new List<File>();
+    private IList<UploadResult> uploadResults = new List<UploadResult>();
+    private bool shouldRender;
+
+    protected override bool ShouldRender() => shouldRender;
+
+    private async Task OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        shouldRender = false;
+        long maxFileSize = 1024 * 1024 * 15;
+        var upload = false;
+
+        using var content = new MultipartFormDataContent();
+
+        foreach (var file in e.GetMultipleFiles(1))
+        {
+            if (uploadResults.SingleOrDefault(
+                f => f.FileName == file.Name) is null)
+            {
+                var fileContent = new StreamContent(file.OpenReadStream());
+
+                files.Add(
+                    new File()
+                    {
+                        Name = file.Name,
+                    });
+
+                if (file.Size < maxFileSize)
+                {
+                    content.Add(
+                        content: fileContent,
+                        name: "\"files\"",
+                        fileName: file.Name);
+
+                    upload = true;
+                }
+                else
+                {
+                    logger.LogInformation("{FileName} not uploaded", file.Name);
+
+                    uploadResults.Add(
+                        new UploadResult()
+                        {
+                            FileName = file.Name,
+                            ErrorCode = 6,
+                            Uploaded = false,
+                        });
+                }
+            }
+        }
+
+        if (upload)
+        {
+            var response = await Http.PostAsJsonAsync("api/Files", new DataToPost() { CheckPointId = IncidentData.FMSAccidentalCheckId, MultipartFormDataContent = content });
+
+            var newUploadResults = await response.Content
+                .ReadFromJsonAsync<IList<UploadResult>>();
+
+            uploadResults = uploadResults.Concat(newUploadResults).ToList();
+        }
+
+        shouldRender = true;
+    }
+
+    private static bool FileUpload(IList<UploadResult> uploadResults,
+        string fileName, ILogger<Uploader> logger, out UploadResult result)
+    {
+        result = uploadResults.SingleOrDefault(f => f.FileName == fileName);
+
+        if (result is null)
+        {
+            logger.LogInformation("{FileName} not uploaded", fileName);
+            result = new UploadResult();
+            result.ErrorCode = 5;
+        }
+
+        return result.Uploaded;
+    }
+
+    private class File
+    {
+        public string Name { get; set; }
+    }
+}

@@ -948,3 +948,9 @@ C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Pages\Test1.r
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\build-gz\54x7RGY5.gz
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\VideoPlayer.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\VideoPlayer.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Accident\AddBillDetails.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Accident\AddBillDetails.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Uploader.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Uploader.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Pages\ActiveComplaints.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Pages\ActiveComplaints.razor.g.cs

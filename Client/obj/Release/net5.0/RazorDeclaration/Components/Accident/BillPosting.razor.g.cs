@@ -201,6 +201,13 @@ using SOS.FMS.Shared.ViewModels.Accident;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 4 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\BillPosting.razor"
+using SOS.FMS.Shared.ViewModels.Incident;
+
+#line default
+#line hidden
+#nullable disable
     public partial class BillPosting : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -209,7 +216,7 @@ using SOS.FMS.Shared.ViewModels.Accident;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 44 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\BillPosting.razor"
+#line 111 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\BillPosting.razor"
        
     [Parameter]
     public ApiRequest CheckPointId { get; set; }
@@ -220,22 +227,33 @@ using SOS.FMS.Shared.ViewModels.Accident;
     [Parameter]
     public EventCallback<bool> OnVisibilityChanged { get; set; }
 
+    public Modal videomodal { get; set; }
+    public Modal filemodal { get; set; }
+
     FMSAccidentalCheckCommentVM AccidentalCheckComment;
+
+    public List<string> fileNames { get; set; }
 
     public BillPostingVM BillPostingVM = new BillPostingVM();
     public AccidentBill bill = new AccidentBill();
 
     public List<AccidentBill> BillsList = new List<AccidentBill>();
+    public List<BillDetailVM> BillDetailsList { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
+        fileNames = await GetFiles();
         BillsList = await GetBills();
+        BillDetailsList = await GetBillDetails();
         await base.OnInitializedAsync();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        BillDetailsList = await GetBillDetails();
+        fileNames = await GetFiles();
         bill.CheckPointId = CheckPointId.FMSAccidentalCheckId;
+        bill.BillAmount = BillDetailsList.Sum(x => Convert.ToInt32(x.Amount));
         BillPostingVM.CheckPointId = CheckPointId.FMSAccidentalCheckId;
         await base.OnAfterRenderAsync(firstRender);
     }
@@ -245,6 +263,7 @@ using SOS.FMS.Shared.ViewModels.Accident;
         BillPostingVM.images.Add(image);
         bill.BillImage = image;
     }
+
     public Task CloseBillPosting()
     {
         return OnVisibilityChanged.InvokeAsync(false);
@@ -255,6 +274,18 @@ using SOS.FMS.Shared.ViewModels.Accident;
         ApiRequest request = new ApiRequest() { FMSAccidentalCheckId = CheckPointId.FMSAccidentalCheckId };
         var getBillResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/GetBills", request);
         return JsonConvert.DeserializeObject<List<AccidentBill>>(await getBillResponse.Content.ReadAsStringAsync());
+    }
+    public async Task<List<string>> GetFiles()
+    {
+        ApiRequest request = new ApiRequest() { FMSAccidentalCheckId = CheckPointId.FMSAccidentalCheckId };
+        var getBillResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Files/Files", request);
+        return JsonConvert.DeserializeObject<List<string>>(await getBillResponse.Content.ReadAsStringAsync());
+    }
+    public async Task<List<BillDetailVM>> GetBillDetails()
+    {
+        ApiRequest request = new ApiRequest() { FMSAccidentalCheckId = CheckPointId.FMSAccidentalCheckId };
+        var getBillResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/GetBillDetails", request);
+        return JsonConvert.DeserializeObject<List<BillDetailVM>>(await getBillResponse.Content.ReadAsStringAsync());
     }
 
     public async void PostBill()
@@ -270,6 +301,53 @@ using SOS.FMS.Shared.ViewModels.Accident;
         {
         }
     }
+
+    public bool videoModalVisibility { get; set; }
+
+    public string source { get; set; }
+
+    public void Show(string ext)
+    {
+        switch (ext)
+        {
+            case "mp4":
+                source = "https://res.cloudinary.com/blazoredgitter/video/upload/v1557015491/samples/elephants.mp4";
+                videoModalVisibility = true;
+                break;
+            default:
+                source = "http://174.129.4.209/up/tmserd.pdf";
+                break;
+        };
+        StateHasChanged();
+    }
+
+    private async void OnChange(UploadChangeEventArgs args)
+    {
+        var files = new List<FileInfo>();
+        foreach (var file in args.Files)
+        {
+            var content = new MultipartFormDataContent {
+                    { new ByteArrayContent(file.Stream.GetBuffer()), CheckPointId.FMSAccidentalCheckId.ToString(), file.FileInfo.Name}
+                };
+            var filepath = await Http.PostAsync("api/Files/Save", content);
+        }
+
+    }
+
+
+    #region Add to bill
+    public bool addVisible { get; set; } = false;
+    public void ShowHideAddModal(bool status)
+    {
+        addVisible = status;
+        //if (!addVisible) ReloadCheckList();
+        StateHasChanged();
+    }
+    public void ShowAddModal()
+    {
+        addVisible = true;
+    }
+    #endregion
 
 #line default
 #line hidden

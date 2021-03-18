@@ -57,6 +57,7 @@ C:\Users\BA Tech\source\repos\sosfms\Server\obj\Release\net5.0\PubTmp\Out\wwwroo
 C:\Users\BA Tech\source\repos\sosfms\Server\obj\Release\net5.0\PubTmp\Out\wwwroot\_framework\System.Security.Cryptography.Xml.dll
 C:\Users\BA Tech\source\repos\sosfms\Server\obj\Release\net5.0\PubTmp\Out\wwwroot\_framework\System.Security.Permissions.dll
 C:\Users\BA Tech\source\repos\sosfms\Server\obj\Release\net5.0\PubTmp\Out\wwwroot\_framework\System.Windows.Extensions.dll
+C:\Users\BA Tech\source\repos\sosfms\Server\obj\Release\net5.0\PubTmp\Out\wwwroot\_framework\Blazored.Video.dll
 C:\Users\BA Tech\source\repos\sosfms\Server\obj\Release\net5.0\PubTmp\Out\wwwroot\_framework\SOS.FMS.Shared.dll
 C:\Users\BA Tech\source\repos\sosfms\Server\obj\Release\net5.0\PubTmp\Out\wwwroot\_framework\SOS.FMS.Client.dll
 C:\Users\BA Tech\source\repos\sosfms\Server\obj\Release\net5.0\PubTmp\Out\wwwroot\_framework\Microsoft.CSharp.dll
@@ -465,6 +466,7 @@ C:\Users\BA Tech\source\repos\sosfms\Server\obj\Release\net5.0\PubTmp\Out\wwwroo
 C:\Users\BA Tech\source\repos\sosfms\Server\obj\Release\net5.0\PubTmp\Out\wwwroot\_framework\System.Security.Cryptography.Xml.dll.br
 C:\Users\BA Tech\source\repos\sosfms\Server\obj\Release\net5.0\PubTmp\Out\wwwroot\_framework\System.Security.Permissions.dll.br
 C:\Users\BA Tech\source\repos\sosfms\Server\obj\Release\net5.0\PubTmp\Out\wwwroot\_framework\System.Windows.Extensions.dll.br
+C:\Users\BA Tech\source\repos\sosfms\Server\obj\Release\net5.0\PubTmp\Out\wwwroot\_framework\Blazored.Video.dll.br
 C:\Users\BA Tech\source\repos\sosfms\Server\obj\Release\net5.0\PubTmp\Out\wwwroot\_framework\SOS.FMS.Shared.dll.br
 C:\Users\BA Tech\source\repos\sosfms\Server\obj\Release\net5.0\PubTmp\Out\wwwroot\_framework\SOS.FMS.Client.dll.br
 C:\Users\BA Tech\source\repos\sosfms\Server\obj\Release\net5.0\PubTmp\Out\wwwroot\_framework\Microsoft.CSharp.dll.br
@@ -872,6 +874,7 @@ C:\Users\BA Tech\source\repos\sosfms\Server\obj\Release\net5.0\PubTmp\Out\wwwroo
 C:\Users\BA Tech\source\repos\sosfms\Server\obj\Release\net5.0\PubTmp\Out\wwwroot\_framework\System.Security.Cryptography.Xml.dll.gz
 C:\Users\BA Tech\source\repos\sosfms\Server\obj\Release\net5.0\PubTmp\Out\wwwroot\_framework\System.Security.Permissions.dll.gz
 C:\Users\BA Tech\source\repos\sosfms\Server\obj\Release\net5.0\PubTmp\Out\wwwroot\_framework\System.Windows.Extensions.dll.gz
+C:\Users\BA Tech\source\repos\sosfms\Server\obj\Release\net5.0\PubTmp\Out\wwwroot\_framework\Blazored.Video.dll.gz
 C:\Users\BA Tech\source\repos\sosfms\Server\obj\Release\net5.0\PubTmp\Out\wwwroot\_framework\SOS.FMS.Shared.dll.gz
 C:\Users\BA Tech\source\repos\sosfms\Server\obj\Release\net5.0\PubTmp\Out\wwwroot\_framework\SOS.FMS.Client.dll.gz
 C:\Users\BA Tech\source\repos\sosfms\Server\obj\Release\net5.0\PubTmp\Out\wwwroot\_framework\Microsoft.CSharp.dll.gz
