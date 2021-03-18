@@ -24,6 +24,8 @@ namespace SOS.FMS.Server.Models
         public int Score { get; set; } = 135;
         public string Status { get; set; }
         public PeriodicMaintenanceStatus PeriodicStatus { get; set; }
+        public AccidentalMaintenanceStatus AccidentalStatus { get; set; }
+        public EmergencyMaintenanceStatus EmergencyStatus { get; set; }
         public double Distance { get; set; }
     }
 }

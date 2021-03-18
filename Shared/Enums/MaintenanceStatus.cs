@@ -17,4 +17,14 @@ namespace SOS.FMS.Shared.Enums
         Pending,
         Done
     }
+    public enum AccidentalMaintenanceStatus
+    {
+        Pending,
+        Done
+    }
+    public enum EmergencyMaintenanceStatus
+    {
+        Pending,
+        Done
+    }
 }

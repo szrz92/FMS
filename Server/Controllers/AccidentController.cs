@@ -106,6 +106,8 @@ namespace SOS.FMS.Server.Controllers
                 vehicle.Breakdowns++;
                 driver.Accidents++;
 
+                vehicle.AccidentalStatus = AccidentalMaintenanceStatus.Pending;
+
                 Accident newAccident = new Accident()
                 {
                     Id = accidentId,
@@ -210,6 +212,7 @@ namespace SOS.FMS.Server.Controllers
                                       where v.VehicleNumber == vehicle.VehicleNumber
                                       select v).SingleOrDefault();
                 fmsVehicle.Status = "maintained";
+                fmsVehicle.AccidentalStatus = AccidentalMaintenanceStatus.Done;
                 dbContext.SaveChanges();
 
                 Accident accident = (from a in dbContext.Accidents 
@@ -219,6 +222,23 @@ namespace SOS.FMS.Server.Controllers
                 accident.MaintenanceStatus = MaintenanceStatus.Operational;
                 accident.CarOperationalTime = PakistanDateTime.Now;
                 accident.LastUpdated = PakistanDateTime.Now;
+
+
+                if (fmsVehicle.EmergencyStatus == EmergencyMaintenanceStatus.Pending)
+                {
+                    fmsVehicle.Status = "emergency";
+                }
+                else
+                    if (fmsVehicle.PeriodicStatus == PeriodicMaintenanceStatus.Pending)
+                {
+                    fmsVehicle.Status = "periodic";
+                }
+                else
+                {
+                    fmsVehicle.Status = "maintained";
+                }
+
+
                 dbContext.SaveChanges();
 
                 string title = $"Accidental Job Vehicle Number {vehicle.VehicleNumber}";
@@ -244,6 +264,7 @@ namespace SOS.FMS.Server.Controllers
                                       where v.VehicleNumber == request.VehicleNumber
                                       select v).SingleOrDefault();
 
+                fmsVehicle.AccidentalStatus = AccidentalMaintenanceStatus.Done;
                 List<Accident> accidents = await dbContext.Accidents
                     .Where(x => x.FMSVehicleId == fmsVehicle.Id && (x.MaintenanceStatus == MaintenanceStatus.NotInitiated || x.MaintenanceStatus == MaintenanceStatus.Operational)).ToListAsync();
                 if (accidents.Count == 0)
@@ -263,17 +284,20 @@ namespace SOS.FMS.Server.Controllers
                     accident.LastUpdated = PakistanDateTime.Now;
                 }
 
-                Emergency emergencyCheck = await dbContext.Emergencies
-                   .Where(x => x.FMSVehicleId == fmsVehicle.Id && x.MaintenanceStatus == MaintenanceStatus.NotInitiated)
-                   .SingleOrDefaultAsync();
-                if (emergencyCheck != null)
+                if (fmsVehicle.EmergencyStatus == EmergencyMaintenanceStatus.Pending)
                 {
                     fmsVehicle.Status = "emergency";
+                }
+                else
+                    if (fmsVehicle.PeriodicStatus == PeriodicMaintenanceStatus.Pending)
+                {
+                    fmsVehicle.Status = "periodic";
                 }
                 else
                 {
                     fmsVehicle.Status = "maintained";
                 }
+
                 await dbContext.SaveChangesAsync();
 
                 string notification = $"Accidental Job with Vehicle Number {request.VehicleNumber} marked as closed";
