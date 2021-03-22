@@ -139,8 +139,8 @@ namespace SOS.FMS.Server.Controllers
                         Product = workSheet.Cells[i, 10].Value.ToString()
                     });
                 }
-                //_context.GameBanks.AddRange(customerList);
-                //await _context.SaveChangesAsync();
+                dbContext.PSOWorksheets.AddRange(rows);
+                await dbContext.SaveChangesAsync();
             }
             return Ok();
         }

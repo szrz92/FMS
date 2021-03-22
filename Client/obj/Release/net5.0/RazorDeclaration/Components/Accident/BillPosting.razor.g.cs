@@ -216,7 +216,7 @@ using SOS.FMS.Shared.ViewModels.Incident;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 111 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\BillPosting.razor"
+#line 116 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\BillPosting.razor"
        
     [Parameter]
     public ApiRequest CheckPointId { get; set; }
@@ -242,27 +242,25 @@ using SOS.FMS.Shared.ViewModels.Incident;
 
     protected override async Task OnInitializedAsync()
     {
-        fileNames = await GetFiles();
-        BillsList = await GetBills();
-        BillDetailsList = await GetBillDetails();
+        LoaderOn();
+        await LoadData();
         await base.OnInitializedAsync();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        BillDetailsList = await GetBillDetails();
-        fileNames = await GetFiles();
+        await LoadData();
         bill.CheckPointId = CheckPointId.FMSAccidentalCheckId;
         bill.BillAmount = BillDetailsList.Sum(x => Convert.ToInt32(x.Amount));
         BillPostingVM.CheckPointId = CheckPointId.FMSAccidentalCheckId;
         await base.OnAfterRenderAsync(firstRender);
     }
 
-    public void OnImagePost(string image)
-    {
-        BillPostingVM.images.Add(image);
-        bill.BillImage = image;
-    }
+    //public void OnImagePost(string image)
+    //{
+    //    BillPostingVM.images.Add(image);
+    //    bill.BillImage = image;
+    //}
 
     public Task CloseBillPosting()
     {
@@ -290,6 +288,7 @@ using SOS.FMS.Shared.ViewModels.Incident;
 
     public async void PostBill()
     {
+        LoaderOn();
         var postBillResponse = await Http.PostAsJsonAsync<AccidentBill>("api/Accident/PostBill", bill);
 
         if (postBillResponse.StatusCode == System.Net.HttpStatusCode.OK)
@@ -323,6 +322,7 @@ using SOS.FMS.Shared.ViewModels.Incident;
 
     private async void OnChange(UploadChangeEventArgs args)
     {
+        LoaderOn();
         var files = new List<FileInfo>();
         foreach (var file in args.Files)
         {
@@ -339,6 +339,7 @@ using SOS.FMS.Shared.ViewModels.Incident;
     public bool addVisible { get; set; } = false;
     public void ShowHideAddModal(bool status)
     {
+        LoaderOn();
         addVisible = status;
         //if (!addVisible) ReloadCheckList();
         StateHasChanged();
@@ -348,6 +349,19 @@ using SOS.FMS.Shared.ViewModels.Incident;
         addVisible = true;
     }
     #endregion
+
+    public void LoaderOn()
+    {
+        BillDetailsList = null;
+        BillsList = null;
+        fileNames = null;
+    }
+    public async Task LoadData()
+    {
+        fileNames = await GetFiles();
+        BillsList = await GetBills();
+        BillDetailsList = await GetBillDetails();
+    }
 
 #line default
 #line hidden

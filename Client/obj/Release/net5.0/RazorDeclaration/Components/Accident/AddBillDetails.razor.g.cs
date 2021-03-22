@@ -216,7 +216,7 @@ using SOS.FMS.Shared.ViewModels.Incident;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 51 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\AddBillDetails.razor"
+#line 58 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\AddBillDetails.razor"
        
     [Parameter]
     public ApiRequest CheckPointId { get; set; }
@@ -228,6 +228,7 @@ using SOS.FMS.Shared.ViewModels.Incident;
     public EventCallback<bool> OnVisibilityChanged { get; set; }
 
     public BillDetailVM BillDetail { get; set; }
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -264,7 +265,7 @@ using SOS.FMS.Shared.ViewModels.Incident;
             await Close();
         }
         else
-        { 
+        {
         }
     }
 

@@ -209,7 +209,7 @@ using SOS.FMS.Client.Components.Accident;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 143 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\CheckList.razor"
+#line 161 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\CheckList.razor"
        
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }

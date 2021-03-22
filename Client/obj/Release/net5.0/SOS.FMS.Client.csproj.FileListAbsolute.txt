@@ -954,3 +954,5 @@ C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\Razor\Pages\Test1
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\build-gz\54x7RGY5.gz
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\RazorDeclaration\Pages\ActiveComplaints.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\Razor\Pages\ActiveComplaints.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\RazorDeclaration\Pages\Fueling.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\Razor\Pages\Fueling.razor.g.cs

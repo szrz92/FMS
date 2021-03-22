@@ -329,7 +329,7 @@ using SOS.FMS.Shared.ViewModels.Incident;
             var content = new MultipartFormDataContent {
                     { new ByteArrayContent(file.Stream.GetBuffer()), CheckPointId.FMSAccidentalCheckId.ToString(), file.FileInfo.Name}
                 };
-            var filepath = await Http.PostAsync("api/Files/Upload", content);
+            var filepath = await Http.PostAsync("api/Files/Save", content);
         }
 
     }

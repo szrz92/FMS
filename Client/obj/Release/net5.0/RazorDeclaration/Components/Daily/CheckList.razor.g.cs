@@ -202,7 +202,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 251 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Daily\CheckList.razor"
+#line 330 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Daily\CheckList.razor"
       
     [Parameter]
     public string VehicleNumber { get; set; }
@@ -219,8 +219,31 @@ using Microsoft.AspNetCore.SignalR.Client;
     public int OdometerIn { get; set; }
     public int OdometerOut { get; set; }
 
+    public List<SelectListItem> VendorTypes { get; set; } = new List<SelectListItem>
+    {
+        new SelectListItem(){ Text ="Approved", Value= "Approved" },
+        new SelectListItem(){ Text ="Un Approved", Value= "Un Approved" }
+    };
+
+    public List<SelectListItem> PaymentTypes { get; set; } = new List<SelectListItem>
+    {
+        new SelectListItem(){ Text ="Cash", Value= "Cash" },
+        new SelectListItem(){ Text ="PSO Card", Value= "PSO Card" },
+        new SelectListItem(){ Text ="AdvanceFueling", Value= "Advance Fueling" }
+    };
+    public string VendorType { get; set; }
+
+    public List<SelectListItem> ApprovedVendors { get; set; }
+
+    public FuelingInfoVM FuelingInfo { get; set; }
+
+    public bool readOnly { get; set; } = true;
+
     protected override async Task OnInitializedAsync()
     {
+        FuelingInfo = new FuelingInfoVM() { VehicleNumber = VehicleNumber };
+        await PopulateCheckList();
+        ApprovedVendors = await Http.GetFromJsonAsync<List<SelectListItem>>("api/vendors");
         await base.OnInitializedAsync();
     }
 
@@ -310,6 +333,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     #region Dialog
     public bool OdometerDialog { get; set; }
+    public bool FuelingDialog { get; set; }
     public bool RemarksDialog { get; set; }
 
     public bool ConfirmNotOkDlgVisible { get; set; } = false;
@@ -324,6 +348,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     public void DialogClose()
     {
+        FuelingDialog = false;
         OdometerDialog = false;
 
         ComplaintPoint = null;
@@ -379,6 +404,48 @@ using Microsoft.AspNetCore.SignalR.Client;
             ResponseDialog = true;
         }
         await PopulateCheckList();
+        StateHasChanged();
+    }
+
+    public void Fueling()
+    {
+        FuelingDialog = true;
+    }
+
+    public void OnVendorTypeChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        if (args.Value != null)
+        {
+            readOnly = false;
+        }
+    }
+
+    public async void SaveFuelingInfo()
+    {
+        if (VendorType == null)
+        {
+            ResponseHeader = "Failure";
+            ResponseBody = $"Please fill the form correctly.";
+            ResponseDialog = true;
+        }
+        else
+        {
+            var updateResponse = await Http.PostAsJsonAsync("api/fuel/save", FuelingInfo);
+            if (updateResponse.IsSuccessStatusCode)
+            {
+
+                ResponseHeader = "Success";
+                ResponseBody = $"Fueling successfully saved against Vehicle {VehicleNumber}";
+                ResponseDialog = true;
+            }
+            else
+            {
+                ResponseHeader = "Failure";
+                ResponseBody = $"Fueling failed to be saved against Vehicle {VehicleNumber}";
+                ResponseDialog = true;
+            }
+            await PopulateCheckList();
+        }
         StateHasChanged();
     }
 

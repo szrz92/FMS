@@ -202,7 +202,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 79 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Vehicles\AddVehicle.razor"
+#line 93 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Vehicles\AddVehicle.razor"
        
     [Parameter]
     public EventCallback OnResponse { get; set; }
@@ -250,6 +250,7 @@ using Microsoft.AspNetCore.SignalR.Client;
     {
         vehicle.Region = Vehicles.Where(x => x.Description == args.Value).FirstOrDefault().Region;
         vehicle.SubRegion = Vehicles.Where(x => x.Description == args.Value).FirstOrDefault().Subregion;
+        vehicle.GasolineType = Vehicles.Where(x => x.Description == args.Value).FirstOrDefault().GasolineType;
         StateHasChanged();
     }
 
