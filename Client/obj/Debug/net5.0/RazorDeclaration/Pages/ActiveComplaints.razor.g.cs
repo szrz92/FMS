@@ -203,7 +203,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 165 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\ActiveComplaints.razor"
+#line 169 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\ActiveComplaints.razor"
        
     public List<ComplaintVM> ComplaintsList { get; set; }
     public List<ComplaintVM> FilteredComplaintsList { get; set; }
@@ -298,9 +298,11 @@ using Microsoft.AspNetCore.SignalR.Client;
         StateHasChanged();
     }
 
+    public string Resolution { get; set; }
+
     public async void ConfirmResolution()
     {
-        var resolutionResponse = await Http.PostAsJsonAsync("api/complaints/resolve", new ApiRequest() { CheckListPointCode = PointCodeToMaintain, VehicleNumber = VehicleNumberToMaintain });
+        var resolutionResponse = await Http.PostAsJsonAsync("api/complaints/resolve", new ApiRequest() { CheckListPointCode = PointCodeToMaintain, VehicleNumber = VehicleNumberToMaintain, Remarks = Resolution });
         if (resolutionResponse.IsSuccessStatusCode)
         {
             DialogClose();

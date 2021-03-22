@@ -350,7 +350,7 @@ namespace SOS.FMS.Server.Controllers
                                 DriverName = dbContext.Drivers.Where(x => x.VehicleNumber == request.VehicleNumber).SingleOrDefault().Name,
                                 Region = dbContext.Drivers.Where(x => x.VehicleNumber == request.VehicleNumber).SingleOrDefault().Region,
                                 Subregion = dbContext.Drivers.Where(x => x.VehicleNumber == request.VehicleNumber).SingleOrDefault().SubRegion,
-                                ComplaintDescription = request.Remarks,
+                                Description = request.Remarks,
                                 PointCode = request.CheckListPointCode,
                                 PointCodeDescription = request.CheckListPoint,
                                 ReportTime = PakistanDateTime.Now
@@ -407,7 +407,7 @@ namespace SOS.FMS.Server.Controllers
                                 DriverName = dbContext.Drivers.Where(x => x.VehicleNumber == request.VehicleNumber).SingleOrDefault().Name,
                                 Region = dbContext.Drivers.Where(x => x.VehicleNumber == request.VehicleNumber).SingleOrDefault().Region,
                                 Subregion = dbContext.Drivers.Where(x => x.VehicleNumber == request.VehicleNumber).SingleOrDefault().SubRegion,
-                                ComplaintDescription = request.Remarks,
+                                Description = request.Remarks,
                                 PointCode = request.CheckListPointCode,
                                 PointCodeDescription = request.CheckListPoint,
                                 IsActive = true,

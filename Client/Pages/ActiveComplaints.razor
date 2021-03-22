@@ -154,6 +154,10 @@
             @ConfirmHeader
         </Header>
         <Content>
+            <span>Brief Description</span>
+            <span class="e-input-group w-100">
+                <input type="text" name="Required" @bind-value="Resolution" class="e-input w-100">
+            </span>
             @ConfirmBody
         </Content>
     </DialogTemplates>
@@ -256,9 +260,11 @@
         StateHasChanged();
     }
 
+    public string Resolution { get; set; }
+
     public async void ConfirmResolution()
     {
-        var resolutionResponse = await Http.PostAsJsonAsync("api/complaints/resolve", new ApiRequest() { CheckListPointCode = PointCodeToMaintain, VehicleNumber = VehicleNumberToMaintain });
+        var resolutionResponse = await Http.PostAsJsonAsync("api/complaints/resolve", new ApiRequest() { CheckListPointCode = PointCodeToMaintain, VehicleNumber = VehicleNumberToMaintain, Remarks = Resolution });
         if (resolutionResponse.IsSuccessStatusCode)
         {
             DialogClose();

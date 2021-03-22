@@ -595,7 +595,9 @@ namespace SOS.FMS.Server.Controllers
                                     Status = "maintained",
                                     SubRegion = vehicle.SubRegion,
                                     VehicleNumber = vehicle.VehicleNumber,
-                                    Score = vehicle.Score
+                                    Score = vehicle.Score,
+                                    CardNumber = vehicle.CardNumber,
+                                    GasolineType = vehicle.GasolineType
                                 };
                                 await dbContext.Vehicles.AddAsync(newVehicle);
                                 if (await dbContext.SaveChangesAsync() > 0)

@@ -10,7 +10,8 @@ namespace SOS.FMS.Server.Models
         public Guid Id { get; set; }
         public string PointCode { get; set; }
         public string PointCodeDescription { get; set; }
-        public string ComplaintDescription { get; set; }
+        public string Description { get; set; }
+        public string Resolution { get; set; }
         public string VehicleNumber { get; set; }
         public string DriverName { get; set; }
         public string Region { get; set; }

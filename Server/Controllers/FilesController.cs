@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using OfficeOpenXml;
 using SOS.FMS.Server.Models;
 using SOS.FMS.Shared;
 using System;
@@ -94,6 +95,54 @@ namespace SOS.FMS.Server.Controllers
                 Response.HttpContext.Features.Get<IHttpResponseFeature>().ReasonPhrase = "File failed to upload";
                 Response.HttpContext.Features.Get<IHttpResponseFeature>().ReasonPhrase = e.Message;
             }
+        }
+        [HttpPost("[action]")]
+        public async Task<IActionResult> Upload(IFormFile postedFiles)
+        {
+            var postedFile = HttpContext.Request.Form.Files.FirstOrDefault();
+            if (postedFile == null || postedFile.Length == 0)
+            {
+                return BadRequest("ImportExcel");
+            }
+
+            //Get file
+            var newfile = new FileInfo(postedFile.FileName);
+            var fileExtension = newfile.Extension;
+
+            //Check if file is an Excel File
+            if (fileExtension.Contains(".xls"))
+            {
+                using MemoryStream ms = new();
+                await postedFile.CopyToAsync(ms);
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                using ExcelPackage package = new(ms);
+                ExcelWorksheet workSheet = package.Workbook.Worksheets.FirstOrDefault();
+                int totalRows = workSheet.Dimension.Rows;
+
+                List<PSOWorksheet> rows = new();
+
+                for (int i = 2; i <= totalRows; i++)
+                {
+                    rows.Add(new PSOWorksheet
+                    {
+                        Id = Guid.NewGuid(),
+                        FileName = newfile.Name,
+                        CardNumber = workSheet.Cells[i, 1].Value.ToString(),
+                        NameOnCard = workSheet.Cells[i, 2].Value.ToString(),
+                        TxnAmount = workSheet.Cells[i, 3].Value.ToString(),
+                        Rate = workSheet.Cells[i, 4].Value.ToString(),
+                        Qty = workSheet.Cells[i, 5].Value.ToString(),
+                        TxnTime = workSheet.Cells[i, 6].Value.ToString(),
+                        Date = workSheet.Cells[i, 7].Value.ToString(),
+                        MerchantName = workSheet.Cells[i, 8].Value.ToString(),
+                        MerchantCity = workSheet.Cells[i, 9].Value.ToString(),
+                        Product = workSheet.Cells[i, 10].Value.ToString()
+                    });
+                }
+                //_context.GameBanks.AddRange(customerList);
+                //await _context.SaveChangesAsync();
+            }
+            return Ok();
         }
     }
 }

@@ -25,6 +25,10 @@ namespace SOS.FMS.Shared.ViewModels
         public string Region { get; set; }
         [Required]
         public string SubRegion { get; set; }
+        [Required]
+        public string GasolineType { get; set; }
+        [Required]
+        public string CardNumber { get; set; }
         public bool Active { get; set; }
         public int Breakdowns { get; set; } = 0;
         public double FuelAverage { get; set; } = 0;

@@ -69,7 +69,7 @@ namespace SOS.FMS.Server.Controllers
                                             {
                                                 Id = c.Id,
                                                 IsActive = c.IsActive,
-                                                ComplaintDescription = c.ComplaintDescription,
+                                                ComplaintDescription = c.Description,
                                                 DriverName = c.DriverName,
                                                 PointCode = c.PointCode,
                                                 PointCodeDescription = c.PointCodeDescription,
@@ -91,7 +91,7 @@ namespace SOS.FMS.Server.Controllers
                                             {
                                                 Id = c.Id,
                                                 IsActive = c.IsActive,
-                                                ComplaintDescription = c.ComplaintDescription,
+                                                ComplaintDescription = c.Description,
                                                 DriverName = c.DriverName,
                                                 PointCode = c.PointCode,
                                                 PointCodeDescription = c.PointCodeDescription,
@@ -125,7 +125,7 @@ namespace SOS.FMS.Server.Controllers
                                             {
                                                 Id = c.Id,
                                                 IsActive = c.IsActive,
-                                                ComplaintDescription = c.ComplaintDescription,
+                                                ComplaintDescription = c.Description,
                                                 DriverName = c.DriverName,
                                                 PointCode = c.PointCode,
                                                 PointCodeDescription = c.PointCodeDescription,
@@ -146,7 +146,7 @@ namespace SOS.FMS.Server.Controllers
                                             {
                                                 Id = c.Id,
                                                 IsActive = c.IsActive,
-                                                ComplaintDescription = c.ComplaintDescription,
+                                                ComplaintDescription = c.Description,
                                                 DriverName = c.DriverName,
                                                 PointCode = c.PointCode,
                                                 PointCodeDescription = c.PointCodeDescription,
@@ -172,6 +172,7 @@ namespace SOS.FMS.Server.Controllers
             {
                 Complaint complaint = await dbContext.Complaints.Where(x => x.IsActive && x.PointCode == request.CheckListPointCode && x.VehicleNumber == request.VehicleNumber).SingleOrDefaultAsync();
                 complaint.IsActive = false;
+                complaint.Resolution = request.Remarks;
                 complaint.ResolutionTime = PakistanDateTime.Now;
                 if (await dbContext.SaveChangesAsync() > 0)
                 {

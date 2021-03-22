@@ -346,16 +346,16 @@ namespace SOS.FMS.Server.Migrations
                         {
                             Id = "c58e1a9d-1c28-46db-830a-7b3f0b9663f1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "98732ac3-fa85-4154-9559-625ef457c6a9",
+                            ConcurrencyStamp = "e8cf0719-e4d7-4351-809f-ff25eb7b8788",
                             Email = "z.raza@batech.com.pk",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             Name = "Zain Raza",
                             NormalizedEmail = "Z.RAZA@BATECH.COM.PK",
                             NormalizedUserName = "Z.RAZA@BATECH.COM.PK",
-                            PasswordHash = "AQAAAAEAACcQAAAAELzZYC9PpWmo5g0lUY+hV8cfANx/WxcARAxaAsEo/171xThUdx0oChZXBt83JzGzbA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO+u7pNJgAMvS1LwR+FTal2K522ga23Fz8dYRVXvigQsSWwM0R6xwTSWJbFNKKX6aA==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "806972ee-b76f-4dcd-8804-fc411109f4e2",
+                            SecurityStamp = "67871256-0c12-4e1c-979f-c43f7c9f36a3",
                             TwoFactorEnabled = false,
                             UserName = "z.raza@batech.com.pk"
                         });
@@ -367,7 +367,7 @@ namespace SOS.FMS.Server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ComplaintDescription")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DriverName")
@@ -387,6 +387,9 @@ namespace SOS.FMS.Server.Migrations
 
                     b.Property<DateTime>("ReportTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Resolution")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ResolutionTime")
                         .HasColumnType("datetime2");
@@ -1073,6 +1076,56 @@ namespace SOS.FMS.Server.Migrations
                     b.ToTable("Files");
                 });
 
+            modelBuilder.Entity("SOS.FMS.Server.Models.FuelingInfo", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Amount")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DriverName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FillingCity")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FillingStation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Litres")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Milage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Odometer")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PaymentType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Rate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Region")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("VehicleNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FuelingInfo");
+                });
+
             modelBuilder.Entity("SOS.FMS.Server.Models.GBMSUser", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1318,6 +1371,50 @@ namespace SOS.FMS.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("GBMSVehicles");
+                });
+
+            modelBuilder.Entity("SOS.FMS.Server.Models.PSOWorksheet", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CardNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Date")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MerchantCity")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MerchantName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameOnCard")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Product")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Qty")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Rate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TxnAmount")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TxnTime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PSOWorksheets");
                 });
 
             modelBuilder.Entity("SOS.FMS.Server.Models.PeriodicHistory", b =>
@@ -1576,6 +1673,9 @@ namespace SOS.FMS.Server.Migrations
                     b.Property<int>("Breakdowns")
                         .HasColumnType("int");
 
+                    b.Property<string>("CardNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double>("CostThisMonth")
                         .HasColumnType("float");
 
@@ -1587,6 +1687,9 @@ namespace SOS.FMS.Server.Migrations
 
                     b.Property<double>("FuelAverage")
                         .HasColumnType("float");
+
+                    b.Property<string>("GasolineType")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("IMEI")
                         .HasColumnType("bigint");

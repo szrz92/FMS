@@ -144,6 +144,7 @@
                         <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Place remarks here" @bind="Remarks"></textarea>
                     </div>
                     <div class="text-right">
+                        <button type="button" class="btn btn-warning text-weight-bold" @onclick="Fueling">Fueling</button>
                         <button type="button" class="btn btn-info text-weight-bold" @onclick="OdometerReading">Odometer reading</button>
                         <button type="button" class="btn btn-secondary text-weight-bold" @onclick="ShowRemarksList">Show Remarks</button>
                         <button type="button" class="btn btn-fms text-weight-bold" @onclick="PostRemarks">Submit</button>
@@ -226,17 +227,6 @@
         </Header>
         <Content>
             <div class="form-group">
-                <label>Odometer in:</label>
-                @if (OdometerIn > 0)
-                {
-                    <SfNumericTextBox @bind-Value="OdometerIn" class="form-control form-control-solid" Readonly="true"></SfNumericTextBox>
-                }
-                else
-                {
-                    <SfNumericTextBox @bind-Value="OdometerIn" class="form-control form-control-solid"></SfNumericTextBox>
-                }
-            </div>
-            <div class="form-group">
                 <label>Odometer out:</label>
                 @if (OdometerOut > 0)
                 {
@@ -247,11 +237,93 @@
                     <SfNumericTextBox @bind-Value="OdometerOut" class="form-control form-control-solid"></SfNumericTextBox>
                 }
             </div>
+            <div class="form-group">
+                <label>Odometer in:</label>
+                @if (OdometerIn > 0)
+                {
+                    <SfNumericTextBox @bind-Value="OdometerIn" class="form-control form-control-solid" Readonly="true"></SfNumericTextBox>
+                }
+                else
+                {
+                    <SfNumericTextBox @bind-Value="OdometerIn" class="form-control form-control-solid"></SfNumericTextBox>
+                }
+            </div>
         </Content>
     </DialogTemplates>
     <DialogEvents Closed="@DialogClose"></DialogEvents>
     <DialogButtons>
         <DialogButton Content="Update" IsPrimary="true" OnClick="@UpdateOdometer" />
+        <DialogButton Content="Cancel" OnClick="@DialogClose" />
+    </DialogButtons>
+</SfDialog>
+<SfDialog @bind-Visible="@FuelingDialog" Width="400px" Target="#target" ShowCloseIcon="true">
+    <DialogTemplates>
+        <Header>
+            Enter Fueling Info
+        </Header>
+        <Content>
+            <EditForm Model="FuelingInfo">
+                <div class="form-group">
+                    <label>Vendor Type:</label>
+                    <SfDropDownList TItem="SelectListItem" TValue="string" PopupHeight="230px" Placeholder="Select a type" @bind-Value="VendorType" DataSource="@VendorTypes">
+                        <DropDownListEvents TValue="string" ValueChange="OnVendorTypeChange"></DropDownListEvents>
+                        <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                    </SfDropDownList>
+                </div>
+                @if (VendorType == "Approved")
+                {
+                    <div class="form-group">
+                        <label>Vendor Name:</label>
+                        <SfDropDownList TItem="SelectListItem" TValue="string" PopupHeight="230px" Placeholder="Select a vendor" @bind-Value="FuelingInfo.FillingStation" DataSource="@ApprovedVendors">
+                            <DropDownListEvents TValue="string"></DropDownListEvents>
+                            <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                        </SfDropDownList>
+                    </div>
+                }
+                else if (VendorType == "Un Approved")
+                {
+                    <div class="form-group">
+                        <label>Vendor Name:</label>
+                        <SfTextBox @bind-Value="FuelingInfo.FillingStation"></SfTextBox>
+                    </div>
+                    <div class="form-group">
+                        <label>Vendor City:</label>
+                        <SfTextBox @bind-Value="FuelingInfo.FillingCity"></SfTextBox>
+                    </div>
+                }
+                <div class="form-group">
+                    <label>Litres:</label>
+                    <SfTextBox Type="InputType.Number" @bind-Value="FuelingInfo.Litres" Readonly="@readOnly"></SfTextBox>
+                </div>
+                <div class="form-group">
+                    <label>Rate:</label>
+                    <SfTextBox Type="InputType.Number" @bind-Value="FuelingInfo.Rate" Readonly="@readOnly"></SfTextBox>
+                </div>
+                <div class="form-group">
+                    <label>Amount:</label>
+                    <SfTextBox Type="InputType.Number" @bind-Value="FuelingInfo.Amount" Readonly="@readOnly"></SfTextBox>
+                </div>
+                <div class="form-group">
+                    <label>Odometer:</label>
+                    <SfTextBox Type="InputType.Number" @bind-Value="FuelingInfo.Odometer" Readonly="@readOnly"></SfTextBox>
+                </div>
+                <div class="form-group">
+                    <label>Payment Type:</label>
+                    <SfDropDownList TItem="SelectListItem" TValue="string" PopupHeight="230px" Placeholder="Select a vendor" @bind-Value="FuelingInfo.PaymentType" DataSource="@PaymentTypes">
+                        <DropDownListEvents TValue="string"></DropDownListEvents>
+                        <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                    </SfDropDownList>
+                </div>
+                <div class="form-group">
+                    <label>Remarks:</label>
+                    <SfTextBox @bind-Value="FuelingInfo.Remarks" Multiline="true" Readonly="@readOnly"></SfTextBox>
+                </div>
+            </EditForm>
+        </Content>
+    </DialogTemplates>
+    <DialogEvents Closed="@DialogClose"></DialogEvents>
+    <DialogButtons>
+        <DialogButton Content="Save" IsPrimary="true" OnClick="@SaveFuelingInfo" />
         <DialogButton Content="Cancel" OnClick="@DialogClose" />
     </DialogButtons>
 </SfDialog>
@@ -271,9 +343,31 @@
     public int OdometerIn { get; set; }
     public int OdometerOut { get; set; }
 
+    public List<SelectListItem> VendorTypes { get; set; } = new List<SelectListItem>
+    {
+        new SelectListItem(){ Text ="Approved", Value= "Approved" },
+        new SelectListItem(){ Text ="Un Approved", Value= "Un Approved" }
+    };
+
+    public List<SelectListItem> PaymentTypes { get; set; } = new List<SelectListItem>
+    {
+        new SelectListItem(){ Text ="Cash", Value= "Cash" },
+        new SelectListItem(){ Text ="PSO Card", Value= "PSO Card" },
+        new SelectListItem(){ Text ="AdvanceFueling", Value= "Advance Fueling" }
+    };
+    public string VendorType { get; set; }
+
+    public List<SelectListItem> ApprovedVendors { get; set; }
+
+    public FuelingInfoVM FuelingInfo { get; set; }
+
+    public bool readOnly { get; set; } = true;
+
     protected override async Task OnInitializedAsync()
     {
+        FuelingInfo = new FuelingInfoVM() { VehicleNumber = VehicleNumber };
         await PopulateCheckList();
+        ApprovedVendors = await Http.GetFromJsonAsync<List<SelectListItem>>("api/vendors");
         await base.OnInitializedAsync();
     }
 
@@ -363,6 +457,7 @@
 
     #region Dialog
     public bool OdometerDialog { get; set; }
+    public bool FuelingDialog { get; set; }
     public bool RemarksDialog { get; set; }
 
     public bool ConfirmNotOkDlgVisible { get; set; } = false;
@@ -377,6 +472,7 @@
 
     public void DialogClose()
     {
+        FuelingDialog = false;
         OdometerDialog = false;
 
         ComplaintPoint = null;
@@ -432,6 +528,48 @@
             ResponseDialog = true;
         }
         await PopulateCheckList();
+        StateHasChanged();
+    }
+
+    public void Fueling()
+    {
+        FuelingDialog = true;
+    }
+
+    public void OnVendorTypeChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        if (args.Value != null)
+        {
+            readOnly = false;
+        }
+    }
+
+    public async void SaveFuelingInfo()
+    {
+        if (VendorType == null)
+        {
+            ResponseHeader = "Failure";
+            ResponseBody = $"Please fill the form correctly.";
+            ResponseDialog = true;
+        }
+        else
+        {
+            var updateResponse = await Http.PostAsJsonAsync("api/fuel/save", FuelingInfo);
+            if (updateResponse.IsSuccessStatusCode)
+            {
+
+                ResponseHeader = "Success";
+                ResponseBody = $"Fueling successfully saved against Vehicle {VehicleNumber}";
+                ResponseDialog = true;
+            }
+            else
+            {
+                ResponseHeader = "Failure";
+                ResponseBody = $"Fueling failed to be saved against Vehicle {VehicleNumber}";
+                ResponseDialog = true;
+            }
+            await PopulateCheckList();
+        }
         StateHasChanged();
     }
 }

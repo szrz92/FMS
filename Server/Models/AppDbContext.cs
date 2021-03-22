@@ -43,6 +43,9 @@ namespace SOS.FMS.Server.Models
         public DbSet<AccidentalBillDetail> AccidentalBillDetails { get; set; }
         public DbSet<EmergencyBill> EmergencyBills { get; set; }
         public DbSet<File> Files { get; set; }
+        public DbSet<FuelingInfo> FuelingInfo { get; set; }
+        public DbSet<PSOWorksheet> PSOWorksheets { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
