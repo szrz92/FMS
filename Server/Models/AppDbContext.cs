@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SOS.FMS.Shared.ViewModels;
 using SOS.FMS.Shared.ViewModels.Accident;
+using SOS.FMS.Shared.ViewModels.Emergency;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +43,7 @@ namespace SOS.FMS.Server.Models
         public DbSet<AccidentBill> AccidentBills{ get; set; }
         public DbSet<AccidentalBillDetail> AccidentalBillDetails { get; set; }
         public DbSet<EmergencyBill> EmergencyBills { get; set; }
+        public DbSet<EmergencyBillDetail> EmergencyBillDetails { get; set; }
         public DbSet<File> Files { get; set; }
         public DbSet<FuelingInfo> FuelingInfo { get; set; }
         public DbSet<PSOWorksheet> PSOWorksheets { get; set; }

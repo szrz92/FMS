@@ -27,4 +27,10 @@ namespace SOS.FMS.Shared.Enums
         Pending,
         Done
     }
+    public enum CheckMaintenanceStatus
+    {
+        NotInitiated,
+        InProgress,
+        Done
+    }
 }

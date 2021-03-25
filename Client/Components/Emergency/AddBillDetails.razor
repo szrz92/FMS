@@ -1,0 +1,113 @@
+﻿@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+@using SOS.FMS.Shared.ViewModels.Incident
+@if (Visible)
+{
+    <div id="kt_quick_cart" class="offcanvas offcanvas-right p-10 offcanvas-on" style="width:50%">
+        <!--begin::Header-->
+        <div class="offcanvas-header d-flex align-items-center justify-content-between pb-7" kt-hidden-height="46" style="">
+            <h4 class="font-weight-bold m-0">@CheckPointId.Remarks @VehicleNumber</h4>
+            <a @onclick="Close" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_cart_close">
+                <i class="ki ki-close icon-xs text-muted"></i>
+            </a>
+        </div>
+        <!--end::Header-->
+        <!--begin::Content-->
+        <div class="offcanvas-content pr-5 mr-n5 scroll ps ps--active-y">
+            @if (ServiceTypes != null)
+            {
+                <div class="d-flex flex-column">
+                    <EditForm Model="BillDetail" OnValidSubmit="OnValidSubmit">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>Service Type:</label>
+                                <SfDropDownList TValue="string" TItem="ServicesList" @bind-Value="BillDetail.ServiceType" Placeholder="Select a service" AllowFiltering="true" DataSource="@ServiceTypes">
+                                    <DropDownListFieldSettings Text="ServiceType" Value="ServiceType"></DropDownListFieldSettings>
+                                </SfDropDownList>
+                                <span class="form-text text-muted">Select Service Type</span>
+                            </div>
+                            <div class="form-group">
+                                <label>Sub Service Type:</label>
+                                <SfDropDownList TValue="string" TItem="ServicesList" @bind-Value="BillDetail.SubServiceType" Placeholder="Select a sub service" AllowFiltering="true" DataSource="@ServiceTypes">
+                                    <DropDownListFieldSettings Text="SubServiceType" Value="SubServiceType"></DropDownListFieldSettings>
+                                </SfDropDownList>
+                                <span class="form-text text-muted">Select Sub Service Type</span>
+                            </div>
+                            <div class="form-group">
+                                <label>Amount:</label>
+                                <SfNumericTextBox Type="InputType.Text" @bind-Value="BillDetail.Amount" Placeholder="Enter Amount"></SfNumericTextBox>
+                                <span class="form-text text-muted">Enter Amount</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-fms mr-2">Submit</button>
+                            <button type="reset" class="btn btn-secondary">Cancel</button>
+                        </div>
+                    </EditForm>
+                </div>
+            }
+            else
+            {
+                <img style="position:fixed;top:50%;left:70%;" src="assets/media/loading.gif" />
+            }
+            <!--end::Content-->
+        </div>
+    </div>
+}
+@code {
+    [Parameter]
+    public ApiRequest CheckPointId { get; set; }
+    [Parameter]
+    public string VehicleNumber { get; set; }
+    [Parameter]
+    public bool Visible { get; set; }
+    [Parameter]
+    public EventCallback<bool> OnVisibilityChanged { get; set; }
+
+    public BillDetailVM BillDetail { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        GetServiceTypes();
+        BillDetail = new BillDetailVM() { CheckPointId = CheckPointId.FMSEmergencyCheckId };
+        await base.OnInitializedAsync();
+    }
+
+    List<ServicesList> ServiceTypes { get; set; }
+
+    public async void GetServiceTypes()
+    {
+        ServiceTypes = await Http.GetFromJsonAsync<List<ServicesList>>("api/Services");
+        if (ServiceTypes.Any())
+        {
+
+        }
+        else
+        {
+
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    public async void OnValidSubmit()
+    {
+        var submitResponse = await Http.PostAsJsonAsync("api/Emergency/PostBillDetail", BillDetail);
+        if (submitResponse.IsSuccessStatusCode)
+        {
+            await Close();
+        }
+        else
+        {
+        }
+    }
+
+    public Task Close()
+    {
+        return OnVisibilityChanged.InvokeAsync(false);
+    }
+}

@@ -36,7 +36,7 @@ namespace SOS.FMS.Server.Controllers
             try
             {
                 List<string> files = (from f in dbContext.Files
-                                      where f.CheckPoint == request.FMSAccidentalCheckId
+                                      where f.CheckPoint == request.FMSAccidentalCheckId || f.CheckPoint == request.FMSEmergencyCheckId
                                       select f.Name).ToList();
                 return Ok(files);
             }

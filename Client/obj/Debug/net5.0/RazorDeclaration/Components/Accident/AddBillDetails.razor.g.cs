@@ -196,13 +196,6 @@ using Microsoft.AspNetCore.SignalR.Client;
 #nullable disable
 #nullable restore
 #line 3 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\AddBillDetails.razor"
-using SOS.FMS.Shared.ViewModels.Accident;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 4 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\AddBillDetails.razor"
 using SOS.FMS.Shared.ViewModels.Incident;
 
 #line default
@@ -216,7 +209,7 @@ using SOS.FMS.Shared.ViewModels.Incident;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 58 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\AddBillDetails.razor"
+#line 57 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\AddBillDetails.razor"
        
     [Parameter]
     public ApiRequest CheckPointId { get; set; }

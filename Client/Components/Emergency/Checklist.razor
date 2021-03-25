@@ -18,78 +18,93 @@
             <div class="d-flex align-items-center justify-content-between py-4">
                 @if (CheckList != null)
                 {
-                    <table class="w-100">
+                <table class="w-100">
+                    <tr class="row px-1 py-2 border-bottom">
+                        <td class="col-6 text-dark font-weight-bolder">Description</td>
+                        <td class="col-2 text-dark font-weight-bolder">Status</td>
+                        <td class="col-2 text-dark font-weight-bolder">Updated</td>
+                        <td class="col-2 text-dark font-weight-bolder">Action</td>
+                    </tr>
+                    @foreach (var item in CheckList)
+                    {
                         <tr class="row px-1 py-2 border-bottom">
-                            <td class="col-6 text-dark font-weight-bolder">Description</td>
-                            <td class="col-2 text-dark font-weight-bolder">Status</td>
-                            <td class="col-2 text-dark font-weight-bolder">Updated</td>
-                            <td class="col-2 text-dark font-weight-bolder">Action</td>
+                            <td class="col-6">@item.Description</td>
+                            @if (item.MaintenanceStatus == FMS.Shared.Enums.CheckMaintenanceStatus.NotInitiated)
+                            {
+                                <td class="col-2 text-danger">Not Initiated</td>
+                                <td class="col-2 text-danger"> NA</td>
+                                <td class="col-2">
+                                    <label class="checkbox checkbox-disabled pb-2">
+                                        <input type="checkbox" disabled>
+                                        <span></span>
+                                    </label>
+
+
+                                    @if (item.Description.Contains("Bills Posting"))
+                                    {
+                                        <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowBillPostingModal(item.Id)" />
+                                    }
+                                    else if (item.Description.Contains("Assigning Workshop"))
+                                    {
+                                        <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowAssignWorkshopModal(item.Id)" />
+                                    }
+                                    else
+                                    {
+                                        <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowCommentModal(item.Id)" />
+                                    }
+                                </td>
+                            }
+                            else if (item.MaintenanceStatus == FMS.Shared.Enums.CheckMaintenanceStatus.InProgress)
+                            {
+                                <td class="col-2 text-info">In Progress</td>
+                                <td class="col-2 text-info"> @item.LastUpdated.ToString("dd MMM H:mm")</td>
+                                <td class="col-2">
+                                    <label class="checkbox checkbox-success pb-2">
+                                        <input type="checkbox" @onclick="() => MarkEmergencyPointDone(item.Id)">
+                                        <span></span>
+                                    </label>
+
+
+                                    @if (item.Description.Contains("Bills Posting"))
+                                    {
+                                        <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowBillPostingModal(item.Id)" />
+                                    }
+                                    else if (item.Description.Contains("Assigning Workshop"))
+                                    {
+                                        <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowAssignWorkshopModal(item.Id)" />
+                                    }
+                                    else
+                                    {
+                                        <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowCommentModal(item.Id)" />
+                                    }
+                                </td>
+                            }
+                            else if (item.MaintenanceStatus == FMS.Shared.Enums.CheckMaintenanceStatus.Done)
+                            {
+                                <td class="col-2 text-success">Done</td>
+                                <td class="col-2"> @item.LastUpdated.ToString("dd-MMM-yy")</td>
+                                <td class="col-2">
+                                    <label class="checkbox checkbox-success pb-2">
+                                        <input type="checkbox" checked="checked" disabled>
+                                        <span></span>
+                                    </label>
+                                    @if (item.Description.Contains("Bills Posting"))
+                                    {
+                                        <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowBillPostingModal(item.Id)" />
+                                    }
+                                    else if (item.Description.Contains("Assigning Workshop"))
+                                    {
+                                        <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowAssignWorkshopModal(item.Id)" />
+                                    }
+                                    else
+                                    {
+                                        <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowCommentModal(item.Id)" />
+                                    }
+                                </td>
+                            }
                         </tr>
-                        @foreach (var item in CheckList)
-                        {
-                            <tr class="row px-1 py-2 border-bottom">
-                                <td class="col-6">@item.Description</td>
-                                @if (item.MaintenanceStatus == FMS.Shared.Enums.MaintenanceStatus.NotInitiated)
-                                {
-                                    <td class="col-2 text-danger">Not Initiated</td>
-                                    <td class="col-2 text-danger"> NA</td>
-                                    <td class="col-2">
-                                        @if (item.CommentCount == 0)
-                                        {
-                                            <label class="checkbox checkbox-disabled pb-2">
-                                                <input type="checkbox" disabled>
-                                                <span></span>
-                                            </label>
-                                        }
-                                        else
-                                        {
-                                            <label class="checkbox checkbox-success pb-2">
-                                                <input type="checkbox" @onclick="() => MarkEmergencyPointDone(item.Id)">
-                                                <span></span>
-                                            </label>
-                                        }
-
-
-                                        @if (item.Description.Contains("Bills Posting"))
-                                        {
-                                            <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowBillPostingModal(item.Id)" />
-                                        }
-                                        else if (item.Description.Contains("Assigning Workshop"))
-                                        {
-                                            <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowAssignWorkshopModal(item.Id)" />
-                                        }
-                                        else
-                                        {
-                                            <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowCommentModal(item.Id)" />
-                                        }
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td class="col-2 text-success">Done</td>
-                                    <td class="col-2"> @item.LastUpdated.ToString("dd-MMM-yy")</td>
-                                    <td class="col-2">
-                                        <label class="checkbox checkbox-success pb-2">
-                                            <input type="checkbox" checked="checked" disabled>
-                                            <span></span>
-                                        </label>
-                                        @if (item.Description.Contains("Bills Posting"))
-                                        {
-                                            <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowBillPostingModal(item.Id)" />
-                                        }
-                                        else if (item.Description.Contains("Assigning Workshop"))
-                                        {
-                                            <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowAssignWorkshopModal(item.Id)" />
-                                        }
-                                        else
-                                        {
-                                            <img class="ml-2" alt="Pic" src="assets/icons/conversation1x.png" @onclick="() => ShowCommentModal(item.Id)" />
-                                        }
-                                    </td>
-                                }
-                            </tr>
-                        }
-                    </table>
+                    }
+                </table>
                 }
                 else
                 {
@@ -238,7 +253,7 @@
     }
     public void ShowAssignWorkshopModal(Guid pointId)
     {
-        PointId = new ApiRequest() { FMSEmergencyCheckId = pointId, Remarks = CheckList.Where(x => x.Id == pointId).FirstOrDefault().Description };
+        PointId = new ApiRequest() { FMSEmergencyCheckId = pointId, Remarks = CheckList.Where(x => x.Id == pointId).FirstOrDefault().Description, FMSEmergencyId = CheckList.Where(x => x.Id == pointId).FirstOrDefault().FMSEmergencyId };
         assignWorkShopVisible = true;
     }
     #endregion

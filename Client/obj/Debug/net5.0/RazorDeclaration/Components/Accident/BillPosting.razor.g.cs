@@ -216,7 +216,7 @@ using SOS.FMS.Shared.ViewModels.Incident;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 116 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\BillPosting.razor"
+#line 108 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\BillPosting.razor"
        
     [Parameter]
     public ApiRequest CheckPointId { get; set; }
@@ -256,12 +256,6 @@ using SOS.FMS.Shared.ViewModels.Incident;
         await base.OnAfterRenderAsync(firstRender);
     }
 
-    //public void OnImagePost(string image)
-    //{
-    //    BillPostingVM.images.Add(image);
-    //    bill.BillImage = image;
-    //}
-
     public Task CloseBillPosting()
     {
         return OnVisibilityChanged.InvokeAsync(false);
@@ -299,25 +293,6 @@ using SOS.FMS.Shared.ViewModels.Incident;
         else
         {
         }
-    }
-
-    public bool videoModalVisibility { get; set; }
-
-    public string source { get; set; }
-
-    public void Show(string ext)
-    {
-        switch (ext)
-        {
-            case "mp4":
-                source = "https://res.cloudinary.com/blazoredgitter/video/upload/v1557015491/samples/elephants.mp4";
-                videoModalVisibility = true;
-                break;
-            default:
-                source = "http://174.129.4.209/up/tmserd.pdf";
-                break;
-        };
-        StateHasChanged();
     }
 
     private async void OnChange(UploadChangeEventArgs args)

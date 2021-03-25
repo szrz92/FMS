@@ -1,11 +1,15 @@
 ﻿@inject HttpClient Http
 @inject IJSRuntime JSRuntime
-
+@using SOS.FMS.Shared.ViewModels.Emergency
+@using SOS.FMS.Shared.ViewModels.Incident
 
 <div id="kt_quick_cart" class="offcanvas offcanvas-right p-10 offcanvas-on" style="width:50%">
     <!--begin::Header-->
     <div class="offcanvas-header d-flex align-items-center justify-content-between pb-7" kt-hidden-height="46" style="">
         <h4 class="font-weight-bold m-0">@CheckPointId.Remarks @VehicleNumber</h4>
+        <a @onclick="ShowAddModal" class="btn btn-fms" id="kt_quick_cart_close">
+            Add
+        </a>
         <a @onclick="CloseBillPosting" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_cart_close">
             <i class="ki ki-close icon-xs text-muted"></i>
         </a>
@@ -13,33 +17,95 @@
     <!--end::Header-->
     <!--begin::Content-->
     <div class="offcanvas-content pr-5 mr-n5 scroll ps ps--active-y">
-        <div class="d-flex flex-column">
-            <EditForm Model="bill" OnValidSubmit="PostBill">
-                <DataAnnotationsValidator></DataAnnotationsValidator>
-                <ValidationSummary></ValidationSummary>
-                <div class="card w-100">
-                    <div class="card-header">
-                        Total Amount:
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex flex-column">
-                            <div class="form-group">
-                                <SfNumericTextBox @bind-Value="bill.BillAmount" class="form-control"></SfNumericTextBox>
-                                <span class="form-text text-muted">Please enter total amount paid</span>
+        @if (BillDetailsList != null && fileNames != null)
+        {
+            <div class="d-flex flex-column">
+                <SfGrid DataSource="@BillDetailsList">
+                    <GridColumns>
+                        <GridColumn Field=@nameof(BillDetailVM.ServiceType) HeaderText="Service"></GridColumn>
+                        <GridColumn Field=@nameof(BillDetailVM.SubServiceType) HeaderText="Sub Service"></GridColumn>
+                        <GridColumn HeaderText="Amount">
+                            <Template>
+                                @{
+                                    var data = context as BillDetailVM;
+                                    <p>Rs @(string.Format(String.Format("{0:N2}", data.Amount)))</p>
+                                }
+                            </Template>
+                        </GridColumn>
+                    </GridColumns>
+                </SfGrid>
+                <EditForm Model="bill" OnValidSubmit="PostBill">
+                    <DataAnnotationsValidator></DataAnnotationsValidator>
+                    <ValidationSummary></ValidationSummary>
+                    <div class="row">
+                        <div class="col-5">
+                            <div class="card">
+                                <div class="card-header">
+                                    Total Amount
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <SfNumericTextBox @bind-Value="bill.BillAmount" class="form-control"></SfNumericTextBox>
+                                        <span class="form-text text-muted">Please enter total amount paid</span>
+                                    </div>
+                                </div>
                             </div>
-                            <SOS.FMS.Client.Components.Accident.ImageUpload OnImagePost="OnImagePost" />
+                            <div class="card">
+                                <div class="card-header">
+                                    Remarks
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <SfTextBox @bind-Value="bill.Remarks" class="form-control" Multiline="true"></SfTextBox>
+                                        <span class="form-text text-muted">Please enter remarks</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    Uploaded Files
+                                </div>
+                                <div class="card-body">
+                                    <ul>
+                                        @foreach (var t in fileNames)
+                                        {
+                                            if (t != null)
+                                            {
+                                                <li>
+                                                    <a target="_blank" href="api\download\@(CheckPointId.FMSEmergencyCheckId.ToString())\@t">@t</a>
+                                                </li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-1">
+                        </div>
+                        <div class="col-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    Upload Files
+                                </div>
+                                <div class="card-body">
+                                    <SfUploader ID="UploadFiles">
+                                        <UploaderEvents ValueChange="OnChange"></UploaderEvents>
+                                    </SfUploader>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                        <button type="reset" @onclick="CloseBillPosting" class="btn btn-secondary">Cancel</button>
-                    </div>
-                </div>
-            </EditForm>
-        </div>
-        <!--end::Content-->
+                </EditForm>
+            </div>
+        }
+        else
+        {
+            <img style="position:fixed;top:50%;left:70%;" src="assets/media/loading.gif" />
+        }
     </div>
 </div>
+
+<AddBillDetails CheckPointId="CheckPointId" OnVisibilityChanged="ShowHideAddModal" VehicleNumber="@VehicleNumber" Visible="addVisible"></AddBillDetails>
 @code {
     [Parameter]
     public ApiRequest CheckPointId { get; set; }
@@ -50,30 +116,33 @@
     [Parameter]
     public EventCallback<bool> OnVisibilityChanged { get; set; }
 
+    public Modal videomodal { get; set; }
+    public Modal filemodal { get; set; }
+
     FMSEmergencyCheckCommentVM EmergencyCheckComment;
+
+    public List<string> fileNames { get; set; }
 
     public BillPostingVM BillPostingVM = new BillPostingVM();
     public EmergencyBill bill = new EmergencyBill();
 
     public List<EmergencyBill> BillsList = new List<EmergencyBill>();
+    public List<BillDetailVM> BillDetailsList { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        BillsList = await GetBills();
+        LoaderOn();
+        await LoadData();
         await base.OnInitializedAsync();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        await LoadData();
         bill.CheckPointId = CheckPointId.FMSEmergencyCheckId;
+        bill.BillAmount = BillDetailsList.Sum(x => Convert.ToInt32(x.Amount));
         BillPostingVM.CheckPointId = CheckPointId.FMSEmergencyCheckId;
         await base.OnAfterRenderAsync(firstRender);
-    }
-
-    public void OnImagePost(string image)
-    {
-        BillPostingVM.images.Add(image);
-        bill.BillImage = image;
     }
 
     public Task CloseBillPosting()
@@ -87,9 +156,22 @@
         var getBillResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Emergency/GetBills", request);
         return JsonConvert.DeserializeObject<List<EmergencyBill>>(await getBillResponse.Content.ReadAsStringAsync());
     }
+    public async Task<List<string>> GetFiles()
+    {
+        ApiRequest request = new ApiRequest() { FMSEmergencyCheckId = CheckPointId.FMSEmergencyCheckId };
+        var getBillResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Files/Files", request);
+        return JsonConvert.DeserializeObject<List<string>>(await getBillResponse.Content.ReadAsStringAsync());
+    }
+    public async Task<List<BillDetailVM>> GetBillDetails()
+    {
+        ApiRequest request = new ApiRequest() { FMSEmergencyCheckId = CheckPointId.FMSEmergencyCheckId };
+        var getBillResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Emergency/GetBillDetails", request);
+        return JsonConvert.DeserializeObject<List<BillDetailVM>>(await getBillResponse.Content.ReadAsStringAsync());
+    }
 
     public async void PostBill()
     {
+        LoaderOn();
         var postBillResponse = await Http.PostAsJsonAsync<EmergencyBill>("api/Emergency/PostBill", bill);
 
         if (postBillResponse.StatusCode == System.Net.HttpStatusCode.OK)
@@ -100,6 +182,49 @@
         else
         {
         }
+    }
+
+    private async void OnChange(UploadChangeEventArgs args)
+    {
+        LoaderOn();
+        var files = new List<FileInfo>();
+        foreach (var file in args.Files)
+        {
+            var content = new MultipartFormDataContent {
+                    { new ByteArrayContent(file.Stream.GetBuffer()), CheckPointId.FMSEmergencyCheckId.ToString(), file.FileInfo.Name}
+                };
+            var filepath = await Http.PostAsync("api/Files/Save", content);
+        }
+
+    }
+
+
+    #region Add to bill
+    public bool addVisible { get; set; } = false;
+    public void ShowHideAddModal(bool status)
+    {
+        LoaderOn();
+        addVisible = status;
+        //if (!addVisible) ReloadCheckList();
+        StateHasChanged();
+    }
+    public void ShowAddModal()
+    {
+        addVisible = true;
+    }
+    #endregion
+
+    public void LoaderOn()
+    {
+        BillDetailsList = null;
+        BillsList = null;
+        fileNames = null;
+    }
+    public async Task LoadData()
+    {
+        fileNames = await GetFiles();
+        BillsList = await GetBills();
+        BillDetailsList = await GetBillDetails();
     }
 }
 

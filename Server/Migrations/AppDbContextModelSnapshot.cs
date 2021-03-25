@@ -346,16 +346,16 @@ namespace SOS.FMS.Server.Migrations
                         {
                             Id = "c58e1a9d-1c28-46db-830a-7b3f0b9663f1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e8cf0719-e4d7-4351-809f-ff25eb7b8788",
+                            ConcurrencyStamp = "cc69ee5b-84f4-4a0c-80e2-8ce8da1ff776",
                             Email = "z.raza@batech.com.pk",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             Name = "Zain Raza",
                             NormalizedEmail = "Z.RAZA@BATECH.COM.PK",
                             NormalizedUserName = "Z.RAZA@BATECH.COM.PK",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO+u7pNJgAMvS1LwR+FTal2K522ga23Fz8dYRVXvigQsSWwM0R6xwTSWJbFNKKX6aA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELjSnD44ZoWZYhs5SByYLk/O+29edAZEFzDfPNaz1tWaHPZIuEySIVKsKVw+HXHUXQ==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "67871256-0c12-4e1c-979f-c43f7c9f36a3",
+                            SecurityStamp = "686ef493-82df-4187-885f-40c9cf8b3e2d",
                             TwoFactorEnabled = false,
                             UserName = "z.raza@batech.com.pk"
                         });
@@ -804,6 +804,29 @@ namespace SOS.FMS.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Emergencies");
+                });
+
+            modelBuilder.Entity("SOS.FMS.Server.Models.EmergencyBillDetail", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Amount")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("CheckPointId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ServiceType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SubServiceType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmergencyBillDetails");
                 });
 
             modelBuilder.Entity("SOS.FMS.Server.Models.FMSAccidentalCheck", b =>
@@ -1898,7 +1921,7 @@ namespace SOS.FMS.Server.Migrations
                     b.ToTable("AccidentBills");
                 });
 
-            modelBuilder.Entity("SOS.FMS.Shared.ViewModels.EmergencyBill", b =>
+            modelBuilder.Entity("SOS.FMS.Shared.ViewModels.Emergency.EmergencyBill", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -1912,6 +1935,9 @@ namespace SOS.FMS.Server.Migrations
 
                     b.Property<Guid>("CheckPointId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

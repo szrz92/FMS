@@ -128,15 +128,15 @@ namespace SOS.FMS.Server.Controllers
 
                 List<string> descriptionList = new List<string>()
                 {
-                    "Region/Control inform about vehicle incident",
-                    "Vehicle Lifting / Movement Inform To Risk Department",
-                    "Assigning Workshop",
-                    "Driver & Controller Statement / Documents",
-                    "Work Estimation & Surveyor of Insurance",
-                    "Work Approval / Work Start",
-                    "Vehicle Delivery Time",
-                    "Work Done & Report",
-                    "Bills Posting / Pics Uploading In System"
+                    "a. Region/Control inform about vehicle incident",
+                    "b. Vehicle Lifting / Movement Inform To Risk Department",
+                    "c. Assigning Workshop",
+                    "d. Driver & Controller Statement / Documents",
+                    "e. Work Estimation & Surveyor of Insurance",
+                    "f. Work Approval / Work Start",
+                    "g. Vehicle Delivery Time",
+                    "h. Work Done & Report",
+                    "i. Bills Posting / Pics Uploading In System"
                 };
 
                 List<FMSAccidentalCheck> fmsAccidentalCheckList = new List<FMSAccidentalCheck>();
@@ -147,7 +147,7 @@ namespace SOS.FMS.Server.Controllers
                         Id = Guid.NewGuid(),
                         Description = point,
                         FMSAccidentId = accidentId,
-                        MaintenanceStatus = MaintenanceStatus.NotInitiated,
+                        MaintenanceStatus = CheckMaintenanceStatus.NotInitiated,
                         FMSVehicleId = vehicle.Id,
                         VehicleNumber = accident.VehicleNumber,
                         LastUpdated = DateTime.Now,
@@ -274,7 +274,7 @@ namespace SOS.FMS.Server.Controllers
                 foreach (var accident in accidents)
                 {
                     var checkList = await dbContext.FMSAccidentalCheckList.Where(x => x.FMSAccidentId == accident.Id).ToListAsync();
-                    checkList.ForEach(u => u.MaintenanceStatus = MaintenanceStatus.Done);
+                    checkList.ForEach(u => u.MaintenanceStatus = CheckMaintenanceStatus.Done);
                     if (accident.MaintenanceStatus != MaintenanceStatus.Operational)
                     {
                         accident.CarOperationalTime = PakistanDateTime.Now;
@@ -400,7 +400,7 @@ namespace SOS.FMS.Server.Controllers
             {
                 FMSAccidentalCheck check = await dbContext.FMSAccidentalCheckList.Where(x => x.Id == request.FMSAccidentalCheckId).Select(x => x).SingleOrDefaultAsync();
                 Accident accident = await dbContext.Accidents.Where(x => x.Id == check.FMSAccidentId).Select(x => x).SingleOrDefaultAsync();
-                check.MaintenanceStatus = MaintenanceStatus.Done;
+                check.MaintenanceStatus = CheckMaintenanceStatus.Done;
                 accident.LastUpdated = PakistanDateTime.Now;
                 await dbContext.SaveChangesAsync();
 
@@ -475,6 +475,7 @@ namespace SOS.FMS.Server.Controllers
                 check.CommentCount = await (from c in dbContext.FMSAccidentalCheckComments
                                             where c.FMSAccidentalCheckId == comment.FMSAccidentalCheckId
                                             select c).CountAsync();
+                check.MaintenanceStatus = CheckMaintenanceStatus.InProgress;
 
                 Accident accident = await dbContext.Accidents.Where(x => x.Id == comment.FMSAccidentId).Select(x => x).SingleOrDefaultAsync();
                 accident.LastUpdated = PakistanDateTime.Now;
@@ -516,7 +517,7 @@ namespace SOS.FMS.Server.Controllers
                 FMSAccidentalCheck check = (from c in dbContext.FMSAccidentalCheckList
                                             where c.Id == bill.CheckPointId
                                             select c).SingleOrDefault();
-
+                check.MaintenanceStatus = CheckMaintenanceStatus.InProgress;
                 FMSAccidentalCheckComment newComment = new FMSAccidentalCheckComment()
                 {
                     Id = Guid.NewGuid(),
@@ -556,6 +557,10 @@ namespace SOS.FMS.Server.Controllers
         {
             try
             {
+                FMSAccidentalCheck check = (from c in dbContext.FMSAccidentalCheckList
+                                            where c.Id == billDetail.CheckPointId
+                                            select c).SingleOrDefault();
+                check.MaintenanceStatus = CheckMaintenanceStatus.InProgress;
 
                 AccidentalBillDetail detail = new ()
                 {

@@ -103,15 +103,7 @@
         }
     </div>
 </div>
-<Modal @ref="videomodal" Visible="videoModalVisibility">
-    <Title>Video Player</Title>
-    <Body>
-        <VideoPlayer source="@source"></VideoPlayer>
-    </Body>
-    <Footer>
-        <button type="button" class="btn btn-info" data-dismiss="modal" @onclick="() => videomodal.Close()">Close</button>
-    </Footer>
-</Modal>
+
 <AddBillDetails CheckPointId="CheckPointId" OnVisibilityChanged="ShowHideAddModal" VehicleNumber="@VehicleNumber" Visible="addVisible"></AddBillDetails>
 @code {
     [Parameter]
@@ -152,12 +144,6 @@
         await base.OnAfterRenderAsync(firstRender);
     }
 
-    //public void OnImagePost(string image)
-    //{
-    //    BillPostingVM.images.Add(image);
-    //    bill.BillImage = image;
-    //}
-
     public Task CloseBillPosting()
     {
         return OnVisibilityChanged.InvokeAsync(false);
@@ -195,25 +181,6 @@
         else
         {
         }
-    }
-
-    public bool videoModalVisibility { get; set; }
-
-    public string source { get; set; }
-
-    public void Show(string ext)
-    {
-        switch (ext)
-        {
-            case "mp4":
-                source = "https://res.cloudinary.com/blazoredgitter/video/upload/v1557015491/samples/elephants.mp4";
-                videoModalVisibility = true;
-                break;
-            default:
-                source = "http://174.129.4.209/up/tmserd.pdf";
-                break;
-        };
-        StateHasChanged();
     }
 
     private async void OnChange(UploadChangeEventArgs args)

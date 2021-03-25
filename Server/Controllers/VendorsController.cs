@@ -21,13 +21,32 @@ namespace SOS.FMS.Server.Controllers
             this.viewsContext = viewsContext;
         }
 
-        [HttpGet]
+        [HttpGet("Fueling")]
         public async Task<IActionResult> GetFuelingVendors()
         {
             try
             {
                 var vendors = await (from a in viewsContext.PblVendorManagements
                                      where a.XClearingAcDescription.Contains("Fuel")
+                                     select new SelectListItem()
+                                     {
+                                         Text = a.XName,
+                                         Value = a.XName
+                                     }).ToListAsync();
+
+                return Ok(vendors);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+        [HttpGet("All")]
+        public async Task<IActionResult> GetVendors()
+        {
+            try
+            {
+                var vendors = await (from a in viewsContext.PblVendorManagements
                                      select new SelectListItem()
                                      {
                                          Text = a.XName,

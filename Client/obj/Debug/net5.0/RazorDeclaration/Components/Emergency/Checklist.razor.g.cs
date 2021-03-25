@@ -202,7 +202,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 142 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\Checklist.razor"
+#line 157 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\Checklist.razor"
       
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -302,7 +302,7 @@ using Microsoft.AspNetCore.SignalR.Client;
     }
     public void ShowAssignWorkshopModal(Guid pointId)
     {
-        PointId = new ApiRequest() { FMSEmergencyCheckId = pointId, Remarks = CheckList.Where(x => x.Id == pointId).FirstOrDefault().Description };
+        PointId = new ApiRequest() { FMSEmergencyCheckId = pointId, Remarks = CheckList.Where(x => x.Id == pointId).FirstOrDefault().Description, FMSEmergencyId = CheckList.Where(x => x.Id == pointId).FirstOrDefault().FMSEmergencyId };
         assignWorkShopVisible = true;
     }
     #endregion

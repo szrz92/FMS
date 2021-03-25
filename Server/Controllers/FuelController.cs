@@ -7,6 +7,8 @@ using SOS.FMS.Shared.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SOS.FMS.Server.Controllers
@@ -74,30 +76,102 @@ namespace SOS.FMS.Server.Controllers
                                                                  Timestamp = f.Timestamp,
                                                                  VehicleNumber = f.VehicleNumber
                                                              }).ToListAsync();
-                List<FuelingInfoVM> psoWorkSheetList = await (from p in dbContext.PSOWorksheets
-                                                              select new FuelingInfoVM()
-                                                              {
-                                                                  Amount = p.TxnAmount,
-                                                                  DriverName = "",
-                                                                  FillingStation = p.MerchantName,
-                                                                  FillingCity = p.MerchantCity,
-                                                                  Id = p.Id,
-                                                                  Litres = p.Qty,
-                                                                  Odometer = "",
-                                                                  Milage = "",
-                                                                  PaymentType = "PSO Card",
-                                                                  Rate = p.Rate,
-                                                                  Region = "",
-                                                                  Remarks = "",
-                                                                  Timestamp = Convert.ToDateTime(p.Date),
-                                                                  VehicleNumber = ""
-                                                              }).ToListAsync();
+
+                List < FuelingInfoVM > psoWorkSheetList = await (from p in dbContext.PSOWorksheets
+                                                                 join v in dbContext.Vehicles on p.CardNumber equals v.CardNumber
+                                                                 join d in dbContext.Drivers on v.VehicleNumber equals d.VehicleNumber
+                                                                 select new FuelingInfoVM()
+                                                                 {
+                                                                     Amount = p.TxnAmount,
+                                                                     DriverName = d.Name,
+                                                                     FillingStation = p.MerchantName,
+                                                                     FillingCity = p.MerchantCity,
+                                                                     Id = p.Id,
+                                                                     Litres = p.Qty,
+                                                                     Odometer = Functions.ToLongString(v.Distance), //Convert.ToString(v.Distance),
+                                                                     Milage = "",
+                                                                     PaymentType = "PSO Card",
+                                                                     Rate = p.Rate,
+                                                                     Region = v.Region,
+                                                                     Remarks = "",
+                                                                     Timestamp = Convert.ToDateTime(p.Date),
+                                                                     VehicleNumber = v.VehicleNumber
+                                                                 }).ToListAsync();
                 return Ok(fuelingInfoList.Union(psoWorkSheetList));
             }
             catch (Exception ex)
             {
                 return BadRequest();
             }
+        }
+    }
+
+    public static class Functions
+    {
+        public static string ToLongString(double input)
+        {
+            string strOrig = input.ToString();
+            string str = strOrig.ToUpper();
+
+            // if string representation was collapsed from scientific notation, just return it:
+            if (!str.Contains("E")) return strOrig;
+
+            bool negativeNumber = false;
+
+            if (str[0] == '-')
+            {
+                str = str.Remove(0, 1);
+                negativeNumber = true;
+            }
+
+            string sep = Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+            char decSeparator = sep.ToCharArray()[0];
+
+            string[] exponentParts = str.Split('E');
+            string[] decimalParts = exponentParts[0].Split(decSeparator);
+
+            // fix missing decimal point:
+            if (decimalParts.Length == 1) decimalParts = new string[] { exponentParts[0], "0" };
+
+            int exponentValue = int.Parse(exponentParts[1]);
+
+            string newNumber = decimalParts[0] + decimalParts[1];
+
+            string result;
+
+            if (exponentValue > 0)
+            {
+                result =
+                    newNumber +
+                    GetZeros(exponentValue - decimalParts[1].Length);
+            }
+            else // negative exponent
+            {
+                result =
+                    "0" +
+                    decSeparator +
+                    GetZeros(exponentValue + decimalParts[0].Length) +
+                    newNumber;
+
+                result = result.TrimEnd('0');
+            }
+
+            if (negativeNumber)
+                result = "-" + result;
+
+            return result;
+        }
+
+        public static string GetZeros(int zeroCount)
+        {
+            if (zeroCount < 0)
+                zeroCount = Math.Abs(zeroCount);
+
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < zeroCount; i++) sb.Append("0");
+
+            return sb.ToString();
         }
     }
 }

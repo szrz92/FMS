@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SOS.FMS.Server.Models;
 using SOS.FMS.Server.Services;
@@ -35,6 +36,46 @@ namespace SOS.FMS.Server.Controllers
                         List<DriverVM> rbVehicles = await (from fd in dbContext.Drivers
                                                            where fd.Region == region.XDescription && !string.IsNullOrEmpty(fd.VehicleNumber)
                                                            select ModelService.FMSDriverViewModel(fd)).ToListAsync();
+                        return Ok(rbVehicles);
+                    }
+                    else
+                    {
+
+                        List<DriverVM> rbVehicles = await (from fd in dbContext.Drivers
+                                                           where !string.IsNullOrEmpty(fd.VehicleNumber)
+                                                           select ModelService.FMSDriverViewModel(fd)).ToListAsync();
+                        return Ok(rbVehicles);
+                    }
+                }
+                else
+                {
+                    return Ok(new List<DriverVM>());
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+        [HttpGet("All")]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                if (User.Claims.Any())
+                {
+                    if (User.IsInRole("RMTO"))
+                    {
+                        ApplicationUser user = (from u in dbContext.Users where u.Email == User.Identity.Name select u).FirstOrDefault();
+                        Region region = (from r in dbContext.Regions where r.XDescription == user.Region select r).FirstOrDefault();
+
+                        List<SelectListItem> rbVehicles = await (from fd in dbContext.Drivers
+                                                                 where fd.Region == region.XDescription && !string.IsNullOrEmpty(fd.VehicleNumber)
+                                                                 select new SelectListItem()
+                                                                 {
+                                                                     Text = fd.Name,
+                                                                     Value = fd.Name
+                                                                 }).ToListAsync();
                         return Ok(rbVehicles);
                     }
                     else

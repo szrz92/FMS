@@ -202,7 +202,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 21 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\AssigningWorkshop.razor"
+#line 50 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\AssigningWorkshop.razor"
        
     [Parameter]
     public ApiRequest CheckPointId { get; set; }
@@ -213,11 +213,37 @@ using Microsoft.AspNetCore.SignalR.Client;
     [Parameter]
     public EventCallback<bool> OnVisibilityChanged { get; set; }
 
+    public List<SelectListItem> VendorTypes { get; set; } = new List<SelectListItem>
+    {
+        new SelectListItem(){ Text ="Approved", Value= "Approved" },
+        new SelectListItem(){ Text ="Un Approved", Value= "Un Approved" }
+    };
+
+    public List<SelectListItem> ApprovedVendors { get; set; }
+
+    public WorkshopVM WorkshopVM { get; set; }
+
+    public bool readOnly { get; set; } = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        WorkshopVM = new WorkshopVM() { IncidentId = CheckPointId.FMSEmergencyId };
+        ApprovedVendors = await Http.GetFromJsonAsync<List<SelectListItem>>("api/vendors/all");
+        await base.OnInitializedAsync();
+    }
+
     public Task Close()
     {
         return OnVisibilityChanged.InvokeAsync(false);
     }
 
+    public void OnVendorTypeChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        if (args.Value != null)
+        {
+            readOnly = false;
+        }
+    }
 
 #line default
 #line hidden
