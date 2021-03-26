@@ -956,3 +956,5 @@ C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\RazorDeclaration\
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\Razor\Pages\ActiveComplaints.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\RazorDeclaration\Pages\Fueling.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\Razor\Pages\Fueling.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\RazorDeclaration\Components\Emergency\AddBillDetails.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\Razor\Components\Emergency\AddBillDetails.razor.g.cs

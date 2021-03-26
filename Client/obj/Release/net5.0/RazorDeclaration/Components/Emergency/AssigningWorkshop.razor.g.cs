@@ -202,7 +202,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 21 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\AssigningWorkshop.razor"
+#line 58 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\AssigningWorkshop.razor"
        
     [Parameter]
     public ApiRequest CheckPointId { get; set; }
@@ -213,11 +213,67 @@ using Microsoft.AspNetCore.SignalR.Client;
     [Parameter]
     public EventCallback<bool> OnVisibilityChanged { get; set; }
 
+    public List<SelectListItem> VendorTypes { get; set; } = new List<SelectListItem>
+    {
+        new SelectListItem(){ Text ="Approved", Value= "Approved" },
+        new SelectListItem(){ Text ="Un Approved", Value= "Un Approved" }
+    };
+
+    public List<SelectListItem> ApprovedVendors { get; set; }
+    public List<SelectListItem> UnApprovedVendors { get; set; }
+
+    public WorkshopVM WorkshopVM { get; set; }
+
+    public bool readOnly { get; set; } = false;
+
+    public bool loading { get; set; } = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        ApprovedVendors = await Http.GetFromJsonAsync<List<SelectListItem>>("api/vendors/all");
+        UnApprovedVendors = await Http.GetFromJsonAsync<List<SelectListItem>>("api/drivers/all");
+
+        WorkshopVM = new WorkshopVM() { IncidentId = CheckPointId.FMSEmergencyId, CheckId = CheckPointId.FMSEmergencyCheckId, IncidentType = "Emergency" };
+
+        var responseMessage = await Http.PostAsJsonAsync("api/vendors/CheckAssigned", WorkshopVM);
+        if (responseMessage.IsSuccessStatusCode)
+        {
+            WorkshopVM = JsonConvert.DeserializeObject<WorkshopVM>(await responseMessage.Content.ReadAsStringAsync());
+            readOnly = true;
+        }
+        loading = false;
+        await base.OnInitializedAsync();
+    }
+
     public Task Close()
     {
         return OnVisibilityChanged.InvokeAsync(false);
     }
 
+    public void OnVendorTypeChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        if (args.Value != null)
+        {
+            readOnly = false;
+        }
+    }
+
+    public async void OnValidSubmit()
+    {
+        loading = true;
+        var submitResponse = await Http.PostAsJsonAsync("api/vendors/assign", WorkshopVM);
+        if (submitResponse.IsSuccessStatusCode)
+        {
+            readOnly = true;
+            loading = false;
+        }
+        else
+        {
+            readOnly = false;
+            loading = false;
+        }
+    }
 
 #line default
 #line hidden

@@ -518,6 +518,7 @@ namespace SOS.FMS.Server.Controllers
                                             where c.Id == bill.CheckPointId
                                             select c).SingleOrDefault();
                 check.MaintenanceStatus = CheckMaintenanceStatus.InProgress;
+                check.Remarks = bill.Remarks;
                 FMSAccidentalCheckComment newComment = new FMSAccidentalCheckComment()
                 {
                     Id = Guid.NewGuid(),
@@ -532,11 +533,9 @@ namespace SOS.FMS.Server.Controllers
                 };
 
                 await dbContext.FMSAccidentalCheckComments.AddAsync(newComment);
-                await dbContext.SaveChangesAsync();
 
                 bill.Id = new Guid();
                 await dbContext.AccidentBills.AddAsync(bill);
-                await dbContext.SaveChangesAsync();
 
                 check.CommentCount = await (from c in dbContext.FMSAccidentalCheckComments
                                             where c.FMSAccidentalCheckId == bill.CheckPointId
@@ -590,6 +589,26 @@ namespace SOS.FMS.Server.Controllers
                                                   where b.CheckPointId == request.FMSAccidentalCheckId
                                                   select b).ToListAsync();
                 return Ok(Bills);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+        [HttpPost("GetBill")]
+        public async Task<IActionResult> GetBill(ApiRequest request)
+        {
+            try
+            {
+                AccidentBill Bill = await (from b in dbContext.FMSAccidentalCheckList
+                                           where b.Id == request.FMSAccidentalCheckId
+                                           select new AccidentBill()
+                                           {
+                                               Remarks = b.Remarks
+                                           }).FirstOrDefaultAsync();
+                if (Bill == null)
+                    Bill = new AccidentBill();
+                return Ok(Bill);
             }
             catch (Exception)
             {

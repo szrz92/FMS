@@ -60,6 +60,7 @@ namespace SOS.FMS.Server.Controllers
         [HttpGet("All")]
         public async Task<IActionResult> GetAll()
         {
+            List<SelectListItem> drivers = new List<SelectListItem>();
             try
             {
                 if (User.Claims.Any())
@@ -69,28 +70,31 @@ namespace SOS.FMS.Server.Controllers
                         ApplicationUser user = (from u in dbContext.Users where u.Email == User.Identity.Name select u).FirstOrDefault();
                         Region region = (from r in dbContext.Regions where r.XDescription == user.Region select r).FirstOrDefault();
 
-                        List<SelectListItem> rbVehicles = await (from fd in dbContext.Drivers
-                                                                 where fd.Region == region.XDescription && !string.IsNullOrEmpty(fd.VehicleNumber)
-                                                                 select new SelectListItem()
-                                                                 {
-                                                                     Text = fd.Name,
-                                                                     Value = fd.Name
-                                                                 }).ToListAsync();
-                        return Ok(rbVehicles);
+                        drivers = await (from fd in dbContext.Drivers
+                                         where fd.Region == region.XDescription && !string.IsNullOrEmpty(fd.VehicleNumber)
+                                         select new SelectListItem()
+                                         {
+                                             Text = fd.Name,
+                                             Value = fd.Code
+                                         }).ToListAsync();
                     }
                     else
                     {
 
-                        List<DriverVM> rbVehicles = await (from fd in dbContext.Drivers
-                                                           where !string.IsNullOrEmpty(fd.VehicleNumber)
-                                                           select ModelService.FMSDriverViewModel(fd)).ToListAsync();
-                        return Ok(rbVehicles);
+                        drivers = await (from fd in dbContext.Drivers
+                                         where !string.IsNullOrEmpty(fd.VehicleNumber)
+                                         select new SelectListItem()
+                                         {
+                                             Text = fd.Name,
+                                             Value = fd.Code
+                                         }).ToListAsync();
                     }
                 }
                 else
                 {
-                    return Ok(new List<DriverVM>());
+                    return NotFound();
                 }
+                return Ok(drivers);
             }
             catch (Exception ex)
             {

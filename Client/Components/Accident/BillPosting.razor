@@ -58,6 +58,7 @@
                                         <SfTextBox @bind-Value="bill.Remarks" class="form-control" Multiline="true"></SfTextBox>
                                         <span class="form-text text-muted">Please enter remarks</span>
                                     </div>
+                                    <button type="submit" class="btn btn-fms">POST</button>
                                 </div>
                             </div>
                             <div class="card">
@@ -137,7 +138,7 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await LoadData();
+        //await LoadData();
         bill.CheckPointId = CheckPointId.FMSAccidentalCheckId;
         bill.BillAmount = BillDetailsList.Sum(x => Convert.ToInt32(x.Amount));
         BillPostingVM.CheckPointId = CheckPointId.FMSAccidentalCheckId;
@@ -154,6 +155,12 @@
         ApiRequest request = new ApiRequest() { FMSAccidentalCheckId = CheckPointId.FMSAccidentalCheckId };
         var getBillResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/GetBills", request);
         return JsonConvert.DeserializeObject<List<AccidentBill>>(await getBillResponse.Content.ReadAsStringAsync());
+    }
+    public async Task<AccidentBill> GetBill()
+    {
+        ApiRequest request = new ApiRequest() { FMSAccidentalCheckId = CheckPointId.FMSAccidentalCheckId };
+        var getBillResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/GetBill", request);
+        return JsonConvert.DeserializeObject<AccidentBill>(await getBillResponse.Content.ReadAsStringAsync());
     }
     public async Task<List<string>> GetFiles()
     {
@@ -221,9 +228,13 @@
     }
     public async Task LoadData()
     {
+        bill = await GetBill();
         fileNames = await GetFiles();
         BillsList = await GetBills();
         BillDetailsList = await GetBillDetails();
+    }
+    public void PostRemarks()
+    {
     }
 }
 

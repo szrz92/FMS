@@ -194,6 +194,20 @@ using Microsoft.AspNetCore.SignalR.Client;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\BillPosting.razor"
+using SOS.FMS.Shared.ViewModels.Emergency;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 4 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\BillPosting.razor"
+using SOS.FMS.Shared.ViewModels.Incident;
+
+#line default
+#line hidden
+#nullable disable
     public partial class BillPosting : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -202,7 +216,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 43 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\BillPosting.razor"
+#line 109 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\BillPosting.razor"
        
     [Parameter]
     public ApiRequest CheckPointId { get; set; }
@@ -213,30 +227,33 @@ using Microsoft.AspNetCore.SignalR.Client;
     [Parameter]
     public EventCallback<bool> OnVisibilityChanged { get; set; }
 
+    public Modal videomodal { get; set; }
+    public Modal filemodal { get; set; }
+
     FMSEmergencyCheckCommentVM EmergencyCheckComment;
+
+    public List<string> fileNames { get; set; }
 
     public BillPostingVM BillPostingVM = new BillPostingVM();
     public EmergencyBill bill = new EmergencyBill();
 
     public List<EmergencyBill> BillsList = new List<EmergencyBill>();
+    public List<BillDetailVM> BillDetailsList { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        BillsList = await GetBills();
+        LoaderOn();
+        await LoadData();
         await base.OnInitializedAsync();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        await LoadData();
         bill.CheckPointId = CheckPointId.FMSEmergencyCheckId;
+        bill.BillAmount = BillDetailsList.Sum(x => Convert.ToInt32(x.Amount));
         BillPostingVM.CheckPointId = CheckPointId.FMSEmergencyCheckId;
         await base.OnAfterRenderAsync(firstRender);
-    }
-
-    public void OnImagePost(string image)
-    {
-        BillPostingVM.images.Add(image);
-        bill.BillImage = image;
     }
 
     public Task CloseBillPosting()
@@ -250,9 +267,22 @@ using Microsoft.AspNetCore.SignalR.Client;
         var getBillResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Emergency/GetBills", request);
         return JsonConvert.DeserializeObject<List<EmergencyBill>>(await getBillResponse.Content.ReadAsStringAsync());
     }
+    public async Task<List<string>> GetFiles()
+    {
+        ApiRequest request = new ApiRequest() { FMSEmergencyCheckId = CheckPointId.FMSEmergencyCheckId };
+        var getBillResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Files/Files", request);
+        return JsonConvert.DeserializeObject<List<string>>(await getBillResponse.Content.ReadAsStringAsync());
+    }
+    public async Task<List<BillDetailVM>> GetBillDetails()
+    {
+        ApiRequest request = new ApiRequest() { FMSEmergencyCheckId = CheckPointId.FMSEmergencyCheckId };
+        var getBillResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Emergency/GetBillDetails", request);
+        return JsonConvert.DeserializeObject<List<BillDetailVM>>(await getBillResponse.Content.ReadAsStringAsync());
+    }
 
     public async void PostBill()
     {
+        LoaderOn();
         var postBillResponse = await Http.PostAsJsonAsync<EmergencyBill>("api/Emergency/PostBill", bill);
 
         if (postBillResponse.StatusCode == System.Net.HttpStatusCode.OK)
@@ -263,6 +293,49 @@ using Microsoft.AspNetCore.SignalR.Client;
         else
         {
         }
+    }
+
+    private async void OnChange(UploadChangeEventArgs args)
+    {
+        LoaderOn();
+        var files = new List<FileInfo>();
+        foreach (var file in args.Files)
+        {
+            var content = new MultipartFormDataContent {
+                    { new ByteArrayContent(file.Stream.GetBuffer()), CheckPointId.FMSEmergencyCheckId.ToString(), file.FileInfo.Name}
+                };
+            var filepath = await Http.PostAsync("api/Files/Save", content);
+        }
+
+    }
+
+
+    #region Add to bill
+    public bool addVisible { get; set; } = false;
+    public void ShowHideAddModal(bool status)
+    {
+        LoaderOn();
+        addVisible = status;
+        //if (!addVisible) ReloadCheckList();
+        StateHasChanged();
+    }
+    public void ShowAddModal()
+    {
+        addVisible = true;
+    }
+    #endregion
+
+    public void LoaderOn()
+    {
+        BillDetailsList = null;
+        BillsList = null;
+        fileNames = null;
+    }
+    public async Task LoadData()
+    {
+        fileNames = await GetFiles();
+        BillsList = await GetBills();
+        BillDetailsList = await GetBillDetails();
     }
 
 #line default

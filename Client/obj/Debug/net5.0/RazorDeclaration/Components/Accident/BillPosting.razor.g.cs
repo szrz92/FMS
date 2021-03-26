@@ -216,7 +216,7 @@ using SOS.FMS.Shared.ViewModels.Incident;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 108 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\BillPosting.razor"
+#line 109 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\BillPosting.razor"
        
     [Parameter]
     public ApiRequest CheckPointId { get; set; }
@@ -249,7 +249,7 @@ using SOS.FMS.Shared.ViewModels.Incident;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await LoadData();
+        //await LoadData();
         bill.CheckPointId = CheckPointId.FMSAccidentalCheckId;
         bill.BillAmount = BillDetailsList.Sum(x => Convert.ToInt32(x.Amount));
         BillPostingVM.CheckPointId = CheckPointId.FMSAccidentalCheckId;
@@ -266,6 +266,12 @@ using SOS.FMS.Shared.ViewModels.Incident;
         ApiRequest request = new ApiRequest() { FMSAccidentalCheckId = CheckPointId.FMSAccidentalCheckId };
         var getBillResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/GetBills", request);
         return JsonConvert.DeserializeObject<List<AccidentBill>>(await getBillResponse.Content.ReadAsStringAsync());
+    }
+    public async Task<AccidentBill> GetBill()
+    {
+        ApiRequest request = new ApiRequest() { FMSAccidentalCheckId = CheckPointId.FMSAccidentalCheckId };
+        var getBillResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/GetBill", request);
+        return JsonConvert.DeserializeObject<AccidentBill>(await getBillResponse.Content.ReadAsStringAsync());
     }
     public async Task<List<string>> GetFiles()
     {
@@ -333,9 +339,13 @@ using SOS.FMS.Shared.ViewModels.Incident;
     }
     public async Task LoadData()
     {
+        bill = await GetBill();
         fileNames = await GetFiles();
         BillsList = await GetBills();
         BillDetailsList = await GetBillDetails();
+    }
+    public void PostRemarks()
+    {
     }
 
 #line default

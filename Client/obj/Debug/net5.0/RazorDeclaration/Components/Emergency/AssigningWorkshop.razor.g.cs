@@ -202,7 +202,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 50 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\AssigningWorkshop.razor"
+#line 58 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\AssigningWorkshop.razor"
        
     [Parameter]
     public ApiRequest CheckPointId { get; set; }
@@ -220,15 +220,29 @@ using Microsoft.AspNetCore.SignalR.Client;
     };
 
     public List<SelectListItem> ApprovedVendors { get; set; }
+    public List<SelectListItem> UnApprovedVendors { get; set; }
 
     public WorkshopVM WorkshopVM { get; set; }
 
-    public bool readOnly { get; set; } = true;
+    public bool readOnly { get; set; } = false;
+
+    public bool loading { get; set; } = false;
 
     protected override async Task OnInitializedAsync()
     {
-        WorkshopVM = new WorkshopVM() { IncidentId = CheckPointId.FMSEmergencyId };
+        loading = true;
         ApprovedVendors = await Http.GetFromJsonAsync<List<SelectListItem>>("api/vendors/all");
+        UnApprovedVendors = await Http.GetFromJsonAsync<List<SelectListItem>>("api/drivers/all");
+
+        WorkshopVM = new WorkshopVM() { IncidentId = CheckPointId.FMSEmergencyId, CheckId = CheckPointId.FMSEmergencyCheckId, IncidentType = "Emergency" };
+
+        var responseMessage = await Http.PostAsJsonAsync("api/vendors/CheckAssigned", WorkshopVM);
+        if (responseMessage.IsSuccessStatusCode)
+        {
+            WorkshopVM = JsonConvert.DeserializeObject<WorkshopVM>(await responseMessage.Content.ReadAsStringAsync());
+            readOnly = true;
+        }
+        loading = false;
         await base.OnInitializedAsync();
     }
 
@@ -242,6 +256,22 @@ using Microsoft.AspNetCore.SignalR.Client;
         if (args.Value != null)
         {
             readOnly = false;
+        }
+    }
+
+    public async void OnValidSubmit()
+    {
+        loading = true;
+        var submitResponse = await Http.PostAsJsonAsync("api/vendors/assign", WorkshopVM);
+        if (submitResponse.IsSuccessStatusCode)
+        {
+            readOnly = true;
+            loading = false;
+        }
+        else
+        {
+            readOnly = false;
+            loading = false;
         }
     }
 

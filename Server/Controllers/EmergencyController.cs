@@ -528,6 +528,10 @@ namespace SOS.FMS.Server.Controllers
         {
             try
             {
+                FMSEmergencyCheck check = (from c in dbContext.FMSEmergencyCheckList
+                                            where c.Id == billDetail.CheckPointId
+                                            select c).SingleOrDefault();
+                check.MaintenanceStatus = CheckMaintenanceStatus.InProgress;
 
                 EmergencyBillDetail detail = new()
                 {

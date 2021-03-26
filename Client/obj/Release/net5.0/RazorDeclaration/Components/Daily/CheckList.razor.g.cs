@@ -243,7 +243,7 @@ using Microsoft.AspNetCore.SignalR.Client;
     {
         FuelingInfo = new FuelingInfoVM() { VehicleNumber = VehicleNumber };
         await PopulateCheckList();
-        ApprovedVendors = await Http.GetFromJsonAsync<List<SelectListItem>>("api/vendors");
+        ApprovedVendors = await Http.GetFromJsonAsync<List<SelectListItem>>("api/vendors/fueling");
         await base.OnInitializedAsync();
     }
 

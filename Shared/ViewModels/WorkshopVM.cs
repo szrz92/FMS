@@ -9,7 +9,9 @@ namespace SOS.FMS.Shared.ViewModels
     public class WorkshopVM
     {
         public string Type { get; set; }
-        public string Name { get; set; }
+        public string Code { get; set; }
         public Guid IncidentId { get; set; }
+        public Guid CheckId { get; set; }
+        public string IncidentType { get; set; }
     }
 }

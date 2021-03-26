@@ -217,7 +217,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         FilteredFuelingInfoList = FuelingInfoList
                                     .Where(x => (string.IsNullOrEmpty(Filter.Region) || x.Region == Filter.Region))
                                     .Where(x => (string.IsNullOrEmpty(Filter.VehicleNumber) || x.VehicleNumber == Filter.VehicleNumber))
-                                    .Where(x => (string.IsNullOrEmpty(Filter.PaymentType) || x.VehicleNumber == Filter.PaymentType))
+                                    .Where(x => (string.IsNullOrEmpty(Filter.PaymentType) || x.PaymentType == Filter.PaymentType))
                                     .ToList();
     }
 

@@ -13,18 +13,21 @@
     <!--begin::Content-->
     <div class="offcanvas-content pr-5 mr-n5 scroll ps ps--active-y">
         <div class="d-flex flex-column">
-            <EditForm Model="WorkshopVM">
-                <div class="form-group">
-                    <label>Vendor Type:</label>
-                    <SfDropDownList TItem="SelectListItem" TValue="string" PopupHeight="230px" Placeholder="Select a type" @bind-Value="WorkshopVM.Type" DataSource="@VendorTypes">
-                        <DropDownListEvents TValue="string" ValueChange="OnVendorTypeChange"></DropDownListEvents>
-                        <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
-                    </SfDropDownList>
+            @if (!loading)
+            {
+                <EditForm Model="WorkshopVM" OnValidSubmit="OnValidSubmit">
+                    <div class="form-group">
+                        <label>Vendor Type:</label>
+                        <SfDropDownList TItem="SelectListItem" TValue="string" PopupHeight="230px" Placeholder="Select a type" @bind-Value="WorkshopVM.Type" DataSource="@VendorTypes">
+                            <DropDownListEvents TValue="string" ValueChange="OnVendorTypeChange"></DropDownListEvents>
+                            <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                        </SfDropDownList>
+                    </div>
                     @if (WorkshopVM.Type == "Approved")
                     {
                         <div class="form-group">
                             <label>Vendor Name:</label>
-                            <SfDropDownList TItem="SelectListItem" TValue="string" PopupHeight="230px" Placeholder="Select a vendor" @bind-Value="WorkshopVM.Name" DataSource="@ApprovedVendors">
+                            <SfDropDownList TItem="SelectListItem" TValue="string" PopupHeight="230px" Placeholder="Select a vendor" @bind-Value="WorkshopVM.Code" DataSource="@ApprovedVendors" Readonly="@readOnly">
                                 <DropDownListEvents TValue="string"></DropDownListEvents>
                                 <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
                             </SfDropDownList>
@@ -34,15 +37,20 @@
                     {
                         <div class="form-group">
                             <label>Vendor Name:</label>
-                            <SfDropDownList TItem="SelectListItem" TValue="string" PopupHeight="230px" Placeholder="Select a vendor" @bind-Value="WorkshopVM.Name" DataSource="@ApprovedVendors">
+                            <SfDropDownList TItem="SelectListItem" TValue="string" PopupHeight="230px" Placeholder="Select a vendor" @bind-Value="WorkshopVM.Code" DataSource="@UnApprovedVendors" Readonly="@readOnly">
                                 <DropDownListEvents TValue="string"></DropDownListEvents>
                                 <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
                             </SfDropDownList>
                         </div>
                     }
-                </div>
+                    <button type="submit" class="btn btn-fms ml-2 mt-2" disabled="@readOnly">SUBMIT</button>
 
-            </EditForm>
+                </EditForm>
+            }
+            else
+            {
+                <img style="position:fixed;top:50%;left:70%;" src="assets/media/loading.gif" />
+            }
         </div>
         <!--end::Content-->
     </div>
@@ -64,15 +72,29 @@
     };
 
     public List<SelectListItem> ApprovedVendors { get; set; }
+    public List<SelectListItem> UnApprovedVendors { get; set; }
 
     public WorkshopVM WorkshopVM { get; set; }
 
-    public bool readOnly { get; set; } = true;
+    public bool readOnly { get; set; } = false;
+
+    public bool loading { get; set; } = false;
 
     protected override async Task OnInitializedAsync()
     {
-        WorkshopVM = new WorkshopVM() { IncidentId = CheckPointId.FMSEmergencyId };
+        loading = true;
         ApprovedVendors = await Http.GetFromJsonAsync<List<SelectListItem>>("api/vendors/all");
+        UnApprovedVendors = await Http.GetFromJsonAsync<List<SelectListItem>>("api/drivers/all");
+
+        WorkshopVM = new WorkshopVM() { IncidentId = CheckPointId.FMSEmergencyId, CheckId = CheckPointId.FMSEmergencyCheckId, IncidentType = "Emergency" };
+
+        var responseMessage = await Http.PostAsJsonAsync("api/vendors/CheckAssigned", WorkshopVM);
+        if (responseMessage.IsSuccessStatusCode)
+        {
+            WorkshopVM = JsonConvert.DeserializeObject<WorkshopVM>(await responseMessage.Content.ReadAsStringAsync());
+            readOnly = true;
+        }
+        loading = false;
         await base.OnInitializedAsync();
     }
 
@@ -86,6 +108,22 @@
         if (args.Value != null)
         {
             readOnly = false;
+        }
+    }
+
+    public async void OnValidSubmit()
+    {
+        loading = true;
+        var submitResponse = await Http.PostAsJsonAsync("api/vendors/assign", WorkshopVM);
+        if (submitResponse.IsSuccessStatusCode)
+        {
+            readOnly = true;
+            loading = false;
+        }
+        else
+        {
+            readOnly = false;
+            loading = false;
         }
     }
 }
