@@ -209,7 +209,11 @@ using SOS.FMS.Client.Components.Accident;
         }
         #pragma warning restore 1998
 #nullable restore
+<<<<<<< HEAD
 #line 158 "C:\Users\Btech\Source\Repos\fms\Client\Components\Accident\CheckList.razor"
+=======
+#line 158 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\CheckList.razor"
+>>>>>>> c4f6b5a305fa29cb053a7848c4267a5c0b345154
        
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -260,7 +264,7 @@ using SOS.FMS.Client.Components.Accident;
     }
     public void ShowAssignWorkshopModal(Guid pointId)
     {
-        PointId = new ApiRequest() { FMSAccidentalCheckId = pointId, Remarks = Checklist.Where(x => x.Id == pointId).FirstOrDefault().Description };
+        PointId = new ApiRequest() { FMSAccidentalCheckId = pointId, Remarks = Checklist.Where(x => x.Id == pointId).FirstOrDefault().Description, FMSAccidentId = Checklist.Where(x => x.Id == pointId).FirstOrDefault().FMSAccidentId };
         assignWorkShopVisible = true;
     }
     #endregion

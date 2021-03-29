@@ -153,6 +153,19 @@ namespace SOS.FMS.Server.Services
                         else
                         {
                             vehicle.PeriodicStatus = PeriodicMaintenanceStatus.Done;
+                            if (vehicle.AccidentalStatus == AccidentalMaintenanceStatus.Pending)
+                            {
+                                vehicle.Status = "accidental";
+                            }
+                            else
+                                if (vehicle.EmergencyStatus == EmergencyMaintenanceStatus.Pending)
+                            {
+                                vehicle.Status = "emergency";
+                            }
+                            else
+                            {
+                                vehicle.Status = "maintained";
+                            }
                         }
 
                         dbContext.SaveChanges();

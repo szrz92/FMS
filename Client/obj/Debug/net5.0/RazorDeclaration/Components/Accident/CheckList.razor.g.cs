@@ -260,7 +260,7 @@ using SOS.FMS.Client.Components.Accident;
     }
     public void ShowAssignWorkshopModal(Guid pointId)
     {
-        PointId = new ApiRequest() { FMSAccidentalCheckId = pointId, Remarks = Checklist.Where(x => x.Id == pointId).FirstOrDefault().Description };
+        PointId = new ApiRequest() { FMSAccidentalCheckId = pointId, Remarks = Checklist.Where(x => x.Id == pointId).FirstOrDefault().Description, FMSAccidentId = Checklist.Where(x => x.Id == pointId).FirstOrDefault().FMSAccidentId };
         assignWorkShopVisible = true;
     }
     #endregion

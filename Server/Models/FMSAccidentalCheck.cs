@@ -17,5 +17,6 @@ namespace SOS.FMS.Server.Models
         public Guid FMSVehicleId { get; set; }
         public string VehicleNumber { get; set; }
         public DateTime LastUpdated { get; set; }
+        public string Remarks { get; set; }
     }
 }

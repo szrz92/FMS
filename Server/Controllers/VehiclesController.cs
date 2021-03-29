@@ -96,8 +96,8 @@ namespace SOS.FMS.Server.Controllers
                                             SubRegion = v.SubRegion,
                                             VehicleNumber = v.VehicleNumber,
                                             Type = v.Status,
-                                            GasolineType=v.GasolineType,
-                                            CardNumber=v.CardNumber,
+                                            GasolineType = v.GasolineType,
+                                            CardNumber = v.CardNumber,
                                             PeriodicRemarks = v.PeriodicStatus == Shared.Enums.PeriodicMaintenanceStatus.Done ? "Periodically Maintained" : "Periodic Maintenance Pending"
                                         }).SingleOrDefault();
                 return Ok(rbVehicles);
@@ -221,7 +221,7 @@ namespace SOS.FMS.Server.Controllers
                                    Longitude = p.longitude,
                                    Odometer = p.odometer,
                                    Distance = p.distance,
-                                   TotalDistance = p.totalDistance,
+                                   TotalDistance = p.totalDistance / 1000,
                                    Hours = p.hours,
                                    NumberOfTripsToday = TraccarService.GetNumberOfTripsTodayByDeviceId(p.id).Result,
                                    Score = v.Score,

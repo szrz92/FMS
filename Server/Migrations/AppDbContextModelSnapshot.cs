@@ -346,19 +346,52 @@ namespace SOS.FMS.Server.Migrations
                         {
                             Id = "c58e1a9d-1c28-46db-830a-7b3f0b9663f1",
                             AccessFailedCount = 0,
+<<<<<<< HEAD
                             ConcurrencyStamp = "39d5a145-7839-4a87-a831-b5684070bee2",
+=======
+                            ConcurrencyStamp = "767b7db0-fe48-4d14-8e79-cc92c4be338d",
+>>>>>>> c4f6b5a305fa29cb053a7848c4267a5c0b345154
                             Email = "z.raza@batech.com.pk",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             Name = "Zain Raza",
                             NormalizedEmail = "Z.RAZA@BATECH.COM.PK",
                             NormalizedUserName = "Z.RAZA@BATECH.COM.PK",
+<<<<<<< HEAD
                             PasswordHash = "AQAAAAEAACcQAAAAENdU1vxnoffY1vunlKWblqkKMfLraRrakHS2pQa/t3ya6e97PxgMIvrZygntjPk6BA==",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "1185adde-47e1-43ff-93aa-42e52f47f43f",
+=======
+                            PasswordHash = "AQAAAAEAACcQAAAAENFfxVajGq7Lp9vPNxC/wMCb29dY0/DMWzPMRk8eJeHAyvVMFZIhr/5YIuHt8/5yWg==",
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "fcf47e9d-1c2a-4d32-ad17-88341d4f2287",
+>>>>>>> c4f6b5a305fa29cb053a7848c4267a5c0b345154
                             TwoFactorEnabled = false,
                             UserName = "z.raza@batech.com.pk"
                         });
+                });
+
+            modelBuilder.Entity("SOS.FMS.Server.Models.AssignedWorkshop", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("IncidentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("SupplierCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SupplierName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SupplierType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AssignedWorkshops");
                 });
 
             modelBuilder.Entity("SOS.FMS.Server.Models.Complaint", b =>
@@ -855,6 +888,9 @@ namespace SOS.FMS.Server.Migrations
 
                     b.Property<int>("MaintenanceStatus")
                         .HasColumnType("int");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VehicleNumber")
                         .HasColumnType("nvarchar(max)");

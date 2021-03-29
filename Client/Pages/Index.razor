@@ -508,25 +508,33 @@
         var emergencyStatusResponse = await Http.PostAsJsonAsync("api/Emergency/FMS/checkEmergencyStatus", new ApiRequest() { VehicleNumber = vehicleNumber });
 
         var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new ApiRequest() { VehicleNumber = vehicleNumber });
-        string res = await vehicleResponse.Content.ReadAsStringAsync();
-        var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<VehicleVM>(res);
-        if (vehicle.Type == "emergency")
+        try
         {
-            var getEmergencyCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Emergency/FMS/CheckList", new ApiRequest() { VehicleNumber = vehicleNumber });
-            if (getEmergencyCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
+            string res = await vehicleResponse.Content.ReadAsStringAsync();
+            var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<VehicleVM>(res);
+            if (vehicle.Type == "emergency")
             {
-                emergencyCheckList = JsonConvert.DeserializeObject<List<FMSEmergencyCheckVM>>(await getEmergencyCheckListResponse.Content.ReadAsStringAsync());
-                ShowEmergencyCheckList(emergencyCheckList);
+                var getEmergencyCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Emergency/FMS/CheckList", new ApiRequest() { VehicleNumber = vehicleNumber });
+                if (getEmergencyCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    emergencyCheckList = JsonConvert.DeserializeObject<List<FMSEmergencyCheckVM>>(await getEmergencyCheckListResponse.Content.ReadAsStringAsync());
+                    ShowEmergencyCheckList(emergencyCheckList);
+                }
+                else
+                {
+                }
             }
             else
             {
+                ConfirmEmergencyDlgVisible = true;
             }
+            StateHasChanged();
         }
-        else
+        catch (Exception ex)
         {
-            ConfirmEmergencyDlgVisible = true;
+
+            throw;
         }
-        StateHasChanged();
     }
     [JSInvokable]
     public async void Accidental_JSInvoked(string vehicleNumber)
