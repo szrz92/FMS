@@ -116,7 +116,7 @@ namespace SOS.FMS.Server.Controllers
                     VehicleNumber = emergency.VehicleNumber,
                     SubRegionId = dbContext.SubRegions.Where(x => x.XDescription == vehicle.SubRegion).SingleOrDefault().Id,
                     FMSVehicleId = vehicle.Id,
-                    MaintenanceStatus = emergency.MaintenanceStatus == "Done" ? MaintenanceStatus.Done : MaintenanceStatus.NotInitiated,
+                    MaintenanceStatus = MaintenanceStatus.NotInitiated,
                     TimeStamp = DateTime.Now,
                     LastUpdated = DateTime.Now
 
@@ -338,6 +338,7 @@ namespace SOS.FMS.Server.Controllers
                                       where v.VehicleNumber == vehicle.VehicleNumber
                                       select v).SingleOrDefault();
                 fmsVehicle.Status = "maintained";
+                fmsVehicle.EmergencyStatus = EmergencyMaintenanceStatus.Done;
 
                 dbContext.SaveChanges();
 
@@ -384,7 +385,7 @@ namespace SOS.FMS.Server.Controllers
                     emergency.JobClosingTime = PakistanDateTime.Now;
                     emergency.LastUpdated = PakistanDateTime.Now;
                 }
-
+                fmsVehicle.EmergencyStatus = EmergencyMaintenanceStatus.Done;
                 if (fmsVehicle.AccidentalStatus == AccidentalMaintenanceStatus.Pending)
                 {
                     fmsVehicle.Status = "accidental";
