@@ -48,26 +48,26 @@ namespace SOS.FMS.Server.Services
             {
                 var context = scope.ServiceProvider.GetService<SOS_VIEWSContext>();
 
-                //var users = (from u in context.PayEmployeeMasters select u).ToList();
-                //SyncUsers(users, scope);
+                var users = (from u in context.PayEmployeeMasters select u).ToList();
+                SyncUsers(users, scope);
 
-                //var regions = (from r in context.RbRegions select r).ToList();
-                //SyncRegions(regions, scope);
+                var regions = (from r in context.RbRegions select r).ToList();
+                SyncRegions(regions, scope);
 
-                //var subregions = (from s in context.RbSubRegions select s).ToList();
-                //SyncSubRegions(subregions, scope);
+                var subregions = (from s in context.RbSubRegions select s).ToList();
+                SyncSubRegions(subregions, scope);
 
-                //var vehicles = (from v in context.RbVehicles select v).ToList();
-                //SyncVehicles(vehicles, scope);
+                var vehicles = (from v in context.RbVehicles select v).ToList();
+                SyncVehicles(vehicles, scope);
 
-                //var vehicletypes = (from t in context.RbVehicleTypes select t).ToList();
-                //SyncVehicleTypes(vehicletypes, scope);
+                var vehicletypes = (from t in context.RbVehicleTypes select t).ToList();
+                SyncVehicleTypes(vehicletypes, scope);
 
-                //var zones = (from z in context.RbZones select z).ToList();
-                //SyncZones(zones, scope);
+                var zones = (from z in context.RbZones select z).ToList();
+                SyncZones(zones, scope);
 
-                //var stations = (from s in context.RbStations select s).ToList();
-                //SyncStations(stations, scope);
+                var stations = (from s in context.RbStations select s).ToList();
+                SyncStations(stations, scope);
 
                 var drivers = (from d in context.PdwEmployeeMasters
                                where d.XDesignationDescription.Contains("river")

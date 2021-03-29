@@ -53,19 +53,19 @@ namespace SOS.FMS.Server
                 };
             });
             services.AddControllers().AddNewtonsoftJson();
-            //
+
             services.AddScoped<ICronJobScopedService, CronJobScopedService>();
 
             services.AddCronJob<GbmsSyncCronJob>(c =>
             {
                 c.TimeZoneInfo = TimeZoneInfo.Local;
-                c.CronExpression = @"*/20 * * * *";
+                c.CronExpression = @"*/1 * * * *";
             });
-            services.AddCronJob<PeriodicCronJob>(c =>
-            {
-                c.TimeZoneInfo = TimeZoneInfo.Local;
-                c.CronExpression = @"*/25 * * * *";
-            });
+            //services.AddCronJob<PeriodicCronJob>(c =>
+            //{
+            //    c.TimeZoneInfo = TimeZoneInfo.Local;
+            //    c.CronExpression = @"*/2 * * * *";
+            //});
 
             services.AddSignalR();
 

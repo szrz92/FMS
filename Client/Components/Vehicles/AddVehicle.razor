@@ -45,13 +45,13 @@
             <div class="form-group row">
                 <div class="col-lg-6">
                     <label>IMEI Number:</label>
-                    <SfNumericTextBox @bind-Value="vehicle.IMEI" Placeholder="Enter IMEI" class="form-control"></SfNumericTextBox>
+                    <SfTextBox Type="InputType.Number" @bind-Value="vehicle.IMEI" Placeholder="Enter IMEI" class="form-control"></SfTextBox>
                     @*<span class="form-text text-muted">Please enter your contact number</span>*@
                     <ValidationMessage For="() => vehicle.IMEI" />
                 </div>
                 <div class="col-lg-6">
                     <label>SIM Number:</label>
-                    <SfNumericTextBox Type="InputType.Text" @bind-Value="vehicle.SIM" Placeholder="Enter SIM Number" class="form-control"></SfNumericTextBox>
+                    <SfTextBox Type="InputType.Number" @bind-Value="vehicle.SIM" Placeholder="Enter SIM Number" class="form-control"></SfTextBox>
                     <ValidationMessage For="() => vehicle.SIM" />
 
                     @*<span class="form-text text-muted">Please enter your address</span>*@
@@ -60,7 +60,7 @@
             <div class="form-group row">
                 <div class="col-lg-6">
                     <label>PSO Card:</label>
-                    <SfNumericTextBox @bind-Value="vehicle.CardNumber" Placeholder="Enter Card Number" class="form-control"></SfNumericTextBox>
+                    <SfTextBox Type="InputType.Number" @bind-Value="vehicle.CardNumber" Placeholder="Enter Card Number" class="form-control"></SfTextBox>
                     <ValidationMessage For="() => vehicle.CardNumber" />
                 </div>
             </div>

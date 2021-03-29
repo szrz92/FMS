@@ -12,8 +12,8 @@ namespace SOS.FMS.Server.Models
         [Key]
         public Guid Id { get; set; }
         public string VehicleNumber { get; set; }
-        public long IMEI { get; set; }
-        public long SIM { get; set; }
+        public string IMEI { get; set; }
+        public string SIM { get; set; }
         public string Region { get; set; }
         public string SubRegion { get; set; }
         public bool Active { get; set; }

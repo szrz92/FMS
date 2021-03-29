@@ -96,6 +96,8 @@ namespace SOS.FMS.Server.Controllers
                                             SubRegion = v.SubRegion,
                                             VehicleNumber = v.VehicleNumber,
                                             Type = v.Status,
+                                            GasolineType=v.GasolineType,
+                                            CardNumber=v.CardNumber,
                                             PeriodicRemarks = v.PeriodicStatus == Shared.Enums.PeriodicMaintenanceStatus.Done ? "Periodically Maintained" : "Periodic Maintenance Pending"
                                         }).SingleOrDefault();
                 return Ok(rbVehicles);
@@ -314,13 +316,13 @@ namespace SOS.FMS.Server.Controllers
                                 Breakdowns = 0,
                                 CostThisMonth = 0,
                                 Distance = 0,
-                                IMEI = 111222333444555,
+                                IMEI = "111222333444555",
                                 PeriodicStatus = Shared.Enums.PeriodicMaintenanceStatus.Pending,
                                 Ranking = 0,
                                 Region = "North Region-1",
                                 SubRegion = "Islamabad",
                                 Score = 135,
-                                SIM = 0320000000,
+                                SIM = "0320000000",
                                 Status = "maintained",
                                 VehicleNumber = "MNS-18-946"
                             },
@@ -332,13 +334,13 @@ namespace SOS.FMS.Server.Controllers
                                 Breakdowns = 0,
                                 CostThisMonth = 0,
                                 Distance = 0,
-                                IMEI = 111222333444555,
+                                IMEI = "111222333444555",
                                 PeriodicStatus = Shared.Enums.PeriodicMaintenanceStatus.Pending,
                                 Ranking = 0,
                                 Region = "Central Region-6",
                                 SubRegion = "Lahore",
                                 Score = 135,
-                                SIM = 0320000000,
+                                SIM = "0320000000",
                                 Status = "maintained",
                                 VehicleNumber = "MNS-19-9009"
                             }
@@ -365,13 +367,13 @@ namespace SOS.FMS.Server.Controllers
                                 Breakdowns = 0,
                                 CostThisMonth = 0,
                                 Distance = 0,
-                                IMEI = 111222333444555,
+                                IMEI = "111222333444555",
                                 PeriodicStatus = Shared.Enums.PeriodicMaintenanceStatus.Pending,
                                 Ranking = 0,
                                 Region = "North Region-1",
                                 SubRegion = "Islamabad",
                                 Score = 135,
-                                SIM = 0320000000,
+                                SIM = "0320000000",
                                 Status = "maintained",
                                 VehicleNumber = "MNS-18-946"
                             },
@@ -383,13 +385,13 @@ namespace SOS.FMS.Server.Controllers
                                 Breakdowns = 0,
                                 CostThisMonth = 0,
                                 Distance = 0,
-                                IMEI = 111222333444555,
+                                IMEI = "111222333444555",
                                 PeriodicStatus = Shared.Enums.PeriodicMaintenanceStatus.Pending,
                                 Ranking = 0,
                                 Region = "Central Region-6",
                                 SubRegion = "Lahore",
                                 Score = 135,
-                                SIM = 0320000000,
+                                SIM = "0320000000",
                                 Status = "maintained",
                                 VehicleNumber = "MNS-19-9009"
                             }

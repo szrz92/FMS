@@ -17,10 +17,10 @@ namespace SOS.FMS.Shared.ViewModels
         public string DriverName { get; set; }
         [Required]
         [RegularExpression(@"^[0-9]{15}(,[0-9]{15})*$", ErrorMessage = "Invalid IMEI Number.")]
-        public long IMEI { get; set; }
+        public string IMEI { get; set; }
         [Required]
         //[RegularExpression(@"03[0-9]{2}-(?!1234567)(?!1111111)(?!7654321)[0-9]{7}", ErrorMessage = "Invalid Sim Number.")]
-        public long SIM { get; set; }
+        public string SIM { get; set; }
         [Required]
         public string Region { get; set; }
         [Required]
