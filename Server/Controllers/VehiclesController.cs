@@ -98,7 +98,10 @@ namespace SOS.FMS.Server.Controllers
                                             Type = v.Status,
                                             GasolineType = v.GasolineType,
                                             CardNumber = v.CardNumber,
-                                            PeriodicRemarks = v.PeriodicStatus == Shared.Enums.PeriodicMaintenanceStatus.Done ? "Periodically Maintained" : "Periodic Maintenance Pending"
+                                            PeriodicRemarks = v.PeriodicStatus == Shared.Enums.PeriodicMaintenanceStatus.Done ? "Periodically Maintained" : "Periodic Maintenance Pending",
+                                            AccidentalStatus = v.AccidentalStatus,
+                                            EmergencyStatus = v.EmergencyStatus,
+                                            PeriodicStatus = v.PeriodicStatus
                                         }).SingleOrDefault();
                 return Ok(rbVehicles);
             }

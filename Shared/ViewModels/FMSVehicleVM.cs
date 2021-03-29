@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SOS.FMS.Shared.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -44,5 +45,8 @@ namespace SOS.FMS.Shared.ViewModels
         public int NumberOfTripsToday { get; set; }
         public int Score { get; set; }
         public string PeriodicRemarks { get; set; }
+        public PeriodicMaintenanceStatus PeriodicStatus { get; set; }
+        public AccidentalMaintenanceStatus AccidentalStatus { get; set; }
+        public EmergencyMaintenanceStatus EmergencyStatus { get; set; }
     }
 }

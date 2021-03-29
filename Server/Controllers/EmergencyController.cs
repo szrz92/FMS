@@ -94,10 +94,6 @@ namespace SOS.FMS.Server.Controllers
         {
             try
             {
-                Vehicle fmsVehicle = (from v in dbContext.Vehicles
-                                      where v.VehicleNumber == emergency.VehicleNumber
-                                      select v).SingleOrDefault();
-
                 Guid emergencyId = Guid.NewGuid();
                 Vehicle vehicle = await (from v in dbContext.Vehicles where v.VehicleNumber == emergency.VehicleNumber select v).SingleOrDefaultAsync();
                 Driver driver = await (from d in dbContext.Drivers where d.VehicleNumber == emergency.VehicleNumber select d).SingleOrDefaultAsync();
@@ -106,6 +102,8 @@ namespace SOS.FMS.Server.Controllers
                 driver.Emergencies++;
 
                 vehicle.EmergencyStatus = EmergencyMaintenanceStatus.Pending;
+                if (vehicle.Status != "accidental")
+                    vehicle.Status = "emergency";
 
                 Emergency newEmergency = new()
                 {
@@ -122,9 +120,6 @@ namespace SOS.FMS.Server.Controllers
 
                 };
                 await dbContext.Emergencies.AddAsync(newEmergency);
-                await dbContext.SaveChangesAsync();
-                vehicle.Status = "emergency";
-                await dbContext.SaveChangesAsync();
 
                 List<string> descriptionList = new()
                 {
