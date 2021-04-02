@@ -199,6 +199,11 @@
                     { new ByteArrayContent(file.Stream.GetBuffer()), CheckPointId.FMSAccidentalCheckId.ToString(), file.FileInfo.Name}
                 };
             var filepath = await Http.PostAsync("api/Files/Save", content);
+            if (filepath.IsSuccessStatusCode)
+            {
+                await LoadData();
+                StateHasChanged();
+            }
         }
         await LoadData();
     }
