@@ -73,7 +73,7 @@
                 <div class="control-wrapper">
                     <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a region" AllowFiltering="true" DataSource="@regionsList" @bind-Value="Filter.Region">
                         <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
-                        <DropDownListEvents TValue="string" ValueChange="OnRegionChange"></DropDownListEvents>
+                        @*<DropDownListEvents TValue="string" ValueChange="OnRegionChange"></DropDownListEvents>*@
                     </SfDropDownList>
                 </div>
             </div>
@@ -81,7 +81,7 @@
                 <div class="control-wrapper">
                     <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a subregion" AllowFiltering="true" DataSource="@subRegionsList" @bind-Value="Filter.SubRegion">
                         <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
-                        <DropDownListEvents TValue="string" ValueChange="OnSubRegionChange"></DropDownListEvents>
+                        @*<DropDownListEvents TValue="string" ValueChange="OnSubRegionChange"></DropDownListEvents>*@
                     </SfDropDownList>
                 </div>
             </div>
@@ -89,7 +89,7 @@
                 <div class="control-wrapper">
                     <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a station" AllowFiltering="true" DataSource="@stationList" @bind-Value="Filter.Station">
                         <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
-                        <DropDownListEvents TValue="string" ValueChange="OnStationChange"></DropDownListEvents>
+                        @*<DropDownListEvents TValue="string" ValueChange="OnStationChange"></DropDownListEvents>*@
                     </SfDropDownList>
                 </div>
             </div>
@@ -98,7 +98,7 @@
                 <div class="control-wrapper">
                     <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a vehicle" AllowFiltering="true" DataSource="@vehicleNumbersList" @bind-Value="Filter.VehicleNumber">
                         <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
-                        <DropDownListEvents TValue="string" ValueChange="OnVehicleNumberChange"></DropDownListEvents>
+                        @*<DropDownListEvents TValue="string" ValueChange="OnVehicleNumberChange"></DropDownListEvents>*@
                     </SfDropDownList>
                 </div>
             </div>
@@ -348,7 +348,7 @@
     public async void ResetData()
     {
         Filter = new VehicleVM();
-        regionsList = vehiclesList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        //regionsList = vehiclesList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         filteredVehiclesList = vehiclesList;
         await JSRuntime.InvokeVoidAsync("updateMarkers", dotNetObjectReference, filteredVehiclesList);
     }
@@ -361,14 +361,14 @@
         //stationList = vehiclesList.Where(x => x.Region == args.Value).GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         //StateHasChanged();
     }
-    public async Task OnSubRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    public void OnSubRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
     {
         //Filter.Region = vehiclesList.Where(x => x.SubRegion == args.Value).FirstOrDefault().Region;
         stationList = vehiclesList.Where(x => x.SubRegion == args.Value).GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         // vehicleNumbersList = vehiclesList.Where(x => x.SubRegion == args.Value)
         //.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
     }
-    public async Task OnStationChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    public void OnStationChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
     {
         //Filter.Region = vehiclesList.Where(x => x.Station == args.Value).FirstOrDefault().Region;
         //Filter.SubRegion = vehiclesList.Where(x => x.Station == args.Value).FirstOrDefault().SubRegion;
@@ -376,7 +376,7 @@
         .GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
     }
 
-    public async Task OnVehicleNumberChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    public void OnVehicleNumberChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
     {
         //Filter.Region = vehiclesList.Where(x => x.VehicleNumber == args.Value).FirstOrDefault().Region;
         //Filter.SubRegion = vehiclesList.Where(x => x.VehicleNumber == args.Value).FirstOrDefault().SubRegion;
@@ -400,10 +400,10 @@
         dotNetObjectReference = DotNetObjectReference.Create(this);
         //vehiclesList = await Http.GetFromJsonAsync<List<VehicleVM>>("api/Vehicles/FMS/Demo/All");
         vehiclesList = await Http.GetFromJsonAsync<List<VehicleVM>>("api/Vehicles/FMS/All");
-        //vehicleNumbersList = vehiclesList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        vehicleNumbersList = vehiclesList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         regionsList = vehiclesList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        //subRegionsList = vehiclesList.GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        //stationList= vehiclesList.GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        subRegionsList = vehiclesList.GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        stationList= vehiclesList.GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         filteredVehiclesList = vehiclesList;
         CountVehicles(filteredVehiclesList);
         StartTimer();
