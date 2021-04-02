@@ -33,6 +33,12 @@
                                     <ValidationMessage For="() => ApplicationUser.SubRegion" />
                                 </div>
                                 <div class="form-group">
+                                    <label>Station:</label>
+                                    <SfTextBox Type="InputType.Text" @bind-Value="ApplicationUser.Station" Placeholder="Enter Station" Readonly="true"></SfTextBox>
+                                    <span class="form-text text-muted">Please select a station.</span>
+                                    <ValidationMessage For="() => ApplicationUser.Station" />
+                                </div>
+                                <div class="form-group">
                                     <label>User:</label>
                                     <SfTextBox Type="InputType.Text" @bind-Value="ApplicationUser.FullName" Placeholder="Enter Name" Readonly="true"></SfTextBox>
                                     <span class="form-text text-muted">Please select a user.</span>

@@ -195,7 +195,11 @@ using Microsoft.AspNetCore.SignalR.Client;
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 3 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\AddBillDetails.razor"
+=======
+#line 3 "C:\Users\Btech\Source\Repos\fms\Client\Components\Accident\AddBillDetails.razor"
+>>>>>>> 5f22471a3e6a0d1b6befffd3b54e4932bd769192
 using SOS.FMS.Shared.ViewModels.Incident;
 
 #line default
@@ -209,8 +213,13 @@ using SOS.FMS.Shared.ViewModels.Incident;
         }
         #pragma warning restore 1998
 #nullable restore
+<<<<<<< HEAD
 #line 57 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\AddBillDetails.razor"
+=======
+#line 57 "C:\Users\Btech\Source\Repos\fms\Client\Components\Accident\AddBillDetails.razor"
+>>>>>>> 5f22471a3e6a0d1b6befffd3b54e4932bd769192
        
+
     [Parameter]
     public ApiRequest CheckPointId { get; set; }
     [Parameter]
@@ -252,14 +261,18 @@ using SOS.FMS.Shared.ViewModels.Incident;
 
     public async void OnValidSubmit()
     {
-        var submitResponse = await Http.PostAsJsonAsync("api/Accident/PostBillDetail", BillDetail);
-        if (submitResponse.IsSuccessStatusCode)
+        if(BillDetail.ServiceType!=null && BillDetail.SubServiceType!=null&& BillDetail.Amount != 0)
         {
-            await Close();
+            var submitResponse = await Http.PostAsJsonAsync("api/Accident/PostBillDetail", BillDetail);
+            if (submitResponse.IsSuccessStatusCode)
+            {
+                await Close();
+            }
+            else
+            {
+            }
         }
-        else
-        {
-        }
+
     }
 
     public Task Close()

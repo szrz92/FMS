@@ -35,8 +35,8 @@
     </div>
 </div>
 @code {
-    [Parameter]
-    public EventCallback<string> OnImagePost { get; set; }
+        [Parameter]
+        public EventCallback<string> OnImagePost { get; set; }
 
     public string displayImage;
     private IList<string> imageDataUrls = new List<string>();
@@ -44,7 +44,7 @@
     {
         displayImage = item;
     }
-
+    
 
     private async Task OnInputFileChange(InputFileChangeEventArgs e)
     {

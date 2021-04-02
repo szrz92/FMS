@@ -35,9 +35,19 @@
                                         <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
                                         <DropDownListEvents TValue="string" ValueChange="OnSubRegionChange"></DropDownListEvents>
                                     </SfDropDownList>
-                                    <span class="form-text text-muted">Please select a station.</span>
+                                    <span class="form-text text-muted">Please select a subregion.</span>
                                     <ValidationMessage For="() => ApplicationUser.SubRegion" />
                                 </div>
+                                <div class="form-group">
+                                    <label>Select Station:</label>
+                                    <SfDropDownList TItem="SelectListItem" TValue="string" PopupHeight="230px" AllowFiltering="true" Placeholder="Select a station" @bind-Value="@ApplicationUser.Station" DataSource="@Stations">
+                                        <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                                        <DropDownListEvents TValue="string" ValueChange="OnStationChange"></DropDownListEvents>
+                                    </SfDropDownList>
+                                    <span class="form-text text-muted">Please select a station.</span>
+                                    <ValidationMessage For="() => ApplicationUser.Station" />
+                                </div>
+
                                 <div class="form-group">
                                     <label>Select User:</label>
                                     <SfDropDownList TItem="GBMSUserVM" TValue="string" PopupHeight="230px" AllowFiltering="true" Placeholder="Select a user" @bind-Value="@ApplicationUser.Id" DataSource="@FilteredUsersList">
@@ -139,6 +149,8 @@
     public List<SelectListItem> RegionsList = new List<SelectListItem>();
 
     public List<SelectListItem> SubRegions = new List<SelectListItem>();
+    public List<SelectListItem> Stations = new List<SelectListItem>();
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -150,6 +162,8 @@
         RegionsList = UsersList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
                             .ToList();
         SubRegions = UsersList.GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
+                        .ToList();
+        Stations = UsersList.GroupBy(x => x.station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
                         .ToList();
 
         await base.OnInitializedAsync();
@@ -197,13 +211,24 @@
     {
         SubRegions = UsersList.Where(x => x.Region == args.Value).GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
                         .ToList();
+        Stations = UsersList.Where(x => x.Region == args.Value).GroupBy(x => x.station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
+                        .ToList();
         FilteredUsersList = UsersList.Where(x => x.Region == args.Value).ToList();
         StateHasChanged();
     }
     public async Task OnSubRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
     {
+        Stations = UsersList.Where(x => x.SubRegion == args.Value).GroupBy(x => x.station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
+                       .ToList();
         ApplicationUser.Region = UsersList.Where(x => x.SubRegion == args.Value).FirstOrDefault().Region;
         FilteredUsersList = UsersList.Where(x => x.SubRegion == args.Value).ToList();
+    }
+    public async Task OnStationChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        ApplicationUser.Region = UsersList.Where(x => x.station == args.Value).FirstOrDefault().Region;
+        ApplicationUser.SubRegion = UsersList.Where(x => x.station == args.Value).FirstOrDefault().SubRegion;
+
+        FilteredUsersList = UsersList.Where(x => x.station == args.Value).ToList();
     }
 
     public void OnNameSelectionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
@@ -213,6 +238,7 @@
         ApplicationUser.FullName = user.Name;
         ApplicationUser.SubRegion = user.SubRegion;
         ApplicationUser.Region = user.Region;
+        ApplicationUser.Station = user.station;
         if (!string.IsNullOrEmpty(user.OfficialEmail)) ApplicationUser.Email = user.OfficialEmail;
         else ApplicationUser.Email = string.Empty;
         StateHasChanged();

@@ -202,8 +202,7 @@
     {
         var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new VehicleVM() { VehicleNumber = VehicleNumber });
         var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<VehicleVM>(await vehicleResponse.Content.ReadAsStringAsync());
-        if (vehicle.Type == "emergency")
-        {
+
             var getEmergencyCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Emergency/FMS/CheckList", new ApiRequest() { VehicleNumber = VehicleNumber });
 
             if (getEmergencyCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
@@ -214,10 +213,7 @@
             else
             {
             }
-        }
-        else
-        {
-        }
+ 
         StateHasChanged();
     }
 
@@ -246,6 +242,7 @@
     #endregion
     #region Assign Work Shop
     public bool assignWorkShopVisible { get; set; } = false;
+
     public void ShowHideAssignWorkshop()
     {
         assignWorkShopVisible = !assignWorkShopVisible;

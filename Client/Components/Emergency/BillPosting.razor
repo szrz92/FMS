@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <SfNumericTextBox @bind-Value="bill.BillAmount" class="form-control"></SfNumericTextBox>
+                                        <SfNumericTextBox @bind-Value="bill.BillAmount" class="form-control" Enabled="false"></SfNumericTextBox>
                                         <span class="form-text text-muted">Please enter total amount paid</span>
                                     </div>
                                 </div>
@@ -59,6 +59,7 @@
                                         <SfTextBox @bind-Value="bill.Remarks" class="form-control" Multiline="true"></SfTextBox>
                                         <span class="form-text text-muted">Please enter remarks</span>
                                     </div>
+                                    <button type="submit" class="btn btn-fms">POST</button>
                                 </div>
                             </div>
                             <div class="card">
@@ -176,8 +177,7 @@
 
         if (postBillResponse.StatusCode == System.Net.HttpStatusCode.OK)
         {
-            BillsList = await GetBills();
-            StateHasChanged();
+            await CloseBillPosting();
         }
         else
         {
@@ -195,17 +195,18 @@
                 };
             var filepath = await Http.PostAsync("api/Files/Save", content);
         }
+        await LoadData();
 
     }
 
 
     #region Add to bill
     public bool addVisible { get; set; } = false;
-    public void ShowHideAddModal(bool status)
+    public async void ShowHideAddModal(bool status)
     {
         LoaderOn();
         addVisible = status;
-        //if (!addVisible) ReloadCheckList();
+        await LoadData();
         StateHasChanged();
     }
     public void ShowAddModal()

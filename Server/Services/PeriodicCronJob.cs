@@ -109,7 +109,8 @@ namespace SOS.FMS.Server.Services
                                 MonthLimit = c.Month,
                                 VehicleNumber = vehicle.VehicleNumber,
                                 Region = driver.Region,
-                                SubRegion = driver.SubRegion
+                                SubRegion = driver.SubRegion,
+                                Station = driver.Station
                             }).FirstOrDefault();
                         periodicHistory.Add(history);
                     }

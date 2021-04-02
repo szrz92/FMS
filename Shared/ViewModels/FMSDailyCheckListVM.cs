@@ -13,6 +13,7 @@ namespace SOS.FMS.Shared.ViewModels
         public string DriverName { get; set; }
         public string Region { get; set; }
         public string Subregion { get; set; }
+        public string Station { get; set; }
         public string Category { get; set; }
         public string SubCategeory { get; set; }
         public string Remarks { get; set; }

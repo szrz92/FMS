@@ -50,6 +50,8 @@ namespace SOS.FMS.Server.Controllers
                                         VehicleNumber = crew.vehicle,
                                         Region = dbContext.Vehicles.Where(x=>x.VehicleNumber == crew.vehicle).FirstOrDefault().Region,
                                         SubRegion = dbContext.Vehicles.Where(x => x.VehicleNumber == crew.vehicle).FirstOrDefault().SubRegion,
+                                        Station = dbContext.Vehicles.Where(x => x.VehicleNumber == crew.vehicle).FirstOrDefault().Station,
+
                                         Score = 100
                                     };
                                     await dbContext.Drivers.AddAsync(driver);
@@ -119,6 +121,10 @@ namespace SOS.FMS.Server.Controllers
                                                      select s.XRegionDescription).SingleOrDefault();
                                     driver.SubRegion = (from v in dbContext.GBMSVehicles
                                                         join s in dbContext.SubRegions on v.Location equals s.XDescription
+                                                        where v.Description == crew.vehicle
+                                                        select s.XDescription).SingleOrDefault();
+                                    driver.Station = (from v in dbContext.GBMSVehicles
+                                                        join s in dbContext.Stations on v.Location equals s.XDescription
                                                         where v.Description == crew.vehicle
                                                         select s.XDescription).SingleOrDefault();
                                 }

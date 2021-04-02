@@ -10,11 +10,12 @@ namespace SOS.FMS.Server.GBMSModels
     {
         public SOS_VIEWSContext()
         {
-        }
 
+        }
         public SOS_VIEWSContext(DbContextOptions<SOS_VIEWSContext> options)
             : base(options)
         {
+
         }
 
         public virtual DbSet<Dbview> Dbviews { get; set; }

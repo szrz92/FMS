@@ -202,7 +202,11 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
+<<<<<<< HEAD
 #line 58 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\AssigningWorkshop.razor"
+=======
+#line 65 "C:\Users\Btech\Source\Repos\fms\Client\Components\Accident\AssigningWorkshop.razor"
+>>>>>>> 5f22471a3e6a0d1b6befffd3b54e4932bd769192
        
     [Parameter]
     public ApiRequest CheckPointId { get; set; }
@@ -256,6 +260,8 @@ using Microsoft.AspNetCore.SignalR.Client;
         if (args.Value != null)
         {
             readOnly = false;
+            WorkshopVM.Type = args.Value;
+            StateHasChanged();
         }
     }
 
@@ -267,6 +273,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         {
             readOnly = true;
             loading = false;
+            await Close();
         }
         else
         {

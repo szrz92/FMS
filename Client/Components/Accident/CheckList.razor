@@ -177,6 +177,7 @@
     public bool commentBoxVisible { get; set; } = false;
     public ApiRequest PointId { get; set; }
     FMSAccidentalCommentModalVM AccidentalCommentModal;
+
     public void ShowHideCommentBox()
     {
         commentBoxVisible = !commentBoxVisible;
@@ -198,6 +199,7 @@
     #endregion
     #region Assign Work Shop
     public bool assignWorkShopVisible { get; set; } = false;
+
     public void ShowHideAssignWorkshop()
     {
         assignWorkShopVisible = !assignWorkShopVisible;
@@ -266,8 +268,7 @@
     {
         var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new VehicleVM() { VehicleNumber = VehicleNumber });
         var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<VehicleVM>(await vehicleResponse.Content.ReadAsStringAsync());
-        if (vehicle.Type == "accidental")
-        {
+
             var getAccidentalCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/FMS/CheckList", new ApiRequest() { VehicleNumber = VehicleNumber });
 
             if (getAccidentalCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
@@ -279,11 +280,7 @@
             else
             {
             }
-        }
-        else
-        {
-            //ConfirmAccidentDlgVisible = true;
-        }
+
         StateHasChanged();
     }
     #region Dialog

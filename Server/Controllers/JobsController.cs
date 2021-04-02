@@ -138,6 +138,7 @@ namespace SOS.FMS.Server.Controllers
                         Accidents = await (from a in dbContext.Accidents
                                            join r in dbContext.Regions on a.RegionId equals r.Id
                                            join s in dbContext.SubRegions on a.SubRegionId equals s.Id
+                                           join st in dbContext.Stations on a.StationId equals st.Id
                                            join d in dbContext.Drivers on a.DriverId equals d.Id
                                            where a.MaintenanceStatus == Shared.Enums.MaintenanceStatus.Done
                                            select new FMSJobsVM()
@@ -147,6 +148,7 @@ namespace SOS.FMS.Server.Controllers
                                                MaintenanceStatus = a.MaintenanceStatus.ToString(),
                                                Region = r.XDescription,
                                                SubRegion = s.XDescription,
+                                               Station = st.XDescription,
                                                VehicleNumber = a.VehicleNumber,
                                                JobType = "Accidental",
                                                LastUpdated = a.LastUpdated
@@ -154,6 +156,7 @@ namespace SOS.FMS.Server.Controllers
                         Emergencies = await (from e in dbContext.Emergencies
                                              join r in dbContext.Regions on e.RegionId equals r.Id
                                              join s in dbContext.SubRegions on e.SubRegionId equals s.Id
+                                             join st in dbContext.Stations on e.StationId equals st.Id
                                              join d in dbContext.Drivers on e.DriverId equals d.Id
                                              where e.MaintenanceStatus == Shared.Enums.MaintenanceStatus.Done
                                              select new FMSJobsVM()
@@ -163,6 +166,7 @@ namespace SOS.FMS.Server.Controllers
                                                  MaintenanceStatus = e.MaintenanceStatus.ToString(),
                                                  Region = r.XDescription,
                                                  SubRegion = s.XDescription,
+                                                 Station= st.XDescription,
                                                  VehicleNumber = e.VehicleNumber,
                                                  JobType = "Emergency",
                                                  LastUpdated = e.LastUpdated
@@ -175,6 +179,7 @@ namespace SOS.FMS.Server.Controllers
                         Accidents = await (from a in dbContext.Accidents
                                            join r in dbContext.Regions on a.RegionId equals r.Id
                                            join s in dbContext.SubRegions on a.SubRegionId equals s.Id
+                                           join st in dbContext.Stations on a.StationId equals st.Id
                                            join d in dbContext.Drivers on a.DriverId equals d.Id
                                            where a.MaintenanceStatus == Shared.Enums.MaintenanceStatus.Done
                                            && a.RegionId == region.Id
@@ -185,6 +190,7 @@ namespace SOS.FMS.Server.Controllers
                                                MaintenanceStatus = a.MaintenanceStatus.ToString(),
                                                Region = r.XDescription,
                                                SubRegion = s.XDescription,
+                                               Station=st.XDescription,
                                                VehicleNumber = a.VehicleNumber,
                                                JobType = "Accidental",
                                                LastUpdated = a.LastUpdated
@@ -192,6 +198,7 @@ namespace SOS.FMS.Server.Controllers
                         Emergencies = await (from e in dbContext.Emergencies
                                              join r in dbContext.Regions on e.RegionId equals r.Id
                                              join s in dbContext.SubRegions on e.SubRegionId equals s.Id
+                                             join st in dbContext.Stations on e.StationId equals st.Id
                                              join d in dbContext.Drivers on e.DriverId equals d.Id
                                              where e.MaintenanceStatus == Shared.Enums.MaintenanceStatus.Done
                                            && e.RegionId == region.Id
@@ -202,6 +209,7 @@ namespace SOS.FMS.Server.Controllers
                                                  MaintenanceStatus = e.MaintenanceStatus.ToString(),
                                                  Region = r.XDescription,
                                                  SubRegion = s.XDescription,
+                                                 Station=st.XDescription,
                                                  VehicleNumber = e.VehicleNumber,
                                                  JobType = "Emergency",
                                                  LastUpdated = e.LastUpdated
@@ -231,6 +239,7 @@ namespace SOS.FMS.Server.Controllers
                         Accidents = await (from a in dbContext.Accidents
                                            join r in dbContext.Regions on a.RegionId equals r.Id
                                            join s in dbContext.SubRegions on a.SubRegionId equals s.Id
+                                           join st in dbContext.Stations on a.StationId equals st.Id
                                            join d in dbContext.Drivers on a.DriverId equals d.Id
                                            where a.MaintenanceStatus == Shared.Enums.MaintenanceStatus.NotInitiated
                                            select new FMSJobsVM()
@@ -240,6 +249,7 @@ namespace SOS.FMS.Server.Controllers
                                                MaintenanceStatus = a.MaintenanceStatus.ToString(),
                                                Region = r.XDescription,
                                                SubRegion = s.XDescription,
+                                               Station=st.XDescription,
                                                VehicleNumber = a.VehicleNumber,
                                                JobType = "Accidental",
                                                LastUpdated = a.LastUpdated
@@ -247,6 +257,7 @@ namespace SOS.FMS.Server.Controllers
                         Emergencies = await (from e in dbContext.Emergencies
                                              join r in dbContext.Regions on e.RegionId equals r.Id
                                              join s in dbContext.SubRegions on e.SubRegionId equals s.Id
+                                             join st in dbContext.Stations on e.StationId equals st.Id
                                              join d in dbContext.Drivers on e.DriverId equals d.Id
                                              where e.MaintenanceStatus == Shared.Enums.MaintenanceStatus.NotInitiated
                                              select new FMSJobsVM()
@@ -256,6 +267,7 @@ namespace SOS.FMS.Server.Controllers
                                                  MaintenanceStatus = e.MaintenanceStatus.ToString(),
                                                  Region = r.XDescription,
                                                  SubRegion = s.XDescription,
+                                                 Station=st.XDescription,
                                                  VehicleNumber = e.VehicleNumber,
                                                  JobType = "Emergency",
                                                  LastUpdated = e.LastUpdated
@@ -268,6 +280,7 @@ namespace SOS.FMS.Server.Controllers
                         Accidents = await (from a in dbContext.Accidents
                                            join r in dbContext.Regions on a.RegionId equals r.Id
                                            join s in dbContext.SubRegions on a.SubRegionId equals s.Id
+                                           join st in dbContext.Stations on a.StationId equals st.Id
                                            join d in dbContext.Drivers on a.DriverId equals d.Id
                                            where a.MaintenanceStatus == Shared.Enums.MaintenanceStatus.NotInitiated
                                            && a.RegionId == region.Id
@@ -278,6 +291,7 @@ namespace SOS.FMS.Server.Controllers
                                                MaintenanceStatus = a.MaintenanceStatus.ToString(),
                                                Region = r.XDescription,
                                                SubRegion = s.XDescription,
+                                               Station=st.XDescription,
                                                VehicleNumber = a.VehicleNumber,
                                                JobType = "Accidental",
                                                LastUpdated = a.LastUpdated
@@ -285,6 +299,7 @@ namespace SOS.FMS.Server.Controllers
                         Emergencies = await (from e in dbContext.Emergencies
                                              join r in dbContext.Regions on e.RegionId equals r.Id
                                              join s in dbContext.SubRegions on e.SubRegionId equals s.Id
+                                             join st in dbContext.Stations on e.StationId equals st.Id
                                              join d in dbContext.Drivers on e.DriverId equals d.Id
                                              where e.MaintenanceStatus == Shared.Enums.MaintenanceStatus.NotInitiated
                                            && e.RegionId == region.Id
@@ -295,6 +310,7 @@ namespace SOS.FMS.Server.Controllers
                                                  MaintenanceStatus = e.MaintenanceStatus.ToString(),
                                                  Region = r.XDescription,
                                                  SubRegion = s.XDescription,
+                                                 Station=st.XDescription,
                                                  VehicleNumber = e.VehicleNumber,
                                                  JobType = "Emergency",
                                                  LastUpdated = e.LastUpdated
@@ -324,6 +340,7 @@ namespace SOS.FMS.Server.Controllers
                         Accidents = await (from a in dbContext.Accidents
                                            join r in dbContext.Regions on a.RegionId equals r.Id
                                            join s in dbContext.SubRegions on a.SubRegionId equals s.Id
+                                           join st in dbContext.Stations on a.StationId equals st.Id
                                            join d in dbContext.Drivers on a.DriverId equals d.Id
                                            select new FMSJobsVM()
                                            {
@@ -332,6 +349,7 @@ namespace SOS.FMS.Server.Controllers
                                                MaintenanceStatus = a.MaintenanceStatus.ToString(),
                                                Region = r.XDescription,
                                                SubRegion = s.XDescription,
+                                               Station = st.XDescription,
                                                VehicleNumber = a.VehicleNumber,
                                                JobType = "Accidental",
                                                LastUpdated = a.LastUpdated
@@ -339,6 +357,7 @@ namespace SOS.FMS.Server.Controllers
                         Emergencies = await (from e in dbContext.Emergencies
                                              join r in dbContext.Regions on e.RegionId equals r.Id
                                              join s in dbContext.SubRegions on e.SubRegionId equals s.Id
+                                             join st in dbContext.Stations on e.StationId equals st.Id
                                              join d in dbContext.Drivers on e.DriverId equals d.Id
                                              select new FMSJobsVM()
                                              {
@@ -347,6 +366,7 @@ namespace SOS.FMS.Server.Controllers
                                                  MaintenanceStatus = e.MaintenanceStatus.ToString(),
                                                  Region = r.XDescription,
                                                  SubRegion = s.XDescription,
+                                                 Station = st.XDescription,
                                                  VehicleNumber = e.VehicleNumber,
                                                  JobType = "Emergency",
                                                  LastUpdated = e.LastUpdated
@@ -359,6 +379,7 @@ namespace SOS.FMS.Server.Controllers
                         Accidents = await (from a in dbContext.Accidents
                                            join r in dbContext.Regions on a.RegionId equals r.Id
                                            join s in dbContext.SubRegions on a.SubRegionId equals s.Id
+                                           join st in dbContext.Stations on a.StationId equals st.Id
                                            join d in dbContext.Drivers on a.DriverId equals d.Id
                                            where a.RegionId == region.Id
                                            select new FMSJobsVM()
@@ -368,6 +389,7 @@ namespace SOS.FMS.Server.Controllers
                                                MaintenanceStatus = a.MaintenanceStatus.ToString(),
                                                Region = r.XDescription,
                                                SubRegion = s.XDescription,
+                                               Station = st.XDescription,
                                                VehicleNumber = a.VehicleNumber,
                                                JobType = "Accidental",
                                                LastUpdated = a.LastUpdated
@@ -375,6 +397,7 @@ namespace SOS.FMS.Server.Controllers
                         Emergencies = await (from e in dbContext.Emergencies
                                              join r in dbContext.Regions on e.RegionId equals r.Id
                                              join s in dbContext.SubRegions on e.SubRegionId equals s.Id
+                                             join st in dbContext.Stations on e.StationId equals st.Id
                                              join d in dbContext.Drivers on e.DriverId equals d.Id
                                              where e.RegionId == region.Id
                                              select new FMSJobsVM()
@@ -384,6 +407,7 @@ namespace SOS.FMS.Server.Controllers
                                                  MaintenanceStatus = e.MaintenanceStatus.ToString(),
                                                  Region = r.XDescription,
                                                  SubRegion = s.XDescription,
+                                                 Station=st.XDescription,
                                                  VehicleNumber = e.VehicleNumber,
                                                  JobType = "Emergency",
                                                  LastUpdated = e.LastUpdated

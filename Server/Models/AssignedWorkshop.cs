@@ -12,5 +12,7 @@ namespace SOS.FMS.Server.Models
         public string SupplierCode { get; set; }
         public string SupplierName { get; set; }
         public Guid IncidentId { get; set; }
+        public string Remarks { get; set; }
+
     }
 }

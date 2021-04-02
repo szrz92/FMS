@@ -22,6 +22,15 @@
         </div>
         <div class="mr-2">
             <div class="control-wrapper">
+                <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a station" AllowFiltering="true" DataSource="@stationList" @bind-Value="Filter.Station">
+                    <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                    <DropDownListEvents TValue="string" ValueChange="OnStationChange"></DropDownListEvents>
+                </SfDropDownList>
+            </div>
+        </div>
+
+        <div class="mr-2">
+            <div class="control-wrapper">
                 <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a status" @bind-Value="Filter.MaintenanceStatus" AllowFiltering="true" DataSource="@statusList">
                     <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
                 </SfDropDownList>
@@ -58,6 +67,7 @@
                                 <GridColumn Field=@nameof(FMSAccidentVM.Description) HeaderText="Description" Width="230"></GridColumn>
                                 <GridColumn Field=@nameof(FMSAccidentVM.Region) HeaderText="Region" Width="130"></GridColumn>
                                 <GridColumn Field=@nameof(FMSAccidentVM.SubRegion) HeaderText="Subregion" Width="130"></GridColumn>
+                                <GridColumn Field=@nameof(FMSAccidentVM.Station) HeaderText="Station" Width="130"></GridColumn>
                                 <GridColumn Field=@nameof(FMSAccidentVM.MaintenanceStatus) HeaderText="Maintenance" Width="130"></GridColumn>
                                 <GridColumn Field=@nameof(FMSAccidentVM.ReportTime) Format="dd/MM/yy hh:mm" Type="ColumnType.DateTime" HeaderText="Reported At" Width="130"></GridColumn>
                                 <GridColumn Field=@nameof(FMSAccidentVM.CarOperationalTime) Format="dd/MM/yy hh:mm" Type="ColumnType.DateTime" HeaderText="Operational At" Width="130"></GridColumn>
@@ -83,6 +93,8 @@ else
 
     public List<SelectListItem> regionsList { get; set; } = new List<SelectListItem>();
     public List<SelectListItem> subRegionsList { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> stationList { get; set; } = new List<SelectListItem>();
+
     public List<SelectListItem> statusList { get; set; } = new List<SelectListItem>();
     public List<SelectListItem> vehiclesList { get; set; } = new List<SelectListItem>();
     public FMSAccidentVM Filter { get; set; } = new FMSAccidentVM();
@@ -95,6 +107,8 @@ else
         FilteredAccidentsList = AccidentsList;
         regionsList = AccidentsList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         subRegionsList = AccidentsList.GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        stationList = AccidentsList.GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+
         statusList = AccidentsList.GroupBy(x => x.MaintenanceStatus).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         vehiclesList = AccidentsList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         await base.OnInitializedAsync();
@@ -110,6 +124,7 @@ else
         FilteredAccidentsList = AccidentsList
         .Where(x => (string.IsNullOrEmpty(Filter.Region) || x.Region == Filter.Region))
         .Where(x => (string.IsNullOrEmpty(Filter.SubRegion) || x.SubRegion == Filter.SubRegion))
+        .Where(x => (string.IsNullOrEmpty(Filter.Station) || x.Station == Filter.Station))
         .Where(x => (string.IsNullOrEmpty(Filter.MaintenanceStatus) || x.MaintenanceStatus == Filter.MaintenanceStatus))
         .Where(x => (string.IsNullOrEmpty(Filter.VehicleNumber) || x.VehicleNumber == Filter.VehicleNumber))
         .ToList();
@@ -123,8 +138,10 @@ else
             .Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         subRegionsList = AccidentsList.GroupBy(x => x.SubRegion)
             .Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        statusList = AccidentsList.GroupBy(x => x.MaintenanceStatus)
+        stationList = AccidentsList.GroupBy(x => x.Station)
             .Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        statusList = AccidentsList.GroupBy(x => x.MaintenanceStatus)
+        .Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         vehiclesList = AccidentsList.GroupBy(x => x.VehicleNumber)
             .Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         await InvokeAsync(() => StateHasChanged());
@@ -136,19 +153,33 @@ else
             .GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         subRegionsList = FilteredAccidentsList.Where(x => x.Region == args.Value)
             .GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        stationList = FilteredAccidentsList.Where(x => x.Region == args.Value)
+           .GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         StateHasChanged();
     }
     public async Task OnSubRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
     {
+        stationList = FilteredAccidentsList.Where(x => x.SubRegion == args.Value)
+            .GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         Filter.Region = FilteredAccidentsList.Where(x => x.SubRegion == args.Value).FirstOrDefault().Region;
         vehiclesList = FilteredAccidentsList.Where(x => x.SubRegion == args.Value)
             .GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+    }
+    public async Task OnStationChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        Filter.Region = FilteredAccidentsList.Where(x => x.Station == args.Value).FirstOrDefault().Region;
+        Filter.SubRegion = FilteredAccidentsList.Where(x => x.Station == args.Value).FirstOrDefault().SubRegion;
+
+        vehiclesList = FilteredAccidentsList.Where(x => x.Station == args.Value)
+        .GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
     }
 
     public async Task OnVehicleNumberChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
     {
         Filter.Region = FilteredAccidentsList.Where(x => x.VehicleNumber == args.Value).FirstOrDefault().Region;
         Filter.SubRegion = FilteredAccidentsList.Where(x => x.VehicleNumber == args.Value).FirstOrDefault().SubRegion;
+        Filter.Station = FilteredAccidentsList.Where(x => x.VehicleNumber == args.Value).FirstOrDefault().Station;
+
         Filter.MaintenanceStatus = FilteredAccidentsList.Where(x => x.VehicleNumber == args.Value).FirstOrDefault().MaintenanceStatus;
         StateHasChanged();
     }

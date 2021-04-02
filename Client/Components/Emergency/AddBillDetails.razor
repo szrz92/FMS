@@ -55,14 +55,14 @@
     </div>
 }
 @code {
-    [Parameter]
-    public ApiRequest CheckPointId { get; set; }
-    [Parameter]
-    public string VehicleNumber { get; set; }
-    [Parameter]
-    public bool Visible { get; set; }
-    [Parameter]
-    public EventCallback<bool> OnVisibilityChanged { get; set; }
+        [Parameter]
+        public ApiRequest CheckPointId { get; set; }
+        [Parameter]
+        public string VehicleNumber { get; set; }
+        [Parameter]
+        public bool Visible { get; set; }
+        [Parameter]
+        public EventCallback<bool> OnVisibilityChanged { get; set; }
 
     public BillDetailVM BillDetail { get; set; }
 
@@ -96,14 +96,17 @@
 
     public async void OnValidSubmit()
     {
-        var submitResponse = await Http.PostAsJsonAsync("api/Emergency/PostBillDetail", BillDetail);
-        if (submitResponse.IsSuccessStatusCode)
+        if (BillDetail.ServiceType != null && BillDetail.SubServiceType != null && BillDetail.Amount != 0)
         {
-            await Close();
-        }
-        else
-        {
-        }
+            var submitResponse = await Http.PostAsJsonAsync("api/Emergency/PostBillDetail", BillDetail);
+            if (submitResponse.IsSuccessStatusCode)
+            {
+                await Close();
+            }
+            else
+            {
+            }
+        } 
     }
 
     public Task Close()

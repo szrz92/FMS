@@ -231,6 +231,9 @@ namespace SOS.FMS.Server.Migrations
                     b.Property<Guid>("RegionId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("StationId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("SubRegionId")
                         .HasColumnType("uniqueidentifier");
 
@@ -319,6 +322,9 @@ namespace SOS.FMS.Server.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Station")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SubRegion")
                         .HasColumnType("nvarchar(max)");
 
@@ -346,16 +352,16 @@ namespace SOS.FMS.Server.Migrations
                         {
                             Id = "c58e1a9d-1c28-46db-830a-7b3f0b9663f1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "39d5a145-7839-4a87-a831-b5684070bee2",
+                            ConcurrencyStamp = "163b8072-2535-4fa9-9e70-94f4de4e557e",
                             Email = "z.raza@batech.com.pk",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             Name = "Zain Raza",
                             NormalizedEmail = "Z.RAZA@BATECH.COM.PK",
                             NormalizedUserName = "Z.RAZA@BATECH.COM.PK",
-                            PasswordHash = "AQAAAAEAACcQAAAAENdU1vxnoffY1vunlKWblqkKMfLraRrakHS2pQa/t3ya6e97PxgMIvrZygntjPk6BA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBm88kAAnMyBrDVTIgQQVkMJd/TE5zqTWrhpWOfCJlnesRqXmNxqZIqYA6dIcKIcpw==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "1185adde-47e1-43ff-93aa-42e52f47f43f",
+                            SecurityStamp = "d3e7fee6-d443-496d-ba71-47499f655681",
                             TwoFactorEnabled = false,
                             UserName = "z.raza@batech.com.pk"
                         });
@@ -369,6 +375,9 @@ namespace SOS.FMS.Server.Migrations
 
                     b.Property<Guid>("IncidentId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SupplierCode")
                         .HasColumnType("nvarchar(max)");
@@ -416,6 +425,9 @@ namespace SOS.FMS.Server.Migrations
 
                     b.Property<DateTime>("ResolutionTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Station")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Subregion")
                         .HasColumnType("nvarchar(max)");
@@ -611,6 +623,9 @@ namespace SOS.FMS.Server.Migrations
                     b.Property<string>("Remarks")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Station")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Subregion")
                         .HasColumnType("nvarchar(max)");
 
@@ -721,6 +736,9 @@ namespace SOS.FMS.Server.Migrations
                     b.Property<string>("Remarks")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Station")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Subregion")
                         .HasColumnType("nvarchar(max)");
 
@@ -768,6 +786,9 @@ namespace SOS.FMS.Server.Migrations
                     b.Property<int>("Score")
                         .HasColumnType("int");
 
+                    b.Property<string>("Station")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SubRegion")
                         .HasColumnType("nvarchar(max)");
 
@@ -813,6 +834,9 @@ namespace SOS.FMS.Server.Migrations
                         .HasColumnType("int");
 
                     b.Property<Guid>("RegionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("StationId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("SubRegionId")
@@ -1637,6 +1661,9 @@ namespace SOS.FMS.Server.Migrations
                     b.Property<string>("XRemarks")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("XSubRegionCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("XVaultStatus")
                         .HasColumnType("nvarchar(max)");
 
@@ -1757,6 +1784,9 @@ namespace SOS.FMS.Server.Migrations
 
                     b.Property<int>("Score")
                         .HasColumnType("int");
+
+                    b.Property<string>("Station")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");

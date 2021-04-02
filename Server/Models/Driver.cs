@@ -17,6 +17,7 @@ namespace SOS.FMS.Server.Models
         public string VehicleNumber { get; set; }
         public string Region { get; set; }
         public string SubRegion { get; set; }
+        public string Station { get; set; }
         public int Trips { get; set; }
         public int Points { get; set; }
         public int Accidents { get; set; }

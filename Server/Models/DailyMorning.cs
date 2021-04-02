@@ -13,6 +13,7 @@ namespace SOS.FMS.Server.Models
         public string DriverName { get; set; }
         public string Region { get; set; }
         public string Subregion { get; set; }
+        public string Station { get; set; }
         public DailyCheckStatus M1 { get; set; }
         public DailyCheckStatus M2 { get; set; }
         public DailyCheckStatus M3 { get; set; }

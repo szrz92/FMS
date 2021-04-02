@@ -209,7 +209,11 @@ using SOS.FMS.Client.Components.Accident;
         }
         #pragma warning restore 1998
 #nullable restore
+<<<<<<< HEAD
 #line 158 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\CheckList.razor"
+=======
+#line 158 "C:\Users\Btech\Source\Repos\fms\Client\Components\Accident\CheckList.razor"
+>>>>>>> 5f22471a3e6a0d1b6befffd3b54e4932bd769192
        
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -232,6 +236,7 @@ using SOS.FMS.Client.Components.Accident;
     public bool commentBoxVisible { get; set; } = false;
     public ApiRequest PointId { get; set; }
     FMSAccidentalCommentModalVM AccidentalCommentModal;
+
     public void ShowHideCommentBox()
     {
         commentBoxVisible = !commentBoxVisible;
@@ -253,6 +258,7 @@ using SOS.FMS.Client.Components.Accident;
     #endregion
     #region Assign Work Shop
     public bool assignWorkShopVisible { get; set; } = false;
+
     public void ShowHideAssignWorkshop()
     {
         assignWorkShopVisible = !assignWorkShopVisible;
@@ -321,8 +327,7 @@ using SOS.FMS.Client.Components.Accident;
     {
         var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new VehicleVM() { VehicleNumber = VehicleNumber });
         var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<VehicleVM>(await vehicleResponse.Content.ReadAsStringAsync());
-        if (vehicle.Type == "accidental")
-        {
+
             var getAccidentalCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/FMS/CheckList", new ApiRequest() { VehicleNumber = VehicleNumber });
 
             if (getAccidentalCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
@@ -334,11 +339,7 @@ using SOS.FMS.Client.Components.Accident;
             else
             {
             }
-        }
-        else
-        {
-            //ConfirmAccidentDlgVisible = true;
-        }
+
         StateHasChanged();
     }
     #region Dialog

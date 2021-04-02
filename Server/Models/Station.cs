@@ -8,6 +8,7 @@ namespace SOS.FMS.Server.Models
         [Key]
         public Guid Id { get; set; }
         public string XCode { get; set; }
+        public string XSubRegionCode { get; set; }
         public long? XrowId { get; set; }
         public string XDescription { get; set; }
         public string XAbbrevation { get; set; }
@@ -20,5 +21,6 @@ namespace SOS.FMS.Server.Models
         public string IpAdd { get; set; }
         public string IpMod { get; set; }
         public DateTime LastSync { get; set; }
+
     }
 }

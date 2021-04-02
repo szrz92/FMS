@@ -195,14 +195,22 @@ using Microsoft.AspNetCore.SignalR.Client;
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 3 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\BillPosting.razor"
+=======
+#line 3 "C:\Users\Btech\Source\Repos\fms\Client\Components\Emergency\BillPosting.razor"
+>>>>>>> 5f22471a3e6a0d1b6befffd3b54e4932bd769192
 using SOS.FMS.Shared.ViewModels.Emergency;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+<<<<<<< HEAD
 #line 4 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\BillPosting.razor"
+=======
+#line 4 "C:\Users\Btech\Source\Repos\fms\Client\Components\Emergency\BillPosting.razor"
+>>>>>>> 5f22471a3e6a0d1b6befffd3b54e4932bd769192
 using SOS.FMS.Shared.ViewModels.Incident;
 
 #line default
@@ -216,7 +224,11 @@ using SOS.FMS.Shared.ViewModels.Incident;
         }
         #pragma warning restore 1998
 #nullable restore
+<<<<<<< HEAD
 #line 109 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\BillPosting.razor"
+=======
+#line 110 "C:\Users\Btech\Source\Repos\fms\Client\Components\Emergency\BillPosting.razor"
+>>>>>>> 5f22471a3e6a0d1b6befffd3b54e4932bd769192
        
     [Parameter]
     public ApiRequest CheckPointId { get; set; }
@@ -287,8 +299,7 @@ using SOS.FMS.Shared.ViewModels.Incident;
 
         if (postBillResponse.StatusCode == System.Net.HttpStatusCode.OK)
         {
-            BillsList = await GetBills();
-            StateHasChanged();
+            await CloseBillPosting();
         }
         else
         {
@@ -306,17 +317,18 @@ using SOS.FMS.Shared.ViewModels.Incident;
                 };
             var filepath = await Http.PostAsync("api/Files/Save", content);
         }
+        await LoadData();
 
     }
 
 
     #region Add to bill
     public bool addVisible { get; set; } = false;
-    public void ShowHideAddModal(bool status)
+    public async void ShowHideAddModal(bool status)
     {
         LoaderOn();
         addVisible = status;
-        //if (!addVisible) ReloadCheckList();
+        await LoadData();
         StateHasChanged();
     }
     public void ShowAddModal()

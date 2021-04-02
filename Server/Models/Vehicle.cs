@@ -16,6 +16,8 @@ namespace SOS.FMS.Server.Models
         public string SIM { get; set; }
         public string Region { get; set; }
         public string SubRegion { get; set; }
+        public string Station { get; set; }
+
         public bool Active { get; set; }
         public int Breakdowns { get; set; } = 0;
         public double FuelAverage { get; set; } = 0;

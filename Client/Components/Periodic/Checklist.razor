@@ -30,7 +30,16 @@
                         <td class="col-5">@item.Description</td>
                         <td class="col-2">@item.Status</td>
                         <td class="col-3">@item.LastCheckTime</td>
-                        <td class="col-2"><button class="btn btn-fms" @onclick="()=>MaintainNow(item.Description)">MAINTAIN NOW</button></td>
+                        <td class="col-2">
+                            @if (@item.Status != "Maintained")
+                            {
+                                <button class="btn btn-primary" @onclick="()=>MaintainNow(item.Description)">MAINTAIN NOW</button>
+                            }
+                            @*else
+                            {
+                                <button class="btn btn-fms" disabled="true" @onclick="()=>MaintainNow(item.Description)">MAINTAIN NOW</button>
+                            }*@
+                        </td>
                     </tr>
                         }
                     </table>

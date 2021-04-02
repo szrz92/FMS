@@ -27,6 +27,16 @@
             </div>
             <div class="form-group row">
                 <div class="col-lg-6">
+                    <label>Station:</label>
+                    <SfDropDownList TItem="SelectListItem" TValue="string" @bind-Value="vehicle.SubRegion" Placeholder="Select sub region" AllowFiltering="true" DataSource="@SubRegionsList">
+                        <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                        <DropDownListEvents TValue="string" ValueChange="OnSubRegionChange"></DropDownListEvents>
+                    </SfDropDownList>
+                    @*<span class="form-text text-muted">Please select sub region</span>*@
+                    <ValidationMessage For="() => vehicle.SubRegion" />
+                </div>
+
+                <div class="col-lg-6">
                     <label>Vehicles:</label>
                     <SfDropDownList TItem="SelectListItem" TValue="string" @bind-Value="vehicle.VehicleNumber" Placeholder="Select vehicle" AllowFiltering="true" DataSource="@VehiclesList">
                         <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
@@ -34,12 +44,6 @@
                     </SfDropDownList>
                     @*<span class="form-text text-muted">Please select vehicle to add</span>*@
                     <ValidationMessage For="() => vehicle.VehicleNumber" />
-                </div>
-                <div class="col-lg-6">
-                    <label>Gasoline Type:</label>
-                    <SfTextBox @bind-Value="vehicle.GasolineType" Placeholder="Select vehicle to populate" Readonly="true" class="form-control"></SfTextBox>
-                    @*<span class="form-text text-muted">Please enter your contact number</span>*@
-                    <ValidationMessage For="() => vehicle.GasolineType" />
                 </div>
             </div>
             <div class="form-group row">
@@ -58,6 +62,13 @@
                 </div>
             </div>
             <div class="form-group row">
+                <div class="col-lg-6">
+                    <label>Fuel Type:</label>
+                    <SfTextBox @bind-Value="vehicle.GasolineType" Placeholder="Select vehicle to populate" Readonly="true" class="form-control"></SfTextBox>
+                    @*<span class="form-text text-muted">Please enter your contact number</span>*@
+                    <ValidationMessage For="() => vehicle.GasolineType" />
+                </div>
+
                 <div class="col-lg-6">
                     <label>PSO Card:</label>
                     <SfTextBox Type="InputType.Number" @bind-Value="vehicle.CardNumber" Placeholder="Enter Card Number" class="form-control"></SfTextBox>

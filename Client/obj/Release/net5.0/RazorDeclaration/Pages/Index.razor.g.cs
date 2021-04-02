@@ -382,6 +382,7 @@ using Microsoft.AspNetCore.SignalR.Client;
     public string emergencyCheckListVehicleNumber;
 
     public bool emergencyCheckListSideModal { get; set; } = false;
+
     public void ShowHideEmergencyCheckList()
     {
         Description = null;

@@ -17,6 +17,8 @@ namespace SOS.FMS.Shared.ViewModels
         public string OfficialEmail { get; set; }
         public string Region { get; set; }
         public string SubRegion { get; set; }
+        public string station { get; set; }
+
     }
 }
 

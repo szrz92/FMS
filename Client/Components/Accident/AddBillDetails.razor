@@ -55,6 +55,7 @@
     </div>
 }
 @code {
+
     [Parameter]
     public ApiRequest CheckPointId { get; set; }
     [Parameter]
@@ -96,14 +97,18 @@
 
     public async void OnValidSubmit()
     {
-        var submitResponse = await Http.PostAsJsonAsync("api/Accident/PostBillDetail", BillDetail);
-        if (submitResponse.IsSuccessStatusCode)
+        if(BillDetail.ServiceType!=null && BillDetail.SubServiceType!=null&& BillDetail.Amount != 0)
         {
-            await Close();
+            var submitResponse = await Http.PostAsJsonAsync("api/Accident/PostBillDetail", BillDetail);
+            if (submitResponse.IsSuccessStatusCode)
+            {
+                await Close();
+            }
+            else
+            {
+            }
         }
-        else
-        {
-        }
+
     }
 
     public Task Close()

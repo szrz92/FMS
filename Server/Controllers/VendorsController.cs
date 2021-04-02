@@ -93,7 +93,8 @@ namespace SOS.FMS.Server.Controllers
                     IncidentId = workshopVM.IncidentId,
                     SupplierType = workshopVM.Type,
                     SupplierCode = code,
-                    SupplierName = name
+                    SupplierName = name,
+                    Remarks= workshopVM.Remarks
                 };
                 await dbContext.AssignedWorkshops.AddAsync(workshop);
                 if (await dbContext.SaveChangesAsync() > 0)
@@ -167,7 +168,8 @@ namespace SOS.FMS.Server.Controllers
                                                  Code = a.SupplierCode,
                                                  IncidentId = workshopVM.IncidentId,
                                                  IncidentType = workshopVM.IncidentType,
-                                                 Type = a.SupplierType
+                                                 Type = a.SupplierType,
+                                                 Remarks=a.Remarks
                                              }).FirstOrDefaultAsync();
                 if (workshop != null)
                     return Ok(workshop);

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using SOS.FMS.Server.Hubs;
 using SOS.FMS.Server.Models;
+using SOS.FMS.Server.Services;
 using SOS.FMS.Shared;
 using SOS.FMS.Shared.Enums;
 using SOS.FMS.Shared.ViewModels;
@@ -36,19 +37,21 @@ namespace SOS.FMS.Server.Controllers
                 List<Accident> accidents = new List<Accident>();
                 if (User.IsInRole("SA") || User.IsInRole("HMT"))
                 {
-                    accidentsList = await (from a in dbContext.Accidents 
-                                       join d in dbContext.Drivers on a.DriverId equals d.Id
-                                       join r in dbContext.Regions on a.RegionId equals r.Id
-                                       join s in dbContext.SubRegions on a.SubRegionId equals s.Id
-                                       join v in dbContext.Vehicles on a.FMSVehicleId equals v.Id
-                                       join gv in dbContext.GBMSVehicles on v.VehicleNumber equals gv.Description
-                                       select new FMSAccidentVM()
+                    accidentsList = await (from a in dbContext.Accidents
+                                           join d in dbContext.Drivers on a.DriverId equals d.Id
+                                           join r in dbContext.Regions on a.RegionId equals r.Id
+                                           join s in dbContext.SubRegions on a.SubRegionId equals s.Id
+                                           join st in dbContext.Stations on a.StationId equals st.Id
+                                           join v in dbContext.Vehicles on a.FMSVehicleId equals v.Id
+                                           join gv in dbContext.GBMSVehicles on v.VehicleNumber equals gv.Description
+                                           select new FMSAccidentVM()
                                        {
                                            Id = a.Id,
                                            Description = a.Description,
                                            Driver = d.Name,
                                            Region = r.XDescription,
                                            SubRegion = s.XDescription,
+                                           Station=st.XDescription,
                                            VehicleNumber = gv.Description,
                                            MaintenanceStatus = a.MaintenanceStatus == MaintenanceStatus.Done ? "Complete" : "Not Initiated",
                                            ReportTime = a.TimeStamp,
@@ -66,6 +69,7 @@ namespace SOS.FMS.Server.Controllers
                                            join d in dbContext.Drivers on a.DriverId equals d.Id
                                            join r in dbContext.Regions on a.RegionId equals r.Id
                                            join s in dbContext.SubRegions on a.SubRegionId equals s.Id
+                                           join st in dbContext.Stations on a.StationId equals st.Id
                                            join v in dbContext.Vehicles on a.FMSVehicleId equals v.Id
                                            join gv in dbContext.GBMSVehicles on v.VehicleNumber equals gv.Description
                                            where a.RegionId == region.Id
@@ -76,6 +80,7 @@ namespace SOS.FMS.Server.Controllers
                                                Driver = d.Name,
                                                Region = r.XDescription,
                                                SubRegion = s.XDescription,
+                                               Station=st.XDescription,
                                                VehicleNumber = gv.Description,
                                                MaintenanceStatus = a.MaintenanceStatus == MaintenanceStatus.Done ? "Complete" : "Not Initiated",
                                                ReportTime = a.TimeStamp,
@@ -116,6 +121,8 @@ namespace SOS.FMS.Server.Controllers
                     RegionId = dbContext.Regions.Where(x => x.XDescription == vehicle.Region).SingleOrDefault().Id,
                     VehicleNumber = accident.VehicleNumber,
                     SubRegionId = dbContext.SubRegions.Where(x => x.XDescription == vehicle.SubRegion).SingleOrDefault().Id,
+                    StationId = dbContext.Stations.Where(x => x.XDescription == vehicle.Station).SingleOrDefault().Id,
+
                     FMSVehicleId = vehicle.Id,
                     MaintenanceStatus = accident.MaintenanceStatus == "Done" ? MaintenanceStatus.Done : MaintenanceStatus.NotInitiated,
                     TimeStamp = DateTime.Now,
@@ -165,7 +172,8 @@ namespace SOS.FMS.Server.Controllers
                     User.Identity.Name,
                     title,
                     notification);
-
+                await SMSService.SendSMS(title+": "+notification, "03035650720");
+                SMSService.SendMail(title, notification, "w.tahir@batech.com.pk");
                 return Ok(fmsAccidentalCheckList.OrderBy(x=>x.Description).ToList());
             }
             catch (Exception ex)
@@ -247,7 +255,11 @@ namespace SOS.FMS.Server.Controllers
                     User.Identity.Name,
                     title,
                     notification);
+                await SMSService.SendSMS(title + ": " + notification, "03035650720");
+                SMSService.SendMail(title, notification, "w.tahir@batech.com.pk");
+
                 return Ok();
+
             }
             catch (Exception ex)
             {
@@ -305,6 +317,8 @@ namespace SOS.FMS.Server.Controllers
                     User.Identity.Name,
                     "Notification",
                     notification);
+                await SMSService.SendSMS(notification, "03035650720");
+                SMSService.SendMail(request.VehicleNumber, notification, "w.tahir@batech.com.pk");
 
                 return Ok();
             }
@@ -410,6 +424,8 @@ namespace SOS.FMS.Server.Controllers
                     User.Identity.Name,
                     title,
                     notification);
+                await SMSService.SendSMS(title+": "+notification, "03035650720");
+                SMSService.SendMail(title, notification, "w.tahir@batech.com.pk");
 
                 return Ok();
             }
@@ -472,6 +488,8 @@ namespace SOS.FMS.Server.Controllers
                                                   where a.Id == comment.FMSAccidentalCheckId
                                                   select a).SingleOrDefaultAsync();
                 check.LastUpdated = PakistanDateTime.Now;
+                //await dbContext.SaveChangesAsync();
+
                 check.CommentCount = await (from c in dbContext.FMSAccidentalCheckComments
                                             where c.FMSAccidentalCheckId == comment.FMSAccidentalCheckId
                                             select c).CountAsync();
@@ -495,6 +513,9 @@ namespace SOS.FMS.Server.Controllers
                             user.Email,
                             $"Notification for Vehicle Number {check.VehicleNumber}", 
                             $"{currentUser.Name} mentioned you in a comment under accidental check list point {check.Description}");
+                        await SMSService.SendSMS($"Notification for Vehicle Number {check.VehicleNumber}: {currentUser.Name} mentioned you in a comment under accidental check list point {check.Description}", "03035650720");
+                        SMSService.SendMail($"Notification for Vehicle Number {check.VehicleNumber}", $"{currentUser.Name} mentioned you in a comment under accidental check list point {check.Description}", "w.tahir@batech.com.pk");
+
                     }
                 }
 
@@ -542,6 +563,7 @@ namespace SOS.FMS.Server.Controllers
                                             select c).CountAsync();
                 Accident accident = await dbContext.Accidents.Where(x => x.Id == check.FMSAccidentId).Select(x => x).SingleOrDefaultAsync();
                 accident.LastUpdated = PakistanDateTime.Now;
+                check.LastUpdated= PakistanDateTime.Now;
                 await dbContext.SaveChangesAsync();
 
                 return Ok();

@@ -216,7 +216,11 @@ using SOS.FMS.Shared.ViewModels.Incident;
         }
         #pragma warning restore 1998
 #nullable restore
+<<<<<<< HEAD
 #line 109 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\BillPosting.razor"
+=======
+#line 109 "C:\Users\Btech\Source\Repos\fms\Client\Components\Accident\BillPosting.razor"
+>>>>>>> 5f22471a3e6a0d1b6befffd3b54e4932bd769192
        
     [Parameter]
     public ApiRequest CheckPointId { get; set; }
@@ -293,8 +297,7 @@ using SOS.FMS.Shared.ViewModels.Incident;
 
         if (postBillResponse.StatusCode == System.Net.HttpStatusCode.OK)
         {
-            BillsList = await GetBills();
-            StateHasChanged();
+            await CloseBillPosting();
         }
         else
         {
@@ -317,17 +320,22 @@ using SOS.FMS.Shared.ViewModels.Incident;
                 StateHasChanged();
             }
         }
-
+        await LoadData();
     }
 
 
     #region Add to bill
     public bool addVisible { get; set; } = false;
-    public void ShowHideAddModal(bool status)
+
+    public async void ShowHideAddModal(bool status)
     {
         LoaderOn();
         addVisible = status;
+<<<<<<< HEAD
         InvokeAsync(() => LoadData());
+=======
+        await LoadData();
+>>>>>>> 5f22471a3e6a0d1b6befffd3b54e4932bd769192
         StateHasChanged();
     }
     public void ShowAddModal()
@@ -351,6 +359,7 @@ using SOS.FMS.Shared.ViewModels.Incident;
     }
     public void PostRemarks()
     {
+
     }
 
 #line default
