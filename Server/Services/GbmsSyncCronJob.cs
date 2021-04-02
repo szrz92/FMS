@@ -48,6 +48,11 @@ namespace SOS.FMS.Server.Services
             {
                 var context = scope.ServiceProvider.GetService<SOS_VIEWSContext>();
 
+                var drivers = (from d in context.PdwEmployeeMasters
+                               where d.XDesignationDescription.Contains("river")
+                               select d).ToList();
+                SyncDrivers(drivers, scope);
+
                 var stations = (from r in context.RbSubRegionsStations
                                 join s in context.RbStations on r.XStationCode equals s.XCode
                                 select new Station
@@ -91,11 +96,7 @@ namespace SOS.FMS.Server.Services
 
 
 
-                var drivers = (from d in context.PdwEmployeeMasters
-                               where d.XDesignationDescription.Contains("river")
-                               select d).ToList();
-
-                SyncDrivers(drivers, scope);
+               
 
                 //PrepareDailyCheckLists(scope).Wait();
             }
@@ -250,6 +251,7 @@ namespace SOS.FMS.Server.Services
                     user.XShiftDescription = item.XShiftDescription;
                     user.XSocialSecurity = item.XSocialSecurity;
                     user.XStatus = item.XStatus;
+                    
                 }
             }
             context.SaveChanges();
@@ -544,7 +546,7 @@ namespace SOS.FMS.Server.Services
             {
                 var region = (from s in context.SubRegions where item.XLocationDescription.Contains(s.XDescription) select s.XRegionDescription).FirstOrDefault();
                 var subregion = (from s in context.SubRegions where item.XLocationDescription.Contains(s.XDescription) select s.XDescription).FirstOrDefault();
-                var station = (from st in context.Stations where item.XLocationDescription.Contains(st.XDescription) select st.XDescription).FirstOrDefault();
+                var station = (from st in context.Stations where item.XSectionDescription.Contains(st.XDescription) select st.XDescription).FirstOrDefault();
 
                 var driver = (from s in context.Drivers where s.Code == item.XCode select s).FirstOrDefault();
 
@@ -576,6 +578,7 @@ namespace SOS.FMS.Server.Services
                     driver.Name = item.XName;
                     driver.Region = region;
                     driver.SubRegion = subregion;
+                    driver.Station = station;
                     driver.LastSync = PakistanDateTime.Now;
                 }
             }
