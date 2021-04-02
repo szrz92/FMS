@@ -311,6 +311,11 @@ using SOS.FMS.Shared.ViewModels.Incident;
                     { new ByteArrayContent(file.Stream.GetBuffer()), CheckPointId.FMSAccidentalCheckId.ToString(), file.FileInfo.Name}
                 };
             var filepath = await Http.PostAsync("api/Files/Save", content);
+            if (filepath.IsSuccessStatusCode)
+            {
+                await LoadData();
+                StateHasChanged();
+            }
         }
 
     }
@@ -322,7 +327,7 @@ using SOS.FMS.Shared.ViewModels.Incident;
     {
         LoaderOn();
         addVisible = status;
-        //if (!addVisible) ReloadCheckList();
+        InvokeAsync(() => LoadData());
         StateHasChanged();
     }
     public void ShowAddModal()
