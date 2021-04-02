@@ -13,182 +13,182 @@ namespace SOS.FMS.Client.Pages
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "C:\Users\Btech\source\repos\fms\Client\_Imports.razor"
+#line 1 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\Btech\source\repos\fms\Client\_Imports.razor"
+#line 2 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using System.Net.Http.Json;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\Btech\source\repos\fms\Client\_Imports.razor"
+#line 3 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\Btech\source\repos\fms\Client\_Imports.razor"
+#line 4 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\Btech\source\repos\fms\Client\_Imports.razor"
+#line 5 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\Btech\source\repos\fms\Client\_Imports.razor"
+#line 6 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\Btech\source\repos\fms\Client\_Imports.razor"
+#line 7 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Microsoft.AspNetCore.Components.WebAssembly.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\Btech\source\repos\fms\Client\_Imports.razor"
+#line 8 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Users\Btech\source\repos\fms\Client\_Imports.razor"
+#line 9 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using SOS.FMS.Client;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "C:\Users\Btech\source\repos\fms\Client\_Imports.razor"
+#line 10 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using SOS.FMS.Client.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 11 "C:\Users\Btech\source\repos\fms\Client\_Imports.razor"
+#line 11 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using SOS.FMS.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 12 "C:\Users\Btech\source\repos\fms\Client\_Imports.razor"
+#line 12 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using System.Security.Claims;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 13 "C:\Users\Btech\source\repos\fms\Client\_Imports.razor"
+#line 13 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Newtonsoft.Json;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 16 "C:\Users\Btech\source\repos\fms\Client\_Imports.razor"
+#line 16 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using SOS.FMS.Client.Components;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 19 "C:\Users\Btech\source\repos\fms\Client\_Imports.razor"
+#line 19 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using SOS.FMS.Shared.ViewModels;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 22 "C:\Users\Btech\source\repos\fms\Client\_Imports.razor"
+#line 22 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Syncfusion.Blazor.Inputs;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 23 "C:\Users\Btech\source\repos\fms\Client\_Imports.razor"
+#line 23 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Syncfusion.Blazor.Grids;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 24 "C:\Users\Btech\source\repos\fms\Client\_Imports.razor"
+#line 24 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Syncfusion.Blazor.Spinner;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 25 "C:\Users\Btech\source\repos\fms\Client\_Imports.razor"
+#line 25 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Syncfusion.Blazor.DropDowns;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 26 "C:\Users\Btech\source\repos\fms\Client\_Imports.razor"
+#line 26 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Syncfusion.Blazor.Popups;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 27 "C:\Users\Btech\source\repos\fms\Client\_Imports.razor"
+#line 27 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Syncfusion.Blazor.Navigations;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 28 "C:\Users\Btech\source\repos\fms\Client\_Imports.razor"
+#line 28 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Syncfusion.Blazor.PivotView;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 31 "C:\Users\Btech\source\repos\fms\Client\_Imports.razor"
+#line 31 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Append.Blazor.Notifications;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 34 "C:\Users\Btech\source\repos\fms\Client\_Imports.razor"
+#line 34 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using SOS.FMS.Client.Services;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 35 "C:\Users\Btech\source\repos\fms\Client\_Imports.razor"
+#line 35 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 37 "C:\Users\Btech\source\repos\fms\Client\_Imports.razor"
+#line 37 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Microsoft.AspNetCore.SignalR.Client;
 
 #line default
@@ -204,7 +204,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 309 "C:\Users\Btech\source\repos\fms\Client\Pages\Index.razor"
+#line 309 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Index.razor"
  
     [CascadingParameter]
     Task<AuthenticationState> AuthenticationState { get; set; }
@@ -247,7 +247,7 @@ using Microsoft.AspNetCore.SignalR.Client;
     public async void ResetData()
     {
         Filter = new VehicleVM();
-        regionsList = vehiclesList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        //regionsList = vehiclesList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         filteredVehiclesList = vehiclesList;
         await JSRuntime.InvokeVoidAsync("updateMarkers", dotNetObjectReference, filteredVehiclesList);
     }
@@ -260,14 +260,14 @@ using Microsoft.AspNetCore.SignalR.Client;
         //stationList = vehiclesList.Where(x => x.Region == args.Value).GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         //StateHasChanged();
     }
-    public async Task OnSubRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    public void OnSubRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
     {
         //Filter.Region = vehiclesList.Where(x => x.SubRegion == args.Value).FirstOrDefault().Region;
         stationList = vehiclesList.Where(x => x.SubRegion == args.Value).GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         // vehicleNumbersList = vehiclesList.Where(x => x.SubRegion == args.Value)
         //.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
     }
-    public async Task OnStationChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    public void OnStationChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
     {
         //Filter.Region = vehiclesList.Where(x => x.Station == args.Value).FirstOrDefault().Region;
         //Filter.SubRegion = vehiclesList.Where(x => x.Station == args.Value).FirstOrDefault().SubRegion;
@@ -275,7 +275,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         .GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
     }
 
-    public async Task OnVehicleNumberChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    public void OnVehicleNumberChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
     {
         //Filter.Region = vehiclesList.Where(x => x.VehicleNumber == args.Value).FirstOrDefault().Region;
         //Filter.SubRegion = vehiclesList.Where(x => x.VehicleNumber == args.Value).FirstOrDefault().SubRegion;
@@ -299,10 +299,10 @@ using Microsoft.AspNetCore.SignalR.Client;
         dotNetObjectReference = DotNetObjectReference.Create(this);
         //vehiclesList = await Http.GetFromJsonAsync<List<VehicleVM>>("api/Vehicles/FMS/Demo/All");
         vehiclesList = await Http.GetFromJsonAsync<List<VehicleVM>>("api/Vehicles/FMS/All");
-        //vehicleNumbersList = vehiclesList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        vehicleNumbersList = vehiclesList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         regionsList = vehiclesList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        //subRegionsList = vehiclesList.GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        //stationList= vehiclesList.GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        subRegionsList = vehiclesList.GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        stationList= vehiclesList.GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         filteredVehiclesList = vehiclesList;
         CountVehicles(filteredVehiclesList);
         StartTimer();
