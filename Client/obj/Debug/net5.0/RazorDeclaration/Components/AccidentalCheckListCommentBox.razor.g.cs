@@ -293,7 +293,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         {
             await NewCommentModel();
             resetCommentBox = false;
-            StateHasChanged();
+            StateHasChanged(); 
         }
         else
         {

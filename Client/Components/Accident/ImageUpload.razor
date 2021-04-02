@@ -1,42 +1,52 @@
-﻿<div class="row p-1">
-    <div class="col-xl-7">
-        <div class="row pl-4">
-            @foreach (var i in imageDataUrls)
-            {
-                <div class="col-3 mb-2 p-2">
-                    <img src="@i" style="width:90%;height:auto;" @onclick="() => DisplayImage(i)" />
+﻿@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+
+@if (fileNames != null)
+{
+    <div class="row p-1">
+        <div class="col-xl-7">
+            <div class="card">
+                <div class="card-header">
+                    Uploaded Files
                 </div>
-            }
-            <div class="col-3 mb-2 p-2">
-                <div class="d-flex" style="display: flex; align-items: flex-start; justify-content: flex-end; width: 100%;">
-                    <div class="mr-3">
-                        <div class="container1">
-                            <div class="button-wrap">
-                                <label class="btn btn-fms btn-md text-uppercase font-weight-bold chat-send py-8 px-6" for="upload">Upload File</label>
-                                <InputFile id="upload" OnChange="@OnInputFileChange" style=" display:none; position: absolute; z-index: -3; top: 15px; left: 20px; font-size: 17px; color: #b8b8b8;" multiple />
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                    </div>
+                <div class="card-body">
+                    <ul>
+                        @foreach (var t in fileNames)
+                        {
+                            if (t != null)
+                            {
+        <li>
+            <a target="_blank" href="api\download\@(AccidentalCommentModal.FMSAccidentalCheckId.ToString())\@t">@t</a>
+        </li>
+        }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-5">
+            <div class="card">
+                <div class="card-header">
+                    Upload Files
+                </div>
+                <div class="card-body">
+                    <SfUploader ID="UploadFiles">
+                        <UploaderEvents ValueChange="OnChange"></UploaderEvents>
+                    </SfUploader>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-xl-5">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title mb-0 font-weight-bolder">Photo Viewer</div>
-            </div>
-            <div class="card-body">
-                <img src="@displayImage" style="width:99%;height:auto;" />
-            </div>
-        </div>
-    </div>
-</div>
+}
+else
+{
+<img style="position:fixed;top:50%;left:70%;" src="assets/media/loading.gif" />
+}
 @code {
-        [Parameter]
-        public EventCallback<string> OnImagePost { get; set; }
+    [Parameter]
+    public FMSAccidentalCommentModalVM AccidentalCommentModal { get; set; }
+    [Parameter]
+    public EventCallback<string> OnImagePost { get; set; }
 
     public string displayImage;
     private IList<string> imageDataUrls = new List<string>();
@@ -44,7 +54,14 @@
     {
         displayImage = item;
     }
-    
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        LoaderOn();
+        await LoadData();
+        await base.OnInitializedAsync();
+    }
 
     private async Task OnInputFileChange(InputFileChangeEventArgs e)
     {
@@ -63,5 +80,40 @@
 
             await OnImagePost.InvokeAsync(imageDataUrl);
         }
+    }
+
+    public List<string> fileNames { get; set; }
+    public void LoaderOn()
+    {
+        fileNames = null;
+    }
+    public async Task LoadData()
+    {
+        fileNames = await GetFiles();
+    }
+    public async Task<List<string>> GetFiles()
+    {
+        ApiRequest request = new ApiRequest() { FMSAccidentalCheckId = AccidentalCommentModal.FMSAccidentalCheckId };
+        var getBillResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Files/Files", request);
+        return JsonConvert.DeserializeObject<List<string>>(await getBillResponse.Content.ReadAsStringAsync());
+    }
+
+    private async void OnChange(UploadChangeEventArgs args)
+    {
+        LoaderOn();
+        var files = new List<FileInfo>();
+        foreach (var file in args.Files)
+        {
+            var content = new MultipartFormDataContent {
+                    { new ByteArrayContent(file.Stream.GetBuffer()), AccidentalCommentModal.FMSAccidentalCheckId.ToString(), file.FileInfo.Name}
+                };
+            var filepath = await Http.PostAsync("api/Files/Save", content);
+            if (filepath.IsSuccessStatusCode)
+            {
+                await LoadData();
+                StateHasChanged();
+            }
+        }
+        await LoadData();
     }
 }

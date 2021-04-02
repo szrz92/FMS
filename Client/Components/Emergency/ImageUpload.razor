@@ -1,0 +1,119 @@
+﻿@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+
+@if (fileNames != null)
+{
+    <div class="row p-1">
+        <div class="col-xl-7">
+            <div class="card">
+                <div class="card-header">
+                    Uploaded Files
+                </div>
+                <div class="card-body">
+                    <ul>
+                        @foreach (var t in fileNames)
+                        {
+                            if (t != null)
+                            {
+        <li>
+            <a target="_blank" href="api\download\@(FMSEmergencyCommentModalVM.FMSEmergencyCheckId.ToString())\@t">@t</a>
+        </li>
+        }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-5">
+            <div class="card">
+                <div class="card-header">
+                    Upload Files
+                </div>
+                <div class="card-body">
+                    <SfUploader ID="UploadFiles">
+                        <UploaderEvents ValueChange="OnChange"></UploaderEvents>
+                    </SfUploader>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+<img style="position:fixed;top:50%;left:70%;" src="assets/media/loading.gif" />
+}
+@code {
+    [Parameter]
+    public FMSEmergencyCommentModalVM FMSEmergencyCommentModalVM { get; set; }
+    [Parameter]
+    public EventCallback<string> OnImagePost { get; set; }
+
+    public string displayImage;
+    private IList<string> imageDataUrls = new List<string>();
+    public void DisplayImage(string item)
+    {
+        displayImage = item;
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        LoaderOn();
+        await LoadData();
+        await base.OnInitializedAsync();
+    }
+
+    private async Task OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        var maxAllowedFiles = 3;
+        var format = "image/png";
+
+        foreach (var imageFile in e.GetMultipleFiles(maxAllowedFiles))
+        {
+            var resizedImageFile = await imageFile.RequestImageFileAsync(format,
+                100, 100);
+            var buffer = new byte[resizedImageFile.Size];
+            await resizedImageFile.OpenReadStream().ReadAsync(buffer);
+            var imageDataUrl =
+                $"data:{format};base64,{Convert.ToBase64String(buffer)}";
+            imageDataUrls.Add(imageDataUrl);
+
+            await OnImagePost.InvokeAsync(imageDataUrl);
+        }
+    }
+
+    public List<string> fileNames { get; set; }
+    public void LoaderOn()
+    {
+        fileNames = null;
+    }
+    public async Task LoadData()
+    {
+        fileNames = await GetFiles();
+    }
+    public async Task<List<string>> GetFiles()
+    {
+        ApiRequest request = new ApiRequest() { FMSEmergencyCheckId = FMSEmergencyCommentModalVM.FMSEmergencyCheckId };
+        var getBillResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Files/Files", request);
+        return JsonConvert.DeserializeObject<List<string>>(await getBillResponse.Content.ReadAsStringAsync());
+    }
+
+    private async void OnChange(UploadChangeEventArgs args)
+    {
+        LoaderOn();
+        var files = new List<FileInfo>();
+        foreach (var file in args.Files)
+        {
+            var content = new MultipartFormDataContent {
+                    { new ByteArrayContent(file.Stream.GetBuffer()), FMSEmergencyCommentModalVM.FMSEmergencyCheckId.ToString(), file.FileInfo.Name}
+                };
+            var filepath = await Http.PostAsync("api/Files/Save", content);
+            if (filepath.IsSuccessStatusCode)
+            {
+                await LoadData();
+                StateHasChanged();
+            }
+        }
+        await LoadData();
+    }
+}

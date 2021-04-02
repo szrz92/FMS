@@ -202,10 +202,12 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 37 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\ImageUpload.razor"
+#line 45 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\ImageUpload.razor"
        
-        [Parameter]
-        public EventCallback<string> OnImagePost { get; set; }
+    [Parameter]
+    public FMSAccidentalCommentModalVM AccidentalCommentModal { get; set; }
+    [Parameter]
+    public EventCallback<string> OnImagePost { get; set; }
 
     public string displayImage;
     private IList<string> imageDataUrls = new List<string>();
@@ -213,7 +215,14 @@ using Microsoft.AspNetCore.SignalR.Client;
     {
         displayImage = item;
     }
-    
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        LoaderOn();
+        await LoadData();
+        await base.OnInitializedAsync();
+    }
 
     private async Task OnInputFileChange(InputFileChangeEventArgs e)
     {
@@ -234,9 +243,46 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
     }
 
+    public List<string> fileNames { get; set; }
+    public void LoaderOn()
+    {
+        fileNames = null;
+    }
+    public async Task LoadData()
+    {
+        fileNames = await GetFiles();
+    }
+    public async Task<List<string>> GetFiles()
+    {
+        ApiRequest request = new ApiRequest() { FMSAccidentalCheckId = AccidentalCommentModal.FMSAccidentalCheckId };
+        var getBillResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Files/Files", request);
+        return JsonConvert.DeserializeObject<List<string>>(await getBillResponse.Content.ReadAsStringAsync());
+    }
+
+    private async void OnChange(UploadChangeEventArgs args)
+    {
+        LoaderOn();
+        var files = new List<FileInfo>();
+        foreach (var file in args.Files)
+        {
+            var content = new MultipartFormDataContent {
+                    { new ByteArrayContent(file.Stream.GetBuffer()), AccidentalCommentModal.FMSAccidentalCheckId.ToString(), file.FileInfo.Name}
+                };
+            var filepath = await Http.PostAsync("api/Files/Save", content);
+            if (filepath.IsSuccessStatusCode)
+            {
+                await LoadData();
+                StateHasChanged();
+            }
+        }
+        await LoadData();
+    }
+
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IJSRuntime JSRuntime { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private HttpClient Http { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private INotificationService NotificationService { get; set; }
     }

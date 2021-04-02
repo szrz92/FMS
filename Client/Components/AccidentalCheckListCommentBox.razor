@@ -95,7 +95,7 @@
                             </div>
                         </div>*@
                     </div>
-                    <SOS.FMS.Client.Components.Accident.ImageUpload />
+                    <SOS.FMS.Client.Components.Accident.ImageUpload AccidentalCommentModal="AccidentalCommentModal" />
                     <!--end::Chat-->
                 </div>
                 <!--end::Container-->
@@ -198,7 +198,7 @@
         {
             await NewCommentModel();
             resetCommentBox = false;
-            StateHasChanged();
+            StateHasChanged(); 
         }
         else
         {

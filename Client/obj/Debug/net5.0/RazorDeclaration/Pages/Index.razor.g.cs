@@ -288,7 +288,7 @@ using Microsoft.AspNetCore.SignalR.Client;
     public List<VehicleVM> vehiclesList { get; set; } = new List<VehicleVM>();
 
     public int AccidentalVehiclesCount { get; set; } = 0;
-    public int EmergencyVehiclesCount { get; set; } = 0;
+    public int EmergencyVehiclesCount { get; set; } = 0; 
     public int PeriodicVehiclesCount { get; set; } = 0;
     public int MaintainedVehiclesCount { get; set; } = 0;
     public int TotalVehiclesCount { get; set; } = 0;
