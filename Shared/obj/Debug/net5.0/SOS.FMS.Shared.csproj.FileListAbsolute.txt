@@ -72,7 +72,6 @@ C:\Users\Btech\source\repos\fms\Shared\bin\Debug\net5.0\SOS.FMS.Shared.deps.json
 C:\Users\Btech\source\repos\fms\Shared\bin\Debug\net5.0\SOS.FMS.Shared.dll
 C:\Users\Btech\source\repos\fms\Shared\bin\Debug\net5.0\ref\SOS.FMS.Shared.dll
 C:\Users\Btech\source\repos\fms\Shared\bin\Debug\net5.0\SOS.FMS.Shared.pdb
-C:\Users\Btech\source\repos\fms\Shared\obj\Debug\net5.0\SOS.FMS.Shared.csprojAssemblyReference.cache
 C:\Users\Btech\source\repos\fms\Shared\obj\Debug\net5.0\SOS.FMS.Shared.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Btech\source\repos\fms\Shared\obj\Debug\net5.0\SOS.FMS.Shared.AssemblyInfoInputs.cache
 C:\Users\Btech\source\repos\fms\Shared\obj\Debug\net5.0\SOS.FMS.Shared.AssemblyInfo.cs

@@ -19,6 +19,34 @@
             <!--end::Breadcrumb-->
         </div>
         <!--end::Details-->
+        <div class="d-flex align-items-center">
+            <ul class="nav nav-light-fms nav-bold nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#kt_tab_pane_4_1">
+                        <span class="nav-icon"><i class="flaticon2-dashboard"></i></span>
+                        <span class="nav-text">Daily Fuel Report</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_4_2">
+                        <span class="nav-icon"><i class="flaticon2-information"></i></span>
+                        <span class="nav-text">Fuel Comparison Report</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_4_3">
+                        <span class="nav-icon"><i class="flaticon2-sheet"></i></span>
+                        <span class="nav-text">Vehicle Average Report</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_4_5">
+                        <span class="nav-icon"><i class="flaticon2-sheet"></i></span>
+                        <span class="nav-text">Day Closing Report</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 <!--end::Subheader-->
@@ -26,18 +54,33 @@
 <div class="d-flex flex-column-fluid">
     <!--begin::Container-->
     <div class="container-fluid">
+
         <!--begin::Card-->
         <div class="card card-custom card-stretch">
-            <div class="card-header flex-wrap border-0 pt-6 pb-0">
-                <div class="card-title">
-                    <h3 class="card-label">
-                        Reports (maximum 10) will be incorporated to FMS as per requirement provided by SOS Pakistan.
-                    </h3>
+            <!--begin::Body-->
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="kt_tab_pane_4_1" role="tabpanel" aria-labelledby="kt_tab_pane_4_1">
+                        <SOS.FMS.Client.Components.Reports.DailyFuelReports/>
+                    </div>
+                    <div class="tab-pane fade" id="kt_tab_pane_4_2" role="tabpanel" aria-labelledby="kt_tab_pane_4_2">
+                        <SOS.FMS.Client.Components.Reports.DailyFuelReports />
+                    </div>
+                    <div class="tab-pane fade" id="kt_tab_pane_4_3" role="tabpanel" aria-labelledby="kt_tab_pane_4_3">
+                        <SOS.FMS.Client.Components.Reports.DailyFuelReports />
+                    </div>
+                    <div class="tab-pane fade" id="kt_tab_pane_4_5" role="tabpanel" aria-labelledby="kt_tab_pane_4_5">
+                        <SOS.FMS.Client.Components.Reports.DailyFuelReports />
+                    </div>
                 </div>
             </div>
+            <!--end::Body-->
         </div>
+        <!--end::Card-->
     </div>
+    <!--end::Container-->
 </div>
+
 @code {
 
 }

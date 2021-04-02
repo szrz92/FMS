@@ -202,7 +202,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 60 "C:\Users\Btech\source\repos\fms\Client\Components\Periodic\Checklist.razor"
+#line 62 "C:\Users\Btech\source\repos\fms\Client\Components\Periodic\Checklist.razor"
        
     [Parameter]
     public string VehicleNumber { get; set; }

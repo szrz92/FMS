@@ -33,12 +33,14 @@
                         <td class="col-2">
                             @if (@item.Status != "Maintained")
                             {
-                                <button class="btn btn-primary" @onclick="()=>MaintainNow(item.Description)">MAINTAIN NOW</button>
+                                @*<button class="btn btn-primary" @onclick="()=>MaintainNow(item.Description)">MAINTAIN NOW</button>*@
+                                <a class="btn btn-danger btn-shadow font-weight-bold mr-2" @onclick="()=>MaintainNow(item.Description)">MAINTAIN NOW</a>
+
                             }
-                            @*else
+                            else
                             {
-                                <button class="btn btn-fms" disabled="true" @onclick="()=>MaintainNow(item.Description)">MAINTAIN NOW</button>
-                            }*@
+                                <a class="btn btn-success btn-shadow font-weight-bold mr-2">MAINTAINED</a>
+                            }
                         </td>
                     </tr>
                         }

@@ -1,0 +1,180 @@
+﻿@inject HttpClient Http
+@using SOS.FMS.Shared
+@using Syncfusion.Blazor.Calendars
+
+@if (showReportModal)
+{
+<div class="d-flex align-items-center">
+    <div class="mr-2" style="width:135%">
+        <div class="control-wrapper">
+            <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a region" @bind-Value="Filter.Region" AllowFiltering="true" DataSource="@regionsList">
+                <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+            </SfDropDownList>
+        </div>
+    </div>
+    <div class="mr-2" style="width:135%">
+        <div class="control-wrapper">
+            <SfDatePicker TValue="DateTime?" Placeholder="Select date" bind-Value='@Filter.Timestamp' Format='dd-MM-yyyy'></SfDatePicker>
+        </div>
+    </div>
+    <div class="mr-2" style="width:135%">
+        <div class="control-wrapper">
+            <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select fuel type" @bind-Value="Filter.FuelType" AllowFiltering="true" DataSource="@fuelTypeList">
+                <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+            </SfDropDownList>
+        </div>
+    </div>
+
+    <div class="mr-2" style="width:135%">
+        <div class="control-wrapper">
+            <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select payment type" @bind-Value="Filter.PaymentType" AllowFiltering="true" DataSource="@paymentTypeList">
+                <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+            </SfDropDownList>
+        </div>
+    </div>
+
+    <div class="mr-2" style="width:135%">
+        <div class="control-wrapper">
+            <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a vehicle" @bind-Value="Filter.VehicleNumber" AllowFiltering="true" DataSource="@vehiclesList">
+                <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+            </SfDropDownList>
+        </div>
+    </div>
+    <button class="btn btn-bg-danger text-white mr-2" @onclick="FilterData">FILTER</button>
+    <button class="btn btn-bg-info text-white mr-2" @onclick="ResetData">RESET</button>
+</div>
+
+    <div class="col-lg-12 control-section">
+        <div class="content-wrapper">
+            <div class="row">
+                <div id="container">
+                    <SfGrid ID="VehiclesGrid" @ref="FuelReportGrid" DataSource="@DailyFuelReportList"
+                            AllowPaging="true" AllowSorting="true" AllowFiltering="true"
+                            Height="600" RowHeight="38"
+                            Toolbar="@(new List<string>() { "ExcelExport", "CsvExport", "PdfExport" })"
+                            AllowExcelExport="true" AllowPdfExport="true">
+                        <GridPageSettings PageCount="5" PageSize="20" PageSizes="new int[]{ 5, 10, 20, 50, 100 }"></GridPageSettings>
+                        <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Menu"></GridFilterSettings>
+                        <GridSelectionSettings CheckboxOnly="true" PersistSelection="true" Type="SelectionType.Multiple">
+                        </GridSelectionSettings>
+                        <GridEvents OnToolbarClick="ToolbarClick" TValue="DailyFuelReport">
+                        </GridEvents>
+                        <GridColumns>
+                            <GridColumn Field=@nameof(DailyFuelReport.VehicleNumber) HeaderText="Vehicle Number" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(DailyFuelReport.Region) HeaderText="Region" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(DailyFuelReport.VehicleEnrollmentIn) HeaderText="Enrollment" Width="130"></GridColumn>
+
+                            <GridColumn Field=@nameof(DailyFuelReport.Odometer) HeaderText="Odometer" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(DailyFuelReport.PreviousOdometer) HeaderText="Previous Odometer" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(DailyFuelReport.Mileage) HeaderText="Mileage" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(DailyFuelReport.CC) HeaderText="Chief Crew" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(DailyFuelReport.ACC) HeaderText="Assistant Chief Crew" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(DailyFuelReport.Driver) HeaderText="Driver Name" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(DailyFuelReport.Guard) HeaderText="Guard" Width="130"></GridColumn>
+
+                            <GridColumn Field=@nameof(DailyFuelReport.FuelType) HeaderText="Fuel Type" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(DailyFuelReport.Litres) HeaderText="Litres" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(DailyFuelReport.Rate) HeaderText="Rate" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(DailyFuelReport.Amount) HeaderText="Total" Width="130" FilterSettings="@(new FilterSettings { Type = Syncfusion.Blazor.Grids.FilterType.Menu })"></GridColumn>
+                            <GridColumn Field=@nameof(DailyFuelReport.PaymentType) HeaderText="Payment Type" Width="130"></GridColumn>
+
+                            <GridColumn Field=@nameof(DailyFuelReport.Timestamp) HeaderText="Date" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(DailyFuelReport.Purchaser) HeaderText="Purchaser" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(DailyFuelReport.Vendor) HeaderText="Vendor" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(DailyFuelReport.MTOfficer) HeaderText="MT Officer" Width="130"></GridColumn>
+                        </GridColumns>
+
+                    </SfGrid>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <img style="position:fixed;top:50%;left:70%;" src="assets/media/loading.gif" />
+}
+@code {
+    public bool showReportModal = false;
+    SfGrid<DailyFuelReport> FuelReportGrid;
+    public DateTime? DateValue { get; set; } = DateTime.Now;
+
+    public List<DailyFuelReport> DailyFuelReportList { get; set; } = new List<DailyFuelReport>();
+    public List<DailyFuelReport> FilteredDailyFuelReportList { get; set; } = new List<DailyFuelReport>();
+
+    public DailyFuelReport Filter { get; set; } = new DailyFuelReport();
+
+    public List<SelectListItem> regionsList { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> paymentTypeList { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> fuelTypeList { get; set; } = new List<SelectListItem>();
+
+    public List<SelectListItem> vehiclesList { get; set; } = new List<SelectListItem>();
+    //public List<SelectListItem> typesList { get; set; } = new List<SelectListItem>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetDailyFuelReportsList();
+        showReportModal = true;
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    public void ToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
+    {
+        if (args.Item.Id == "Grid_pdfexport")
+        {
+            PdfExportProperties Props = new PdfExportProperties();
+            Props.PageOrientation = PageOrientation.Landscape;
+            Props.PageSize = PdfPageSize.A4;
+            this.FuelReportGrid.PdfExport(Props);
+        }
+        if (args.Item.Id == "Grid_excelexport")
+        {
+            this.FuelReportGrid.ExcelExport();
+        }
+        if (args.Item.Id == "Grid_csvexport")
+        {
+            this.FuelReportGrid.CsvExport();
+        }
+    }
+
+    public void NotifyChangeState()
+    {
+        StateHasChanged();
+    }
+
+    public async Task GetDailyFuelReportsList()
+    {
+        DailyFuelReportList = (await Http.GetFromJsonAsync<List<DailyFuelReport>>("api/reports/all"))
+        .OrderByDescending(x => x.Timestamp)
+        .ToList();
+        FilteredDailyFuelReportList = DailyFuelReportList;
+        regionsList = DailyFuelReportList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        paymentTypeList = DailyFuelReportList.GroupBy(x => x.PaymentType).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        fuelTypeList = DailyFuelReportList.GroupBy(x => x.FuelType).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        vehiclesList = DailyFuelReportList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+    }
+
+
+    #region Filter
+    public void FilterData()
+    {
+        FilteredDailyFuelReportList = DailyFuelReportList
+.Where(x => (string.IsNullOrEmpty(Filter.Region) || x.Region == Filter.Region))
+.Where(x => (string.IsNullOrEmpty(Filter.FuelType) || x.FuelType == Filter.FuelType))
+.Where(x => (string.IsNullOrEmpty(Filter.PaymentType) || x.PaymentType == Filter.PaymentType))
+.Where(x => (string.IsNullOrEmpty(Filter.VehicleNumber) || x.VehicleNumber == Filter.VehicleNumber))
+.ToList();
+    }
+
+    public void ResetData()
+    {
+        Filter = new DailyFuelReport();
+        FilteredDailyFuelReportList = DailyFuelReportList;
+    }
+    #endregion
+}
