@@ -575,6 +575,7 @@ C:\Users\Btech\source\repos\fms\Client\obj\Debug\net5.0\RazorDeclaration\Compone
 C:\Users\Btech\source\repos\fms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Periodic\Checklist.razor.g.cs
 C:\Users\Btech\source\repos\fms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Periodic\PeriodicHistory.razor.g.cs
 C:\Users\Btech\source\repos\fms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Periodic\ShortPeriodicHistory.razor.g.cs
+C:\Users\Btech\source\repos\fms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Reports\DailyFuelReports.razor.g.cs
 C:\Users\Btech\source\repos\fms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Scorecards\VehiclesScorecard.razor.g.cs
 C:\Users\Btech\source\repos\fms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Uploader.razor.g.cs
 C:\Users\Btech\source\repos\fms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Users\AddUser.razor.g.cs
@@ -643,6 +644,7 @@ C:\Users\Btech\source\repos\fms\Client\obj\Debug\net5.0\Razor\Components\Pending
 C:\Users\Btech\source\repos\fms\Client\obj\Debug\net5.0\Razor\Components\Periodic\Checklist.razor.g.cs
 C:\Users\Btech\source\repos\fms\Client\obj\Debug\net5.0\Razor\Components\Periodic\PeriodicHistory.razor.g.cs
 C:\Users\Btech\source\repos\fms\Client\obj\Debug\net5.0\Razor\Components\Periodic\ShortPeriodicHistory.razor.g.cs
+C:\Users\Btech\source\repos\fms\Client\obj\Debug\net5.0\Razor\Components\Reports\DailyFuelReports.razor.g.cs
 C:\Users\Btech\source\repos\fms\Client\obj\Debug\net5.0\Razor\Components\Scorecards\VehiclesScorecard.razor.g.cs
 C:\Users\Btech\source\repos\fms\Client\obj\Debug\net5.0\Razor\Components\Uploader.razor.g.cs
 C:\Users\Btech\source\repos\fms\Client\obj\Debug\net5.0\Razor\Components\Users\AddUser.razor.g.cs
