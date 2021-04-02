@@ -123,8 +123,9 @@ namespace SOS.FMS.Server.Controllers
                                                         join s in dbContext.SubRegions on v.Location equals s.XDescription
                                                         where v.Description == crew.vehicle
                                                         select s.XDescription).SingleOrDefault();
+
                                     driver.Station = (from v in dbContext.GBMSVehicles
-                                                        join s in dbContext.Stations on v.Location equals s.XDescription
+                                                        join s in dbContext.Stations on v.Station equals s.XDescription
                                                         where v.Description == crew.vehicle
                                                         select s.XDescription).SingleOrDefault();
                                 }

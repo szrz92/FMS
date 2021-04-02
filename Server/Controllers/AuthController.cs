@@ -193,7 +193,6 @@ namespace SOS.FMS.Server.Controllers
                                                               Region = u.Region,
                                                               SubRegion = u.SubRegion,
                                                               Station = u.Station
-
                                                           }).ToListAsync();
                 return Ok(users);
             }
