@@ -54,6 +54,9 @@ namespace SOS.FMS.Server.Controllers
                         SubRegion subRegion = (from s in dbContext.SubRegions
                                                where s.XDescription == vehicle.SubRegion
                                                select s).SingleOrDefault();
+                        Station station = (from st in dbContext.Stations
+                                               where st.XDescription == vehicle.Station
+                                               select st).SingleOrDefault();
                         string DriverName = (from f in dbContext.Vehicles
                                              join d in dbContext.Drivers on f.VehicleNumber equals d.VehicleNumber
                                              join v in dbContext.GBMSVehicles on f.VehicleNumber equals v.Description
@@ -66,6 +69,8 @@ namespace SOS.FMS.Server.Controllers
                         dailyMorning.DriverName = DriverName;
                         dailyMorning.Region = region.XDescription;
                         dailyMorning.Subregion = subRegion.XDescription;
+                        dailyMorning.Station = station.XDescription;
+
                         await dbContext.DailyMorningChecks.AddAsync(dailyMorning);
                         await dbContext.SaveChangesAsync();
 
@@ -94,6 +99,9 @@ namespace SOS.FMS.Server.Controllers
                         SubRegion subRegion = (from s in dbContext.SubRegions
                                                where s.XDescription == vehicle.SubRegion
                                                select s).SingleOrDefault();
+                        Station station = (from st in dbContext.Stations
+                                           where st.XDescription == vehicle.Station
+                                           select st).SingleOrDefault();
                         string DriverName = (from f in dbContext.Vehicles
                                              join d in dbContext.Drivers on f.VehicleNumber equals d.VehicleNumber
                                              join v in dbContext.GBMSVehicles on f.VehicleNumber equals v.Description
@@ -106,6 +114,8 @@ namespace SOS.FMS.Server.Controllers
                         dailyEvening.DriverName = DriverName;
                         dailyEvening.Region = region.XDescription;
                         dailyEvening.Subregion = subRegion.XDescription;
+                        dailyEvening.Station = station.XDescription;
+
                         await dbContext.DailyEveningChecks.AddAsync(dailyEvening);
                         await dbContext.SaveChangesAsync();
 
@@ -161,6 +171,9 @@ namespace SOS.FMS.Server.Controllers
                     SubRegion subRegion = (from s in dbContext.SubRegions
                                            where s.XDescription == vehicle.SubRegion
                                            select s).SingleOrDefault();
+                    Station station = (from st in dbContext.Stations
+                                       where st.XDescription == vehicle.Station
+                                       select st).SingleOrDefault();
                     string DriverName = (from f in dbContext.Vehicles
                                          join d in dbContext.Drivers on f.VehicleNumber equals d.VehicleNumber
                                          join v in dbContext.GBMSVehicles on f.VehicleNumber equals v.Description
@@ -173,6 +186,7 @@ namespace SOS.FMS.Server.Controllers
                     dailyMorning.DriverName = DriverName;
                     dailyMorning.Region = region.XDescription;
                     dailyMorning.Subregion = subRegion.XDescription;
+                    dailyMorning.Station = station.XDescription;
                     await dbContext.DailyMorningChecks.AddAsync(dailyMorning);
                     await dbContext.SaveChangesAsync();
 
@@ -201,6 +215,9 @@ namespace SOS.FMS.Server.Controllers
                     SubRegion subRegion = (from s in dbContext.SubRegions
                                            where s.XDescription == vehicle.SubRegion
                                            select s).SingleOrDefault();
+                    Station station = (from st in dbContext.Stations
+                                       where st.XDescription == vehicle.Station
+                                       select st).SingleOrDefault();
                     string DriverName = (from f in dbContext.Vehicles
                                          join d in dbContext.Drivers on f.VehicleNumber equals d.VehicleNumber
                                          join v in dbContext.GBMSVehicles on f.VehicleNumber equals v.Description
@@ -213,6 +230,7 @@ namespace SOS.FMS.Server.Controllers
                     dailyEvening.DriverName = DriverName;
                     dailyEvening.Region = region.XDescription;
                     dailyEvening.Subregion = subRegion.XDescription;
+                    dailyEvening.Station = station.XDescription;
                     await dbContext.DailyEveningChecks.AddAsync(dailyEvening);
                     await dbContext.SaveChangesAsync();
 
@@ -350,6 +368,7 @@ namespace SOS.FMS.Server.Controllers
                                 DriverName = dbContext.Drivers.Where(x => x.VehicleNumber == request.VehicleNumber).SingleOrDefault().Name,
                                 Region = dbContext.Drivers.Where(x => x.VehicleNumber == request.VehicleNumber).SingleOrDefault().Region,
                                 Subregion = dbContext.Drivers.Where(x => x.VehicleNumber == request.VehicleNumber).SingleOrDefault().SubRegion,
+                                Station = dbContext.Drivers.Where(x => x.VehicleNumber == request.VehicleNumber).SingleOrDefault().Station,
                                 Description = request.Remarks,
                                 PointCode = request.CheckListPointCode,
                                 PointCodeDescription = request.CheckListPoint,
@@ -407,6 +426,8 @@ namespace SOS.FMS.Server.Controllers
                                 DriverName = dbContext.Drivers.Where(x => x.VehicleNumber == request.VehicleNumber).SingleOrDefault().Name,
                                 Region = dbContext.Drivers.Where(x => x.VehicleNumber == request.VehicleNumber).SingleOrDefault().Region,
                                 Subregion = dbContext.Drivers.Where(x => x.VehicleNumber == request.VehicleNumber).SingleOrDefault().SubRegion,
+                                Station = dbContext.Drivers.Where(x => x.VehicleNumber == request.VehicleNumber).SingleOrDefault().Station,
+
                                 Description = request.Remarks,
                                 PointCode = request.CheckListPointCode,
                                 PointCodeDescription = request.CheckListPoint,

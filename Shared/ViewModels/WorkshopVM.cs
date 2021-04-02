@@ -13,5 +13,6 @@ namespace SOS.FMS.Shared.ViewModels
         public Guid IncidentId { get; set; }
         public Guid CheckId { get; set; }
         public string IncidentType { get; set; }
+        public string Remarks { get; set; }
     }
 }

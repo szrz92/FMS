@@ -42,7 +42,11 @@ namespace SOS.FMS.Server.Controllers
                                                               select r.XRegionDescription).FirstOrDefault() ?? "Head Office",
                                                     SubRegion = (from r in dbContext.SubRegions
                                                                  where u.XLocationDescription.Contains(r.XDescription)
+                                                                 select r.XDescription).FirstOrDefault() ?? "Head Office",
+                                                    station = (from r in dbContext.Stations
+                                                                 where u.XLocationDescription.Contains(r.XDescription)
                                                                  select r.XDescription).FirstOrDefault() ?? "Head Office"
+
                                                 }).ToListAsync();
                 return Ok(users);
             }

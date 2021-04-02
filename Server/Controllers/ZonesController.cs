@@ -11,5 +11,6 @@ namespace SOS.FMS.Server.Controllers
     [ApiController]
     public class ZonesController : ControllerBase
     {
+
     }
 }

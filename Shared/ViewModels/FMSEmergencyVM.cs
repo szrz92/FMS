@@ -14,6 +14,8 @@ namespace SOS.FMS.Shared.ViewModels
         public string Driver { get; set; }
         public string Region { get; set; }
         public string SubRegion { get; set; }
+        public string Station { get; set; }
+
         public string Description { get; set; }
         public string MaintenanceStatus { get; set; }
         public DateTime ReportTime { get; set; }

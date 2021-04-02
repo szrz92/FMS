@@ -98,6 +98,7 @@ namespace SOS.FMS.Server.Controllers
                             VehicleNumber = vehicle.VehicleNumber,
                             Region = driver.Region,
                             SubRegion = driver.SubRegion,
+                            Station=driver.Station,
                             Status = status
                         });
                     }
@@ -147,7 +148,8 @@ namespace SOS.FMS.Server.Controllers
                             MonthLimit = configuration.Month,
                             VehicleNumber = vehicle.VehicleNumber,
                             Region = driver.Region,
-                            SubRegion = driver.SubRegion
+                            SubRegion = driver.SubRegion,
+                            Station=driver.Station
                         });
                     }
                     return Ok(periodicHistory);
@@ -198,7 +200,8 @@ namespace SOS.FMS.Server.Controllers
                                 MonthLimit = c.Month,
                                 VehicleNumber = vehicle.VehicleNumber,
                                 Region = driver.Region,
-                                SubRegion = driver.SubRegion
+                                SubRegion = driver.SubRegion,
+                                Station=driver.Station
                             }).FirstOrDefault();
                         periodicHistory.Add(history);
                     }
@@ -299,7 +302,8 @@ namespace SOS.FMS.Server.Controllers
                                     MonthLimit = configuration.Month,
                                     VehicleNumber = v.VehicleNumber,
                                     Region = driver.Region,
-                                    SubRegion = driver.SubRegion
+                                    SubRegion = driver.SubRegion,
+                                    Station=driver.Station
                                 });
                             }
                         }
@@ -338,7 +342,8 @@ namespace SOS.FMS.Server.Controllers
                                             MonthLimit = configuration.Month,
                                             VehicleNumber = v.VehicleNumber,
                                             Region = driver.Region,
-                                            SubRegion = driver.SubRegion
+                                            SubRegion = driver.SubRegion,
+                                            Station=driver.Station
                                         });
                                     }
                                 }
@@ -397,7 +402,8 @@ namespace SOS.FMS.Server.Controllers
                                         MonthLimit = configuration.Month,
                                         VehicleNumber = v.VehicleNumber,
                                         Region = driver.Region,
-                                        SubRegion = driver.SubRegion
+                                        SubRegion = driver.SubRegion,
+                                        Station = driver.Station
                                     });
                                 }
                             }
@@ -451,7 +457,8 @@ namespace SOS.FMS.Server.Controllers
                                     MonthLimit = configuration.Month,
                                     VehicleNumber = v.VehicleNumber,
                                     Region = driver.Region,
-                                    SubRegion = driver.SubRegion
+                                    SubRegion = driver.SubRegion,
+                                    Station = driver.Station
                                 });
                             }
                         }

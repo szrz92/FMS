@@ -40,6 +40,15 @@
             </div>
             <div class="mr-2" style="width:135%">
                 <div class="control-wrapper">
+                    <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a station" AllowFiltering="true" DataSource="@stationList" @bind-Value="Filter.Station">
+                        <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                        <DropDownListEvents TValue="string" ValueChange="OnStationChange"></DropDownListEvents>
+                    </SfDropDownList>
+                </div>
+            </div>
+
+            <div class="mr-2" style="width:135%">
+                <div class="control-wrapper">
                     <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a status" @bind-Value="Filter.Status" AllowFiltering="true" DataSource="@statusList">
                         <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
                         <DropDownListEvents TValue="string" ValueChange="OnStatusChange"></DropDownListEvents>
@@ -99,6 +108,7 @@
                                             <GridColumn Field=@nameof(FMSDailyCheckListVM.SubCategeory) HeaderText="Subcategory" Width="130"></GridColumn>
                                             <GridColumn Field=@nameof(FMSDailyCheckListVM.Region) HeaderText="Region" Width="130"></GridColumn>
                                             <GridColumn Field=@nameof(FMSDailyCheckListVM.Subregion) HeaderText="Subregion" Width="130"></GridColumn>
+                                            <GridColumn Field=@nameof(FMSDailyCheckListVM.Station) HeaderText="Station" Width="130"></GridColumn>
                                             <GridColumn Field=@nameof(FMSDailyCheckListVM.Status) HeaderText="Status" Width="130"></GridColumn>
                                             <GridColumn Field=@nameof(FMSDailyCheckListVM.LastUpdated) HeaderText="Last Updated" Width="130"></GridColumn>
                                         </GridColumns>
@@ -125,6 +135,8 @@
     public List<FMSDailyCheckListVM> FilteredDailyChecksList { get; set; }
     public List<SelectListItem> regionsList { get; set; } = new List<SelectListItem>();
     public List<SelectListItem> subRegionsList { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> stationList { get; set; } = new List<SelectListItem>();
+
     public List<SelectListItem> statusList { get; set; } = new List<SelectListItem>();
     public List<SelectListItem> vehiclesList { get; set; } = new List<SelectListItem>();
 
@@ -138,6 +150,7 @@
         FilteredDailyChecksList = DailyChecksList;
         regionsList = DailyChecksList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         subRegionsList = DailyChecksList.GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        stationList = DailyChecksList.GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         statusList = DailyChecksList.GroupBy(x => x.Status).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         vehiclesList = DailyChecksList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         await base.OnInitializedAsync();
@@ -146,16 +159,25 @@
     public async Task OnRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
     {
         subRegionsList = DailyChecksList.Where(x => x.Region == args.Value).GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        stationList = DailyChecksList.Where(x => x.Region == args.Value).GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         statusList = DailyChecksList.Where(x => x.Region == args.Value).GroupBy(x => x.Status).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         vehiclesList = DailyChecksList.Where(x => x.Region == args.Value).GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         StateHasChanged();
     }
     public async Task OnSubRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
     {
+        stationList = DailyChecksList.Where(x => x.Subregion == args.Value).GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         statusList = DailyChecksList.Where(x => x.Subregion == args.Value).GroupBy(x => x.Status).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         vehiclesList = DailyChecksList.Where(x => x.Subregion == args.Value).GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         StateHasChanged();
     }
+    public async Task OnStationChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        statusList = DailyChecksList.Where(x => x.Station == args.Value).GroupBy(x => x.Status).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        vehiclesList = DailyChecksList.Where(x => x.Station == args.Value).GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        StateHasChanged();
+    }
+
     public async Task OnStatusChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
     {
         vehiclesList = DailyChecksList
@@ -174,6 +196,7 @@
         FilteredDailyChecksList = DailyChecksList
             .Where(x => (string.IsNullOrEmpty(Filter.Region) || x.Region == Filter.Region))
             .Where(x=> (string.IsNullOrEmpty(Filter.Subregion) || x.Subregion == Filter.Subregion))
+            .Where(x => (string.IsNullOrEmpty(Filter.Station) || x.Station == Filter.Station))
             .Where(x=> (string.IsNullOrEmpty(Filter.Status) || x.Status == Filter.Status))
             .Where(x=> (string.IsNullOrEmpty(Filter.VehicleNumber) || x.VehicleNumber == Filter.VehicleNumber))
             .ToList();

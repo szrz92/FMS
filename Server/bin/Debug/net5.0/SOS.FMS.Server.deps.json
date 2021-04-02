@@ -45,6 +45,7 @@
           "Microsoft.Extensions.Hosting": "5.0.0",
           "SOS.FMS.Client": "1.0.0",
           "SOS.FMS.Shared": "1.0.0",
+          "System.Net.Http.Json": "5.0.0",
           "FirebaseAdmin": "2.0.0",
           "Microsoft.AspNetCore.SignalR.Core": "1.1.0",
           "Microsoft.AspNetCore.Antiforgery.Reference": "5.0.0.0",

@@ -194,20 +194,6 @@ using Microsoft.AspNetCore.SignalR.Client;
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 1 "C:\Users\Btech\Source\Repos\fms\Client\Components\VideoPlayer.razor"
-using Blazored.Video;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 2 "C:\Users\Btech\Source\Repos\fms\Client\Components\VideoPlayer.razor"
-using Blazored.Video.Support;
-
-#line default
-#line hidden
-#nullable disable
     public partial class VideoPlayer : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -215,62 +201,6 @@ using Blazored.Video.Support;
         {
         }
         #pragma warning restore 1998
-#nullable restore
-#line 45 "C:\Users\Btech\Source\Repos\fms\Client\Components\VideoPlayer.razor"
-        
-    [Parameter]
-    public string source { get; set; }
-
-    Dictionary<VideoEvents, VideoStateOptions> options = new Dictionary<VideoEvents, VideoStateOptions>();
-    VideoState videoState;
-    Dictionary<VideoEvents, int> eventCounter = new Dictionary<VideoEvents, int>();
-
-    protected override void OnInitialized()
-    {
-        foreach (var item in (VideoEvents[])(Enum.GetValues(typeof(VideoEvents))))
-        {
-            if (item != VideoEvents.NotSet)
-            {
-                eventCounter[item] = 0;
-            }
-        }
-        var option = new VideoStateOptions() { All = true };
-        options[VideoEvents.Abort] = option;
-        options[VideoEvents.CanPlay] = option;
-        options[VideoEvents.CanPlayThrough] = option;
-        options[VideoEvents.DurationChange] = option;
-        options[VideoEvents.Emptied] = option;
-        options[VideoEvents.Ended] = option;
-        options[VideoEvents.Error] = option;
-        options[VideoEvents.LoadedData] = option;
-        options[VideoEvents.LoadedMetadata] = option;
-        options[VideoEvents.LoadStart] = option;
-        options[VideoEvents.Pause] = option;
-        options[VideoEvents.Play] = option;
-        options[VideoEvents.Playing] = option;
-        options[VideoEvents.Progress] = option;
-        options[VideoEvents.RateChange] = option;
-        options[VideoEvents.Seeked] = option;
-        options[VideoEvents.Seeking] = option;
-        options[VideoEvents.Stalled] = option;
-        options[VideoEvents.Suspend] = option;
-        options[VideoEvents.TimeUpdate] = option;
-        options[VideoEvents.VolumeChange] = option;
-        options[VideoEvents.Waiting] = option;
-    }
-    void OnEvent(VideoEventData videoData)
-    {
-        videoState = videoData.State;
-        if (videoData.EventName != VideoEvents.NotSet)
-        {
-            eventCounter[videoData.EventName]++;
-        }
-        StateHasChanged();
-    } 
-
-#line default
-#line hidden
-#nullable disable
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private INotificationService NotificationService { get; set; }
     }

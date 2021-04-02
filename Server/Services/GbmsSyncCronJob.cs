@@ -48,6 +48,29 @@ namespace SOS.FMS.Server.Services
             {
                 var context = scope.ServiceProvider.GetService<SOS_VIEWSContext>();
 
+                var stations = (from r in context.RbSubRegionsStations
+                                join s in context.RbStations on r.XStationCode equals s.XCode
+                                select new Station
+                                {
+                                    AddDate = s.AddDate,
+                                    AddId = s.AddId,
+                                    IpAdd = s.IpAdd,
+                                    XAbbrevation = s.XAbbrevation,
+                                    Id = Guid.NewGuid(),
+                                    IpMod = s.IpMod,
+                                    ModDate = s.ModDate,
+                                    ModId = s.ModId,
+                                    XCode = s.XCode,
+                                    XDescription = s.XDescription,
+                                    XRemarks = s.XRemarks,
+                                    XrowId = s.XrowId,
+                                    XVaultStatus = s.XVaultStatus,
+                                    LastSync = DateTime.UtcNow,
+                                    XSubRegionCode = r.XCode
+
+                                }).ToList();
+                SyncStations(stations, scope);
+
                 var users = (from u in context.PayEmployeeMasters select u).ToList();
                 SyncUsers(users, scope);
 
@@ -66,8 +89,7 @@ namespace SOS.FMS.Server.Services
                 var zones = (from z in context.RbZones select z).ToList();
                 SyncZones(zones, scope);
 
-                var stations = (from s in context.RbStations select s).ToList();
-                SyncStations(stations, scope);
+
 
                 var drivers = (from d in context.PdwEmployeeMasters
                                where d.XDesignationDescription.Contains("river")
@@ -464,12 +486,14 @@ namespace SOS.FMS.Server.Services
             context.SaveChanges();
             return Task.CompletedTask;
         }
-        public Task SyncStations(List<RbStation> stations, IServiceScope scope)
+        public Task SyncStations(List<Station> stations, IServiceScope scope)
         {
             var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             foreach (var item in stations)
             {
-                var station = (from s in context.Stations where s.XCode == item.XCode select s).FirstOrDefault();
+                var station = (from s in context.Stations
+                               where s.XCode == item.XCode
+                               select s).FirstOrDefault();
                 if (station == null)
                 {
                     station = new Station()
@@ -487,7 +511,9 @@ namespace SOS.FMS.Server.Services
                         XRemarks = item.XRemarks,
                         XrowId = item.XrowId,
                         XVaultStatus = item.XVaultStatus,
-                        LastSync = DateTime.UtcNow
+                        LastSync = DateTime.UtcNow,
+                        XSubRegionCode = item.XSubRegionCode
+
                     };
                     context.Stations.Add(station);
                 }
@@ -505,6 +531,7 @@ namespace SOS.FMS.Server.Services
                     station.XrowId = item.XrowId;
                     station.XVaultStatus = item.XVaultStatus;
                     station.LastSync = DateTime.UtcNow;
+                    station.XSubRegionCode = item.XSubRegionCode;
                 }
             }
             context.SaveChanges();
@@ -517,6 +544,7 @@ namespace SOS.FMS.Server.Services
             {
                 var region = (from s in context.SubRegions where item.XLocationDescription.Contains(s.XDescription) select s.XRegionDescription).FirstOrDefault();
                 var subregion = (from s in context.SubRegions where item.XLocationDescription.Contains(s.XDescription) select s.XDescription).FirstOrDefault();
+                var station = (from st in context.Stations where item.XLocationDescription.Contains(st.XDescription) select st.XDescription).FirstOrDefault();
 
                 var driver = (from s in context.Drivers where s.Code == item.XCode select s).FirstOrDefault();
 
@@ -535,6 +563,7 @@ namespace SOS.FMS.Server.Services
                         VehicleNumber = "",
                         Region = region,
                         SubRegion = subregion,
+                        Station= station,
                         Ranking = 0,
                         Violations = 0,
                         LastSync = PakistanDateTime.Now,
@@ -571,6 +600,9 @@ namespace SOS.FMS.Server.Services
                 SubRegion subRegion = (from s in dbContext.SubRegions
                                        where s.XDescription == vehicle.SubRegion
                                        select s).SingleOrDefault();
+                Station station = (from st in dbContext.Stations
+                                       where st.XDescription == vehicle.Station
+                                       select st).SingleOrDefault();
                 string DriverName = (from d in dbContext.Drivers 
                                      where d.VehicleNumber == vehicleNumber
                                      select d.Name).SingleOrDefault();
@@ -584,6 +616,7 @@ namespace SOS.FMS.Server.Services
                     dailyMorning.DriverName = DriverName;
                     dailyMorning.Region = region.XDescription;
                     dailyMorning.Subregion = subRegion.XDescription;
+                    dailyMorning.Station = station.XDescription;
                     await dbContext.DailyMorningChecks.AddAsync(dailyMorning);
                     await dbContext.SaveChangesAsync();
                 }
@@ -597,6 +630,7 @@ namespace SOS.FMS.Server.Services
                     dailyEvening.DriverName = DriverName;
                     dailyEvening.Region = region.XDescription;
                     dailyEvening.Subregion = subRegion.XDescription;
+                    dailyEvening.Station = station.XDescription;
                     await dbContext.DailyEveningChecks.AddAsync(dailyEvening);
                     await dbContext.SaveChangesAsync();
                 }

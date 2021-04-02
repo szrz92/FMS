@@ -202,11 +202,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-<<<<<<< HEAD
-#line 50 "C:\Users\Btech\Source\Repos\fms\Client\Components\Emergency\AssigningWorkshop.razor"
-=======
-#line 58 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\AssigningWorkshop.razor"
->>>>>>> c4f6b5a305fa29cb053a7848c4267a5c0b345154
+#line 63 "C:\Users\Btech\Source\Repos\fms\Client\Components\Emergency\AssigningWorkshop.razor"
        
     [Parameter]
     public ApiRequest CheckPointId { get; set; }
@@ -224,17 +220,6 @@ using Microsoft.AspNetCore.SignalR.Client;
     };
 
     public List<SelectListItem> ApprovedVendors { get; set; }
-<<<<<<< HEAD
-
-    public WorkshopVM WorkshopVM { get; set; }
-
-    public bool readOnly { get; set; } = true;
-
-    protected override async Task OnInitializedAsync()
-    {
-        WorkshopVM = new WorkshopVM() { IncidentId = CheckPointId.FMSEmergencyId };
-        ApprovedVendors = await Http.GetFromJsonAsync<List<SelectListItem>>("api/vendors/all");
-=======
     public List<SelectListItem> UnApprovedVendors { get; set; }
 
     public WorkshopVM WorkshopVM { get; set; }
@@ -258,7 +243,6 @@ using Microsoft.AspNetCore.SignalR.Client;
             readOnly = true;
         }
         loading = false;
->>>>>>> c4f6b5a305fa29cb053a7848c4267a5c0b345154
         await base.OnInitializedAsync();
     }
 
@@ -274,8 +258,6 @@ using Microsoft.AspNetCore.SignalR.Client;
             readOnly = false;
         }
     }
-<<<<<<< HEAD
-=======
 
     public async void OnValidSubmit()
     {
@@ -285,6 +267,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         {
             readOnly = true;
             loading = false;
+            await Close();
         }
         else
         {
@@ -292,7 +275,6 @@ using Microsoft.AspNetCore.SignalR.Client;
             loading = false;
         }
     }
->>>>>>> c4f6b5a305fa29cb053a7848c4267a5c0b345154
 
 #line default
 #line hidden

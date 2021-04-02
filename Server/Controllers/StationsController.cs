@@ -28,7 +28,7 @@ namespace SOS.FMS.Server.Controllers
                                                     select new SelectListItem()
                                                     {
                                                         Text = s.XDescription,
-                                                        Value = s.XDescription
+                                                        Value = s.XCode
                                                     }).ToListAsync();
                 return Ok(items);
             }

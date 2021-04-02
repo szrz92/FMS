@@ -11,5 +11,7 @@ namespace SOS.FMS.Server.Models
         public string Name { get; set; }
         public string SubRegion { get; set; }
         public string Region { get; set; }
+        public string Station { get; set; }
+
     }
 }

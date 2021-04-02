@@ -19,6 +19,7 @@ namespace SOS.FMS.Server.Services
             checkListVM.DriverName = dailyMorning.DriverName;
             checkListVM.Region = dailyMorning.Region;
             checkListVM.Subregion = dailyMorning.Subregion;
+            checkListVM.Station = dailyMorning.Station;
             checkListVM.Category = "Morning";
             checkListVM.SubCategeory = "General";
             checkListVM.OdometerIn = dailyMorning.OdometerIn;
@@ -250,6 +251,8 @@ namespace SOS.FMS.Server.Services
             checkListVM.DriverName = dailyEvening.DriverName;
             checkListVM.Region = dailyEvening.Region;
             checkListVM.Subregion = dailyEvening.Subregion;
+            checkListVM.Station = dailyEvening.Station;
+
             checkListVM.OdometerIn = dailyEvening.OdometerIn;
             checkListVM.OdometerOut = dailyEvening.OdometerOut;
             checkListVM.Checklist = new List<Check>();
@@ -342,6 +345,8 @@ namespace SOS.FMS.Server.Services
             checkListVM.DriverName = dailyEvening.DriverName;
             checkListVM.Region = dailyEvening.Region;
             checkListVM.Subregion = dailyEvening.Subregion;
+            checkListVM.Station = dailyEvening.Station;
+
             checkListVM.Remarks = dailyEvening.Remarks;
             checkListVM.OdometerIn = dailyEvening.OdometerIn;
             checkListVM.OdometerOut = dailyEvening.OdometerOut;
@@ -411,6 +416,8 @@ namespace SOS.FMS.Server.Services
             checkListVM.DriverName = dailyEvening.DriverName;
             checkListVM.Region = dailyEvening.Region;
             checkListVM.Subregion = dailyEvening.Subregion;
+            checkListVM.Station = dailyEvening.Station;
+
             checkListVM.Remarks = dailyEvening.Remarks;
             checkListVM.OdometerIn = dailyEvening.OdometerIn;
             checkListVM.OdometerOut = dailyEvening.OdometerOut;
@@ -576,6 +583,8 @@ namespace SOS.FMS.Server.Services
             checkListVM.DriverName = dailyEvening.DriverName;
             checkListVM.Region = dailyEvening.Region;
             checkListVM.Subregion = dailyEvening.Subregion;
+            checkListVM.Station = dailyEvening.Station;
+
             checkListVM.Remarks = dailyEvening.Remarks;
             checkListVM.OdometerIn = dailyEvening.OdometerIn;
             checkListVM.OdometerOut = dailyEvening.OdometerOut;
@@ -639,6 +648,8 @@ namespace SOS.FMS.Server.Services
             checkListVM.DriverName = dailyEvening.DriverName;
             checkListVM.Region = dailyEvening.Region;
             checkListVM.Subregion = dailyEvening.Subregion;
+            checkListVM.Station = dailyEvening.Station;
+
             checkListVM.Remarks = dailyEvening.Remarks;
             checkListVM.OdometerIn = dailyEvening.OdometerIn;
             checkListVM.OdometerOut = dailyEvening.OdometerOut;

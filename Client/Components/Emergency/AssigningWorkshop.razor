@@ -15,37 +15,42 @@
         <div class="d-flex flex-column">
             @if (!loading)
             {
-                <EditForm Model="WorkshopVM" OnValidSubmit="OnValidSubmit">
+            <EditForm Model="WorkshopVM" OnValidSubmit="OnValidSubmit">
+                <div class="form-group">
+                    <label>Vendor Type:</label>
+                    <SfDropDownList TItem="SelectListItem" TValue="string" PopupHeight="230px" Enabled="!readOnly" Placeholder="Select a type" @bind-Value="WorkshopVM.Type" DataSource="@VendorTypes">
+                        <DropDownListEvents TValue="string" ValueChange="OnVendorTypeChange"></DropDownListEvents>
+                        <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                    </SfDropDownList>
+                </div>
+                @if (WorkshopVM.Type == "Approved")
+                {
                     <div class="form-group">
-                        <label>Vendor Type:</label>
-                        <SfDropDownList TItem="SelectListItem" TValue="string" PopupHeight="230px" Placeholder="Select a type" @bind-Value="WorkshopVM.Type" DataSource="@VendorTypes">
-                            <DropDownListEvents TValue="string" ValueChange="OnVendorTypeChange"></DropDownListEvents>
+                        <label>Vendor Name:</label>
+                        <SfDropDownList TItem="SelectListItem" TValue="string" PopupHeight="230px" Enabled="!readOnly" Placeholder="Select a vendor" @bind-Value="WorkshopVM.Code" DataSource="@ApprovedVendors" Readonly="@readOnly">
+                            <DropDownListEvents TValue="string"></DropDownListEvents>
                             <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
                         </SfDropDownList>
                     </div>
-                    @if (WorkshopVM.Type == "Approved")
-                    {
-                        <div class="form-group">
-                            <label>Vendor Name:</label>
-                            <SfDropDownList TItem="SelectListItem" TValue="string" PopupHeight="230px" Placeholder="Select a vendor" @bind-Value="WorkshopVM.Code" DataSource="@ApprovedVendors" Readonly="@readOnly">
-                                <DropDownListEvents TValue="string"></DropDownListEvents>
-                                <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
-                            </SfDropDownList>
-                        </div>
-                    }
-                    else if (WorkshopVM.Type == "Un Approved")
-                    {
-                        <div class="form-group">
-                            <label>Vendor Name:</label>
-                            <SfDropDownList TItem="SelectListItem" TValue="string" PopupHeight="230px" Placeholder="Select a vendor" @bind-Value="WorkshopVM.Code" DataSource="@UnApprovedVendors" Readonly="@readOnly">
-                                <DropDownListEvents TValue="string"></DropDownListEvents>
-                                <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
-                            </SfDropDownList>
-                        </div>
-                    }
-                    <button type="submit" class="btn btn-fms ml-2 mt-2" disabled="@readOnly">SUBMIT</button>
+                }
+                else if (WorkshopVM.Type == "Un Approved")
+                {
+                    <div class="form-group">
+                        <label>Vendor Name:</label>
+                        <SfDropDownList TItem="SelectListItem" TValue="string" PopupHeight="230px" Enabled="!readOnly" Placeholder="Select a vendor" @bind-Value="WorkshopVM.Code" DataSource="@UnApprovedVendors" Readonly="@readOnly">
+                            <DropDownListEvents TValue="string"></DropDownListEvents>
+                            <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                        </SfDropDownList>
+                    </div>
+                }
+            <div class="form-group">
+                <label>Remarks:</label>
+                <SfTextBox @bind-Value="WorkshopVM.Remarks" class="form-control" Multiline="true"></SfTextBox>
+                <span class="form-text text-muted">Please enter remarks</span>
+            </div>
+                <button type="submit" class="btn btn-fms ml-2 mt-2" disabled="@readOnly">SUBMIT</button>
 
-                </EditForm>
+            </EditForm>
             }
             else
             {
@@ -119,6 +124,7 @@
         {
             readOnly = true;
             loading = false;
+            await Close();
         }
         else
         {

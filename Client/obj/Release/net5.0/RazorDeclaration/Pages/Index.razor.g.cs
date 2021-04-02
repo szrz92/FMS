@@ -382,6 +382,7 @@ using Microsoft.AspNetCore.SignalR.Client;
     public string emergencyCheckListVehicleNumber;
 
     public bool emergencyCheckListSideModal { get; set; } = false;
+
     public void ShowHideEmergencyCheckList()
     {
         Description = null;
@@ -410,17 +411,14 @@ using Microsoft.AspNetCore.SignalR.Client;
     [JSInvokable]
     public async void Emergency_JSInvoked(string vehicleNumber)
     {
-
         emergencyCheckListVehicleNumber = vehicleNumber;
-
-        var emergencyStatusResponse = await Http.PostAsJsonAsync("api/Emergency/FMS/checkEmergencyStatus", new ApiRequest() { VehicleNumber = vehicleNumber });
 
         var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new ApiRequest() { VehicleNumber = vehicleNumber });
         try
         {
             string res = await vehicleResponse.Content.ReadAsStringAsync();
             var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<VehicleVM>(res);
-            if (vehicle.Type == "emergency")
+            if (vehicle.EmergencyStatus == FMS.Shared.Enums.EmergencyMaintenanceStatus.Pending)
             {
                 var getEmergencyCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Emergency/FMS/CheckList", new ApiRequest() { VehicleNumber = vehicleNumber });
                 if (getEmergencyCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
@@ -451,12 +449,12 @@ using Microsoft.AspNetCore.SignalR.Client;
         {
             accidentalCheckListVehicleNumber = vehicleNumber;
 
-            var accidentStatusResponse = await Http.PostAsJsonAsync("api/Accident/FMS/checkAccidentalStatus", new ApiRequest() { VehicleNumber = vehicleNumber });
+            //var accidentStatusResponse = await Http.PostAsJsonAsync("api/Accident/FMS/checkAccidentalStatus", new ApiRequest() { VehicleNumber = vehicleNumber });
 
             var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new ApiRequest() { VehicleNumber = vehicleNumber });
             var vehicle = JsonConvert.DeserializeObject<VehicleVM>(await vehicleResponse.Content.ReadAsStringAsync());
 
-            if (vehicle.Type == "accidental" || accidentStatusResponse.StatusCode == System.Net.HttpStatusCode.OK)
+            if (vehicle.AccidentalStatus == FMS.Shared.Enums.AccidentalMaintenanceStatus.Pending)
             {
                 var getAccidentalCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/FMS/CheckList", new ApiRequest() { VehicleNumber = vehicleNumber });
 

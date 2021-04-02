@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using SOS.FMS.Server.Hubs;
 using SOS.FMS.Server.Models;
+using SOS.FMS.Server.Services;
 using SOS.FMS.Shared;
 using SOS.FMS.Shared.Enums;
 using SOS.FMS.Shared.ViewModels;
@@ -37,17 +38,19 @@ namespace SOS.FMS.Server.Controllers
                 if (User.IsInRole("SA") || User.IsInRole("HMT"))
                 {
                     emergencyList = await (from e in dbContext.Emergencies
-                                         join d in dbContext.Drivers on e.DriverId equals d.Id
-                                         join r in dbContext.Regions on e.RegionId equals r.Id
-                                         join s in dbContext.SubRegions on e.SubRegionId equals s.Id
-                                         join v in dbContext.Vehicles on e.FMSVehicleId equals v.Id
-                                         select new FMSEmergencyVM()
+                                           join d in dbContext.Drivers on e.DriverId equals d.Id
+                                           join r in dbContext.Regions on e.RegionId equals r.Id
+                                           join s in dbContext.SubRegions on e.SubRegionId equals s.Id
+                                           join st in dbContext.Stations on e.StationId equals st.Id
+                                           join v in dbContext.Vehicles on e.FMSVehicleId equals v.Id
+                                           select new FMSEmergencyVM()
                                          {
                                              Id = e.Id,
                                              Description = e.Description,
                                              Driver = d.Name,
                                              Region = r.XDescription,
                                              SubRegion = s.XDescription,
+                                             Station = st.XDescription,
                                              VehicleNumber = v.VehicleNumber,
                                              MaintenanceStatus = e.MaintenanceStatus == MaintenanceStatus.Done ? "Complete" : "Not Initiated",
                                              ReportTime = e.TimeStamp,
@@ -65,6 +68,7 @@ namespace SOS.FMS.Server.Controllers
                                            join d in dbContext.Drivers on e.DriverId equals d.Id
                                            join r in dbContext.Regions on e.RegionId equals r.Id
                                            join s in dbContext.SubRegions on e.SubRegionId equals s.Id
+                                           join st in dbContext.Stations on e.StationId equals st.Id
                                            join v in dbContext.Vehicles on e.FMSVehicleId equals v.Id
                                            where e.RegionId == region.Id
                                            select new FMSEmergencyVM()
@@ -74,6 +78,7 @@ namespace SOS.FMS.Server.Controllers
                                                Driver = d.Name,
                                                Region = r.XDescription,
                                                SubRegion = s.XDescription,
+                                               Station=st.XDescription,
                                                VehicleNumber = v.VehicleNumber,
                                                MaintenanceStatus = e.MaintenanceStatus == MaintenanceStatus.Done ? "Complete" : "Not Initiated",
                                                ReportTime = e.TimeStamp,
@@ -113,6 +118,8 @@ namespace SOS.FMS.Server.Controllers
                     RegionId = dbContext.Regions.Where(x => x.XDescription == vehicle.Region).SingleOrDefault().Id,
                     VehicleNumber = emergency.VehicleNumber,
                     SubRegionId = dbContext.SubRegions.Where(x => x.XDescription == vehicle.SubRegion).SingleOrDefault().Id,
+                    StationId = dbContext.Stations.Where(x => x.XDescription == vehicle.Station).SingleOrDefault().Id,
+
                     FMSVehicleId = vehicle.Id,
                     MaintenanceStatus = MaintenanceStatus.NotInitiated,
                     TimeStamp = DateTime.Now,
@@ -160,6 +167,8 @@ namespace SOS.FMS.Server.Controllers
                     User.Identity.Name,
                     title,
                     notification);
+                await SMSService.SendSMS(title + ": " + notification, "03035650720");
+                SMSService.SendMail(title, notification, "w.tahir@batech.com.pk");
 
                 return Ok(fmsEmergencyCheckList);
             }
@@ -260,6 +269,8 @@ namespace SOS.FMS.Server.Controllers
                     User.Identity.Name,
                     title,
                     notification);
+                await SMSService.SendSMS(title + ": " + notification, "03035650720");
+                SMSService.SendMail(title, notification, "w.tahir@batech.com.pk");
 
                 return Ok();
             }
@@ -314,6 +325,8 @@ namespace SOS.FMS.Server.Controllers
                             user.Email,
                             $"Notification for Vehicle Number {check.VehicleNumber}",
                             $"{currentUser.Name} mentioned you in a comment under emergency check list point {check.Description}");
+                        await SMSService.SendSMS($"Notification for Vehicle Number {check.VehicleNumber}: {currentUser.Name} mentioned you in a comment under emergency check list point {check.Description}", "03035650720");
+                        SMSService.SendMail($"Notification for Vehicle Number {check.VehicleNumber}", $"{currentUser.Name} mentioned you in a comment under emergency check list point {check.Description}", "w.tahir@batech.com.pk");
                     }
                 }
 
@@ -352,6 +365,9 @@ namespace SOS.FMS.Server.Controllers
                     User.Identity.Name,
                     title,
                     notification);
+                await SMSService.SendSMS(title + ": " + notification, "03035650720");
+                SMSService.SendMail(title, notification, "w.tahir@batech.com.pk");
+
                 return Ok();
             }
             catch (Exception ex)
@@ -402,6 +418,9 @@ namespace SOS.FMS.Server.Controllers
                     User.Identity.Name,
                     "Notification",
                     notification);
+                await SMSService.SendSMS(notification, "03035650720");
+                SMSService.SendMail("Notification for "+request.VehicleNumber, notification, "w.tahir@batech.com.pk");
+
                 return Ok();
             }
             catch (Exception ex)
@@ -473,6 +492,7 @@ namespace SOS.FMS.Server.Controllers
                                             select c).CountAsync();
                 Emergency emergency = await dbContext.Emergencies.Where(x => x.Id == check.FMSEmergencyId).Select(x => x).SingleOrDefaultAsync();
                 emergency.LastUpdated = PakistanDateTime.Now;
+                check.LastUpdated = PakistanDateTime.Now;
                 await dbContext.SaveChangesAsync();
 
                 return Ok();
@@ -537,7 +557,6 @@ namespace SOS.FMS.Server.Controllers
                     SubServiceType = billDetail.SubServiceType,
                     Amount = Convert.ToString(billDetail.Amount)
                 };
-
                 await dbContext.EmergencyBillDetails.AddAsync(detail);
                 await dbContext.SaveChangesAsync();
 

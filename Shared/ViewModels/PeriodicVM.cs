@@ -23,6 +23,8 @@ namespace SOS.FMS.Shared.ViewModels
         public double DistanceLimit { get; set; }
         public string Region { get; set; }
         public string SubRegion { get; set; }
+        public string Station { get; set; }
+
         public string Status { get; set; }
     }
 }

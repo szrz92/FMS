@@ -24,6 +24,7 @@ namespace SOS.FMS.Server.Services
                 Points = d.Points,
                 Region = d.Region,
                 SubRegion = d.SubRegion,
+                Station=d.Station,
                 Trips = d.Trips,
                 VehicleNumber = d.VehicleNumber,
                 Score = d.Score

@@ -76,6 +76,8 @@ namespace SOS.FMS.Server.Controllers
                                                 Region = c.Region,
                                                 ReportTime = c.ReportTime,
                                                 Subregion = c.Subregion,
+                                                Station = c.Station,
+
                                                 VehicleNumber = c.VehicleNumber,
                                                 Status = (c.IsActive) ? "Active" : "Resolved" 
                                             }).ToListAsync();
@@ -98,6 +100,8 @@ namespace SOS.FMS.Server.Controllers
                                                 Region = c.Region,
                                                 ReportTime = c.ReportTime,
                                                 Subregion = c.Subregion,
+                                                Station = c.Station,
+
                                                 VehicleNumber = c.VehicleNumber,
                                                 Status = (c.IsActive) ? "Active" : "Resolved"
                                             }).ToListAsync();
@@ -132,6 +136,8 @@ namespace SOS.FMS.Server.Controllers
                                                 Region = c.Region,
                                                 ReportTime = c.ReportTime,
                                                 Subregion = c.Subregion,
+                                                Station = c.Station,
+
                                                 VehicleNumber = c.VehicleNumber,
                                                 Status = (c.IsActive) ? "Active" : "Resolved"
                                             }).ToListAsync();
@@ -153,6 +159,8 @@ namespace SOS.FMS.Server.Controllers
                                                 Region = c.Region,
                                                 ReportTime = c.ReportTime,
                                                 Subregion = c.Subregion,
+                                                Station = c.Station,
+
                                                 VehicleNumber = c.VehicleNumber,
                                                 Status = (c.IsActive) ? "Active" : "Resolved"
                                             }).ToListAsync();

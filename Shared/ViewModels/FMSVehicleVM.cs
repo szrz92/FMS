@@ -26,6 +26,7 @@ namespace SOS.FMS.Shared.ViewModels
         public string Region { get; set; }
         [Required]
         public string SubRegion { get; set; }
+        public string Station { get; set; }
         [Required]
         public string GasolineType { get; set; }
         [Required]

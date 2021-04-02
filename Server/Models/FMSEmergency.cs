@@ -13,6 +13,8 @@ namespace SOS.FMS.Server.Models
         public Guid DriverId { get; set; }
         public Guid RegionId { get; set; }
         public Guid SubRegionId { get; set; }
+        public Guid StationId { get; set; }
+
         public string Description { get; set; }
         public string VehicleNumber { get; set; }
         public MaintenanceStatus MaintenanceStatus { get; set; }
