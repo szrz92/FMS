@@ -247,7 +247,7 @@ using Microsoft.AspNetCore.SignalR.Client;
     public async void ResetData()
     {
         Filter = new VehicleVM();
-        regionsList = vehiclesList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        //regionsList = vehiclesList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         filteredVehiclesList = vehiclesList;
         await JSRuntime.InvokeVoidAsync("updateMarkers", dotNetObjectReference, filteredVehiclesList);
     }
@@ -260,14 +260,14 @@ using Microsoft.AspNetCore.SignalR.Client;
         //stationList = vehiclesList.Where(x => x.Region == args.Value).GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         //StateHasChanged();
     }
-    public async Task OnSubRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    public void OnSubRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
     {
         //Filter.Region = vehiclesList.Where(x => x.SubRegion == args.Value).FirstOrDefault().Region;
         stationList = vehiclesList.Where(x => x.SubRegion == args.Value).GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         // vehicleNumbersList = vehiclesList.Where(x => x.SubRegion == args.Value)
         //.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
     }
-    public async Task OnStationChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    public void OnStationChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
     {
         //Filter.Region = vehiclesList.Where(x => x.Station == args.Value).FirstOrDefault().Region;
         //Filter.SubRegion = vehiclesList.Where(x => x.Station == args.Value).FirstOrDefault().SubRegion;
@@ -275,7 +275,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         .GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
     }
 
-    public async Task OnVehicleNumberChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    public void OnVehicleNumberChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
     {
         //Filter.Region = vehiclesList.Where(x => x.VehicleNumber == args.Value).FirstOrDefault().Region;
         //Filter.SubRegion = vehiclesList.Where(x => x.VehicleNumber == args.Value).FirstOrDefault().SubRegion;
@@ -299,10 +299,10 @@ using Microsoft.AspNetCore.SignalR.Client;
         dotNetObjectReference = DotNetObjectReference.Create(this);
         //vehiclesList = await Http.GetFromJsonAsync<List<VehicleVM>>("api/Vehicles/FMS/Demo/All");
         vehiclesList = await Http.GetFromJsonAsync<List<VehicleVM>>("api/Vehicles/FMS/All");
-        //vehicleNumbersList = vehiclesList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        vehicleNumbersList = vehiclesList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         regionsList = vehiclesList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        //subRegionsList = vehiclesList.GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        //stationList= vehiclesList.GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        subRegionsList = vehiclesList.GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        stationList= vehiclesList.GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         filteredVehiclesList = vehiclesList;
         CountVehicles(filteredVehiclesList);
         StartTimer();
