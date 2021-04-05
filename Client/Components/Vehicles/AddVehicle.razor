@@ -28,9 +28,9 @@
             <div class="form-group row">
                 <div class="col-lg-6">
                     <label>Station:</label>
-                    <SfDropDownList TItem="SelectListItem" TValue="string" @bind-Value="vehicle.SubRegion" Placeholder="Select sub region" AllowFiltering="true" DataSource="@SubRegionsList">
+                    <SfDropDownList TItem="SelectListItem" TValue="string" @bind-Value="vehicle.Station" Placeholder="Select station" AllowFiltering="true" DataSource="@StationsList">
                         <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
-                        <DropDownListEvents TValue="string" ValueChange="OnSubRegionChange"></DropDownListEvents>
+                        @*<DropDownListEvents TValue="string" ValueChange="OnSubRegionChange"></DropDownListEvents>*@
                     </SfDropDownList>
                     @*<span class="form-text text-muted">Please select sub region</span>*@
                     <ValidationMessage For="() => vehicle.SubRegion" />
@@ -109,6 +109,7 @@
     public List<SelectListItem> VehiclesList = new List<SelectListItem>();
     public List<SelectListItem> RegionsList = new List<SelectListItem>();
     public List<SelectListItem> SubRegionsList = new List<SelectListItem>();
+    public List<SelectListItem> StationsList = new List<SelectListItem>();
 
     public VehicleVM vehicle = new VehicleVM();
 
@@ -122,6 +123,8 @@
         RegionsList = Vehicles.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
                         .ToList();
         SubRegionsList = Vehicles.GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
+                    .ToList();
+        StationsList = Vehicles.GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
                     .ToList();
 
         await base.OnInitializedAsync();

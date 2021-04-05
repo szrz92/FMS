@@ -38,14 +38,14 @@
                     </SfDropDownList>
                 </div>
             </div>
-            <div class="mr-2" style="width:135%">
+            @*<div class="mr-2" style="width:135%">
                 <div class="control-wrapper">
                     <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a station" AllowFiltering="true" DataSource="@stationList" @bind-Value="Filter.Station">
                         <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
                         <DropDownListEvents TValue="string" ValueChange="OnStationChange"></DropDownListEvents>
                     </SfDropDownList>
                 </div>
-            </div>
+            </div>*@
 
             <div class="mr-2" style="width:135%">
                 <div class="control-wrapper">
@@ -108,7 +108,7 @@
                                             <GridColumn Field=@nameof(FMSDailyCheckListVM.SubCategeory) HeaderText="Subcategory" Width="130"></GridColumn>
                                             <GridColumn Field=@nameof(FMSDailyCheckListVM.Region) HeaderText="Region" Width="130"></GridColumn>
                                             <GridColumn Field=@nameof(FMSDailyCheckListVM.Subregion) HeaderText="Subregion" Width="130"></GridColumn>
-                                            <GridColumn Field=@nameof(FMSDailyCheckListVM.Station) HeaderText="Station" Width="130"></GridColumn>
+                                            @*<GridColumn Field=@nameof(FMSDailyCheckListVM.Station) HeaderText="Station" Width="130"></GridColumn>*@
                                             <GridColumn Field=@nameof(FMSDailyCheckListVM.Status) HeaderText="Status" Width="130"></GridColumn>
                                             <GridColumn Field=@nameof(FMSDailyCheckListVM.LastUpdated) HeaderText="Last Updated" Width="130"></GridColumn>
                                         </GridColumns>

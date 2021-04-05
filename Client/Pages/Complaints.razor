@@ -36,13 +36,13 @@
                     </SfDropDownList>
                 </div>
             </div>
-            <div class="mr-2" style="width:135%">
+            @*<div class="mr-2" style="width:135%">
                 <div class="control-wrapper">
                     <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a station" AllowFiltering="true" DataSource="@stationList" @bind-Value="Filter.Station">
                         <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
                     </SfDropDownList>
                 </div>
-            </div>
+            </div>*@
 
             <div class="mr-2" style="width:135%">
                 <div class="control-wrapper">
@@ -97,7 +97,7 @@
                                             <GridColumn Field=@nameof(ComplaintVM.DriverName) HeaderText="Driver" Width="100"></GridColumn>
                                             <GridColumn Field=@nameof(ComplaintVM.Region) HeaderText="Region" Width="100"></GridColumn>
                                             <GridColumn Field=@nameof(ComplaintVM.Subregion) HeaderText="Subregion" Width="100"></GridColumn>
-                                            <GridColumn Field=@nameof(ComplaintVM.Station) HeaderText="Station" Width="100"></GridColumn>
+                                            @*<GridColumn Field=@nameof(ComplaintVM.Station) HeaderText="Station" Width="100"></GridColumn>*@
                                             <GridColumn Field=@nameof(ComplaintVM.ReportTime) Format="dd/MM/yy hh:mm" Type="ColumnType.DateTime" HeaderText="Reported At" Width="150"></GridColumn>
                                             <GridColumn HeaderText="Action" AllowFiltering="false" AllowSorting="false" Width="70">
                                                 <Template>

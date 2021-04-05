@@ -211,6 +211,7 @@ using Microsoft.AspNetCore.SignalR.Client;
     public List<SelectListItem> VehiclesList = new List<SelectListItem>();
     public List<SelectListItem> RegionsList = new List<SelectListItem>();
     public List<SelectListItem> SubRegionsList = new List<SelectListItem>();
+    public List<SelectListItem> StationsList = new List<SelectListItem>();
 
     public VehicleVM vehicle = new VehicleVM();
 
@@ -224,6 +225,8 @@ using Microsoft.AspNetCore.SignalR.Client;
         RegionsList = Vehicles.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
                         .ToList();
         SubRegionsList = Vehicles.GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
+                    .ToList();
+        StationsList = Vehicles.GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
                     .ToList();
 
         await base.OnInitializedAsync();

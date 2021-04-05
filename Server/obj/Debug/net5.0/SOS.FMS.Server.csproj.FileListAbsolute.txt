@@ -133,3 +133,4 @@ C:\Users\BA Tech\source\repos\sosfms\Server\obj\Debug\net5.0\SOS.FMS.Server.dll
 C:\Users\BA Tech\source\repos\sosfms\Server\obj\Debug\net5.0\ref\SOS.FMS.Server.dll
 C:\Users\BA Tech\source\repos\sosfms\Server\obj\Debug\net5.0\SOS.FMS.Server.pdb
 C:\Users\BA Tech\source\repos\sosfms\Server\obj\Debug\net5.0\SOS.FMS.Server.genruntimeconfig.cache
+C:\Users\BA Tech\source\repos\sosfms\Server\obj\Debug\net5.0\SOS.FMS.Server.csprojAssemblyReference.cache
