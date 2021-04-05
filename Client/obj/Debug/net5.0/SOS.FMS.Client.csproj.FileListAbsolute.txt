@@ -1523,6 +1523,7 @@ C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Co
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Emergency\BillPosting.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Emergency\Checklist.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Emergency\Comments.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Emergency\ImageUpload.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\IncidentalHistory\AccidentalHistory.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\IncidentalHistory\EmergencyHistory.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\JobsCount.razor.g.cs
@@ -1534,6 +1535,7 @@ C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Co
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Periodic\Checklist.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Periodic\PeriodicHistory.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Periodic\ShortPeriodicHistory.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Reports\DailyFuelReports.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Scorecards\VehiclesScorecard.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Uploader.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Users\AddUser.razor.g.cs
@@ -1589,6 +1591,7 @@ C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Em
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Emergency\BillPosting.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Emergency\Checklist.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Emergency\Comments.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Emergency\ImageUpload.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\IncidentalHistory\AccidentalHistory.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\IncidentalHistory\EmergencyHistory.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\JobsCount.razor.g.cs
@@ -1600,6 +1603,7 @@ C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Pe
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Periodic\Checklist.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Periodic\PeriodicHistory.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Periodic\ShortPeriodicHistory.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Reports\DailyFuelReports.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Scorecards\VehiclesScorecard.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Uploader.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Users\AddUser.razor.g.cs
@@ -1912,5 +1916,3 @@ C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\SOS.FMS.Client.cspr
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\SOS.FMS.Client.dll
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\ref\SOS.FMS.Client.dll
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\SOS.FMS.Client.pdb
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Emergency\ImageUpload.razor.g.cs
-C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Emergency\ImageUpload.razor.g.cs
