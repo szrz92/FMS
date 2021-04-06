@@ -203,12 +203,14 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 123 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Daily.razor"
+#line 133 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Daily.razor"
        
     public List<FMSDailyCheckListVM> DailyChecksList { get; set; }
     public List<FMSDailyCheckListVM> FilteredDailyChecksList { get; set; }
     public List<SelectListItem> regionsList { get; set; } = new List<SelectListItem>();
     public List<SelectListItem> subRegionsList { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> stationList { get; set; } = new List<SelectListItem>();
+
     public List<SelectListItem> statusList { get; set; } = new List<SelectListItem>();
     public List<SelectListItem> vehiclesList { get; set; } = new List<SelectListItem>();
 
@@ -222,6 +224,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         FilteredDailyChecksList = DailyChecksList;
         regionsList = DailyChecksList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         subRegionsList = DailyChecksList.GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        stationList = DailyChecksList.GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         statusList = DailyChecksList.GroupBy(x => x.Status).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         vehiclesList = DailyChecksList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         await base.OnInitializedAsync();
@@ -230,16 +233,25 @@ using Microsoft.AspNetCore.SignalR.Client;
     public async Task OnRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
     {
         subRegionsList = DailyChecksList.Where(x => x.Region == args.Value).GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        stationList = DailyChecksList.Where(x => x.Region == args.Value).GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         statusList = DailyChecksList.Where(x => x.Region == args.Value).GroupBy(x => x.Status).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         vehiclesList = DailyChecksList.Where(x => x.Region == args.Value).GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         StateHasChanged();
     }
     public async Task OnSubRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
     {
+        stationList = DailyChecksList.Where(x => x.Subregion == args.Value).GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         statusList = DailyChecksList.Where(x => x.Subregion == args.Value).GroupBy(x => x.Status).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         vehiclesList = DailyChecksList.Where(x => x.Subregion == args.Value).GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         StateHasChanged();
     }
+    public async Task OnStationChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        statusList = DailyChecksList.Where(x => x.Station == args.Value).GroupBy(x => x.Status).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        vehiclesList = DailyChecksList.Where(x => x.Station == args.Value).GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        StateHasChanged();
+    }
+
     public async Task OnStatusChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
     {
         vehiclesList = DailyChecksList
@@ -258,6 +270,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         FilteredDailyChecksList = DailyChecksList
             .Where(x => (string.IsNullOrEmpty(Filter.Region) || x.Region == Filter.Region))
             .Where(x=> (string.IsNullOrEmpty(Filter.Subregion) || x.Subregion == Filter.Subregion))
+            .Where(x => (string.IsNullOrEmpty(Filter.Station) || x.Station == Filter.Station))
             .Where(x=> (string.IsNullOrEmpty(Filter.Status) || x.Status == Filter.Status))
             .Where(x=> (string.IsNullOrEmpty(Filter.VehicleNumber) || x.VehicleNumber == Filter.VehicleNumber))
             .ToList();

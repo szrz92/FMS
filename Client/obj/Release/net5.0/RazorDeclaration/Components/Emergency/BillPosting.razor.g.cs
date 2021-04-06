@@ -195,22 +195,14 @@ using Microsoft.AspNetCore.SignalR.Client;
 #line hidden
 #nullable disable
 #nullable restore
-<<<<<<< HEAD
 #line 3 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\BillPosting.razor"
-=======
-#line 3 "C:\Users\Btech\Source\Repos\fms\Client\Components\Emergency\BillPosting.razor"
->>>>>>> 5f22471a3e6a0d1b6befffd3b54e4932bd769192
 using SOS.FMS.Shared.ViewModels.Emergency;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-<<<<<<< HEAD
 #line 4 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\BillPosting.razor"
-=======
-#line 4 "C:\Users\Btech\Source\Repos\fms\Client\Components\Emergency\BillPosting.razor"
->>>>>>> 5f22471a3e6a0d1b6befffd3b54e4932bd769192
 using SOS.FMS.Shared.ViewModels.Incident;
 
 #line default
@@ -224,11 +216,7 @@ using SOS.FMS.Shared.ViewModels.Incident;
         }
         #pragma warning restore 1998
 #nullable restore
-<<<<<<< HEAD
-#line 109 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\BillPosting.razor"
-=======
-#line 110 "C:\Users\Btech\Source\Repos\fms\Client\Components\Emergency\BillPosting.razor"
->>>>>>> 5f22471a3e6a0d1b6befffd3b54e4932bd769192
+#line 110 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\BillPosting.razor"
        
     [Parameter]
     public ApiRequest CheckPointId { get; set; }

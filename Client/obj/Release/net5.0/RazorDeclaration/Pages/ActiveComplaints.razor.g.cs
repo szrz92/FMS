@@ -203,13 +203,15 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 169 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\ActiveComplaints.razor"
+#line 178 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\ActiveComplaints.razor"
        
     public List<ComplaintVM> ComplaintsList { get; set; }
     public List<ComplaintVM> FilteredComplaintsList { get; set; }
 
     public List<SelectListItem> regionsList { get; set; } = new List<SelectListItem>();
     public List<SelectListItem> subRegionsList { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> stationList { get; set; } = new List<SelectListItem>();
+
     public List<SelectListItem> vehiclesList { get; set; } = new List<SelectListItem>();
     public List<SelectListItem> statusList { get; set; } = new List<SelectListItem>();
     public ComplaintVM Filter { get; set; } = new ComplaintVM();
@@ -218,6 +220,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         FilteredComplaintsList = ComplaintsList
     .Where(x => (string.IsNullOrEmpty(Filter.Region) || x.Region == Filter.Region))
     .Where(x => (string.IsNullOrEmpty(Filter.Subregion) || x.Subregion == Filter.Subregion))
+    .Where(x => (string.IsNullOrEmpty(Filter.Station) || x.Station == Filter.Station))
     .Where(x => (string.IsNullOrEmpty(Filter.VehicleNumber) || x.VehicleNumber == Filter.VehicleNumber))
     .Where(x => (string.IsNullOrEmpty(Filter.Status) || x.Status == Filter.Status))
     .ToList();
@@ -333,6 +336,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         FilteredComplaintsList = ComplaintsList;
         regionsList = ComplaintsList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         subRegionsList = ComplaintsList.GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        stationList = ComplaintsList.GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         statusList = ComplaintsList.GroupBy(x => x.Status).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         vehiclesList = ComplaintsList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
     }

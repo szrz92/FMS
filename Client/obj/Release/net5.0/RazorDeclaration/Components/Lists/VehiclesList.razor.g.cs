@@ -202,7 +202,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 39 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Lists\VehiclesList.razor"
+#line 40 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Lists\VehiclesList.razor"
        
     [Parameter]
     public List<VehicleVM> FMSVehiclesList { get; set; }

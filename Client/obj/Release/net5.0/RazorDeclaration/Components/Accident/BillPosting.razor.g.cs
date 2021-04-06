@@ -216,11 +216,7 @@ using SOS.FMS.Shared.ViewModels.Incident;
         }
         #pragma warning restore 1998
 #nullable restore
-<<<<<<< HEAD
 #line 109 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\BillPosting.razor"
-=======
-#line 109 "C:\Users\Btech\Source\Repos\fms\Client\Components\Accident\BillPosting.razor"
->>>>>>> 5f22471a3e6a0d1b6befffd3b54e4932bd769192
        
     [Parameter]
     public ApiRequest CheckPointId { get; set; }
@@ -331,11 +327,7 @@ using SOS.FMS.Shared.ViewModels.Incident;
     {
         LoaderOn();
         addVisible = status;
-<<<<<<< HEAD
-        InvokeAsync(() => LoadData());
-=======
         await LoadData();
->>>>>>> 5f22471a3e6a0d1b6befffd3b54e4932bd769192
         StateHasChanged();
     }
     public void ShowAddModal()

@@ -202,7 +202,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 73 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Periodic\PeriodicHistory.razor"
+#line 83 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Periodic\PeriodicHistory.razor"
        
     [Parameter]
     public string VehicleNumber { get; set; }
@@ -213,6 +213,8 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     public List<SelectListItem> regionsList { get; set; } = new List<SelectListItem>();
     public List<SelectListItem> subRegionsList { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> stationList { get; set; } = new List<SelectListItem>();
+
     public List<SelectListItem> vehiclesList { get; set; } = new List<SelectListItem>();
     public PeriodicVM Filter { get; set; } = new PeriodicVM();
 
@@ -232,6 +234,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         FilteredPeriodicList = PeriodicList;
         regionsList = PeriodicList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         subRegionsList = PeriodicList.GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        stationList = PeriodicList.GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         vehiclesList = PeriodicList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         await base.OnInitializedAsync();
     }
@@ -246,6 +249,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         FilteredPeriodicList = PeriodicList
         .Where(x => (string.IsNullOrEmpty(Filter.Region) || x.Region == Filter.Region))
         .Where(x => (string.IsNullOrEmpty(Filter.SubRegion) || x.SubRegion == Filter.SubRegion))
+        .Where(x => (string.IsNullOrEmpty(Filter.Station) || x.Station == Filter.Station))
         .Where(x => (string.IsNullOrEmpty(Filter.VehicleNumber) || x.VehicleNumber == Filter.VehicleNumber))
         .ToList();
     }
@@ -258,8 +262,10 @@ using Microsoft.AspNetCore.SignalR.Client;
             .Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         subRegionsList = PeriodicList.GroupBy(x => x.SubRegion)
             .Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        vehiclesList = PeriodicList.GroupBy(x => x.VehicleNumber)
+        stationList = PeriodicList.GroupBy(x => x.Station)
             .Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        vehiclesList = PeriodicList.GroupBy(x => x.VehicleNumber)
+        .Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         await InvokeAsync(() => StateHasChanged());
     }
 
@@ -269,19 +275,33 @@ using Microsoft.AspNetCore.SignalR.Client;
             .GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         subRegionsList = FilteredPeriodicList.Where(x => x.Region == args.Value)
             .GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        stationList = FilteredPeriodicList.Where(x => x.Region == args.Value)
+           .GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         StateHasChanged();
     }
     public async Task OnSubRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
     {
         Filter.Region = FilteredPeriodicList.Where(x => x.SubRegion == args.Value).FirstOrDefault().Region;
+        stationList = FilteredPeriodicList.Where(x => x.SubRegion == args.Value)
+          .GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         vehiclesList = FilteredPeriodicList.Where(x => x.SubRegion == args.Value)
-            .GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        .GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
     }
+    public async Task OnStationChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        Filter.Region = FilteredPeriodicList.Where(x => x.Station == args.Value).FirstOrDefault().Region;
+        Filter.SubRegion = FilteredPeriodicList.Where(x => x.Station == args.Value).FirstOrDefault().SubRegion;
+        vehiclesList = FilteredPeriodicList.Where(x => x.Station == args.Value)
+        .GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+    }
+
 
     public async Task OnVehicleNumberChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
     {
         Filter.Region = FilteredPeriodicList.Where(x => x.VehicleNumber == args.Value).FirstOrDefault().Region;
         Filter.SubRegion = FilteredPeriodicList.Where(x => x.VehicleNumber == args.Value).FirstOrDefault().SubRegion;
+        Filter.Station = FilteredPeriodicList.Where(x => x.VehicleNumber == args.Value).FirstOrDefault().Station;
+
         StateHasChanged();
     }
 

@@ -202,7 +202,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 121 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Users\AddUser.razor"
+#line 131 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Users\AddUser.razor"
        
     [Parameter]
     public bool Visible { get; set; }
@@ -224,6 +224,8 @@ using Microsoft.AspNetCore.SignalR.Client;
     public List<SelectListItem> RegionsList = new List<SelectListItem>();
 
     public List<SelectListItem> SubRegions = new List<SelectListItem>();
+    public List<SelectListItem> Stations = new List<SelectListItem>();
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -235,6 +237,8 @@ using Microsoft.AspNetCore.SignalR.Client;
         RegionsList = UsersList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
                             .ToList();
         SubRegions = UsersList.GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
+                        .ToList();
+        Stations = UsersList.GroupBy(x => x.station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
                         .ToList();
 
         await base.OnInitializedAsync();
@@ -282,13 +286,24 @@ using Microsoft.AspNetCore.SignalR.Client;
     {
         SubRegions = UsersList.Where(x => x.Region == args.Value).GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
                         .ToList();
+        Stations = UsersList.Where(x => x.Region == args.Value).GroupBy(x => x.station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
+                        .ToList();
         FilteredUsersList = UsersList.Where(x => x.Region == args.Value).ToList();
         StateHasChanged();
     }
     public async Task OnSubRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
     {
+        Stations = UsersList.Where(x => x.SubRegion == args.Value).GroupBy(x => x.station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
+                       .ToList();
         ApplicationUser.Region = UsersList.Where(x => x.SubRegion == args.Value).FirstOrDefault().Region;
         FilteredUsersList = UsersList.Where(x => x.SubRegion == args.Value).ToList();
+    }
+    public async Task OnStationChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        ApplicationUser.Region = UsersList.Where(x => x.station == args.Value).FirstOrDefault().Region;
+        ApplicationUser.SubRegion = UsersList.Where(x => x.station == args.Value).FirstOrDefault().SubRegion;
+
+        FilteredUsersList = UsersList.Where(x => x.station == args.Value).ToList();
     }
 
     public void OnNameSelectionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
@@ -298,6 +313,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         ApplicationUser.FullName = user.Name;
         ApplicationUser.SubRegion = user.SubRegion;
         ApplicationUser.Region = user.Region;
+        ApplicationUser.Station = user.station;
         if (!string.IsNullOrEmpty(user.OfficialEmail)) ApplicationUser.Email = user.OfficialEmail;
         else ApplicationUser.Email = string.Empty;
         StateHasChanged();

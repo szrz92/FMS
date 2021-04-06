@@ -178,10 +178,13 @@ namespace SOS.FMS.Server.Controllers
         {
             try
             {
-                Complaint complaint = await dbContext.Complaints.Where(x => x.IsActive && x.PointCode == request.CheckListPointCode && x.VehicleNumber == request.VehicleNumber).SingleOrDefaultAsync();
-                complaint.IsActive = false;
-                complaint.Resolution = request.Remarks;
-                complaint.ResolutionTime = PakistanDateTime.Now;
+                List<Complaint> complaints = await dbContext.Complaints.Where(x => x.IsActive && x.PointCode == request.CheckListPointCode && x.VehicleNumber == request.VehicleNumber).ToListAsync();
+                foreach (var complaint in complaints)
+                {
+                    complaint.IsActive = false;
+                    complaint.Resolution = request.Remarks;
+                    complaint.ResolutionTime = PakistanDateTime.Now;
+                }
                 if (await dbContext.SaveChangesAsync() > 0)
                 {
                     if (request.CheckListPointCode.StartsWith("M"))
@@ -211,7 +214,7 @@ namespace SOS.FMS.Server.Controllers
                         var rowsAffected = dbContext.Database.ExecuteSqlRaw($"UPDATE DailyMorningChecks SET " + request.CheckListPointCode + " = '" + (int)DailyCheckStatus.Checked + "', LastUpdated = @now WHERE VehicleNumber = @vehiclenumber AND CAST(LastUpdated AS DATE) = CAST(@date AS DATE) ", vehiclenumber, date, now);
                         if (rowsAffected > 0)
                         {
-                            return Ok($"Complaint registered against point {complaint.PointCodeDescription} for vehicle number {complaint.VehicleNumber} marked as resolved.");
+                            return Ok($"Complaint registered against point {complaints.FirstOrDefault().PointCodeDescription} for vehicle number {complaints.FirstOrDefault().VehicleNumber} marked as resolved.");
                         }
                         else
                         {
@@ -245,7 +248,7 @@ namespace SOS.FMS.Server.Controllers
                         var rowsAffected = dbContext.Database.ExecuteSqlRaw($"UPDATE DailyEveningChecks SET " + request.CheckListPointCode + " = '" + (int)DailyCheckStatus.Checked + "', LastUpdated = @now WHERE VehicleNumber = @vehiclenumber AND CAST(LastUpdated AS DATE) = CAST(@date AS DATE) ", vehiclenumber, date, now);
                         if (rowsAffected > 0)
                         {
-                            return Ok($"Complaint registered against point {complaint.PointCodeDescription} for vehicle number {complaint.VehicleNumber} marked as resolved.");
+                            return Ok($"Complaint registered against point {complaints.FirstOrDefault().PointCodeDescription} for vehicle number {complaints.FirstOrDefault().VehicleNumber} marked as resolved.");
                         }
                         else
                         {

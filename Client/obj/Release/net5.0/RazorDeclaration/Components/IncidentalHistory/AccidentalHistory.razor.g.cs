@@ -202,7 +202,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 79 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\IncidentalHistory\AccidentalHistory.razor"
+#line 89 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\IncidentalHistory\AccidentalHistory.razor"
        
     public List<FMSAccidentVM> AccidentsList { get; set; }
     public List<FMSAccidentVM> FilteredAccidentsList { get; set; }
@@ -210,6 +210,8 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     public List<SelectListItem> regionsList { get; set; } = new List<SelectListItem>();
     public List<SelectListItem> subRegionsList { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> stationList { get; set; } = new List<SelectListItem>();
+
     public List<SelectListItem> statusList { get; set; } = new List<SelectListItem>();
     public List<SelectListItem> vehiclesList { get; set; } = new List<SelectListItem>();
     public FMSAccidentVM Filter { get; set; } = new FMSAccidentVM();
@@ -222,6 +224,8 @@ using Microsoft.AspNetCore.SignalR.Client;
         FilteredAccidentsList = AccidentsList;
         regionsList = AccidentsList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         subRegionsList = AccidentsList.GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        stationList = AccidentsList.GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+
         statusList = AccidentsList.GroupBy(x => x.MaintenanceStatus).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         vehiclesList = AccidentsList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         await base.OnInitializedAsync();
@@ -237,6 +241,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         FilteredAccidentsList = AccidentsList
         .Where(x => (string.IsNullOrEmpty(Filter.Region) || x.Region == Filter.Region))
         .Where(x => (string.IsNullOrEmpty(Filter.SubRegion) || x.SubRegion == Filter.SubRegion))
+        .Where(x => (string.IsNullOrEmpty(Filter.Station) || x.Station == Filter.Station))
         .Where(x => (string.IsNullOrEmpty(Filter.MaintenanceStatus) || x.MaintenanceStatus == Filter.MaintenanceStatus))
         .Where(x => (string.IsNullOrEmpty(Filter.VehicleNumber) || x.VehicleNumber == Filter.VehicleNumber))
         .ToList();
@@ -250,8 +255,10 @@ using Microsoft.AspNetCore.SignalR.Client;
             .Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         subRegionsList = AccidentsList.GroupBy(x => x.SubRegion)
             .Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        statusList = AccidentsList.GroupBy(x => x.MaintenanceStatus)
+        stationList = AccidentsList.GroupBy(x => x.Station)
             .Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        statusList = AccidentsList.GroupBy(x => x.MaintenanceStatus)
+        .Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         vehiclesList = AccidentsList.GroupBy(x => x.VehicleNumber)
             .Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         await InvokeAsync(() => StateHasChanged());
@@ -263,19 +270,33 @@ using Microsoft.AspNetCore.SignalR.Client;
             .GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         subRegionsList = FilteredAccidentsList.Where(x => x.Region == args.Value)
             .GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        stationList = FilteredAccidentsList.Where(x => x.Region == args.Value)
+           .GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         StateHasChanged();
     }
     public async Task OnSubRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
     {
+        stationList = FilteredAccidentsList.Where(x => x.SubRegion == args.Value)
+            .GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         Filter.Region = FilteredAccidentsList.Where(x => x.SubRegion == args.Value).FirstOrDefault().Region;
         vehiclesList = FilteredAccidentsList.Where(x => x.SubRegion == args.Value)
             .GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+    }
+    public async Task OnStationChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        Filter.Region = FilteredAccidentsList.Where(x => x.Station == args.Value).FirstOrDefault().Region;
+        Filter.SubRegion = FilteredAccidentsList.Where(x => x.Station == args.Value).FirstOrDefault().SubRegion;
+
+        vehiclesList = FilteredAccidentsList.Where(x => x.Station == args.Value)
+        .GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
     }
 
     public async Task OnVehicleNumberChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
     {
         Filter.Region = FilteredAccidentsList.Where(x => x.VehicleNumber == args.Value).FirstOrDefault().Region;
         Filter.SubRegion = FilteredAccidentsList.Where(x => x.VehicleNumber == args.Value).FirstOrDefault().SubRegion;
+        Filter.Station = FilteredAccidentsList.Where(x => x.VehicleNumber == args.Value).FirstOrDefault().Station;
+
         Filter.MaintenanceStatus = FilteredAccidentsList.Where(x => x.VehicleNumber == args.Value).FirstOrDefault().MaintenanceStatus;
         StateHasChanged();
     }

@@ -202,7 +202,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 93 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Vehicles\AddVehicle.razor"
+#line 104 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Vehicles\AddVehicle.razor"
        
     [Parameter]
     public EventCallback OnResponse { get; set; }
@@ -211,6 +211,7 @@ using Microsoft.AspNetCore.SignalR.Client;
     public List<SelectListItem> VehiclesList = new List<SelectListItem>();
     public List<SelectListItem> RegionsList = new List<SelectListItem>();
     public List<SelectListItem> SubRegionsList = new List<SelectListItem>();
+    public List<SelectListItem> StationsList = new List<SelectListItem>();
 
     public VehicleVM vehicle = new VehicleVM();
 
@@ -224,6 +225,8 @@ using Microsoft.AspNetCore.SignalR.Client;
         RegionsList = Vehicles.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
                         .ToList();
         SubRegionsList = Vehicles.GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
+                    .ToList();
+        StationsList = Vehicles.GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
                     .ToList();
 
         await base.OnInitializedAsync();
