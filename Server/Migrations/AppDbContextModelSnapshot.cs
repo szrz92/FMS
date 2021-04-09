@@ -17,7 +17,7 @@ namespace SOS.FMS.Server.Migrations
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.3");
+                .HasAnnotation("ProductVersion", "5.0.5");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -352,16 +352,16 @@ namespace SOS.FMS.Server.Migrations
                         {
                             Id = "c58e1a9d-1c28-46db-830a-7b3f0b9663f1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "163b8072-2535-4fa9-9e70-94f4de4e557e",
+                            ConcurrencyStamp = "b09b54f3-4463-4c09-8de5-f1177fbed0b9",
                             Email = "z.raza@batech.com.pk",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             Name = "Zain Raza",
                             NormalizedEmail = "Z.RAZA@BATECH.COM.PK",
                             NormalizedUserName = "Z.RAZA@BATECH.COM.PK",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBm88kAAnMyBrDVTIgQQVkMJd/TE5zqTWrhpWOfCJlnesRqXmNxqZIqYA6dIcKIcpw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAQbA+IFy61x2ntnsPw5t6InZfoMTxw7G66XyLHfjG2TBHUUoHKAkR5D0CPOzZGI9g==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "d3e7fee6-d443-496d-ba71-47499f655681",
+                            SecurityStamp = "b49b37cb-24fc-47ad-a18c-3afe91492c8f",
                             TwoFactorEnabled = false,
                             UserName = "z.raza@batech.com.pk"
                         });
@@ -1952,6 +1952,41 @@ namespace SOS.FMS.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Zones");
+                });
+
+            modelBuilder.Entity("SOS.FMS.Server.Models.testview", b =>
+                {
+                    b.Property<string>("VehicleNumber")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("FuelAverage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GasolineType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Make")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Model")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Region")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Station")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SubRegion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VehicleType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("VehicleNumber");
+
+                    b.ToTable("testview");
                 });
 
             modelBuilder.Entity("SOS.FMS.Shared.ViewModels.Accident.AccidentBill", b =>

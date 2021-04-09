@@ -64,7 +64,7 @@ namespace SOS.FMS.Server
             services.AddCronJob<PeriodicCronJob>(c =>
             {
                 c.TimeZoneInfo = TimeZoneInfo.Local;
-                c.CronExpression = @"*/20 * * * *";
+                c.CronExpression = @"0 */8 * * *";
             });
 
             services.AddSignalR();

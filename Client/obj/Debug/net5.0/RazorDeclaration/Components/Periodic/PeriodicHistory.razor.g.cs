@@ -228,7 +228,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         else
         {
-            PeriodicList = (await Http.GetFromJsonAsync<List<PeriodicVM>>("api/Periodic/Status/All"))
+            PeriodicList = (await Http.GetFromJsonAsync<List<PeriodicVM>>("api/Periodic/Status/AllVehicles")).OrderByDescending(x=>x.LastCheckTime)
             .ToList();
         }
         FilteredPeriodicList = PeriodicList;

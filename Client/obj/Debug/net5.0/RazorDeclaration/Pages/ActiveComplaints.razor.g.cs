@@ -325,6 +325,7 @@ using Microsoft.AspNetCore.SignalR.Client;
             ConfirmBody = await resolutionResponse.Content.ReadAsStringAsync();
             ResponseDialog = true;
         }
+        Resolution = "";
         StateHasChanged();
     }
 

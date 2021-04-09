@@ -203,7 +203,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 141 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Fueling.razor"
+#line 143 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Fueling.razor"
        
     public List<FuelingInfoVM> FuelingInfoList { get; set; }
     public List<FuelingInfoVM> FilteredFuelingInfoList { get; set; }

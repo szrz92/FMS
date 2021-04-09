@@ -167,7 +167,7 @@ namespace SOS.FMS.Server.Controllers
                     User.Identity.Name,
                     title,
                     notification);
-                await SMSService.SendSMS(title + ": " + notification, "03035650720");
+                await SMSService.SendSMS(title + ": " + notification);
                 SMSService.SendMail(title, notification, "w.tahir@batech.com.pk");
 
                 return Ok(fmsEmergencyCheckList);
@@ -269,7 +269,7 @@ namespace SOS.FMS.Server.Controllers
                     User.Identity.Name,
                     title,
                     notification);
-                await SMSService.SendSMS(title + ": " + notification, "03035650720");
+                await SMSService.SendSMS(title + ": " + notification);
                 SMSService.SendMail(title, notification, "w.tahir@batech.com.pk");
 
                 return Ok();
@@ -325,7 +325,7 @@ namespace SOS.FMS.Server.Controllers
                             user.Email,
                             $"Notification for Vehicle Number {check.VehicleNumber}",
                             $"{currentUser.Name} mentioned you in a comment under emergency check list point {check.Description}");
-                        await SMSService.SendSMS($"Notification for Vehicle Number {check.VehicleNumber}: {currentUser.Name} mentioned you in a comment under emergency check list point {check.Description}", "03035650720");
+                        await SMSService.SendSMS($"Notification for Vehicle Number {check.VehicleNumber}: {currentUser.Name} mentioned you in a comment under emergency check list point {check.Description}");
                         SMSService.SendMail($"Notification for Vehicle Number {check.VehicleNumber}", $"{currentUser.Name} mentioned you in a comment under emergency check list point {check.Description}", "w.tahir@batech.com.pk");
                     }
                 }
@@ -365,7 +365,7 @@ namespace SOS.FMS.Server.Controllers
                     User.Identity.Name,
                     title,
                     notification);
-                await SMSService.SendSMS(title + ": " + notification, "03035650720");
+                await SMSService.SendSMS(title + ": " + notification);
                 SMSService.SendMail(title, notification, "w.tahir@batech.com.pk");
 
                 return Ok();
@@ -418,7 +418,7 @@ namespace SOS.FMS.Server.Controllers
                     User.Identity.Name,
                     "Notification",
                     notification);
-                await SMSService.SendSMS(notification, "03035650720");
+                await SMSService.SendSMS(notification);
                 SMSService.SendMail("Notification for "+request.VehicleNumber, notification, "w.tahir@batech.com.pk");
 
                 return Ok();

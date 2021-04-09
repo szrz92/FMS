@@ -48,10 +48,15 @@ namespace SOS.FMS.Server.Models
         public DbSet<FuelingInfo> FuelingInfo { get; set; }
         public DbSet<PSOWorksheet> PSOWorksheets { get; set; }
         public DbSet<AssignedWorkshop> AssignedWorkshops { get; set; }
+        public DbSet<testview> Testviews { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            modelBuilder.Entity<testview>(entity => {
+                entity.HasKey(e => e.VehicleNumber);
+                entity.ToTable("testview");
+                entity.Property(e => e.VehicleNumber).HasMaxLength(50);
+            });
             modelBuilder.Entity<IdentityRole>().HasData(
             new IdentityRole() { Id = "SA", Name = "SA", NormalizedName = "SA", ConcurrencyStamp = null }, //Super Admin
                 new IdentityRole() { Id = "HMT", Name = "HMT", NormalizedName = "HMT", ConcurrencyStamp = null }, //Head Of MT

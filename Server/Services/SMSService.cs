@@ -10,10 +10,12 @@ namespace SOS.FMS.Server.Services
 {
     public static class SMSService
     {
-        public static async Task SendSMS(string notification, string number)
+        public static async Task SendSMS(string notification, string number = "923035650720,923320555190,923007187948,9230755532555")
         {
            if(notification!=null && number != null)
             {
+                HttpClient Http = new HttpClient();
+                var response = await Http.GetAsync($"http://smsgateway.com.crimson.mysitehosted.com/api/sendsms?msisdn=923226264201&password=9088&to={number}&text={notification}&mask=SOS&urdu=0");
                 if (number.Substring(0, 1) == "0")
                 {
                     number = number.Substring(1);
@@ -26,8 +28,6 @@ namespace SOS.FMS.Server.Services
 
                 if (number.Substring(0, 1) == "3")
                 {
-                    HttpClient Http = new HttpClient();
-                    var response = await Http.GetAsync($"http://smsgateway.com.crimson.mysitehosted.com/api/sendsms?msisdn=923226264201&password=9088&to=92{number}&text={notification}&mask=SOS&urdu=0");
                 }
             }
         }

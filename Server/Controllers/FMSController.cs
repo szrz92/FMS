@@ -182,6 +182,18 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest("Driver not updated!");
             }
         }
+        [HttpGet("Test")]
+        public async Task<IActionResult> Test()
+        {
+            try
+            {
+                return Ok(dbContext.Testviews.ToList());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+        }
     }
     public class Member
     {

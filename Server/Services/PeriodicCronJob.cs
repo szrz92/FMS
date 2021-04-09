@@ -112,7 +112,32 @@ namespace SOS.FMS.Server.Services
                                 SubRegion = driver.SubRegion,
                                 Station = driver.Station
                             }).FirstOrDefault();
-                        periodicHistory.Add(history);
+                        if (history != null)
+                        {
+                            periodicHistory.Add(history);
+                        }
+                        else
+                        {
+                            var newHistory = new PeriodicVM()
+                            {
+                                Id = Guid.NewGuid(),
+                                ConfigurationId = c.Id,
+                                Description = c.Description,
+                                CurrentDistance = vehicle.Distance,
+                                CurrentMonth = PakistanDateTime.GetMonthsBetween(PakistanDateTime.Now, DateTime.MinValue),
+                                DistanceLimit = c.Distance,
+                                DriverCode = driver.Code,
+                                DriverName = driver.Name,
+                                LastCheckDistance = 0,
+                                LastCheckTime = DateTime.MinValue,
+                                MonthLimit = c.Month,
+                                VehicleNumber = vehicle.VehicleNumber,
+                                Region = driver.Region,
+                                SubRegion = driver.SubRegion,
+                                Station = driver.Station
+                            };
+                            periodicHistory.Add(newHistory);
+                        }
                     }
                     foreach (var p in periodicHistory)
                     {
@@ -150,6 +175,21 @@ namespace SOS.FMS.Server.Services
                         if (statusList.Contains(PeriodicMaintenanceStatus.Pending))
                         {
                             vehicle.PeriodicStatus = PeriodicMaintenanceStatus.Pending;
+                            if (vehicle.AccidentalStatus == AccidentalMaintenanceStatus.Pending)
+                            {
+                                vehicle.Status = "accidental";
+                            }
+                            else
+                                if (vehicle.EmergencyStatus == EmergencyMaintenanceStatus.Pending)
+                            {
+                                vehicle.Status = "emergency";
+                            }
+                            else
+                            {
+                                vehicle.Status = "periodic";
+                            }
+
+                            SMSService.SendSMS("Periodic Notification" + ": " + $"Periodic Maintenance due on Vehicle {vehicle.VehicleNumber}", "923035650720,923320555190,923007187948,9230755532555");
                         }
                         else
                         {
@@ -163,6 +203,10 @@ namespace SOS.FMS.Server.Services
                             {
                                 vehicle.Status = "emergency";
                             }
+                            //else if (vehicle.PeriodicStatus == PeriodicMaintenanceStatus.Pending)
+                            //{
+                            //    vehicle.Status = "periodic";
+                            //}
                             else
                             {
                                 vehicle.Status = "maintained";

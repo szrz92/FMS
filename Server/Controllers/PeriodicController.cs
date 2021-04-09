@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SOS.FMS.Server.Models;
 using SOS.FMS.Shared;
 using SOS.FMS.Shared.Enums;
@@ -166,7 +167,7 @@ namespace SOS.FMS.Server.Controllers
             }
         }
         [HttpPost("Status/Last")]
-        public IActionResult GetLastStatus(ApiRequest request)
+        public async Task<IActionResult> GetLastStatus(ApiRequest request)
         {
             List<PeriodicHistory> histories;
             List<PeriodicVM> periodicHistory = new();
@@ -185,7 +186,7 @@ namespace SOS.FMS.Server.Controllers
                     foreach (var c in configurations)
                     {
                         var history = histories.Where(x => x.Description == c.Description).OrderByDescending(x => x.Timestamp)
-                            .Select(h=>new PeriodicVM()
+                            .Select(h => new PeriodicVM()
                             {
                                 Id = h.Id,
                                 ConfigurationId = h.ConfigurationId,
@@ -201,9 +202,34 @@ namespace SOS.FMS.Server.Controllers
                                 VehicleNumber = vehicle.VehicleNumber,
                                 Region = driver.Region,
                                 SubRegion = driver.SubRegion,
-                                Station=driver.Station
+                                Station = driver.Station
                             }).FirstOrDefault();
-                        periodicHistory.Add(history);
+                        if (history != null)
+                        {
+                            periodicHistory.Add(history);
+                        }
+                        else
+                        {
+                            var newHistory = new PeriodicVM()
+                            {
+                                Id = Guid.NewGuid(),
+                                ConfigurationId = c.Id,
+                                Description = c.Description,
+                                CurrentDistance = vehicle.Distance,
+                                CurrentMonth = PakistanDateTime.GetMonthsBetween(PakistanDateTime.Now, DateTime.MinValue),
+                                DistanceLimit = c.Distance,
+                                DriverCode = driver.Code,
+                                DriverName = driver.Name,
+                                LastCheckDistance = 0,
+                                LastCheckTime = DateTime.MinValue,
+                                MonthLimit = c.Month,
+                                VehicleNumber = vehicle.VehicleNumber,
+                                Region = driver.Region,
+                                SubRegion = driver.SubRegion,
+                                Station = driver.Station
+                            };
+                            periodicHistory.Add(newHistory);
+                        }
                     }
                     foreach (var p in periodicHistory)
                     {
@@ -252,224 +278,53 @@ namespace SOS.FMS.Server.Controllers
                 }
                 else
                 {
-                    return Ok(periodicHistory);
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.ToString());
-            }
-        }
-        [HttpGet("Status/All")]
-        public async Task<IActionResult> GetCurrentStatusAllVehicles()
-        {
-            List<PeriodicHistory> histories;
-            List<PeriodicVM> periodicHistory = new();
-
-            try
-            {
-                List<Vehicle> vehicles = (from v in dbContext.Vehicles
-                                          select v).ToList();
-                foreach (var v in vehicles)
-                {
-                    Driver driver = (from d in dbContext.Drivers where d.VehicleNumber == v.VehicleNumber select d).SingleOrDefault();
-
-                    histories = (from p in dbContext.PeriodicHistories
-                                 where p.VehicleNumber == v.VehicleNumber
-                                 select p).ToList();
-
-                    if (histories.Any())
+                    histories = new List<PeriodicHistory>();
+                    foreach (var c in configurations)
                     {
-                        List<VehicleConfiguration> configurations = (from c in dbContext.VehicleConfigurations
-                                                                     select c).ToList();
-                        if (histories.Count == configurations.Count)
+                        histories.Add(new PeriodicHistory()
                         {
-                            foreach (var h in histories)
-                            {
-                                VehicleConfiguration configuration = (from vc in dbContext.VehicleConfigurations where vc.Id == h.ConfigurationId select vc).SingleOrDefault();
-                                periodicHistory.Add(new PeriodicVM()
-                                {
-                                    Id = h.Id,
-                                    ConfigurationId = h.ConfigurationId,
-                                    Description = h.Description,
-                                    CurrentDistance = v.Distance,
-                                    CurrentMonth = 0,
-                                    DistanceLimit = configuration.Distance,
-                                    DriverCode = driver.Code,
-                                    DriverName = driver.Name,
-                                    LastCheckDistance = h.LastCheckDistance,
-                                    LastCheckTime = h.LastCheckTime,
-                                    MonthLimit = configuration.Month,
-                                    VehicleNumber = v.VehicleNumber,
-                                    Region = driver.Region,
-                                    SubRegion = driver.SubRegion,
-                                    Station=driver.Station
-                                });
-                            }
-                        }
-                        else
-                            if (histories.Count > configurations.Count)
-                        {
-                            List<Guid> historyIds = (from hi in histories select hi.ConfigurationId).ToList();
-                            List<Guid> configurationIds = (from ci in configurations select ci.Id).ToList();
-                            List<Guid> difference = historyIds.Except(configurationIds).ToList();
-                            foreach (var d in difference)
-                            {
-                                IEnumerable<PeriodicHistory> periodicHistories = from p in dbContext.PeriodicHistories
-                                                                                 where p.ConfigurationId == d
-                                                                                 select p;
-                                dbContext.RemoveRange(periodicHistories);
-                                if (await dbContext.SaveChangesAsync() > 0)
-                                {
-                                    histories = (from p in dbContext.PeriodicHistories
-                                                 where p.VehicleNumber == v.VehicleNumber
-                                                 select p).ToList();
-                                    foreach (var h in histories)
-                                    {
-                                        VehicleConfiguration configuration = (from vc in dbContext.VehicleConfigurations where vc.Id == h.ConfigurationId select vc).SingleOrDefault();
-                                        periodicHistory.Add(new PeriodicVM()
-                                        {
-                                            Id = h.Id,
-                                            ConfigurationId = h.ConfigurationId,
-                                            Description = h.Description,
-                                            CurrentDistance = v.Distance,
-                                            CurrentMonth = 0,
-                                            DistanceLimit = configuration.Distance,
-                                            DriverCode = driver.Code,
-                                            DriverName = driver.Name,
-                                            LastCheckDistance = h.LastCheckDistance,
-                                            LastCheckTime = h.LastCheckTime,
-                                            MonthLimit = configuration.Month,
-                                            VehicleNumber = v.VehicleNumber,
-                                            Region = driver.Region,
-                                            SubRegion = driver.SubRegion,
-                                            Station=driver.Station
-                                        });
-                                    }
-                                }
-                                else
-                                {
-                                    return BadRequest();
-                                }
-                            }
-                        }
-                        else
-                            if (histories.Count < configurations.Count)
-                        {
-                            List<Guid> historyIds = (from hi in histories select hi.ConfigurationId).ToList();
-                            List<Guid> configurationIds = (from ci in configurations select ci.Id).ToList();
-                            List<Guid> difference = configurationIds.Except(historyIds).ToList(); 
-                            foreach (var c in difference)
-                            {
-                                VehicleConfiguration configuration = (from vc in dbContext.VehicleConfigurations where vc.Id == c select vc).SingleOrDefault();
-                                histories = new List<PeriodicHistory>
-                                {
-                                    new PeriodicHistory()
-                                    {
-                                        Id = Guid.NewGuid(),
-                                        ConfigurationId = configuration.Id,
-                                        Description = configuration.Description,
-                                        DriverCode = driver.Code,
-                                        DriverName = driver.Name,
-                                        LastCheckDistance = 0,
-                                        LastCheckTime = DateTime.MinValue,
-                                        VehicleNumber = v.VehicleNumber,
-                                        Timestamp = PakistanDateTime.Now
-                                    }
-                                };
-                            }
-                            await dbContext.PeriodicHistories.AddRangeAsync(histories);
-                            if (await dbContext.SaveChangesAsync() > 0)
-                            {
-                                histories = (from p in dbContext.PeriodicHistories
-                                             where p.VehicleNumber == v.VehicleNumber
-                                             select p).ToList();
-                                foreach (var h in histories)
-                                {
-                                    VehicleConfiguration configuration = (from vc in dbContext.VehicleConfigurations where vc.Id == h.ConfigurationId select vc).SingleOrDefault();
-                                    periodicHistory.Add(new PeriodicVM()
-                                    {
-                                        Id = Guid.NewGuid(),
-                                        ConfigurationId = h.ConfigurationId,
-                                        Description = h.Description,
-                                        CurrentDistance = v.Distance,
-                                        CurrentMonth = 0,
-                                        DistanceLimit = configuration.Distance,
-                                        DriverCode = driver.Code,
-                                        DriverName = driver.Name,
-                                        LastCheckDistance = h.LastCheckDistance,
-                                        LastCheckTime = h.LastCheckTime,
-                                        MonthLimit = configuration.Month,
-                                        VehicleNumber = v.VehicleNumber,
-                                        Region = driver.Region,
-                                        SubRegion = driver.SubRegion,
-                                        Station = driver.Station
-                                    });
-                                }
-                            }
-                            else
-                            {
-                                return BadRequest();
-                            }
-                        }
+                            Id = Guid.NewGuid(),
+                            ConfigurationId = c.Id,
+                            Description = c.Description,
+                            DriverCode = driver.Code,
+                            DriverName = driver.Name,
+                            LastCheckDistance = 0,
+                            LastCheckTime = DateTime.MinValue,
+                            VehicleNumber = request.VehicleNumber,
+                            Timestamp = PakistanDateTime.Now
+                        });
                     }
-                    else
+                    await dbContext.PeriodicHistories.AddRangeAsync(histories);
+                    if (await dbContext.SaveChangesAsync() > 0)
                     {
-                        histories = new List<PeriodicHistory>();
-                        List<VehicleConfiguration> configurations = (from c in dbContext.VehicleConfigurations
-                                                                     select c).ToList();
-                        foreach (var c in configurations)
+                        histories = (from p in dbContext.PeriodicHistories
+                                     where p.VehicleNumber == request.VehicleNumber
+                                     select p).ToList();
+                        foreach (var h in histories)
                         {
-                            histories.Add(new PeriodicHistory()
+                            VehicleConfiguration configuration = (from v in dbContext.VehicleConfigurations where v.Id == h.ConfigurationId select v).SingleOrDefault();
+                            periodicHistory.Add(new PeriodicVM()
                             {
-                                Id = Guid.NewGuid(),
-                                ConfigurationId = c.Id,
-                                Description = c.Description,
+                                Id = h.Id,
+                                ConfigurationId = h.ConfigurationId,
+                                Description = h.Description,
+                                CurrentDistance = vehicle.Distance,
+                                CurrentMonth = PakistanDateTime.GetMonthsBetween(PakistanDateTime.Now, h.LastCheckTime),
+                                DistanceLimit = configuration.Distance,
                                 DriverCode = driver.Code,
                                 DriverName = driver.Name,
-                                LastCheckDistance = 0,
-                                LastCheckTime = DateTime.MinValue,
-                                VehicleNumber = v.VehicleNumber,
-                                Timestamp = PakistanDateTime.Now
+                                LastCheckDistance = h.LastCheckDistance,
+                                LastCheckTime = h.LastCheckTime,
+                                MonthLimit = configuration.Month,
+                                VehicleNumber = vehicle.VehicleNumber,
+                                Region = driver.Region,
+                                SubRegion = driver.SubRegion,
+                                Station = driver.Station
                             });
                         }
-                        await dbContext.PeriodicHistories.AddRangeAsync(histories);
-                        if (await dbContext.SaveChangesAsync() > 0)
-                        {
-                            histories = (from p in dbContext.PeriodicHistories
-                                         where p.VehicleNumber == v.VehicleNumber
-                                         select p).ToList();
-                            foreach (var h in histories)
-                            {
-                                VehicleConfiguration configuration = (from vc in dbContext.VehicleConfigurations where vc.Id == h.ConfigurationId select vc).SingleOrDefault();
-                                periodicHistory.Add(new PeriodicVM()
-                                {
-                                    Id = h.Id,
-                                    ConfigurationId = h.ConfigurationId,
-                                    Description = h.Description,
-                                    CurrentDistance = v.Distance,
-                                    CurrentMonth = 0,
-                                    DistanceLimit = configuration.Distance,
-                                    DriverCode = driver.Code,
-                                    DriverName = driver.Name,
-                                    LastCheckDistance = h.LastCheckDistance,
-                                    LastCheckTime = h.LastCheckTime,
-                                    MonthLimit = configuration.Month,
-                                    VehicleNumber = v.VehicleNumber,
-                                    Region = driver.Region,
-                                    SubRegion = driver.SubRegion,
-                                    Station = driver.Station
-                                });
-                            }
-                        }
-                        else
-                        {
-                            return BadRequest();
-                        }
                     }
+                    return Ok(periodicHistory);
                 }
-
-                return Ok(periodicHistory);
             }
             catch (Exception ex)
             {
@@ -501,6 +356,155 @@ namespace SOS.FMS.Server.Controllers
                 await dbContext.PeriodicHistories.AddAsync(periodicHistory);
                 await dbContext.SaveChangesAsync();
                 return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+        [HttpGet("Status/AllVehicles")]
+        public async Task<IActionResult> GetCurrentStatusAll()
+        {
+            IEnumerable<PeriodicHistory> histories;
+            List<PeriodicVM> periodicHistory = new();
+            try
+            {
+                IEnumerable<Vehicle> vehicles = from v in dbContext.Vehicles
+                                                select v;
+                foreach (var vehicle in vehicles)
+                {
+                    Driver driver = await (from v in dbContext.Drivers where v.VehicleNumber == vehicle.VehicleNumber select v).SingleOrDefaultAsync();
+
+                    histories = from p in dbContext.PeriodicHistories
+                                 where p.VehicleNumber == vehicle.VehicleNumber
+                                 select p;
+
+                    if (histories.Any())
+                    {
+                        foreach (var h in histories)
+                        {
+                            VehicleConfiguration configuration = await (from v in dbContext.VehicleConfigurations where v.Id == h.ConfigurationId select v).SingleOrDefaultAsync();
+
+                            double CurrentKMS = vehicle.Distance - h.LastCheckDistance;
+                            int CurrentMonths = PakistanDateTime.GetMonthsBetween(PakistanDateTime.Now, h.LastCheckTime);
+
+                            List<PeriodicMaintenanceStatus> statusList = new();
+                            string status;
+
+                            if (CurrentMonths > configuration.Month)
+                            {
+                                statusList.Add(PeriodicMaintenanceStatus.Pending);
+                            }
+                            else if (CurrentMonths < configuration.Month)
+                            {
+                                statusList.Add(PeriodicMaintenanceStatus.Done);
+                            }
+                            else if (CurrentMonths == configuration.Month)
+                            {
+                                statusList.Add(PeriodicMaintenanceStatus.Pending);
+                            }
+
+                            if (CurrentKMS > configuration.Distance)
+                            {
+                                statusList.Add(PeriodicMaintenanceStatus.Pending);
+                            }
+                            else if (CurrentKMS < configuration.Distance)
+                            {
+                                statusList.Add(PeriodicMaintenanceStatus.Done);
+                            }
+                            else if (CurrentKMS == configuration.Distance)
+                            {
+                                statusList.Add(PeriodicMaintenanceStatus.Pending);
+                            }
+
+
+                            if (statusList.Contains(PeriodicMaintenanceStatus.Pending))
+                            {
+                                status = "Not Maintained";
+                            }
+                            else
+                            {
+                                status = "Maintained";
+                            }
+
+                            periodicHistory.Add(new PeriodicVM()
+                            {
+                                Id = h.Id,
+                                ConfigurationId = h.ConfigurationId,
+                                Description = h.Description,
+                                CurrentDistance = vehicle.Distance,
+                                CurrentMonth = CurrentMonths,
+                                DistanceLimit = configuration.Distance,
+                                DriverCode = driver.Code,
+                                DriverName = driver.Name,
+                                LastCheckDistance = h.LastCheckDistance,
+                                LastCheckTime = h.LastCheckTime,
+                                MonthLimit = configuration.Month,
+                                VehicleNumber = vehicle.VehicleNumber,
+                                Region = driver.Region,
+                                SubRegion = driver.SubRegion,
+                                Station = driver.Station,
+                                Status = status
+                            });
+                        }
+                    }
+                    else
+                    {
+                        var newHistory = new List<PeriodicHistory>();
+                        IEnumerable<VehicleConfiguration> configurations = from c in dbContext.VehicleConfigurations
+                                                                           select c;
+                        foreach (var c in configurations)
+                        {
+                            newHistory.Add(new PeriodicHistory()
+                            {
+                                Id = Guid.NewGuid(),
+                                ConfigurationId = c.Id,
+                                Description = c.Description,
+                                DriverCode = driver.Code,
+                                DriverName = driver.Name,
+                                LastCheckDistance = 0,
+                                LastCheckTime = DateTime.MinValue,
+                                VehicleNumber = vehicle.VehicleNumber,
+                                Timestamp = PakistanDateTime.Now
+                            });
+                        }
+                        await dbContext.PeriodicHistories.AddRangeAsync(newHistory);
+                        if (await dbContext.SaveChangesAsync() > 0)
+                        {
+                            histories = from p in dbContext.PeriodicHistories
+                                         where p.VehicleNumber == vehicle.VehicleNumber
+                                         select p;
+                            foreach (var h in histories)
+                            {
+                                VehicleConfiguration configuration = await (from v in dbContext.VehicleConfigurations where v.Id == h.ConfigurationId select v).SingleOrDefaultAsync();
+                                periodicHistory.Add(new PeriodicVM()
+                                {
+                                    Id = h.Id,
+                                    ConfigurationId = h.ConfigurationId,
+                                    Description = h.Description,
+                                    CurrentDistance = vehicle.Distance,
+                                    CurrentMonth = PakistanDateTime.GetMonthsBetween(PakistanDateTime.Now, h.LastCheckTime),
+                                    DistanceLimit = configuration.Distance,
+                                    DriverCode = driver.Code,
+                                    DriverName = driver.Name,
+                                    LastCheckDistance = h.LastCheckDistance,
+                                    LastCheckTime = h.LastCheckTime,
+                                    MonthLimit = configuration.Month,
+                                    VehicleNumber = vehicle.VehicleNumber,
+                                    Region = driver.Region,
+                                    SubRegion = driver.SubRegion,
+                                    Station = driver.Station
+                                });
+                            }
+                        }
+                        else
+                        {
+                            return BadRequest();
+                        }
+                    }
+                }
+
+                return Ok(periodicHistory);
             }
             catch (Exception ex)
             {
