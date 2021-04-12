@@ -14,8 +14,6 @@ namespace SOS.FMS.Shared
         public string VehicleEnrollmentIn { get; set; }
         public bool VehicleOffRoad { get; set;}
 
-
-
         public string Odometer { get; set; }
         public string PreviousOdometer { get; set; }
         public string Mileage { get; set; }
@@ -24,13 +22,11 @@ namespace SOS.FMS.Shared
         public string Driver { get; set; }
         public string Guard { get; set; }
 
-
         public string FuelType { get; set; }
         public string Litres { get; set; }
         public string Rate { get; set; }
         public string Amount { get; set; }
         public string PaymentType { get; set; }
-
 
         public DateTime Timestamp { get; set; }
         public string Purchaser { get; set; }
