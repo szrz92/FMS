@@ -182,12 +182,7 @@ namespace SOS.FMS.Server.Services
                             {
                                 vehicle.Status = "periodic";
                             }
-<<<<<<< HEAD
-
                             SMSService.SendSMS("Periodic Notification" + ": " + $"Periodic Maintenance due on Vehicle {vehicle.VehicleNumber}", "923035650720,923320555190,923007187948,9230755532555");
-=======
-                             SMSService.SendSMS("Periodic Notification" + ": " + $"Periodic Maintenance due on Vehicle {vehicle.VehicleNumber}", "923035650720");
->>>>>>> master
                         }
                         else
                         {
