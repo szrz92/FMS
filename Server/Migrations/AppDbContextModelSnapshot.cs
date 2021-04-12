@@ -352,16 +352,16 @@ namespace SOS.FMS.Server.Migrations
                         {
                             Id = "c58e1a9d-1c28-46db-830a-7b3f0b9663f1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "163b8072-2535-4fa9-9e70-94f4de4e557e",
+                            ConcurrencyStamp = "387df01a-846f-4db7-8ff3-c15b1a72143a",
                             Email = "z.raza@batech.com.pk",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             Name = "Zain Raza",
                             NormalizedEmail = "Z.RAZA@BATECH.COM.PK",
                             NormalizedUserName = "Z.RAZA@BATECH.COM.PK",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBm88kAAnMyBrDVTIgQQVkMJd/TE5zqTWrhpWOfCJlnesRqXmNxqZIqYA6dIcKIcpw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECaR3d3W/r/qcWYHcPw0a2mAZGr7FrU7efXh4N2TqvLlaLSXYKVr6g5TRPilmhmd6A==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "d3e7fee6-d443-496d-ba71-47499f655681",
+                            SecurityStamp = "bd2a4bd2-ac63-464f-8d4d-5303a4bb97a6",
                             TwoFactorEnabled = false,
                             UserName = "z.raza@batech.com.pk"
                         });
@@ -1177,6 +1177,9 @@ namespace SOS.FMS.Server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PaymentType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreviousOdometer")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Rate")

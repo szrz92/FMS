@@ -17,6 +17,7 @@ namespace SOS.FMS.Server.Models
         public string Rate { get; set; }
         public string Amount { get; set; }
         public string Odometer { get; set; }
+        public string PreviousOdometer { get; set; }
         public string Milage { get; set; }
         public string PaymentType { get; set; }
         public string Remarks { get; set; }
