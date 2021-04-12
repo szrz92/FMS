@@ -1,0 +1,257 @@
+﻿@inject HttpClient Http
+@using SOS.FMS.Shared
+@using Syncfusion.Blazor.Calendars
+@using System.Threading;
+@using System.Threading.Tasks;
+
+@if (showReportModal)
+{
+<div class="header d-flex align-items-center" style="position:fixed;">
+    <div class="mr-2" style="width:135%">
+        <div class="control-wrapper">
+            <SfDropDownList TItem="string" TValue="string" Placeholder="Select a region" @bind-Value="Filter.Region" AllowFiltering="true" DataSource="@regionsList">
+                <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+            </SfDropDownList>
+        </div>
+    </div>
+    <div class="mr-2" style="width:135%">
+        <div class="control-wrapper">
+            <SfDatePicker TValue="DateTime" Placeholder="Select month/year" Min='@MinDate'  @bind-Value='@Filter.Date' Format='MMMM yyyy' Start="@CalendarView.Decade" Depth="@CalendarView.Year"></SfDatePicker>
+        </div>
+    </div>
+    <div class="mr-2" style="width:135%">
+        <div class="control-wrapper">
+            <SfDropDownList TItem="string" TValue="string" Placeholder="Select fuel type" @bind-Value="Filter.FuelType" AllowFiltering="true" DataSource="@fuelTypeList">
+                <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+            </SfDropDownList>
+        </div>
+    </div>
+    <div class="mr-2" style="width:135%">
+        <div class="control-wrapper">
+            <SfDropDownList TItem="string" TValue="string" Placeholder="Select payment type" @bind-Value="Filter.PaymentType" AllowFiltering="true" DataSource="@paymentTypeList">
+                <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+            </SfDropDownList>
+        </div>
+    </div>
+
+    <div class="mr-2" style="width:135%">
+        <div class="control-wrapper">
+            <SfDropDownList TItem="string" TValue="string" Placeholder="Select vehicle type" @bind-Value="Filter.VehicleType" AllowFiltering="true" DataSource="@VehicleTypeList">
+                <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+            </SfDropDownList>
+        </div>
+    </div>
+
+    <div class="mr-2" style="width:135%">
+        <div class="control-wrapper">
+            <SfDropDownList TItem="string" TValue="string" Placeholder="Select make" @bind-Value="Filter.Make" AllowFiltering="true" DataSource="@MakeList">
+                <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+            </SfDropDownList>
+        </div>
+    </div>
+    <div class="mr-2" style="width:135%">
+        <div class="control-wrapper">
+            <SfDropDownList TItem="string" TValue="string" Placeholder="Select model" @bind-Value="Filter.Model" AllowFiltering="true" DataSource="@ModelList">
+                <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+            </SfDropDownList>
+        </div>
+    </div>
+
+    <div class="mr-2" style="width:135%">
+        <div class="control-wrapper">
+            <SfDropDownList TItem="string" TValue="string" Placeholder="Select a vehicle" @bind-Value="Filter.VehicleNumber" AllowFiltering="true" DataSource="@vehiclesList">
+                <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+            </SfDropDownList>
+        </div>
+    </div>
+    <button class="btn btn-bg-danger text-white mr-2" @onclick="FilterData">FILTER</button>
+    <button class="btn btn-bg-info text-white mr-2" @onclick="ResetData">RESET</button>
+
+</div>
+    <div class="col-lg-12 control-section" style="overflow-x: scroll; padding-top: 4.0em;">
+        <div class="content-wrapper">
+            <div class="row">
+                <div id="container">
+                    <SfGrid ID="FuelReportGrid" @ref="FuelReportGrid" DataSource="@FuelReport"
+                            AllowPaging="true" AllowSorting="true" AllowFiltering="true"
+                            Height="600" RowHeight="38"
+                            Toolbar="@(new List<string>() { "ExcelExport", "CsvExport", "PdfExport" })"
+                            AllowExcelExport="true" AllowPdfExport="true">
+                        <GridPageSettings PageCount="5" PageSize="20" PageSizes="new int[] { 5, 10, 20, 50, 100 }"></GridPageSettings>
+                        <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Menu"></GridFilterSettings>
+                        <GridSelectionSettings CheckboxOnly="true" PersistSelection="true" Type="SelectionType.Multiple">
+                        </GridSelectionSettings>
+                        <GridEvents OnToolbarClick="ToolbarClick" TValue="FuelComparisonReport">
+                        </GridEvents>
+                        <GridColumns>
+                            @*<GridColumn Field=@nameof(DailyFuelReport.VehicleNumber) HeaderText="Vehicle Number" Width="180"></GridColumn>*@
+                            <GridColumn Field=@nameof(FuelComparisonReport.Region) HeaderText="Region" Width="180"></GridColumn>
+
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel1) HeaderText="@(1 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel2) HeaderText="@(2 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel3) HeaderText="@(3 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel4) HeaderText="@(4 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel5) HeaderText="@(5 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel6) HeaderText="@(6 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel7) HeaderText="@(7 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel8) HeaderText="@(8 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel9) HeaderText="@(9 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel10) HeaderText="@(10 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel11) HeaderText="@(11 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel12) HeaderText="@(12 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel13) HeaderText="@(13 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel14) HeaderText="@(14 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel15) HeaderText="@(15 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel16) HeaderText="@(16 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel17) HeaderText="@(17 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel18) HeaderText="@(18 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel19) HeaderText="@(19 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel20) HeaderText="@(20 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel21) HeaderText="@(21 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel22) HeaderText="@(22 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel23) HeaderText="@(23 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel24) HeaderText="@(24 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel25) HeaderText="@(25 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel26) HeaderText="@(26 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel27) HeaderText="@(27 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel28) HeaderText="@(28 + label)" Width="130"></GridColumn>
+                            <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel29) HeaderText="@(29 + label)" Width="130"></GridColumn>
+                            @if (days > 29)
+                            {
+                                <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel30) HeaderText="@(30 + label)" Width="130"></GridColumn>
+                                @if (days > 30)
+                                {
+                                    <GridColumn Field=@nameof(FuelComparisonReport.Totalfuel31) HeaderText="@(31 + label)" Width="130"></GridColumn>
+                                }
+                            }
+
+                        </GridColumns>
+
+                    </SfGrid>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <img style="position:fixed;top:50%;left:50%;" src="assets/media/loading.gif" />
+}
+@code {
+    public bool showReportModal = false;
+    SfGrid<FuelComparisonReport> FuelReportGrid;
+    public DateTime MinDate { get; set; } = new DateTime(2020, 1, 1);
+
+    int days = 0;
+    string label;
+    public List<FuelComparisonReport> FuelReport { get; set; } = new List<FuelComparisonReport>();
+
+    public FuelComparisonReport Filter { get; set; } = new FuelComparisonReport() { Date = DateTime.Now };
+    List<string> Regions = new List<string>();
+
+    public List<string> regionsList { get; set; } = new List<string>();
+    public List<string> paymentTypeList { get; set; } = new List<string>() { "PSO Card", "Advance Fueling", "Cash" };
+    public List<string> fuelTypeList { get; set; } = new List<string>() { "Diesel", "Petrol" };
+    public List<string> vehiclesList { get; set; } = new List<string>();
+
+    public List<string> VehicleTypeList { get; set; } = new List<string>();
+    public List<string> MakeList { get; set; } = new List<string>();
+    public List<string> ModelList { get; set; } = new List<string>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetFuelReportsList();
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    public void ToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
+    {
+        if (args.Item.Id == "FuelReportGrid_pdfexport")
+        {
+            PdfExportProperties Props = new PdfExportProperties();
+            Props.PageOrientation = PageOrientation.Landscape;
+            Props.PageSize = PdfPageSize.A4;
+            this.FuelReportGrid.PdfExport(Props);
+        }
+        if (args.Item.Id == "FuelReportGrid_excelexport")
+        {
+            this.FuelReportGrid.ExcelExport();
+        }
+        if (args.Item.Id == "FuelReportGrid_csvexport")
+        {
+            this.FuelReportGrid.CsvExport();
+        }
+    }
+
+    public void NotifyChangeState()
+    {
+        StateHasChanged();
+    }
+
+    public async Task GetFuelReportsList()
+    {
+        checkFiilterStatus();
+        showReportModal = false;
+        label = "/" + Filter.Date.Month + "/" + Filter.Date.Year;
+        days = DateTime.DaysInMonth(Filter.Date.Year, Filter.Date.Month);
+        var result = await Http.PostAsJsonAsync("api/reports/FuelComparisonReport", Filter);
+        var response = await result.Content.ReadAsStringAsync();
+        FuelReport = JsonConvert.DeserializeObject<List<FuelComparisonReport>>(response);
+        showReportModal = true;
+
+        regionsList = FuelReport.GroupBy(x => x.Region).Select(x => x.Key).ToList();
+        string tempRegion = Filter.Region;
+        foreach (var region in regionsList)
+        {
+            Filter.Region = region;
+            await getFilterLists();
+        }
+        Filter.Region = tempRegion;
+      
+        StateHasChanged();
+    }
+
+    #region Filter
+    public async void FilterData()
+    {
+        await GetFuelReportsList();
+    }
+
+    public async void ResetData()
+    {
+        Filter = new FuelComparisonReport() {Date=DateTime.Now};
+        await GetFuelReportsList();
+    }
+
+    public async Task getFilterLists()
+    {
+        var result = await Http.PostAsJsonAsync("api/reports/GetVehicleList", Filter);
+        List<string> temp = JsonConvert.DeserializeObject<List<string>>(await result.Content.ReadAsStringAsync());
+        vehiclesList.AddRange(temp);
+
+        result = await Http.PostAsJsonAsync("api/reports/GetVehicleTypeList", Filter);
+        temp = JsonConvert.DeserializeObject<List<string>>(await result.Content.ReadAsStringAsync());
+        VehicleTypeList.AddRange(temp);
+
+        result = await Http.PostAsJsonAsync("api/reports/GetMakeList", Filter);
+        temp = JsonConvert.DeserializeObject<List<string>>(await result.Content.ReadAsStringAsync());
+        MakeList.AddRange(temp);
+
+        result = await Http.PostAsJsonAsync("api/reports/GetModelList", Filter);
+        temp = JsonConvert.DeserializeObject<List<string>>(await result.Content.ReadAsStringAsync());
+        ModelList.AddRange(temp);
+    }
+
+    public void checkFiilterStatus(){
+        vehiclesList=new List<string>();
+        VehicleTypeList = new List<string>();
+        MakeList = new List<string>();
+        ModelList = new List<string>();
+    }
+    #endregion
+}

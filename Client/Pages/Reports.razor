@@ -1,4 +1,6 @@
 ﻿@page "/Reports"
+@using Syncfusion.Blazor.Calendars
+
 <!--begin::Subheader-->
 <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
     <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
@@ -13,7 +15,7 @@
             <!--begin::Breadcrumb-->
             <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                 <li class="breadcrumb-item">
-                    <a href="/" class="text-muted">Reports</a>
+                    <a href="/" class="text-muted">Fuel Reports</a>
                 </li>
             </ul>
             <!--end::Breadcrumb-->
@@ -24,7 +26,7 @@
                 <li class="nav-item">
                     <a class="nav-link active" data-toggle="tab" href="#kt_tab_pane_4_1">
                         <span class="nav-icon"><i class="flaticon2-dashboard"></i></span>
-                        <span class="nav-text">Daily Fuel Report</span>
+                        <span class="nav-text">Fuel Consumption Report</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -49,38 +51,38 @@
         </div>
     </div>
 </div>
-<!--end::Subheader-->
+    <!--end::Subheader-->
 
-<div class="d-flex flex-column-fluid">
-    <!--begin::Container-->
-    <div class="container-fluid">
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class="container-fluid">
 
-        <!--begin::Card-->
-        <div class="card card-custom card-stretch">
-            <!--begin::Body-->
-            <div class="card-body">
-                <div class="tab-content">
-                    <div class="tab-pane fade show active" id="kt_tab_pane_4_1" role="tabpanel" aria-labelledby="kt_tab_pane_4_1">
-                        <SOS.FMS.Client.Components.Reports.DailyFuelReports/>
-                    </div>
-                    <div class="tab-pane fade" id="kt_tab_pane_4_2" role="tabpanel" aria-labelledby="kt_tab_pane_4_2">
-                        <SOS.FMS.Client.Components.Reports.DailyFuelReports />
-                    </div>
-                    <div class="tab-pane fade" id="kt_tab_pane_4_3" role="tabpanel" aria-labelledby="kt_tab_pane_4_3">
-                        <SOS.FMS.Client.Components.Reports.DailyFuelReports />
-                    </div>
-                    <div class="tab-pane fade" id="kt_tab_pane_4_5" role="tabpanel" aria-labelledby="kt_tab_pane_4_5">
-                        <SOS.FMS.Client.Components.Reports.DailyFuelReports />
+            <!--begin::Card-->
+            <div class="card card-custom card-stretch">
+                <!--begin::Body-->
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="kt_tab_pane_4_1" role="tabpanel" aria-labelledby="kt_tab_pane_4_1">
+                            <SOS.FMS.Client.Components.Reports.DailyFuelReports />
+                        </div>
+                        <div class="tab-pane fade" id="kt_tab_pane_4_2" role="tabpanel" aria-labelledby="kt_tab_pane_4_2">
+                            <SOS.FMS.Client.Components.Reports.FuelComparisonReports/>
+                        </div>
+                        <div class="tab-pane fade" id="kt_tab_pane_4_3" role="tabpanel" aria-labelledby="kt_tab_pane_4_3">
+                            <SOS.FMS.Client.Components.Reports.VehicleAverageReport />
+                        </div>
+                        <div class="tab-pane fade" id="kt_tab_pane_4_5" role="tabpanel" aria-labelledby="kt_tab_pane_4_5">
+                            <SOS.FMS.Client.Components.Reports.DailyFuelReports />
+                        </div>
                     </div>
                 </div>
+                <!--end::Body-->
             </div>
-            <!--end::Body-->
+            <!--end::Card-->
         </div>
-        <!--end::Card-->
+        <!--end::Container-->
     </div>
-    <!--end::Container-->
-</div>
 
-@code {
-
-}
+    @code {
+        
+    }
