@@ -11,12 +11,15 @@ namespace SOS.FMS.Shared
         public Guid Id { get; set; }
         public string VehicleNumber { get; set; }
         public string Region { get; set; }
+        public string SubRegion { get; set; }
+        public string Station { get; set; }
         public string VehicleEnrollmentIn { get; set; }
         public bool VehicleOffRoad { get; set;}
 
         public string Odometer { get; set; }
         public string PreviousOdometer { get; set; }
         public string Mileage { get; set; }
+        public string Average { get; set; }
         public string CC { get; set; }
         public string ACC { get; set; }
         public string Driver { get; set; }
@@ -34,5 +37,12 @@ namespace SOS.FMS.Shared
         public string Vendor { get; set; }
         public string MTOfficer { get; set; }
         public string PetrolPumpNo { get; set; }
+
+        public string Make { get; set; }
+        public string Model { get; set; }
+        public string VehicleType { get; set; }
+        public string DailyMonthlyType { get; set; }
+        public string CostKm { get; set; }
+
     }
 }

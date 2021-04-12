@@ -209,28 +209,39 @@ using Syncfusion.Blazor.Calendars;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 97 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Reports\DailyFuelReports.razor"
+#line 162 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Reports\DailyFuelReports.razor"
        
     public bool showReportModal = false;
     SfGrid<DailyFuelReport> FuelReportGrid;
-    public DateTime? DateValue { get; set; } = DateTime.Now;
+    public DateTime MinDate { get; set; } = new DateTime(2020, 1, 1);
+    public DateTime ToDate = DateTime.Now;
 
     public List<DailyFuelReport> DailyFuelReportList { get; set; } = new List<DailyFuelReport>();
     public List<DailyFuelReport> FilteredDailyFuelReportList { get; set; } = new List<DailyFuelReport>();
 
-    public DailyFuelReport Filter { get; set; } = new DailyFuelReport();
+    public DailyFuelReport Filter { get; set; } = new DailyFuelReport() { DailyMonthlyType = "Daily", Timestamp = new DateTime(2020, 1, 1) };
 
     public List<SelectListItem> regionsList { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> subRegionsList { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> stationsList { get; set; } = new List<SelectListItem>();
+
     public List<SelectListItem> paymentTypeList { get; set; } = new List<SelectListItem>();
     public List<SelectListItem> fuelTypeList { get; set; } = new List<SelectListItem>();
-
     public List<SelectListItem> vehiclesList { get; set; } = new List<SelectListItem>();
+
+    public List<SelectListItem> VehicleTypeList { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> MakeList { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> ModelList { get; set; } = new List<SelectListItem>();
+
+    public List<string> DailyMonthly { get; set; } = new List<string>() { "Daily", "Monthly" };
+    public List<string> EntryStyleList { get; set; } = new List<string>() { "Summary", "Detailed" };
+    public string EntryStyle = "Summary";
+    public bool DailyMonthlyOrEntryStyle = false;
     //public List<SelectListItem> typesList { get; set; } = new List<SelectListItem>();
 
     protected override async Task OnInitializedAsync()
     {
         await GetDailyFuelReportsList();
-        showReportModal = true;
         await base.OnInitializedAsync();
     }
 
@@ -241,18 +252,18 @@ using Syncfusion.Blazor.Calendars;
 
     public void ToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
     {
-        if (args.Item.Id == "Grid_pdfexport")
+        if (args.Item.Id == "FuelReportGrid_pdfexport")
         {
             PdfExportProperties Props = new PdfExportProperties();
             Props.PageOrientation = PageOrientation.Landscape;
-            Props.PageSize = PdfPageSize.A4;
+            Props.PageSize = PdfPageSize.A3;
             this.FuelReportGrid.PdfExport(Props);
         }
-        if (args.Item.Id == "Grid_excelexport")
+        if (args.Item.Id == "FuelReportGrid_excelexport")
         {
             this.FuelReportGrid.ExcelExport();
         }
-        if (args.Item.Id == "Grid_csvexport")
+        if (args.Item.Id == "FuelReportGrid_csvexport")
         {
             this.FuelReportGrid.CsvExport();
         }
@@ -269,30 +280,125 @@ using Syncfusion.Blazor.Calendars;
         .OrderByDescending(x => x.Timestamp)
         .ToList();
         FilteredDailyFuelReportList = DailyFuelReportList;
+        DistinctEntries();
+
         regionsList = DailyFuelReportList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+
         paymentTypeList = DailyFuelReportList.GroupBy(x => x.PaymentType).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         fuelTypeList = DailyFuelReportList.GroupBy(x => x.FuelType).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+
+        VehicleTypeList = DailyFuelReportList.GroupBy(x => x.VehicleType).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        MakeList = DailyFuelReportList.GroupBy(x => x.Make).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        ModelList = DailyFuelReportList.GroupBy(x => x.Model).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         vehiclesList = DailyFuelReportList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
     }
-
 
     #region Filter
     public void FilterData()
     {
-        FilteredDailyFuelReportList = DailyFuelReportList
+        if (Filter.Timestamp.Day.Equals(1) && Filter.Timestamp.Month.Equals(1) && Filter.Timestamp.Year.Equals(2020))
+        {
+            FilteredDailyFuelReportList = DailyFuelReportList
+   .Where(x => (string.IsNullOrEmpty(Filter.Region) || x.Region == Filter.Region))
+   .Where(x => (string.IsNullOrEmpty(Filter.FuelType) || x.FuelType == Filter.FuelType))
+   .Where(x => (string.IsNullOrEmpty(Filter.PaymentType) || x.PaymentType == Filter.PaymentType))
+   .Where(x => (string.IsNullOrEmpty(Filter.VehicleType) || x.VehicleType == Filter.VehicleType))
+   .Where(x => (string.IsNullOrEmpty(Filter.Make) || x.Make == Filter.Make))
+   .Where(x => (string.IsNullOrEmpty(Filter.Model) || x.Model == Filter.Model))
+   .Where(x => (string.IsNullOrEmpty(Filter.VehicleNumber) || x.VehicleNumber == Filter.VehicleNumber))
+   .ToList();
+
+        }
+        else
+        {
+            if (Filter.DailyMonthlyType == "Daily")
+            {
+                FilteredDailyFuelReportList = DailyFuelReportList
 .Where(x => (string.IsNullOrEmpty(Filter.Region) || x.Region == Filter.Region))
 .Where(x => (string.IsNullOrEmpty(Filter.FuelType) || x.FuelType == Filter.FuelType))
 .Where(x => (string.IsNullOrEmpty(Filter.PaymentType) || x.PaymentType == Filter.PaymentType))
+.Where(x => (string.IsNullOrEmpty(Filter.VehicleType) || x.VehicleType == Filter.VehicleType))
+.Where(x => (string.IsNullOrEmpty(Filter.Make) || x.Make == Filter.Make))
+.Where(x => (string.IsNullOrEmpty(Filter.Model) || x.Model == Filter.Model))
+.Where(x => (x.Timestamp.Day >= Filter.Timestamp.Day && x.Timestamp.Month >= Filter.Timestamp.Month && x.Timestamp.Year >= Filter.Timestamp.Year && x.Timestamp.Day <= ToDate.Day && x.Timestamp.Month <= ToDate.Month && x.Timestamp.Year <= ToDate.Year))
 .Where(x => (string.IsNullOrEmpty(Filter.VehicleNumber) || x.VehicleNumber == Filter.VehicleNumber))
 .ToList();
+
+            }
+            else
+            {
+                FilteredDailyFuelReportList = DailyFuelReportList
+.Where(x => (string.IsNullOrEmpty(Filter.Region) || x.Region == Filter.Region))
+.Where(x => (string.IsNullOrEmpty(Filter.FuelType) || x.FuelType == Filter.FuelType))
+.Where(x => (string.IsNullOrEmpty(Filter.PaymentType) || x.PaymentType == Filter.PaymentType))
+.Where(x => (string.IsNullOrEmpty(Filter.VehicleType) || x.VehicleType == Filter.VehicleType))
+.Where(x => (string.IsNullOrEmpty(Filter.Make) || x.Make == Filter.Make))
+.Where(x => (string.IsNullOrEmpty(Filter.Model) || x.Model == Filter.Model))
+.Where(x => (x.Timestamp.Month == Filter.Timestamp.Month && x.Timestamp.Year == Filter.Timestamp.Year))
+.Where(x => (string.IsNullOrEmpty(Filter.VehicleNumber) || x.VehicleNumber == Filter.VehicleNumber))
+.ToList();
+            }
+        }
+        if (EntryStyle=="Summary") {
+            DistinctEntries();
+        }
     }
 
     public void ResetData()
     {
-        Filter = new DailyFuelReport();
+        Filter = new DailyFuelReport() { DailyMonthlyType = "Daily", Timestamp = new DateTime(2020, 1, 1) };
+        showReportModal = false;
         FilteredDailyFuelReportList = DailyFuelReportList;
+        DistinctEntries();
     }
     #endregion
+
+    private void OnDailyMonthlyChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        Filter.DailyMonthlyType = args.Value;
+        DailyMonthlyOrEntryStyle = true;
+        StateHasChanged();
+    }
+    private void OnEntryStyleChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        EntryStyle = args.Value;
+        DailyMonthlyOrEntryStyle = false;
+        StateHasChanged();
+    }
+
+    public void DistinctEntries()
+    {
+        FilteredDailyFuelReportList = FilteredDailyFuelReportList.GroupBy(x => new { x.Region, x.VehicleNumber, x.FuelType, x.Driver, x.Purchaser,x.Guard,x.VehicleType,x.Make,x.Model,x.ACC,x.CC,x.MTOfficer })
+        .Select(x => new DailyFuelReport()
+        {
+            Region = x.Key.Region,
+            VehicleNumber = x.Key.VehicleNumber,
+            Litres = Convert.ToString(x.Sum(y => Convert.ToDouble(y.Litres))),
+            Odometer = x.OrderBy(y => y.Timestamp).Select(z => z.Odometer).Last(),
+            PreviousOdometer = x.OrderBy(y => y.Timestamp).Select(z => z.PreviousOdometer).First(),
+            Average = Convert.ToString((x.OrderBy(x => x.Timestamp).Select(y => Convert.ToDouble(y.Odometer)).Last() - x.OrderBy(x => x.Timestamp).Select(y => Convert.ToDouble(y.PreviousOdometer)).First()) / x.Sum(y => Convert.ToDouble(y.Litres))),
+            Mileage = Convert.ToString(x.OrderBy(x => x.Timestamp).Select(y => Convert.ToDouble(y.Odometer)).Last() - x.OrderBy(x => x.Timestamp).Select(y => Convert.ToDouble(y.PreviousOdometer)).First()),
+            Amount = Convert.ToString(x.Sum(y => Convert.ToDouble(y.Amount))),
+            Rate=Convert.ToString(x.Average(y => Convert.ToDouble(y.Rate))),
+            FuelType = x.Key.FuelType,
+            Driver = x.Key.Driver,
+            Purchaser=x.Key.Purchaser,
+            Guard=x.Key.Guard,
+            VehicleType=x.Key.VehicleType,
+            Make=x.Key.Make,
+            Model=x.Key.Model,
+            ACC=x.Key.ACC,
+            CC=x.Key.CC,
+            MTOfficer=x.Key.MTOfficer,
+            CostKm = Convert.ToString(x.Sum(y => Convert.ToDouble(y.Amount))/ x.OrderBy(x => x.Timestamp).Select(y => Convert.ToDouble(y.Odometer)).Last() - x.OrderBy(x => x.Timestamp).Select(y => Convert.ToDouble(y.PreviousOdometer)).First())
+
+
+        }).ToList();
+
+        showReportModal = true;
+        StateHasChanged();
+    }
+
 
 #line default
 #line hidden

@@ -205,7 +205,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 #nullable restore
 #line 110 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Test.razor"
        
-    SfPivotView<FMSDailyCheckListVM> Pivot;
+    SfPivotView<FuelComparisonReport> Pivot;
     public List<FMSDailyCheckListVM> DailyChecksList { get; set; }
     public List<FMSDailyCheckListVM> FilteredDailyChecksList { get; set; }
     public List<SelectListItem> regionsList { get; set; } = new List<SelectListItem>();
@@ -213,62 +213,72 @@ using Microsoft.AspNetCore.SignalR.Client;
     public List<SelectListItem> statusList { get; set; } = new List<SelectListItem>();
     public List<SelectListItem> vehiclesList { get; set; } = new List<SelectListItem>();
 
-    public FMSDailyCheckListVM Filter { get; set; } = new FMSDailyCheckListVM();
+    public FuelComparisonReport Filter { get; set; } = new FuelComparisonReport() { Date = DateTime.Now };
+
+    public List<FuelComparisonReport> FuelReport { get; set; } = new List<FuelComparisonReport>();
+
+    public async Task GetFuelReportsList()
+    {
+        var result = await Http.PostAsJsonAsync("api/reports/FuelComparisonReport", Filter);
+        var response = await result.Content.ReadAsStringAsync();
+        FuelReport = JsonConvert.DeserializeObject<List<FuelComparisonReport>>(response);
+    }
 
     protected override async Task OnInitializedAsync()
     {
-        DailyChecksList = (await Http.GetFromJsonAsync<List<FMSDailyCheckListVM>>("api/Daily/All"))
-                                .OrderByDescending(x => x.LastUpdated)
-                                .ToList();
-        FilteredDailyChecksList = DailyChecksList;
-        regionsList = DailyChecksList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        subRegionsList = DailyChecksList.GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        statusList = DailyChecksList.GroupBy(x => x.Status).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        vehiclesList = DailyChecksList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        await GetFuelReportsList();
+        //DailyChecksList = (await Http.GetFromJsonAsync<List<FMSDailyCheckListVM>>("api/Daily/All"))
+        //                        .OrderByDescending(x => x.LastUpdated)
+        //                        .ToList();
+        //FilteredDailyChecksList = DailyChecksList;
+        //regionsList = DailyChecksList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        //subRegionsList = DailyChecksList.GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        //statusList = DailyChecksList.GroupBy(x => x.Status).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        //vehiclesList = DailyChecksList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         await base.OnInitializedAsync();
     }
 
-    public async Task OnRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
-    {
-        subRegionsList = DailyChecksList.Where(x => x.Region == args.Value).GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        statusList = DailyChecksList.Where(x => x.Region == args.Value).GroupBy(x => x.Status).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        vehiclesList = DailyChecksList.Where(x => x.Region == args.Value).GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        StateHasChanged();
-    }
-    public async Task OnSubRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
-    {
-        statusList = DailyChecksList.Where(x => x.Subregion == args.Value).GroupBy(x => x.Status).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        vehiclesList = DailyChecksList.Where(x => x.Subregion == args.Value).GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        StateHasChanged();
-    }
-    public async Task OnStatusChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
-    {
-        vehiclesList = DailyChecksList
-            .Where(x => x.Status == args.Value && (string.IsNullOrEmpty(Filter.Subregion) || x.Subregion == Filter.Subregion))
-            .GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
-        StateHasChanged();
-    }
+    //public async Task OnRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    //{
+    //    subRegionsList = DailyChecksList.Where(x => x.Region == args.Value).GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+    //    statusList = DailyChecksList.Where(x => x.Region == args.Value).GroupBy(x => x.Status).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+    //    vehiclesList = DailyChecksList.Where(x => x.Region == args.Value).GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+    //    StateHasChanged();
+    //}
+    //public async Task OnSubRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    //{
+    //    statusList = DailyChecksList.Where(x => x.Subregion == args.Value).GroupBy(x => x.Status).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+    //    vehiclesList = DailyChecksList.Where(x => x.Subregion == args.Value).GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+    //    StateHasChanged();
+    //}
+    //public async Task OnStatusChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    //{
+    //    vehiclesList = DailyChecksList
+    //        .Where(x => x.Status == args.Value && (string.IsNullOrEmpty(Filter.Subregion) || x.Subregion == Filter.Subregion))
+    //        .GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+    //    StateHasChanged();
+    //}
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
     }
 
-    public void FilterData()
-    {
-        FilteredDailyChecksList = DailyChecksList
-            .Where(x => (string.IsNullOrEmpty(Filter.Region) || x.Region == Filter.Region))
-            .Where(x => (string.IsNullOrEmpty(Filter.Subregion) || x.Subregion == Filter.Subregion))
-            .Where(x => (string.IsNullOrEmpty(Filter.Status) || x.Status == Filter.Status))
-            .Where(x => (string.IsNullOrEmpty(Filter.VehicleNumber) || x.VehicleNumber == Filter.VehicleNumber))
-            .ToList();
-    }
+    //public void FilterData()
+    //{
+    //    FilteredDailyChecksList = DailyChecksList
+    //        .Where(x => (string.IsNullOrEmpty(Filter.Region) || x.Region == Filter.Region))
+    //        .Where(x => (string.IsNullOrEmpty(Filter.Subregion) || x.Subregion == Filter.Subregion))
+    //        .Where(x => (string.IsNullOrEmpty(Filter.Status) || x.Status == Filter.Status))
+    //        .Where(x => (string.IsNullOrEmpty(Filter.VehicleNumber) || x.VehicleNumber == Filter.VehicleNumber))
+    //        .ToList();
+    //}
 
-    public void ResetData()
-    {
-        Filter = new FMSDailyCheckListVM();
-        FilteredDailyChecksList = DailyChecksList;
-    }
+    //public void ResetData()
+    //{
+    //    Filter = new FMSDailyCheckListVM();
+    //    FilteredDailyChecksList = DailyChecksList;
+    //}
 
     #region Syncfusion
 

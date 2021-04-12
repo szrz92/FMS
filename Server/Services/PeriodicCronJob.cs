@@ -84,11 +84,9 @@ namespace SOS.FMS.Server.Services
                 Vehicle vehicle = (from v in dbContext.Vehicles where v.VehicleNumber == request.VehicleNumber select v).SingleOrDefault();
                 Driver driver = (from v in dbContext.Drivers where v.VehicleNumber == request.VehicleNumber select v).SingleOrDefault();
                 List<VehicleConfiguration> configurations = (from v in dbContext.VehicleConfigurations select v).ToList();
-
                 histories = (from p in dbContext.PeriodicHistories
                              where p.VehicleNumber == request.VehicleNumber
                              select p).ToList();
-
                 if (histories.Any())
                 {
                     foreach (var c in configurations)
@@ -143,9 +141,7 @@ namespace SOS.FMS.Server.Services
                     {
                         double CurrentKMS = vehicle.Distance - p.LastCheckDistance;
                         int CurrentMonths = PakistanDateTime.GetMonthsBetween(PakistanDateTime.Now, p.LastCheckTime);
-
                         List<PeriodicMaintenanceStatus> statusList = new();
-
                         if (CurrentMonths > p.MonthLimit)
                         {
                             statusList.Add(PeriodicMaintenanceStatus.Pending);
@@ -158,7 +154,6 @@ namespace SOS.FMS.Server.Services
                         {
                             statusList.Add(PeriodicMaintenanceStatus.Pending);
                         }
-
                         if (CurrentKMS > p.DistanceLimit)
                         {
                             statusList.Add(PeriodicMaintenanceStatus.Pending);
@@ -171,7 +166,6 @@ namespace SOS.FMS.Server.Services
                         {
                             statusList.Add(PeriodicMaintenanceStatus.Pending);
                         }
-
                         if (statusList.Contains(PeriodicMaintenanceStatus.Pending))
                         {
                             vehicle.PeriodicStatus = PeriodicMaintenanceStatus.Pending;
@@ -188,8 +182,12 @@ namespace SOS.FMS.Server.Services
                             {
                                 vehicle.Status = "periodic";
                             }
+<<<<<<< HEAD
 
                             SMSService.SendSMS("Periodic Notification" + ": " + $"Periodic Maintenance due on Vehicle {vehicle.VehicleNumber}", "923035650720,923320555190,923007187948,9230755532555");
+=======
+                             SMSService.SendSMS("Periodic Notification" + ": " + $"Periodic Maintenance due on Vehicle {vehicle.VehicleNumber}", "923035650720");
+>>>>>>> master
                         }
                         else
                         {
@@ -212,7 +210,6 @@ namespace SOS.FMS.Server.Services
                                 vehicle.Status = "maintained";
                             }
                         }
-
                         dbContext.SaveChanges();
                     }
                 }
@@ -222,7 +219,6 @@ namespace SOS.FMS.Server.Services
             }
             catch (Exception ex)
             {
-             
             }
         }
     }

@@ -194,6 +194,13 @@ using Microsoft.AspNetCore.SignalR.Client;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 2 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Reports.razor"
+using Syncfusion.Blazor.Calendars;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/Reports")]
     public partial class Reports : Microsoft.AspNetCore.Components.ComponentBase
     {

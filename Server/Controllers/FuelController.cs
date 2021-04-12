@@ -27,6 +27,14 @@ namespace SOS.FMS.Server.Controllers
         {
             try
             {
+                
+                double lastOdometer = await dbContext.FuelingInfo
+                    .Where(x => x.VehicleNumber == fuelingInfo.VehicleNumber)
+                    .Select(x => new FuelingInfo() { Odometer = x.Odometer, Timestamp = x.Timestamp })
+                    .OrderByDescending(x => x.Timestamp)
+                    .Select(x => Convert.ToDouble(x.Odometer)).FirstOrDefaultAsync();
+
+
                 FuelingInfo info = new FuelingInfo()
                 {
                     Id = Guid.NewGuid(),
@@ -35,8 +43,9 @@ namespace SOS.FMS.Server.Controllers
                     FillingCity = fuelingInfo.FillingCity,
                     FillingStation = fuelingInfo.FillingStation,
                     Litres = fuelingInfo.Litres,
-                    Milage = fuelingInfo.Milage,
+                    Milage = (Convert.ToDouble(fuelingInfo.Odometer) - lastOdometer).ToString(),
                     Odometer = fuelingInfo.Odometer,
+                    PreviousOdometer= lastOdometer.ToString(),
                     PaymentType = fuelingInfo.PaymentType,
                     Rate = fuelingInfo.Rate,
                     Region = dbContext.Vehicles.Where(x => x.VehicleNumber == fuelingInfo.VehicleNumber).FirstOrDefault().Region,

@@ -572,19 +572,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\BA Tech\\.nuget\\packages\\": {}
+    "C:\\Users\\Btech\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\BA Tech\\source\\repos\\sosfms\\Shared\\SOS.FMS.Shared.csproj",
+      "projectUniqueName": "C:\\Users\\Btech\\Desktop\\FMS\\Shared\\SOS.FMS.Shared.csproj",
       "projectName": "SOS.FMS.Shared",
-      "projectPath": "C:\\Users\\BA Tech\\source\\repos\\sosfms\\Shared\\SOS.FMS.Shared.csproj",
-      "packagesPath": "C:\\Users\\BA Tech\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\BA Tech\\source\\repos\\sosfms\\Shared\\obj\\",
+      "projectPath": "C:\\Users\\Btech\\Desktop\\FMS\\Shared\\SOS.FMS.Shared.csproj",
+      "packagesPath": "C:\\Users\\Btech\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Btech\\Desktop\\FMS\\Shared\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\BA Tech\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Btech\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -634,7 +634,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   }

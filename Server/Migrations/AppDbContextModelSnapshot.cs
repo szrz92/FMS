@@ -1179,6 +1179,9 @@ namespace SOS.FMS.Server.Migrations
                     b.Property<string>("PaymentType")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PreviousOdometer")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Rate")
                         .HasColumnType("nvarchar(max)");
 
