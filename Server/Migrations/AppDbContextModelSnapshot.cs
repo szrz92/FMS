@@ -17,7 +17,7 @@ namespace SOS.FMS.Server.Migrations
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.5");
+                .HasAnnotation("ProductVersion", "5.0.3");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -260,10 +260,28 @@ namespace SOS.FMS.Server.Migrations
                     b.Property<Guid>("CheckPointId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("DriverName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Odometer")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Region")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ServiceType")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Station")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SubServiceType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Subregion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VehicleNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -352,16 +370,16 @@ namespace SOS.FMS.Server.Migrations
                         {
                             Id = "c58e1a9d-1c28-46db-830a-7b3f0b9663f1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b09b54f3-4463-4c09-8de5-f1177fbed0b9",
+                            ConcurrencyStamp = "3e1835d8-76e5-413f-a621-db6299256720",
                             Email = "z.raza@batech.com.pk",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             Name = "Zain Raza",
                             NormalizedEmail = "Z.RAZA@BATECH.COM.PK",
                             NormalizedUserName = "Z.RAZA@BATECH.COM.PK",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAQbA+IFy61x2ntnsPw5t6InZfoMTxw7G66XyLHfjG2TBHUUoHKAkR5D0CPOzZGI9g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENbAXHFS0GX4JePiq/s2E/SbYhtfgKHDz5yIGqceScQrR1D8+ETg8Ei942gmELVyqg==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "b49b37cb-24fc-47ad-a18c-3afe91492c8f",
+                            SecurityStamp = "8287231a-f865-49a2-9409-cf53441af3a4",
                             TwoFactorEnabled = false,
                             UserName = "z.raza@batech.com.pk"
                         });
@@ -391,6 +409,50 @@ namespace SOS.FMS.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AssignedWorkshops");
+                });
+
+            modelBuilder.Entity("SOS.FMS.Server.Models.BillDetail", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Amount")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DriverName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Odometer")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Region")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ServiceType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Station")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SubServiceType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Subregion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("VehicleNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BillDetails");
                 });
 
             modelBuilder.Entity("SOS.FMS.Server.Models.Complaint", b =>
@@ -865,10 +927,28 @@ namespace SOS.FMS.Server.Migrations
                     b.Property<Guid>("CheckPointId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("DriverName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Odometer")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Region")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ServiceType")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Station")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SubServiceType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Subregion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VehicleNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -1955,41 +2035,6 @@ namespace SOS.FMS.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Zones");
-                });
-
-            modelBuilder.Entity("SOS.FMS.Server.Models.testview", b =>
-                {
-                    b.Property<string>("VehicleNumber")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("FuelAverage")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("GasolineType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Make")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Model")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Region")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Station")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SubRegion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VehicleType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("VehicleNumber");
-
-                    b.ToTable("testview");
                 });
 
             modelBuilder.Entity("SOS.FMS.Shared.ViewModels.Accident.AccidentBill", b =>

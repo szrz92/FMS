@@ -1,0 +1,270 @@
+﻿@page "/SpecialMaintenance"
+@inject IJSRuntime JSRuntime
+@inject HttpClient Http
+@using SOS.FMS.Shared.ViewModels.Incident
+<!--begin::Subheader-->
+<div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
+    <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+        <!--begin::Details-->
+        <div class="d-flex align-items-center flex-wrap mr-2">
+            <!--begin::Title-->
+            <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">FMS</h5>
+            <!--end::Title-->
+            <!--begin::Separator-->
+            <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-5 bg-gray-200"></div>
+            <!--end::Separator-->
+            <!--begin::Breadcrumb-->
+            <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+                <li class="breadcrumb-item">
+                    <a href="/" class="text-muted">Special Maintenance</a>
+                </li>
+            </ul>
+            <!--end::Breadcrumb-->
+        </div>
+        <!--end::Details-->
+        <div class="d-flex align-items-center">
+            <ul class="nav nav-light-fms nav-bold nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#kt_tab_pane_4_1">
+                        <span class="nav-icon"><i class="flaticon2-dashboard"></i></span>
+                        <span class="nav-text">Maintenance History</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_4_2">
+                        <span class="nav-icon"><i class="flaticon2-information"></i></span>
+                        <span class="nav-text">New Maintenance</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--end::Subheader-->
+
+<div class="d-flex flex-column-fluid">
+    <!--begin::Container-->
+    <div class="container-fluid">
+        <!--begin::Card-->
+        <div class="card card-custom card-stretch">
+            <!--begin::Body-->
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="kt_tab_pane_4_1" role="tabpanel" aria-labelledby="kt_tab_pane_4_1">
+                        @if (FilteredBillDetails != null)
+                        {
+                            <div class="d-flex flex-column">
+                                <div class="p-2 d-flex flex-row justify-content-end">
+                                    <div class="mr-2">
+                                        <div class="control-wrapper">
+                                            <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a region" @bind-Value="Filter.Region" AllowFiltering="true" DataSource="@regionsList">
+                                                <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                                                <DropDownListEvents TValue="string" ValueChange="OnRegionChange"></DropDownListEvents>
+                                            </SfDropDownList>
+                                        </div>
+                                    </div>
+                                    <div class="mr-2">
+                                        <div class="control-wrapper">
+                                            <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a subregion" @bind-Value="Filter.Subregion" AllowFiltering="true" DataSource="@subRegionsList">
+                                                <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                                                <DropDownListEvents TValue="string" ValueChange="OnSubRegionChange"></DropDownListEvents>
+                                            </SfDropDownList>
+                                        </div>
+                                    </div>
+                                    <div class="mr-2">
+                                        <div class="control-wrapper">
+                                            <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a station" AllowFiltering="true" DataSource="@stationList" @bind-Value="Filter.Station">
+                                                <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                                                <DropDownListEvents TValue="string" ValueChange="OnStationChange"></DropDownListEvents>
+                                            </SfDropDownList>
+                                        </div>
+                                    </div>
+                                    <div class="mr-2">
+                                        <div class="control-wrapper">
+                                            <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a vehicle" @bind-Value="Filter.VehicleNumber" AllowFiltering="true" DataSource="@vehiclesList">
+                                                <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                                                <DropDownListEvents TValue="string" ValueChange="OnVehicleNumberChange"></DropDownListEvents>
+                                            </SfDropDownList>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-bg-danger text-white mr-2" @onclick="FilterData">FILTER</button>
+                                    <button class="btn btn-bg-info text-white mr-2" @onclick="ResetData">RESET</button>
+                                </div>
+                                <div class="p-2">
+                                    <div class="control-section">
+                                        <div class="content-wrapper">
+                                            <div class="row">
+                                                <div id="container">
+                                                    <SfGrid ID="BillDetailsGrid" @ref="BillDetailsGrid" DataSource="@FilteredBillDetails"
+                                                            AllowPaging="true" AllowSorting="true" AllowFiltering="true"
+                                                            Height="600" RowHeight="38"
+                                                            Toolbar="@(new List<string>() { "ExcelExport", "CsvExport", "PdfExport" })"
+                                                            AllowExcelExport="true" AllowPdfExport="true">
+                                                        <GridPageSettings PageCount="5" PageSize="20" PageSizes="new int[]{ 5, 10, 20, 50, 100 }"></GridPageSettings>
+                                                        <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Menu"></GridFilterSettings>
+                                                        <GridSelectionSettings CheckboxOnly="true" PersistSelection="true" Type="SelectionType.Multiple"></GridSelectionSettings>
+                                                        <GridEvents OnToolbarClick="BillDetailsToolbarClick" TValue="BillDetailVM"></GridEvents>
+                                                        <GridColumns>
+                                                            <GridColumn Field=@nameof(BillDetailVM.DriverName) TextAlign="TextAlign.Center" HeaderText="Driver" Width="130"></GridColumn>
+                                                            <GridColumn Field=@nameof(BillDetailVM.VehicleNumber) HeaderText="Vehicle Number" Width="130"></GridColumn>
+                                                            <GridColumn Field=@nameof(BillDetailVM.Remarks) HeaderText="Description" Width="230"></GridColumn>
+                                                            <GridColumn Field=@nameof(BillDetailVM.Region) HeaderText="Region" Width="130"></GridColumn>
+                                                            <GridColumn Field=@nameof(BillDetailVM.Subregion) HeaderText="Subregion" Width="130"></GridColumn>
+                                                            <GridColumn Field=@nameof(BillDetailVM.Station) HeaderText="Station" Width="130"></GridColumn>
+                                                            <GridColumn Field=@nameof(BillDetailVM.Amount) HeaderText="Amount PKR" Width="130"></GridColumn>
+                                                            <GridColumn Field=@nameof(BillDetailVM.Odometer) HeaderText="Odometer" Width="130"></GridColumn>
+                                                            <GridColumn Field=@nameof(BillDetailVM.Timestamp) Format="dd/MM/yy hh:mm" Type="ColumnType.DateTime" HeaderText="Time Stamp" Width="130"></GridColumn>
+                                                        </GridColumns>
+                                                    </SfGrid>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <h5>Loading.....</h5>
+                        }
+                    </div>
+                    <div class="tab-pane fade" id="kt_tab_pane_4_2" role="tabpanel" aria-labelledby="kt_tab_pane_4_2">
+                        <SOS.FMS.Client.Components.Special.Maintain OnResponse="ReloadData" />
+                    </div>
+                </div>
+            </div>
+            <!--end::Body-->
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Container-->
+</div>
+@code {
+    public List<BillDetailVM> BillDetails { get; set; }
+    public List<BillDetailVM> FilteredBillDetails { get; set; }
+
+
+    public List<SelectListItem> regionsList { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> subRegionsList { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> stationList { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> vehiclesList { get; set; } = new List<SelectListItem>();
+    public BillDetailVM Filter { get; set; } = new BillDetailVM();
+
+    protected override async Task OnInitializedAsync()
+    {
+        BillDetails = (await Http.GetFromJsonAsync<List<BillDetailVM>>("api/Periodic/Special/Get"))
+        .OrderByDescending(x => x.Timestamp)
+        .ToList();
+        FilteredBillDetails = BillDetails;
+        regionsList = BillDetails.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        subRegionsList = BillDetails.GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        stationList = BillDetails.GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+
+        vehiclesList = BillDetails.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        await base.OnInitializedAsync();
+    }
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    public void FilterData()
+    {
+        FilteredBillDetails = BillDetails
+    .Where(x => (string.IsNullOrEmpty(Filter.Region) || x.Region == Filter.Region))
+    .Where(x => (string.IsNullOrEmpty(Filter.Subregion) || x.Subregion == Filter.Subregion))
+    .Where(x => (string.IsNullOrEmpty(Filter.Station) || x.Station == Filter.Station))
+    .Where(x => (string.IsNullOrEmpty(Filter.VehicleNumber) || x.VehicleNumber == Filter.VehicleNumber))
+    .ToList();
+    }
+
+    public async void ResetData()
+    {
+        Filter = new BillDetailVM();
+        FilteredBillDetails = BillDetails;
+        regionsList = BillDetails.GroupBy(x => x.Region)
+            .Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        subRegionsList = BillDetails.GroupBy(x => x.Subregion)
+            .Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        stationList = BillDetails.GroupBy(x => x.Station)
+            .Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        vehiclesList = BillDetails.GroupBy(x => x.VehicleNumber)
+            .Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        await InvokeAsync(() => StateHasChanged());
+    }
+
+    public async Task OnRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        vehiclesList = FilteredBillDetails.Where(x => x.Region == args.Value)
+            .GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        subRegionsList = FilteredBillDetails.Where(x => x.Region == args.Value)
+            .GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        stationList = FilteredBillDetails.Where(x => x.Region == args.Value)
+           .GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        StateHasChanged();
+    }
+    public async Task OnSubRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        stationList = FilteredBillDetails.Where(x => x.Subregion == args.Value)
+            .GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        Filter.Region = FilteredBillDetails.Where(x => x.Subregion == args.Value).FirstOrDefault().Region;
+        vehiclesList = FilteredBillDetails.Where(x => x.Subregion == args.Value)
+            .GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+    }
+    public async Task OnStationChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        Filter.Region = FilteredBillDetails.Where(x => x.Station == args.Value).FirstOrDefault().Region;
+        Filter.Subregion = FilteredBillDetails.Where(x => x.Station == args.Value).FirstOrDefault().Subregion;
+
+        vehiclesList = FilteredBillDetails.Where(x => x.Station == args.Value)
+        .GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+    }
+
+    public async Task OnVehicleNumberChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        Filter.Region = FilteredBillDetails.Where(x => x.VehicleNumber == args.Value).FirstOrDefault().Region;
+        Filter.Subregion = FilteredBillDetails.Where(x => x.VehicleNumber == args.Value).FirstOrDefault().Subregion;
+        Filter.Station = FilteredBillDetails.Where(x => x.VehicleNumber == args.Value).FirstOrDefault().Station;
+        StateHasChanged();
+    }
+
+    #region Syncfusion
+
+    SfGrid<BillDetailVM> BillDetailsGrid;
+
+    public void BillDetailsToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
+    {
+        if (args.Item.Id == "BillDetailsGrid_pdfexport")
+        {
+            PdfExportProperties Props = new PdfExportProperties();
+            Props.PageOrientation = PageOrientation.Landscape;
+            Props.PageSize = PdfPageSize.A4;
+            this.BillDetailsGrid.PdfExport(Props);
+        }
+        if (args.Item.Id == "BillDetailsGrid_excelexport")
+        {
+            this.BillDetailsGrid.ExcelExport();
+        }
+        if (args.Item.Id == "BillDetailsGrid_csvexport")
+        {
+            this.BillDetailsGrid.CsvExport();
+        }
+    }
+    #endregion
+
+    public async Task ReloadData()
+    {
+        BillDetails = (await Http.GetFromJsonAsync<List<BillDetailVM>>("api/Periodic/Special/Get"))
+        .OrderByDescending(x => x.Timestamp)
+        .ToList();
+        FilteredBillDetails = BillDetails;
+        regionsList = BillDetails.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        subRegionsList = BillDetails.GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        stationList = BillDetails.GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+
+        vehiclesList = BillDetails.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        await InvokeAsync(StateHasChanged);
+    }
+}

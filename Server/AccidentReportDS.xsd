@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="AccidentReportDS" targetNamespace="http://tempuri.org/AccidentReportDS.xsd" xmlns:mstns="http://tempuri.org/AccidentReportDS.xsd" xmlns="http://tempuri.org/AccidentReportDS.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="AccidentReportDS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="AccidentReportDS" msprop:Generator_UserDSName="AccidentReportDS">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="checkListInfo" msprop:Generator_TableClassName="checkListInfoDataTable" msprop:Generator_TableVarName="tablecheckListInfo" msprop:Generator_TablePropName="checkListInfo" msprop:Generator_RowDeletingName="checkListInfoRowDeleting" msprop:Generator_RowChangingName="checkListInfoRowChanging" msprop:Generator_RowEvHandlerName="checkListInfoRowChangeEventHandler" msprop:Generator_RowDeletedName="checkListInfoRowDeleted" msprop:Generator_UserTableName="checkListInfo" msprop:Generator_RowChangedName="checkListInfoRowChanged" msprop:Generator_RowEvArgName="checkListInfoRowChangeEvent" msprop:Generator_RowClassName="checkListInfoRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="billingInfo" msprop:Generator_TableClassName="billingInfoDataTable" msprop:Generator_TableVarName="tablebillingInfo" msprop:Generator_TablePropName="billingInfo" msprop:Generator_RowDeletingName="billingInfoRowDeleting" msprop:Generator_RowChangingName="billingInfoRowChanging" msprop:Generator_RowEvHandlerName="billingInfoRowChangeEventHandler" msprop:Generator_RowDeletedName="billingInfoRowDeleted" msprop:Generator_UserTableName="billingInfo" msprop:Generator_RowChangedName="billingInfoRowChanged" msprop:Generator_RowEvArgName="billingInfoRowChangeEvent" msprop:Generator_RowClassName="billingInfoRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

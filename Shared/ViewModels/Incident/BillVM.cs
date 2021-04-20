@@ -17,6 +17,14 @@ namespace SOS.FMS.Shared.ViewModels.Incident
         public string ServiceType { get; set; }
         public string SubServiceType { get; set; }
         public int Amount { get; set; }
+        public string Odometer { get; set; }
+        public string VehicleNumber { get; set; }
+        public string DriverName { get; set; }
+        public string Region { get; set; }
+        public string Subregion { get; set; }
+        public string Station { get; set; }
+        public string Remarks { get; set; }
+        public DateTime Timestamp { get; set; }
     }
     public class ServicesList
     {

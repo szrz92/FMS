@@ -581,15 +581,24 @@ namespace SOS.FMS.Server.Controllers
                 FMSAccidentalCheck check = (from c in dbContext.FMSAccidentalCheckList
                                             where c.Id == billDetail.CheckPointId
                                             select c).SingleOrDefault();
+
+                Driver driver = dbContext.Drivers.Where(x => x.VehicleNumber == check.VehicleNumber).SingleOrDefault();
+
                 check.MaintenanceStatus = CheckMaintenanceStatus.InProgress;
 
-                AccidentalBillDetail detail = new ()
+                AccidentalBillDetail detail = new()
                 {
                     Id = Guid.NewGuid(),
                     CheckPointId = billDetail.CheckPointId,
                     ServiceType = billDetail.ServiceType,
                     SubServiceType = billDetail.SubServiceType,
-                    Amount = Convert.ToString(billDetail.Amount)
+                    Amount = Convert.ToString(billDetail.Amount),
+                    VehicleNumber = check.VehicleNumber,
+                    Odometer = billDetail.Odometer,
+                    DriverName = driver.Name,
+                    Region = driver.Region,
+                    Subregion = driver.SubRegion,
+                    Station = driver.Station
                 };
 
                 await dbContext.AccidentalBillDetails.AddAsync(detail);
@@ -652,6 +661,97 @@ namespace SOS.FMS.Server.Controllers
                                                         Amount = Convert.ToInt32(b.Amount)
                                                     }).ToListAsync();
                 return Ok(details);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+        [HttpGet("AllAccidents")]
+        public async Task<IActionResult> GetAllAccidentsReport()
+        {
+            try
+            {
+                List<FMSAccidentVM> accidentsList = new List<FMSAccidentVM>();
+                if (User.IsInRole("SA") || User.IsInRole("HMT"))
+                {
+                    accidentsList = await (from a in dbContext.Accidents
+                                           join d in dbContext.Drivers on a.DriverId equals d.Id
+                                           join r in dbContext.Regions on a.RegionId equals r.Id
+                                           join s in dbContext.SubRegions on a.SubRegionId equals s.Id
+                                           join st in dbContext.Stations on a.StationId equals st.Id
+                                           join v in dbContext.Vehicles on a.FMSVehicleId equals v.Id
+                                           join gv in dbContext.GBMSVehicles on v.VehicleNumber equals gv.Description
+                                           select new FMSAccidentVM()
+                                           {
+                                               Id = a.Id,
+                                               Description = a.Description,
+                                               Driver = d.Name,
+                                               Region = r.XDescription,
+                                               SubRegion = s.XDescription,
+                                               Station = st.XDescription,
+                                               VehicleNumber = gv.Description,
+                                               MaintenanceStatus = a.MaintenanceStatus == MaintenanceStatus.Done ? "Complete" : "Not Initiated",
+                                               ReportTime = a.TimeStamp,
+                                               CarOperationalTime = a.CarOperationalTime,
+                                               JobClosingTime = a.JobClosingTime,
+                                               LastUpdated = a.LastUpdated,
+                                               Checks = dbContext.FMSAccidentalCheckList.Where(x=>x.FMSAccidentId == a.Id).Select(x=> 
+                                               new FMSAccidentalCheckVM() 
+                                               { 
+                                                   Id = x.Id,
+                                                   FMSAccidentId = x.FMSAccidentId,
+                                                   CommentCount = x.CommentCount,
+                                                   Description=x.Description,
+                                                   FMSVehicleId=x.FMSVehicleId,
+                                                   ImageCount = x.ImageCount,
+                                                   LastUpdated = x.LastUpdated,
+                                                   MaintenanceStatus = x.MaintenanceStatus
+                                               }).ToList()
+                                           }).ToListAsync();
+                }
+                else
+                {
+                    ApplicationUser user = (from u in dbContext.Users where u.Email == User.Identity.Name select u).FirstOrDefault();
+                    Region region = (from r in dbContext.Regions where r.XDescription == user.Region select r).FirstOrDefault();
+
+                    accidentsList = await (from a in dbContext.Accidents
+                                           join d in dbContext.Drivers on a.DriverId equals d.Id
+                                           join r in dbContext.Regions on a.RegionId equals r.Id
+                                           join s in dbContext.SubRegions on a.SubRegionId equals s.Id
+                                           join st in dbContext.Stations on a.StationId equals st.Id
+                                           join v in dbContext.Vehicles on a.FMSVehicleId equals v.Id
+                                           join gv in dbContext.GBMSVehicles on v.VehicleNumber equals gv.Description
+                                           where a.RegionId == region.Id
+                                           select new FMSAccidentVM()
+                                           {
+                                               Id = a.Id,
+                                               Description = a.Description,
+                                               Driver = d.Name,
+                                               Region = r.XDescription,
+                                               SubRegion = s.XDescription,
+                                               Station = st.XDescription,
+                                               VehicleNumber = gv.Description,
+                                               MaintenanceStatus = a.MaintenanceStatus == MaintenanceStatus.Done ? "Complete" : "Not Initiated",
+                                               ReportTime = a.TimeStamp,
+                                               CarOperationalTime = a.CarOperationalTime,
+                                               JobClosingTime = a.JobClosingTime,
+                                               LastUpdated = a.LastUpdated,
+                                               Checks = dbContext.FMSAccidentalCheckList.Where(x => x.FMSAccidentId == a.Id).Select(x =>
+                                                 new FMSAccidentalCheckVM()
+                                                 {
+                                                     Id = x.Id,
+                                                     FMSAccidentId = x.FMSAccidentId,
+                                                     CommentCount = x.CommentCount,
+                                                     Description = x.Description,
+                                                     FMSVehicleId = x.FMSVehicleId,
+                                                     ImageCount = x.ImageCount,
+                                                     LastUpdated = x.LastUpdated,
+                                                     MaintenanceStatus = x.MaintenanceStatus
+                                                 }).ToList()
+                                           }).ToListAsync();
+                }
+                return Ok(accidentsList);
             }
             catch (Exception)
             {

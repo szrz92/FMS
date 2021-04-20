@@ -1,0 +1,11 @@
+C:\Users\BA Tech\source\repos\sosfms\WinFormForRdlc\bin\Debug\WinFormForRdlc.exe.config
+C:\Users\BA Tech\source\repos\sosfms\WinFormForRdlc\bin\Debug\WinFormForRdlc.exe
+C:\Users\BA Tech\source\repos\sosfms\WinFormForRdlc\bin\Debug\WinFormForRdlc.pdb
+C:\Users\BA Tech\source\repos\sosfms\WinFormForRdlc\obj\Debug\WinFormForRdlc.csprojAssemblyReference.cache
+C:\Users\BA Tech\source\repos\sosfms\WinFormForRdlc\obj\Debug\WinFormForRdlc.Properties.Resources.resources
+C:\Users\BA Tech\source\repos\sosfms\WinFormForRdlc\obj\Debug\WinFormForRdlc.csproj.GenerateResource.cache
+C:\Users\BA Tech\source\repos\sosfms\WinFormForRdlc\obj\Debug\RdlCompile.cache
+C:\Users\BA Tech\source\repos\sosfms\WinFormForRdlc\obj\Debug\RdlCompile.compiled
+C:\Users\BA Tech\source\repos\sosfms\WinFormForRdlc\obj\Debug\WinFormForRdlc.csproj.CoreCompileInputs.cache
+C:\Users\BA Tech\source\repos\sosfms\WinFormForRdlc\obj\Debug\WinFormForRdlc.exe
+C:\Users\BA Tech\source\repos\sosfms\WinFormForRdlc\obj\Debug\WinFormForRdlc.pdb

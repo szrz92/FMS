@@ -962,3 +962,13 @@ C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\SOS.FMS.Client.cspr
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\SOS.FMS.Client.dll
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\ref\SOS.FMS.Client.dll
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\SOS.FMS.Client.pdb
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\IncidentalHistory\DetailedAccidentalHistory.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\IncidentalHistory\DetailedAccidentalHistory.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Special\Maintain.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Pages\SpecialMaintenance.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Special\Maintain.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Pages\SpecialMaintenance.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Special\History.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Special\History.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\RazorDeclaration\Components\Periodic\Maintain.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Debug\net5.0\Razor\Components\Periodic\Maintain.razor.g.cs

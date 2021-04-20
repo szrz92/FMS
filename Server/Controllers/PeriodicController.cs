@@ -5,6 +5,7 @@ using SOS.FMS.Server.Models;
 using SOS.FMS.Shared;
 using SOS.FMS.Shared.Enums;
 using SOS.FMS.Shared.ViewModels;
+using SOS.FMS.Shared.ViewModels.Incident;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -509,6 +510,62 @@ namespace SOS.FMS.Server.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.ToString());
+            }
+        }
+        [HttpPost("Maintain/Special")]
+        public async Task<IActionResult> MaintainSpecial(BillDetailVM bill)
+        {
+            try
+            {
+                BillDetail billDetail = new BillDetail()
+                {
+                    Id = Guid.NewGuid(),
+                    Amount = Convert.ToString(bill.Amount),
+                    DriverName = dbContext.Drivers.Where(x => x.VehicleNumber == bill.VehicleNumber).FirstOrDefault().Name,
+                    Odometer = bill.Odometer,
+                    Region = bill.Region,
+                    Remarks = bill.Remarks,
+                    ServiceType = bill.ServiceType,
+                    Station = bill.Station,
+                    Subregion = bill.Subregion,
+                    SubServiceType = bill.SubServiceType,
+                    VehicleNumber = bill.VehicleNumber,
+                    Timestamp = PakistanDateTime.Now
+                };
+                await dbContext.BillDetails.AddAsync(billDetail);
+                await dbContext.SaveChangesAsync();
+                return Ok("Maintenance Done");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Maintenance Failed");
+            }
+        }
+        [HttpGet("Special/Get")]
+        public async Task<IActionResult> MaintainSpecialGet()
+        {
+            try
+            {
+                IEnumerable<BillDetailVM> billDetails = await (from b in dbContext.BillDetails
+                                                               select new BillDetailVM()
+                                                               {
+                                                                   Amount = Convert.ToInt32(b.Amount),
+                                                                   DriverName = b.DriverName,
+                                                                   Odometer = b.Odometer,
+                                                                   Region = b.Region,
+                                                                   Remarks = b.Remarks,
+                                                                   ServiceType = b.ServiceType,
+                                                                   Station = b.Station,
+                                                                   Subregion = b.Subregion,
+                                                                   SubServiceType = b.SubServiceType,
+                                                                   VehicleNumber = b.VehicleNumber,
+                                                                   Timestamp = b.Timestamp
+                                                               }).ToListAsync();
+                return Ok(billDetails);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
             }
         }
 

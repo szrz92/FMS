@@ -83,6 +83,16 @@
     </AuthorizeView>
     <AuthorizeView Roles="SA, HMT, CIM, RMTO, RAO">
         <li class="menu-item" aria-haspopup="true">
+            <NavLink href="SpecialMaintenance" class="menu-link">
+                <span class="svg-icon menu-icon">
+                    <img src="icons/emergency.png" />
+                </span>
+                <span class="menu-text">Special Maintenance</span>
+            </NavLink>
+        </li>
+    </AuthorizeView>
+    <AuthorizeView Roles="SA, HMT, CIM, RMTO, RAO">
+        <li class="menu-item" aria-haspopup="true">
             <NavLink href="Complaints" class="menu-link">
                 <span class="svg-icon menu-icon">
                     <img src="icons/vehicle.png" />
@@ -145,7 +155,7 @@
     </AuthorizeView>
     <AuthorizeView Roles="SA, HMT">
         <li class="menu-item" aria-haspopup="true">
-            <NavLink href="Reporting" class="menu-link">
+            <NavLink href="Reports" class="menu-link">
                 <span class="svg-icon menu-icon">
                     <img src="icons/prompt.png" />
                 </span>

@@ -1,0 +1,237 @@
+﻿@inject HttpClient Http
+@using SOS.FMS.Shared.ViewModels.Incident
+
+@if (Vehicles != null && ServiceTypes != null)
+{
+    <EditForm Model="BillDetail" OnValidSubmit="Save">
+        <DataAnnotationsValidator />
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-lg-6">
+                    <label>Region:</label>
+                    <SfDropDownList TItem="SelectListItem" TValue="string" @bind-Value="BillDetail.Region" Placeholder="Select region" AllowFiltering="true" DataSource="@RegionsList">
+                        <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                        <DropDownListEvents TValue="string" ValueChange="OnRegionChange"></DropDownListEvents>
+                    </SfDropDownList>
+                    @*<span class="form-text text-muted">Please select region</span>*@
+                    <ValidationMessage For="() => BillDetail.Region" />
+                </div>
+                <div class="col-lg-6">
+                    <label>Sub Region:</label>
+                    <SfDropDownList TItem="SelectListItem" TValue="string" @bind-Value="BillDetail.Subregion" Placeholder="Select sub region" AllowFiltering="true" DataSource="@SubRegionsList">
+                        <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                        <DropDownListEvents TValue="string" ValueChange="OnSubRegionChange"></DropDownListEvents>
+                    </SfDropDownList>
+                    @*<span class="form-text text-muted">Please select sub region</span>*@
+                    <ValidationMessage For="() => BillDetail.Subregion" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-6">
+                    <label>Station:</label>
+                    <SfDropDownList TItem="SelectListItem" TValue="string" @bind-Value="BillDetail.Station" Placeholder="Select station" AllowFiltering="true" DataSource="@StationsList">
+                        <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                        <DropDownListEvents TValue="string" ValueChange="OnStationChange"></DropDownListEvents>
+                    </SfDropDownList>
+                    @*<span class="form-text text-muted">Please select sub region</span>*@
+                    <ValidationMessage For="() => BillDetail.Station" />
+                </div>
+
+                <div class="col-lg-6">
+                    <label>Vehicles:</label>
+                    <SfDropDownList TItem="SelectListItem" TValue="string" @bind-Value="BillDetail.VehicleNumber" Placeholder="Select vehicle" AllowFiltering="true" DataSource="@VehiclesList">
+                        <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                        <DropDownListEvents TValue="string" ValueChange="OnVehicleNumberChange"></DropDownListEvents>
+                    </SfDropDownList>
+                    @*<span class="form-text text-muted">Please select vehicle to add</span>*@
+                    <ValidationMessage For="() => BillDetail.VehicleNumber" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-6">
+                    <label>Service Type:</label>
+                    <SfDropDownList TItem="SelectListItem" TValue="string" @bind-Value="BillDetail.ServiceType" Placeholder="Select service type" AllowFiltering="true" DataSource="@ServiceList">
+                        <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                        <DropDownListEvents TValue="string" ValueChange="OnServiceTypeChange"></DropDownListEvents>
+                    </SfDropDownList>
+                    @*<span class="form-text text-muted">Please select sub region</span>*@
+                    <ValidationMessage For="() => BillDetail.ServiceType" />
+                </div>
+
+                <div class="col-lg-6">
+                    <label>Sub Service Type:</label>
+                    <SfDropDownList TItem="SelectListItem" TValue="string" @bind-Value="BillDetail.SubServiceType" Placeholder="Select sub service type" AllowFiltering="true" DataSource="@SubServiceList">
+                        <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                        <DropDownListEvents TValue="string" ValueChange="OnSubServiceTypeChange"></DropDownListEvents>
+                    </SfDropDownList>
+                    @*<span class="form-text text-muted">Please select vehicle to add</span>*@
+                    <ValidationMessage For="() => BillDetail.SubServiceType" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-6">
+                    <label>Odometer:</label>
+                    <SfTextBox Type="InputType.Number" @bind-Value="BillDetail.Odometer"></SfTextBox>
+                    @*<span class="form-text text-muted">Please select sub region</span>*@
+                    <ValidationMessage For="() => BillDetail.ServiceType" />
+                </div>
+                <div class="col-lg-6">
+                    <label>Amount (PKR):</label>
+                    <SfNumericTextBox @bind-Value="BillDetail.Amount"></SfNumericTextBox>
+                    @*<span class="form-text text-muted">Please select sub region</span>*@
+                    <ValidationMessage For="() => BillDetail.Amount" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-6">
+                    <label>Remarks:</label>
+                    <SfTextBox Type="InputType.Text" Multiline="true" @bind-Value="BillDetail.Remarks"></SfTextBox>
+                    @*<span class="form-text text-muted">Please select sub region</span>*@
+                    <ValidationMessage For="() => BillDetail.Remarks" />
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-lg-6">
+                    <button type="submit" class="btn btn-fms mr-2">Save</button>
+                    <button type="reset" @onclick="Cancel" class="btn btn-secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+}
+
+
+<SfDialog @bind-Visible="@ResponseDialog" Width="600px" Height="400px" CloseOnEscape="true" Target="#main" ShowCloseIcon="true">
+    <DialogTemplates>
+        <Header>
+            @dialogHeader
+        </Header>
+        <Content>
+            @dialogBody
+        </Content>
+    </DialogTemplates>
+    <DialogEvents Closed="@DialogClose"></DialogEvents>
+</SfDialog>
+
+
+@code {
+    [Parameter]
+    public EventCallback OnResponse { get; set; }
+
+    public List<GBMSVehicleVM> Vehicles { get; set; }
+    public List<SelectListItem> VehiclesList = new List<SelectListItem>();
+    public List<SelectListItem> RegionsList = new List<SelectListItem>();
+    public List<SelectListItem> SubRegionsList = new List<SelectListItem>();
+    public List<SelectListItem> StationsList = new List<SelectListItem>();
+    public List<SelectListItem> ServiceList = new List<SelectListItem>();
+    public List<SelectListItem> SubServiceList = new List<SelectListItem>();
+
+    List<ServicesList> ServiceTypes { get; set; }
+
+    public BillDetailVM BillDetail { get; set; } = new BillDetailVM();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Vehicles = (await Http.GetFromJsonAsync<List<GBMSVehicleVM>>("api/Vehicles/All"))
+                        .ToList();
+
+        ServiceTypes = await Http.GetFromJsonAsync<List<ServicesList>>("api/Services");
+
+        VehiclesList = Vehicles.GroupBy(x => x.Description).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
+                        .ToList();
+        RegionsList = Vehicles.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
+                        .ToList();
+        SubRegionsList = Vehicles.GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
+                    .ToList();
+        StationsList = Vehicles.GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key })
+                    .ToList();
+        ServiceList = ServiceTypes.GroupBy(x => x.ServiceType).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        SubServiceList = ServiceTypes.GroupBy(x => x.SubServiceType).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+
+        await base.OnInitializedAsync();
+    }
+
+    public void OnRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        SubRegionsList = Vehicles.Where(x => x.Region == args.Value)
+            .GroupBy(x => x.Subregion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        VehiclesList = Vehicles.Where(x => x.Region == args.Value)
+            .GroupBy(x => x.Description).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        StationsList = Vehicles.Where(x => x.Region == args.Value)
+            .GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        StateHasChanged();
+    }
+
+    public void OnSubRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        BillDetail.Region = Vehicles.Where(x => x.Subregion == args.Value).FirstOrDefault().Region;
+        VehiclesList = Vehicles.Where(x => x.Subregion == args.Value)
+            .GroupBy(x => x.Description).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        StationsList = Vehicles.Where(x => x.Subregion == args.Value)
+            .GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        StateHasChanged();
+    }
+
+    public void OnStationChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        BillDetail.Region = Vehicles.Where(x => x.Station == args.Value).FirstOrDefault().Region;
+        BillDetail.Subregion = Vehicles.Where(x => x.Station == args.Value).FirstOrDefault().Subregion;
+        VehiclesList = Vehicles.Where(x => x.Station == args.Value)
+        .GroupBy(x => x.Description).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        StateHasChanged();
+    }
+
+    public void OnVehicleNumberChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        BillDetail.Region = Vehicles.Where(x => x.Description == args.Value).FirstOrDefault().Region;
+        BillDetail.Subregion = Vehicles.Where(x => x.Description == args.Value).FirstOrDefault().Subregion;
+        BillDetail.Station = Vehicles.Where(x => x.Description == args.Value).FirstOrDefault().Station;
+        StateHasChanged();
+    }
+    public void OnServiceTypeChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        SubServiceList = ServiceTypes.Where(x => x.ServiceType == args.Value).GroupBy(x => x.SubServiceType).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+    }
+    public void OnSubServiceTypeChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        BillDetail.ServiceType = ServiceTypes.Where(x => x.SubServiceType == args.Value).FirstOrDefault().ServiceType;
+    }
+    public async void Save()
+    {
+        var response = await Http.PostAsJsonAsync("api/Periodic/Maintain/Special", BillDetail);
+        dialogBody = await response.Content.ReadAsStringAsync();
+        if (response.IsSuccessStatusCode)
+        {
+            dialogHeader = "Success";
+        }
+        else
+        {
+            dialogHeader = "Failed";
+        }
+        ResponseDialog = true;
+        await OnResponse.InvokeAsync();
+        BillDetail = new BillDetailVM();
+        StateHasChanged();
+    }
+
+    public void Cancel()
+    {
+        BillDetail = new BillDetailVM();
+        StateHasChanged();
+    }
+
+    #region Dialog
+    public bool ResponseDialog { get; set; }
+    public string dialogHeader { get; set; }
+    public string dialogBody { get; set; }
+
+    public void DialogClose()
+    {
+        dialogHeader = null;
+        dialogBody = null;
+    }
+    #endregion
+
+}

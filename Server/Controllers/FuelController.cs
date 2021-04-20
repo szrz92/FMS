@@ -70,7 +70,7 @@ namespace SOS.FMS.Server.Controllers
                 List<FuelingInfoVM> fuelingInfoList = await (from f in dbContext.FuelingInfo
                                                              select new FuelingInfoVM()
                                                              {
-                                                                 Amount = f.Amount,
+                                                                 //Amount = f.Amount,
                                                                  DriverName = f.DriverName,
                                                                  FillingCity = f.FillingCity,
                                                                  FillingStation = f.FillingStation,
@@ -91,7 +91,7 @@ namespace SOS.FMS.Server.Controllers
                                                                  join d in dbContext.Drivers on v.VehicleNumber equals d.VehicleNumber
                                                                  select new FuelingInfoVM()
                                                                  {
-                                                                     Amount = p.TxnAmount,
+                                                                     //Amount = p.TxnAmount,
                                                                      DriverName = d.Name,
                                                                      FillingStation = p.MerchantName,
                                                                      FillingCity = p.MerchantCity,

@@ -35,8 +35,13 @@
                             </div>
                             <div class="form-group">
                                 <label>Amount:</label>
-                                <SfNumericTextBox Type="InputType.Text" @bind-Value="BillDetail.Amount" Placeholder="Enter Amount"></SfNumericTextBox>
+                                <SfNumericTextBox @bind-Value="BillDetail.Amount" Placeholder="Enter Amount"></SfNumericTextBox>
                                 <span class="form-text text-muted">Enter Amount</span>
+                            </div>
+                            <div class="form-group">
+                                <label>Odometer:</label>
+                                <SfTextBox Type="InputType.Number" @bind-Value="BillDetail.Odometer" Placeholder="Enter Odometer"></SfTextBox>
+                                <span class="form-text text-muted">Enter Odometer</span>
                             </div>
                         </div>
                         <div class="card-footer">

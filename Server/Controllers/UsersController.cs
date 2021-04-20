@@ -25,7 +25,7 @@ namespace SOS.FMS.Server.Controllers
             try
             {
                 ///111 Accounts, 119 Maintenance, 120 Fuelling, 131 MT & Fueling
-                List<string> departments = new List<string>() { "111" /*Accounts*/, "119" /*Maintenance*/, "120" /*Fuelling*/, "131" /*MT & Fueling*/ };
+                List<string> departments = new List<string>() { "108" /*Audit*/, "111" /*Accounts*/, "119" /*Maintenance*/, "120" /*Fuelling*/, "131" /*MT & Fueling*/ };
                 List<GBMSUserVM> users = await (from u in dbContext.GBMSUsers
                                                 where departments.Contains(u.XDepartment)
                                                 select new GBMSUserVM()

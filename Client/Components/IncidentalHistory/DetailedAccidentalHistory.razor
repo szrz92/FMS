@@ -1,0 +1,242 @@
+﻿@inject HttpClient Http
+
+@if (FilteredAccidentsList != null)
+{
+    <div class="d-flex flex-column">
+        <div class="p-2 d-flex flex-row justify-content-end">
+            <div class="mr-2">
+                <div class="control-wrapper">
+                    <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a region" @bind-Value="Filter.Region" AllowFiltering="true" DataSource="@regionsList">
+                        <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                        <DropDownListEvents TValue="string" ValueChange="OnRegionChange"></DropDownListEvents>
+                    </SfDropDownList>
+                </div>
+            </div>
+            <div class="mr-2">
+                <div class="control-wrapper">
+                    <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a subregion" @bind-Value="Filter.SubRegion" AllowFiltering="true" DataSource="@subRegionsList">
+                        <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                        <DropDownListEvents TValue="string" ValueChange="OnSubRegionChange"></DropDownListEvents>
+                    </SfDropDownList>
+                </div>
+            </div>
+            <div class="mr-2">
+                <div class="control-wrapper">
+                    <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a station" AllowFiltering="true" DataSource="@stationList" @bind-Value="Filter.Station">
+                        <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                        <DropDownListEvents TValue="string" ValueChange="OnStationChange"></DropDownListEvents>
+                    </SfDropDownList>
+                </div>
+            </div>
+
+            <div class="mr-2">
+                <div class="control-wrapper">
+                    <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a status" @bind-Value="Filter.MaintenanceStatus" AllowFiltering="true" DataSource="@statusList">
+                        <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                    </SfDropDownList>
+                </div>
+            </div>
+            <div class="mr-2">
+                <div class="control-wrapper">
+                    <SfDropDownList TItem="SelectListItem" TValue="string" Placeholder="Select a vehicle" @bind-Value="Filter.VehicleNumber" AllowFiltering="true" DataSource="@vehiclesList">
+                        <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                        <DropDownListEvents TValue="string" ValueChange="OnVehicleNumberChange"></DropDownListEvents>
+                    </SfDropDownList>
+                </div>
+            </div>
+            <button class="btn btn-bg-danger text-white mr-2" @onclick="FilterData">FILTER</button>
+            <button class="btn btn-bg-info text-white mr-2" @onclick="ResetData">RESET</button>
+        </div>
+        <div class="p-2">
+            <div class="control-section">
+                <div class="content-wrapper">
+                    <div class="row">
+                        <div id="container">
+                            <SfGrid ID="AccidentsGrid" @ref="AccidentsGrid" DataSource="@FilteredAccidentsList"
+                                    AllowPaging="true" AllowSorting="true" AllowFiltering="true"
+                                    Height="600" RowHeight="38"
+                                    Toolbar="@(new List<string>() { "ExcelExport", "CsvExport", "PdfExport" })"
+                                    AllowExcelExport="true" AllowPdfExport="true">
+                                <GridPageSettings PageCount="5" PageSize="20" PageSizes="new int[]{ 5, 10, 20, 50, 100 }"></GridPageSettings>
+                                <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Menu"></GridFilterSettings>
+                                <GridSelectionSettings CheckboxOnly="true" PersistSelection="true" Type="SelectionType.Multiple"></GridSelectionSettings>
+                                <GridEvents OnToolbarClick="AccidentToolbarClick" TValue="FMSAccidentVM"></GridEvents>
+                                <GridTemplates>
+                                    <DetailTemplate>
+                                        @{
+                                            var data = (context as FMSAccidentVM);
+                                            <table class="detailtable" width="100%">
+                                                <colgroup>
+                                                    <col width="35%">
+                                                    <col width="35%">
+                                                    <col width="30%">
+                                                </colgroup>
+                                                <tbody>
+                                                    @foreach (var check in data.Checks.OrderBy(x=>x.Description))
+                                                    {
+                                                    <tr>
+                                                        <td>
+                                                            <span style="font-weight: 500;">Description: </span> @check.Description
+                                                        </td>
+                                                        <td>
+                                                            <span style="font-weight: 500;">Comments Count: </span> @check.CommentCount
+                                                        </td>
+                                                        <td>
+                                                            <span style="font-weight: 500;">Last Updated: </span> @check.LastUpdated
+                                                        </td>
+                                                    </tr>
+
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        }
+                                    </DetailTemplate>
+                                </GridTemplates>
+                                <GridColumns>
+                                    <GridColumn Field=@nameof(FMSAccidentVM.Driver) TextAlign="TextAlign.Center" HeaderText="Driver" Width="130"></GridColumn>
+                                    <GridColumn Field=@nameof(FMSAccidentVM.VehicleNumber) HeaderText="Vehicle Number" Width="130"></GridColumn>
+                                    <GridColumn Field=@nameof(FMSAccidentVM.Description) HeaderText="Description" Width="230"></GridColumn>
+                                    <GridColumn Field=@nameof(FMSAccidentVM.Region) HeaderText="Region" Width="130"></GridColumn>
+                                    <GridColumn Field=@nameof(FMSAccidentVM.SubRegion) HeaderText="Subregion" Width="130"></GridColumn>
+                                    <GridColumn Field=@nameof(FMSAccidentVM.Station) HeaderText="Station" Width="130"></GridColumn>
+                                    <GridColumn Field=@nameof(FMSAccidentVM.MaintenanceStatus) HeaderText="Maintenance" Width="130"></GridColumn>
+                                    <GridColumn Field=@nameof(FMSAccidentVM.ReportTime) Format="dd/MM/yy hh:mm" Type="ColumnType.DateTime" HeaderText="Reported At" Width="130"></GridColumn>
+                                    <GridColumn Field=@nameof(FMSAccidentVM.CarOperationalTime) Format="dd/MM/yy hh:mm" Type="ColumnType.DateTime" HeaderText="Operational At" Width="130"></GridColumn>
+                                    <GridColumn Field=@nameof(FMSAccidentVM.JobClosingTime) Format="dd/MM/yy hh:mm" Type="ColumnType.DateTime" HeaderText="Closed At" Width="130"></GridColumn>
+                                    <GridColumn Field=@nameof(FMSAccidentVM.LastUpdated) Format="dd/MM/yy hh:mm" Type="ColumnType.DateTime" HeaderText="Last Update" Width="130"></GridColumn>
+                                </GridColumns>
+                            </SfGrid>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <h5>Loading.....</h5>
+}
+@code {
+    public List<FMSAccidentVM> AccidentsList { get; set; }
+    public List<FMSAccidentVM> FilteredAccidentsList { get; set; }
+
+
+    public List<SelectListItem> regionsList { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> subRegionsList { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> stationList { get; set; } = new List<SelectListItem>();
+
+    public List<SelectListItem> statusList { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> vehiclesList { get; set; } = new List<SelectListItem>();
+    public FMSAccidentVM Filter { get; set; } = new FMSAccidentVM();
+
+    protected override async Task OnInitializedAsync()
+    {
+        AccidentsList = (await Http.GetFromJsonAsync<List<FMSAccidentVM>>("api/Accident/AllAccidents"))
+            .OrderByDescending(x => x.LastUpdated)
+            .ToList();
+        FilteredAccidentsList = AccidentsList;
+        regionsList = AccidentsList.GroupBy(x => x.Region).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        subRegionsList = AccidentsList.GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        stationList = AccidentsList.GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+
+        statusList = AccidentsList.GroupBy(x => x.MaintenanceStatus).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        vehiclesList = AccidentsList.GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    public void FilterData()
+    {
+        FilteredAccidentsList = AccidentsList
+        .Where(x => (string.IsNullOrEmpty(Filter.Region) || x.Region == Filter.Region))
+        .Where(x => (string.IsNullOrEmpty(Filter.SubRegion) || x.SubRegion == Filter.SubRegion))
+        .Where(x => (string.IsNullOrEmpty(Filter.Station) || x.Station == Filter.Station))
+        .Where(x => (string.IsNullOrEmpty(Filter.MaintenanceStatus) || x.MaintenanceStatus == Filter.MaintenanceStatus))
+        .Where(x => (string.IsNullOrEmpty(Filter.VehicleNumber) || x.VehicleNumber == Filter.VehicleNumber))
+        .ToList();
+    }
+
+    public async void ResetData()
+    {
+        Filter = new FMSAccidentVM();
+        FilteredAccidentsList = AccidentsList;
+        regionsList = AccidentsList.GroupBy(x => x.Region)
+            .Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        subRegionsList = AccidentsList.GroupBy(x => x.SubRegion)
+            .Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        stationList = AccidentsList.GroupBy(x => x.Station)
+            .Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        statusList = AccidentsList.GroupBy(x => x.MaintenanceStatus)
+        .Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        vehiclesList = AccidentsList.GroupBy(x => x.VehicleNumber)
+            .Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        await InvokeAsync(() => StateHasChanged());
+    }
+
+    public async Task OnRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        vehiclesList = FilteredAccidentsList.Where(x => x.Region == args.Value)
+            .GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        subRegionsList = FilteredAccidentsList.Where(x => x.Region == args.Value)
+            .GroupBy(x => x.SubRegion).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        stationList = FilteredAccidentsList.Where(x => x.Region == args.Value)
+           .GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        StateHasChanged();
+    }
+    public async Task OnSubRegionChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        stationList = FilteredAccidentsList.Where(x => x.SubRegion == args.Value)
+            .GroupBy(x => x.Station).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        Filter.Region = FilteredAccidentsList.Where(x => x.SubRegion == args.Value).FirstOrDefault().Region;
+        vehiclesList = FilteredAccidentsList.Where(x => x.SubRegion == args.Value)
+            .GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+    }
+    public async Task OnStationChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        Filter.Region = FilteredAccidentsList.Where(x => x.Station == args.Value).FirstOrDefault().Region;
+        Filter.SubRegion = FilteredAccidentsList.Where(x => x.Station == args.Value).FirstOrDefault().SubRegion;
+
+        vehiclesList = FilteredAccidentsList.Where(x => x.Station == args.Value)
+        .GroupBy(x => x.VehicleNumber).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+    }
+
+    public async Task OnVehicleNumberChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        Filter.Region = FilteredAccidentsList.Where(x => x.VehicleNumber == args.Value).FirstOrDefault().Region;
+        Filter.SubRegion = FilteredAccidentsList.Where(x => x.VehicleNumber == args.Value).FirstOrDefault().SubRegion;
+        Filter.Station = FilteredAccidentsList.Where(x => x.VehicleNumber == args.Value).FirstOrDefault().Station;
+
+        Filter.MaintenanceStatus = FilteredAccidentsList.Where(x => x.VehicleNumber == args.Value).FirstOrDefault().MaintenanceStatus;
+        StateHasChanged();
+    }
+
+    #region Syncfusion
+
+    SfGrid<FMSAccidentVM> AccidentsGrid;
+
+    public void AccidentToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
+    {
+        if (args.Item.Id == "AccidentsGrid_pdfexport")
+        {
+            PdfExportProperties Props = new PdfExportProperties();
+            Props.PageOrientation = PageOrientation.Landscape;
+            Props.PageSize = PdfPageSize.A4;
+            this.AccidentsGrid.PdfExport(Props);
+        }
+        if (args.Item.Id == "AccidentsGrid_excelexport")
+        {
+            this.AccidentsGrid.ExcelExport();
+        }
+        if (args.Item.Id == "AccidentsGrid_csvexport")
+        {
+            this.AccidentsGrid.CsvExport();
+        }
+    }
+    #endregion
+
+}

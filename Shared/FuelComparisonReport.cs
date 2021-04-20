@@ -50,6 +50,5 @@ namespace SOS.FMS.Shared
         public decimal Totalfuel29 { get; set; }
         public decimal Totalfuel30 { get; set; }
         public decimal Totalfuel31 { get; set; }
-
     }
 }

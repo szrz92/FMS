@@ -204,7 +204,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 309 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Index.razor"
+#line 317 "C:\Users\BA Tech\source\repos\sosfms\Client\Pages\Index.razor"
  
     [CascadingParameter]
     Task<AuthenticationState> AuthenticationState { get; set; }
@@ -288,7 +288,7 @@ using Microsoft.AspNetCore.SignalR.Client;
     public List<VehicleVM> vehiclesList { get; set; } = new List<VehicleVM>();
 
     public int AccidentalVehiclesCount { get; set; } = 0;
-    public int EmergencyVehiclesCount { get; set; } = 0; 
+    public int EmergencyVehiclesCount { get; set; } = 0;
     public int PeriodicVehiclesCount { get; set; } = 0;
     public int MaintainedVehiclesCount { get; set; } = 0;
     public int TotalVehiclesCount { get; set; } = 0;
@@ -510,6 +510,22 @@ using Microsoft.AspNetCore.SignalR.Client;
     {
         periodicCheckVehicleNumber = vehicleNumber;
         PeriodicHistoryDlgVisible = true;
+        StateHasChanged();
+    }
+
+    public string maintainVehicleNumber;
+    public bool maintainSideModal { get; set; } = false;
+    [JSInvokable]
+    public void Maintain_JSInvoked(string vehicleNumber)
+    {
+        maintainVehicleNumber = vehicleNumber;
+        maintainSideModal = true;
+        StateHasChanged();
+    }
+    public void HideMaintainSideModal()
+    {
+        maintainVehicleNumber = null;
+        maintainSideModal = false;
         StateHasChanged();
     }
 

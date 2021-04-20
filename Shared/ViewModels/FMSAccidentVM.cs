@@ -22,5 +22,6 @@ namespace SOS.FMS.Shared.ViewModels
         public DateTime JobClosingTime { get; set; }
         public DateTime CarOperationalTime { get; set; }
         public DateTime LastUpdated { get; set; }
+        public List<FMSAccidentalCheckVM> Checks { get; set; }
     }
 }

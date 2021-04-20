@@ -16,7 +16,7 @@ namespace SOS.FMS.Shared.ViewModels
         public string FillingStation { get; set; }
         public string FillingCity { get; set; }
         public string Rate { get; set; }
-        public string Amount { get; set; }
+        public string Amount { get { return Convert.ToString(Convert.ToDouble(Rate) * Convert.ToDouble(Litres)); } }
         public string Odometer { get; set; }
         public string Milage { get; set; }
         public string PaymentType { get; set; }

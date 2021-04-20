@@ -1,0 +1,175 @@
+﻿@inject HttpClient Http
+@using SOS.FMS.Shared.ViewModels.Incident
+
+@if (ServiceTypes != null && !string.IsNullOrEmpty(VehicleNumber))
+{
+    <div id="kt_quick_cart2" class="offcanvas offcanvas-right p-10 offcanvas-on" style="width:50%">
+        <!--begin::Header-->
+        <div class="offcanvas-header d-flex align-items-center justify-content-between pb-7" kt-hidden-height="46" style="">
+            <h4 class="font-weight-bold m-0">Periodic Maintenance for @(VehicleNumber)</h4>
+            <a @onclick="Close" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_cart_close">
+                <i class="ki ki-close icon-xs text-muted"></i>
+            </a>
+        </div>
+        <!--end::Header-->
+        <!--begin::Content-->
+        <div class="offcanvas-content pr-5 mr-n5 scroll ps ps--active-y">
+
+            <EditForm Model="BillDetail" OnValidSubmit="Save">
+                <DataAnnotationsValidator />
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-lg-6">
+                            <label>Service Type:</label>
+                            <SfDropDownList TItem="SelectListItem" TValue="string" @bind-Value="BillDetail.ServiceType" Placeholder="Select service type" AllowFiltering="true" DataSource="@ServiceList">
+                                <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                                <DropDownListEvents TValue="string" ValueChange="OnServiceTypeChange"></DropDownListEvents>
+                            </SfDropDownList>
+                            @*<span class="form-text text-muted">Please select sub region</span>*@
+                            <ValidationMessage For="() => BillDetail.ServiceType" />
+                        </div>
+
+                        <div class="col-lg-6">
+                            <label>Sub Service Type:</label>
+                            <SfDropDownList TItem="SelectListItem" TValue="string" @bind-Value="BillDetail.SubServiceType" Placeholder="Select sub service type" AllowFiltering="true" DataSource="@SubServiceList">
+                                <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                                <DropDownListEvents TValue="string" ValueChange="OnSubServiceTypeChange"></DropDownListEvents>
+                            </SfDropDownList>
+                            @*<span class="form-text text-muted">Please select vehicle to add</span>*@
+                            <ValidationMessage For="() => BillDetail.SubServiceType" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-6">
+                            <label>Odometer:</label>
+                            <SfTextBox Type="InputType.Number" @bind-Value="BillDetail.Odometer"></SfTextBox>
+                            @*<span class="form-text text-muted">Please select sub region</span>*@
+                            <ValidationMessage For="() => BillDetail.ServiceType" />
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Amount (PKR):</label>
+                            <SfNumericTextBox @bind-Value="BillDetail.Amount"></SfNumericTextBox>
+                            @*<span class="form-text text-muted">Please select sub region</span>*@
+                            <ValidationMessage For="() => BillDetail.Amount" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-6">
+                            <label>Remarks:</label>
+                            <SfTextBox Type="InputType.Text" Multiline="true" @bind-Value="BillDetail.Remarks"></SfTextBox>
+                            @*<span class="form-text text-muted">Please select sub region</span>*@
+                            <ValidationMessage For="() => BillDetail.Remarks" />
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <button type="submit" class="btn btn-fms mr-2">Save</button>
+                            <button type="reset" @onclick="Cancel" class="btn btn-secondary">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </EditForm>
+            <!--begin::Item-->
+            <!--end::Content-->
+        </div>
+
+        <div class="offcanvas-footer" kt-hidden-height="112" style="">
+        </div>
+    </div>
+}
+else
+{
+    <p>Loading...</p>
+}
+<SfDialog @bind-Visible="@ResponseDialog" Width="600px" Height="400px" CloseOnEscape="true" Target="#main" ShowCloseIcon="true">
+    <DialogTemplates>
+        <Header>
+            @dialogHeader
+        </Header>
+        <Content>
+            @dialogBody
+        </Content>
+    </DialogTemplates>
+    <DialogEvents Closed="@DialogClose"></DialogEvents>
+</SfDialog>
+
+
+@code {
+    [Parameter]
+    public string VehicleNumber { get; set; }
+    [Parameter]
+    public EventCallback<bool> OnVisibilityChanged { get; set; }
+
+    public List<SelectListItem> ServiceList = new List<SelectListItem>();
+    public List<SelectListItem> SubServiceList = new List<SelectListItem>();
+    List<ServicesList> ServiceTypes { get; set; }
+
+    public BillDetailVM BillDetail { get; set; } = new BillDetailVM();
+
+    protected override async Task OnInitializedAsync()
+    {
+        ServiceTypes = await Http.GetFromJsonAsync<List<ServicesList>>("api/Services");
+        ServiceList = ServiceTypes.GroupBy(x => x.ServiceType).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        SubServiceList = ServiceTypes.GroupBy(x => x.SubServiceType).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    public void OnServiceTypeChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        SubServiceList = ServiceTypes.Where(x => x.ServiceType == args.Value).GroupBy(x => x.SubServiceType).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+    }
+
+    public void OnSubServiceTypeChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        BillDetail.ServiceType = ServiceTypes.Where(x => x.SubServiceType == args.Value).FirstOrDefault().ServiceType;
+    }
+
+    public Task Close()
+    {
+        return OnVisibilityChanged.InvokeAsync(false);
+    }
+
+    public async void Save()
+    {
+        var response = await Http.PostAsJsonAsync("api/Periodic/Maintain/Special", BillDetail);
+        dialogBody = await response.Content.ReadAsStringAsync();
+        if (response.IsSuccessStatusCode)
+        {
+            dialogHeader = "Success";
+        }
+        else
+        {
+            dialogHeader = "Failed";
+        }
+        ResponseDialog = true;
+        BillDetail = new BillDetailVM();
+        StateHasChanged();
+    }
+
+    public Task Cancel()
+    {
+        BillDetail = new BillDetailVM();
+        StateHasChanged();
+        return OnVisibilityChanged.InvokeAsync(false);
+    }
+
+    #region Dialog
+    public bool ResponseDialog { get; set; }
+    public string dialogHeader { get; set; }
+    public string dialogBody { get; set; }
+
+    public Task DialogClose()
+    {
+        dialogHeader = null;
+        dialogBody = null;
+        return OnVisibilityChanged.InvokeAsync(false);
+    }
+    #endregion
+}

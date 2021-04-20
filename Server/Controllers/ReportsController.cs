@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using SOS.FMS.Server.Models;
 using SOS.FMS.Server.Services;
 using SOS.FMS.Shared;
+using SOS.FMS.Shared.Traccar;
 using SOS.FMS.Shared.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -368,6 +369,42 @@ namespace SOS.FMS.Server.Controllers
             {
 
                 throw;
+            }
+        }
+        [HttpPost("[action]")]
+        public async Task<IActionResult> GetSummaries(ReportRequest reportRequest)
+        {
+            try
+            {
+                return Ok(await TraccarService.GetSummaries(reportRequest.FromDate, reportRequest.ToDate));
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+        [HttpPost("[action]")]
+        public async Task<IActionResult> GetStops(ReportRequest reportRequest)
+        {
+            try
+            {
+                return Ok(await TraccarService.GetStops(reportRequest.FromDate, reportRequest.ToDate));
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+        [HttpPost("[action]")]
+        public async Task<IActionResult> GetTrips(ReportRequest reportRequest)
+        {
+            try
+            {
+                return Ok(await TraccarService.GetTrips(reportRequest.FromDate, reportRequest.ToDate));
+            }
+            catch (Exception)
+            {
+                return BadRequest();
             }
         }
     }

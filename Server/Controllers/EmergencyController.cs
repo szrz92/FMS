@@ -547,6 +547,9 @@ namespace SOS.FMS.Server.Controllers
                 FMSEmergencyCheck check = (from c in dbContext.FMSEmergencyCheckList
                                             where c.Id == billDetail.CheckPointId
                                             select c).SingleOrDefault();
+
+                Driver driver = dbContext.Drivers.Where(x => x.VehicleNumber == check.VehicleNumber).SingleOrDefault();
+
                 check.MaintenanceStatus = CheckMaintenanceStatus.InProgress;
 
                 EmergencyBillDetail detail = new()
@@ -555,7 +558,13 @@ namespace SOS.FMS.Server.Controllers
                     CheckPointId = billDetail.CheckPointId,
                     ServiceType = billDetail.ServiceType,
                     SubServiceType = billDetail.SubServiceType,
-                    Amount = Convert.ToString(billDetail.Amount)
+                    Amount = Convert.ToString(billDetail.Amount),
+                    VehicleNumber = check.VehicleNumber,
+                    Odometer = billDetail.Odometer,
+                    DriverName = driver.Name,
+                    Region = driver.Region,
+                    Subregion = driver.SubRegion,
+                    Station = driver.Station
                 };
                 await dbContext.EmergencyBillDetails.AddAsync(detail);
                 await dbContext.SaveChangesAsync();
