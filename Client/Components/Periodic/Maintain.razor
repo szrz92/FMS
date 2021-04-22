@@ -1,5 +1,4 @@
 ﻿@inject HttpClient Http
-@using SOS.FMS.Shared.ViewModels.Incident
 
 @if (ServiceTypes != null && !string.IsNullOrEmpty(VehicleNumber))
 {
@@ -113,6 +112,7 @@ else
         ServiceTypes = await Http.GetFromJsonAsync<List<ServicesList>>("api/Services");
         ServiceList = ServiceTypes.GroupBy(x => x.ServiceType).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         SubServiceList = ServiceTypes.GroupBy(x => x.SubServiceType).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        BillDetail.VehicleNumber = VehicleNumber;
         await base.OnInitializedAsync();
     }
 

@@ -18,5 +18,6 @@ namespace SOS.FMS.Server.Models
         public string VehicleNumber { get; set; }
         public DateTime LastUpdated { get; set; }
         public string Remarks { get; set; }
+        public string AccidentRef { get; set; }
     }
 }

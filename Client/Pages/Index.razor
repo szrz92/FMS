@@ -188,12 +188,12 @@
 
 @if (emergencyCheckListSideModal)
 {
-    <SOS.FMS.Client.Components.Emergency.Checklist OnVisibilityChanged="ShowHideEmergencyCheckList" Visible="@emergencyCheckListSideModal"
+    <SOS.FMS.Client.Components.Emergency.Checklist OnVisibilityChanged="ShowHideEmergencyCheckList" Visible="@emergencyCheckListSideModal" ReferenceNumber="@emergencyRef"
                                                    VehicleNumber="@emergencyCheckListVehicleNumber" EmergencyCheckList="@emergencyCheckList" />
 }
 @if (accidentalCheckListSideModal)
 {
-    <SOS.FMS.Client.Components.Accident.CheckList OnVisibilityChanged="ShowHideAccidentalCheckList" Visible="@accidentalCheckListSideModal"
+    <SOS.FMS.Client.Components.Accident.CheckList OnVisibilityChanged="ShowHideAccidentalCheckList" Visible="@accidentalCheckListSideModal" ReferenceNumber="@accidentRef"
                                                   VehicleNumber="@accidentalCheckListVehicleNumber" AccidentalsCheckList="@accidentalCheckList" />
 }
 
@@ -488,6 +488,8 @@
 
     public string accidentalCheckListVehicleNumber;
 
+    public string accidentRef;
+
     public bool accidentalCheckListSideModal { get; set; } = false;
 
     public void ShowHideAccidentalCheckList()
@@ -508,6 +510,8 @@
     public List<FMSEmergencyCheckVM> emergencyCheckList { get; set; }
 
     public string emergencyCheckListVehicleNumber;
+
+    public string emergencyRef;
 
     public bool emergencyCheckListSideModal { get; set; } = false;
 
@@ -552,6 +556,7 @@
                 if (getEmergencyCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     emergencyCheckList = JsonConvert.DeserializeObject<List<FMSEmergencyCheckVM>>(await getEmergencyCheckListResponse.Content.ReadAsStringAsync());
+                    emergencyRef = emergencyCheckList.FirstOrDefault().EmergencyRef;
                     ShowEmergencyCheckList(emergencyCheckList);
                 }
                 else
@@ -589,6 +594,7 @@
                 if (getAccidentalCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     accidentalCheckList = JsonConvert.DeserializeObject<List<FMSAccidentalCheckVM>>(await getAccidentalCheckListResponse.Content.ReadAsStringAsync());
+                    accidentRef = accidentalCheckList.FirstOrDefault().AccidentRef;
                     ShowAccidentalCheckList(accidentalCheckList);
                 }
                 else

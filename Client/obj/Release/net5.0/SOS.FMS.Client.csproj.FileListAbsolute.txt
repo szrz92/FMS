@@ -970,3 +970,5 @@ C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\RazorDeclaration\
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\Razor\Components\Special\History.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\Razor\Components\Special\Maintain.razor.g.cs
 C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\Razor\Pages\SpecialMaintenance.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\RazorDeclaration\Components\Periodic\Maintain.razor.g.cs
+C:\Users\BA Tech\source\repos\sosfms\Client\obj\Release\net5.0\Razor\Components\Periodic\Maintain.razor.g.cs

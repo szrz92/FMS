@@ -13,7 +13,7 @@ namespace SOS.FMS.Shared.ViewModels.Emergency
         public Guid Id { get; set; }
         public Guid CheckPointId { get; set; }
         public double BillAmount { get; set; }
-        public string BillImage { get; set; }
+        public string Ref { get; set; }
         public string Remarks { get; set; }
 
     }

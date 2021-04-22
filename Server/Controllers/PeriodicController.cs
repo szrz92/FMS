@@ -517,17 +517,34 @@ namespace SOS.FMS.Server.Controllers
         {
             try
             {
+                string region = bill.Region;
+                string subregion = bill.Subregion;
+                string station = bill.Station;
+
+                if (string.IsNullOrEmpty(bill.Region))
+                {
+                    region = dbContext.Vehicles.Where(x => x.VehicleNumber == bill.VehicleNumber).FirstOrDefault().Region;
+                }
+                if (string.IsNullOrEmpty(bill.Subregion))
+                {
+                    subregion = dbContext.Vehicles.Where(x => x.VehicleNumber == bill.VehicleNumber).FirstOrDefault().SubRegion;
+                }
+                if (string.IsNullOrEmpty(bill.Station))
+                {
+                    station = dbContext.Vehicles.Where(x => x.VehicleNumber == bill.VehicleNumber).FirstOrDefault().Station;
+                }
+
                 BillDetail billDetail = new BillDetail()
                 {
                     Id = Guid.NewGuid(),
                     Amount = Convert.ToString(bill.Amount),
                     DriverName = dbContext.Drivers.Where(x => x.VehicleNumber == bill.VehicleNumber).FirstOrDefault().Name,
                     Odometer = bill.Odometer,
-                    Region = bill.Region,
+                    Region = region,
                     Remarks = bill.Remarks,
                     ServiceType = bill.ServiceType,
-                    Station = bill.Station,
-                    Subregion = bill.Subregion,
+                    Station = station,
+                    Subregion = subregion,
                     SubServiceType = bill.SubServiceType,
                     VehicleNumber = bill.VehicleNumber,
                     Timestamp = PakistanDateTime.Now

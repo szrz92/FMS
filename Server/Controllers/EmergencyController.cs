@@ -100,6 +100,7 @@ namespace SOS.FMS.Server.Controllers
             try
             {
                 Guid emergencyId = Guid.NewGuid();
+                string uref = Reference.GetUniqueReference("EMR");
                 Vehicle vehicle = await (from v in dbContext.Vehicles where v.VehicleNumber == emergency.VehicleNumber select v).SingleOrDefaultAsync();
                 Driver driver = await (from d in dbContext.Drivers where d.VehicleNumber == emergency.VehicleNumber select d).SingleOrDefaultAsync();
 
@@ -114,17 +115,16 @@ namespace SOS.FMS.Server.Controllers
                 {
                     Id = emergencyId,
                     Description = emergency.Description,
-                    DriverId =driver.Id,
+                    DriverId = driver.Id,
                     RegionId = dbContext.Regions.Where(x => x.XDescription == vehicle.Region).SingleOrDefault().Id,
                     VehicleNumber = emergency.VehicleNumber,
                     SubRegionId = dbContext.SubRegions.Where(x => x.XDescription == vehicle.SubRegion).SingleOrDefault().Id,
                     StationId = dbContext.Stations.Where(x => x.XDescription == vehicle.Station).SingleOrDefault().Id,
-
+                    Ref = uref,
                     FMSVehicleId = vehicle.Id,
                     MaintenanceStatus = MaintenanceStatus.NotInitiated,
                     TimeStamp = DateTime.Now,
                     LastUpdated = DateTime.Now
-
                 };
                 await dbContext.Emergencies.AddAsync(newEmergency);
 
@@ -154,7 +154,8 @@ namespace SOS.FMS.Server.Controllers
                         VehicleNumber = emergency.VehicleNumber,
                         LastUpdated = DateTime.Now,
                         CommentCount = 0,
-                        ImageCount = 0
+                        ImageCount = 0,
+                        EmergencyRef = uref
                     });
                 }
 
@@ -195,7 +196,8 @@ namespace SOS.FMS.Server.Controllers
                                                                  CommentCount = c.CommentCount,
                                                                  FMSEmergencyId = c.FMSEmergencyId,
                                                                  FMSVehicleId = c.FMSVehicleId,
-                                                                 ImageCount = c.ImageCount
+                                                                 ImageCount = c.ImageCount,
+                                                                 EmergencyRef = c.EmergencyRef
                                                              }).ToListAsync();
 
                 return Ok(checkList.OrderBy(x => x.Description).ToList());
@@ -467,25 +469,35 @@ namespace SOS.FMS.Server.Controllers
                                             where c.Id == bill.CheckPointId
                                             select c).SingleOrDefault();
                 check.MaintenanceStatus = CheckMaintenanceStatus.InProgress;
-                FMSEmergencyCheckComment newComment = new()
+                if (!await dbContext.FMSEmergencyCheckComments.Where(x => x.FMSEmergencyCheckId == check.Id).AnyAsync())
                 {
-                    Id = Guid.NewGuid(),
-                    FMSEmergencyCheckId = check.Id,
-                    FMSEmergencyId = check.FMSEmergencyId,
-                    Comment = bill.BillAmount.ToString(),
-                    FMSUserId = new Guid((from u in dbContext.Users where u.Email == User.Identity.Name select u.Id).SingleOrDefault()),
-                    FMSVehicleId = check.FMSVehicleId,
-                    VehicleNumber = check.VehicleNumber,
-                    LastUpdated = DateTime.Now,
-                    Mentions = ""
-                };
+                    FMSEmergencyCheckComment newComment = new()
+                    {
+                        Id = Guid.NewGuid(),
+                        FMSEmergencyCheckId = check.Id,
+                        FMSEmergencyId = check.FMSEmergencyId,
+                        Comment = bill.BillAmount.ToString(),
+                        FMSUserId = new Guid((from u in dbContext.Users where u.Email == User.Identity.Name select u.Id).SingleOrDefault()),
+                        FMSVehicleId = check.FMSVehicleId,
+                        VehicleNumber = check.VehicleNumber,
+                        LastUpdated = DateTime.Now,
+                        Mentions = ""
+                    };
 
-                await dbContext.FMSEmergencyCheckComments.AddAsync(newComment);
-                await dbContext.SaveChangesAsync();
+                    await dbContext.FMSEmergencyCheckComments.AddAsync(newComment);
+                }
 
-                bill.Id = new Guid();
-                await dbContext.EmergencyBills.AddAsync(bill);
-                await dbContext.SaveChangesAsync();
+                if (!await dbContext.EmergencyBills.Where(x => x.CheckPointId == check.Id).AnyAsync())
+                {
+                    bill.Id = new Guid();
+                    await dbContext.EmergencyBills.AddAsync(bill);
+                }
+                else
+                {
+                    EmergencyBill emergencyBill = await dbContext.EmergencyBills.Where(x => x.CheckPointId == check.Id).FirstOrDefaultAsync();
+                    emergencyBill.Remarks = bill.Remarks;
+                    emergencyBill.BillAmount = bill.BillAmount;
+                }
 
                 check.CommentCount = await (from c in dbContext.FMSEmergencyCheckComments
                                             where c.FMSEmergencyCheckId == bill.CheckPointId
@@ -493,7 +505,7 @@ namespace SOS.FMS.Server.Controllers
                 Emergency emergency = await dbContext.Emergencies.Where(x => x.Id == check.FMSEmergencyId).Select(x => x).SingleOrDefaultAsync();
                 emergency.LastUpdated = PakistanDateTime.Now;
                 check.LastUpdated = PakistanDateTime.Now;
-                await dbContext.SaveChangesAsync();
+                await dbContext. SaveChangesAsync();
 
                 return Ok();
             }

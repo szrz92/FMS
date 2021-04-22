@@ -132,6 +132,7 @@
     <BillPosting Visible="billPostingVisible"
                  OnVisibilityChanged="ShowHideBillPosting"
                  VehicleNumber="@VehicleNumber"
+                 ReferenceNumber="@ReferenceNumber"
                  CheckPointId="@PointId" />
 }
 
@@ -161,6 +162,8 @@
     public ClaimsPrincipal CurrentUser { get; set; }
     [Parameter]
     public string VehicleNumber { get; set; }
+    [Parameter]
+    public string ReferenceNumber { get; set; }
     [Parameter]
     public bool Visible { get; set; }
     [Parameter]
@@ -203,17 +206,17 @@
         var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new VehicleVM() { VehicleNumber = VehicleNumber });
         var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<VehicleVM>(await vehicleResponse.Content.ReadAsStringAsync());
 
-            var getEmergencyCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Emergency/FMS/CheckList", new ApiRequest() { VehicleNumber = VehicleNumber });
+        var getEmergencyCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Emergency/FMS/CheckList", new ApiRequest() { VehicleNumber = VehicleNumber });
 
-            if (getEmergencyCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                string response = await (getEmergencyCheckListResponse).Content.ReadAsStringAsync();
-                CheckList = JsonConvert.DeserializeObject<List<FMSEmergencyCheckVM>>(response);
-            }
-            else
-            {
-            }
- 
+        if (getEmergencyCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
+        {
+            string response = await (getEmergencyCheckListResponse).Content.ReadAsStringAsync();
+            CheckList = JsonConvert.DeserializeObject<List<FMSEmergencyCheckVM>>(response);
+        }
+        else
+        {
+        }
+
         StateHasChanged();
     }
 

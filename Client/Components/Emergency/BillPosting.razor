@@ -20,20 +20,6 @@
         @if (BillDetailsList != null && fileNames != null)
         {
             <div class="d-flex flex-column">
-                <SfGrid DataSource="@BillDetailsList">
-                    <GridColumns>
-                        <GridColumn Field=@nameof(BillDetailVM.ServiceType) HeaderText="Service"></GridColumn>
-                        <GridColumn Field=@nameof(BillDetailVM.SubServiceType) HeaderText="Sub Service"></GridColumn>
-                        <GridColumn HeaderText="Amount">
-                            <Template>
-                                @{
-                                    var data = context as BillDetailVM;
-                                    <p>Rs @(string.Format(String.Format("{0:N2}", data.Amount)))</p>
-                                }
-                            </Template>
-                        </GridColumn>
-                    </GridColumns>
-                </SfGrid>
                 <EditForm Model="bill" OnValidSubmit="PostBill">
                     <DataAnnotationsValidator></DataAnnotationsValidator>
                     <ValidationSummary></ValidationSummary>
@@ -50,6 +36,40 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-1">
+                        </div>
+                        <div class="col-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    Reference Number
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <input value="@ReferenceNumber" class="form-control" readonly="readonly" />
+                                        <span class="form-text text-muted">Please enter total amount paid</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <SfGrid DataSource="@BillDetailsList">
+                        <GridColumns>
+                            <GridColumn Field=@nameof(BillDetailVM.ServiceType) HeaderText="Service"></GridColumn>
+                            <GridColumn Field=@nameof(BillDetailVM.SubServiceType) HeaderText="Sub Service"></GridColumn>
+                            <GridColumn HeaderText="Amount">
+                                <Template Context="billcontext">
+                                    @{
+                                        var data = billcontext as BillDetailVM;
+                                        <p>Rs @(string.Format(String.Format("{0:N2}", data.Amount)))</p>
+                                    }
+                                </Template>
+                            </GridColumn>
+                        </GridColumns>
+                    </SfGrid>
+                    <div class="row">
+                        <div class="col-5">
                             <div class="card">
                                 <div class="card-header">
                                     Remarks
@@ -112,6 +132,8 @@
     public ApiRequest CheckPointId { get; set; }
     [Parameter]
     public string VehicleNumber { get; set; }
+    [Parameter]
+    public string ReferenceNumber { get; set; }
     [Parameter]
     public bool Visible { get; set; }
     [Parameter]

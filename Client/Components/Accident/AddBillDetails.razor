@@ -21,15 +21,17 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Service Type:</label>
-                                <SfDropDownList TValue="string" TItem="ServicesList" @bind-Value="BillDetail.ServiceType" Placeholder="Select a service" AllowFiltering="true" DataSource="@ServiceTypes">
-                                    <DropDownListFieldSettings Text="ServiceType" Value="ServiceType"></DropDownListFieldSettings>
+                                <SfDropDownList TItem="SelectListItem" TValue="string" @bind-Value="BillDetail.ServiceType" Placeholder="Select service type" AllowFiltering="true" DataSource="@ServiceList">
+                                    <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                                    <DropDownListEvents TValue="string" ValueChange="OnServiceTypeChange"></DropDownListEvents>
                                 </SfDropDownList>
                                 <span class="form-text text-muted">Select Service Type</span>
                             </div>
                             <div class="form-group">
                                 <label>Sub Service Type:</label>
-                                <SfDropDownList TValue="string" TItem="ServicesList" @bind-Value="BillDetail.SubServiceType" Placeholder="Select a sub service" AllowFiltering="true" DataSource="@ServiceTypes">
-                                    <DropDownListFieldSettings Text="SubServiceType" Value="SubServiceType"></DropDownListFieldSettings>
+                                <SfDropDownList TItem="SelectListItem" TValue="string" @bind-Value="BillDetail.SubServiceType" Placeholder="Select sub service type" AllowFiltering="true" DataSource="@SubServiceList">
+                                    <DropDownListFieldSettings Text="Text" Value="Value"></DropDownListFieldSettings>
+                                    <DropDownListEvents TValue="string" ValueChange="OnSubServiceTypeChange"></DropDownListEvents>
                                 </SfDropDownList>
                                 <span class="form-text text-muted">Select Sub Service Type</span>
                             </div>
@@ -80,11 +82,15 @@
         await base.OnInitializedAsync();
     }
 
+    public List<SelectListItem> ServiceList = new List<SelectListItem>();
+    public List<SelectListItem> SubServiceList = new List<SelectListItem>();
     List<ServicesList> ServiceTypes { get; set; }
 
     public async void GetServiceTypes()
     {
         ServiceTypes = await Http.GetFromJsonAsync<List<ServicesList>>("api/Services");
+        ServiceList = ServiceTypes.GroupBy(x => x.ServiceType).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        SubServiceList = ServiceTypes.GroupBy(x => x.SubServiceType).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         if (ServiceTypes.Any())
         {
 
@@ -98,6 +104,16 @@
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
+    }
+
+    public void OnServiceTypeChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        SubServiceList = ServiceTypes.Where(x => x.ServiceType == args.Value).GroupBy(x => x.SubServiceType).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+    }
+
+    public void OnSubServiceTypeChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        BillDetail.ServiceType = ServiceTypes.Where(x => x.SubServiceType == args.Value).FirstOrDefault().ServiceType;
     }
 
     public async void OnValidSubmit()

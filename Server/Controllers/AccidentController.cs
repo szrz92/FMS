@@ -102,6 +102,7 @@ namespace SOS.FMS.Server.Controllers
             try
             {
                 Guid accidentId = Guid.NewGuid();
+                string uref = Reference.GetUniqueReference("ACC");
                 Vehicle vehicle = await (from v in dbContext.Vehicles 
                                          where v.VehicleNumber == accident.VehicleNumber
                                          select v).SingleOrDefaultAsync();
@@ -122,7 +123,7 @@ namespace SOS.FMS.Server.Controllers
                     VehicleNumber = accident.VehicleNumber,
                     SubRegionId = dbContext.SubRegions.Where(x => x.XDescription == vehicle.SubRegion).SingleOrDefault().Id,
                     StationId = dbContext.Stations.Where(x => x.XDescription == vehicle.Station).SingleOrDefault().Id,
-
+                    Ref = uref,
                     FMSVehicleId = vehicle.Id,
                     MaintenanceStatus = accident.MaintenanceStatus == "Done" ? MaintenanceStatus.Done : MaintenanceStatus.NotInitiated,
                     TimeStamp = DateTime.Now,
@@ -159,7 +160,8 @@ namespace SOS.FMS.Server.Controllers
                         VehicleNumber = accident.VehicleNumber,
                         LastUpdated = DateTime.Now,
                         CommentCount = 0,
-                        ImageCount = 0
+                        ImageCount = 0,
+                        AccidentRef = uref
                     });
                 }
 
@@ -349,7 +351,8 @@ namespace SOS.FMS.Server.Controllers
                                                                   CommentCount = c.CommentCount,
                                                                   FMSAccidentId = c.FMSAccidentId,
                                                                   FMSVehicleId = c.FMSVehicleId,
-                                                                  ImageCount = c.ImageCount
+                                                                  ImageCount = c.ImageCount,
+                                                                  AccidentRef = c.AccidentRef
                                                               }).ToListAsync();
 
                 return Ok(checkList.OrderBy(x => x.Description).ToList());

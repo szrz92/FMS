@@ -10,6 +10,7 @@ namespace SOS.FMS.Shared.ViewModels
     public class VehicleConfigurationVM
     {
         public Guid Id { get; set; }
+        public string ServiceType { get; set; }
         [Required]
         public string Description { get; set; }
         [Required]

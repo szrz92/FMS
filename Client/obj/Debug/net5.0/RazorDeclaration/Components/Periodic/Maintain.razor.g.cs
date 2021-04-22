@@ -118,85 +118,85 @@ using SOS.FMS.Shared.ViewModels;
 #line hidden
 #nullable disable
 #nullable restore
-#line 22 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
-using Syncfusion.Blazor.Inputs;
+#line 20 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+using SOS.FMS.Shared.ViewModels.Incident;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 23 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
-using Syncfusion.Blazor.Grids;
+using Syncfusion.Blazor.Inputs;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 24 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
-using Syncfusion.Blazor.Spinner;
+using Syncfusion.Blazor.Grids;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 25 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
-using Syncfusion.Blazor.DropDowns;
+using Syncfusion.Blazor.Spinner;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 26 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
-using Syncfusion.Blazor.Popups;
+using Syncfusion.Blazor.DropDowns;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 27 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
-using Syncfusion.Blazor.Navigations;
+using Syncfusion.Blazor.Popups;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 28 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+using Syncfusion.Blazor.Navigations;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 29 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Syncfusion.Blazor.PivotView;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 31 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 32 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Append.Blazor.Notifications;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 34 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 35 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using SOS.FMS.Client.Services;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 35 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 36 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 37 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 38 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Microsoft.AspNetCore.SignalR.Client;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 2 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Periodic\Maintain.razor"
-using SOS.FMS.Shared.ViewModels.Incident;
 
 #line default
 #line hidden
@@ -209,7 +209,7 @@ using SOS.FMS.Shared.ViewModels.Incident;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 99 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Periodic\Maintain.razor"
+#line 98 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Periodic\Maintain.razor"
        
     [Parameter]
     public string VehicleNumber { get; set; }
@@ -227,6 +227,7 @@ using SOS.FMS.Shared.ViewModels.Incident;
         ServiceTypes = await Http.GetFromJsonAsync<List<ServicesList>>("api/Services");
         ServiceList = ServiceTypes.GroupBy(x => x.ServiceType).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         SubServiceList = ServiceTypes.GroupBy(x => x.SubServiceType).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        BillDetail.VehicleNumber = VehicleNumber;
         await base.OnInitializedAsync();
     }
 

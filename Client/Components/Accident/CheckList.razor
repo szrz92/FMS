@@ -132,6 +132,7 @@
     <BillPosting Visible="billPostingVisible"
                  OnVisibilityChanged="ShowHideBillPosting"
                  VehicleNumber="@VehicleNumber"
+                 ReferenceNumber="@ReferenceNumber"
                  CheckPointId="@PointId" />
 }
 @if (assignWorkShopVisible)
@@ -162,6 +163,8 @@
     public ClaimsPrincipal CurrentUser { get; set; }
     [Parameter]
     public string VehicleNumber { get; set; }
+    [Parameter]
+    public string ReferenceNumber { get; set; }
     [Parameter]
     public bool Visible { get; set; }
     [Parameter]
@@ -269,17 +272,17 @@
         var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new VehicleVM() { VehicleNumber = VehicleNumber });
         var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<VehicleVM>(await vehicleResponse.Content.ReadAsStringAsync());
 
-            var getAccidentalCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/FMS/CheckList", new ApiRequest() { VehicleNumber = VehicleNumber });
+        var getAccidentalCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Accident/FMS/CheckList", new ApiRequest() { VehicleNumber = VehicleNumber });
 
-            if (getAccidentalCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                string response = await (getAccidentalCheckListResponse).Content.ReadAsStringAsync();
-                Checklist = JsonConvert.DeserializeObject<List<FMSAccidentalCheckVM>>(response);
-                //ShowAccidentalCheckList(CheckList);
-            }
-            else
-            {
-            }
+        if (getAccidentalCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
+        {
+            string response = await (getAccidentalCheckListResponse).Content.ReadAsStringAsync();
+            Checklist = JsonConvert.DeserializeObject<List<FMSAccidentalCheckVM>>(response);
+            //ShowAccidentalCheckList(CheckList);
+        }
+        else
+        {
+        }
 
         StateHasChanged();
     }

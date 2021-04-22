@@ -17,5 +17,7 @@ namespace SOS.FMS.Shared.ViewModels
         public Guid FMSEmergencyId { get; set; }
         public Guid FMSVehicleId { get; set; }
         public DateTime LastUpdated { get; set; }
+        public string Remarks { get; set; }
+        public string EmergencyRef { get; set; }
     }
 }

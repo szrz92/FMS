@@ -118,77 +118,77 @@ using SOS.FMS.Shared.ViewModels;
 #line hidden
 #nullable disable
 #nullable restore
-#line 22 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 23 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Syncfusion.Blazor.Inputs;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 23 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 24 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Syncfusion.Blazor.Grids;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 24 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 25 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Syncfusion.Blazor.Spinner;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 25 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 26 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Syncfusion.Blazor.DropDowns;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 26 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 27 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Syncfusion.Blazor.Popups;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 27 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 28 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Syncfusion.Blazor.Navigations;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 28 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 29 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Syncfusion.Blazor.PivotView;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 31 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 32 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Append.Blazor.Notifications;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 34 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 35 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using SOS.FMS.Client.Services;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 35 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 36 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 37 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 38 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Microsoft.AspNetCore.SignalR.Client;
 
 #line default
@@ -209,7 +209,7 @@ using SOS.FMS.Shared.ViewModels.Incident;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 62 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\AddBillDetails.razor"
+#line 64 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Accident\AddBillDetails.razor"
        
 
     [Parameter]
@@ -231,11 +231,15 @@ using SOS.FMS.Shared.ViewModels.Incident;
         await base.OnInitializedAsync();
     }
 
+    public List<SelectListItem> ServiceList = new List<SelectListItem>();
+    public List<SelectListItem> SubServiceList = new List<SelectListItem>();
     List<ServicesList> ServiceTypes { get; set; }
 
     public async void GetServiceTypes()
     {
         ServiceTypes = await Http.GetFromJsonAsync<List<ServicesList>>("api/Services");
+        ServiceList = ServiceTypes.GroupBy(x => x.ServiceType).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+        SubServiceList = ServiceTypes.GroupBy(x => x.SubServiceType).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
         if (ServiceTypes.Any())
         {
 
@@ -249,6 +253,16 @@ using SOS.FMS.Shared.ViewModels.Incident;
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
+    }
+
+    public void OnServiceTypeChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        SubServiceList = ServiceTypes.Where(x => x.ServiceType == args.Value).GroupBy(x => x.SubServiceType).Select(x => new SelectListItem() { Text = x.Key, Value = x.Key }).ToList();
+    }
+
+    public void OnSubServiceTypeChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        BillDetail.ServiceType = ServiceTypes.Where(x => x.SubServiceType == args.Value).FirstOrDefault().ServiceType;
     }
 
     public async void OnValidSubmit()
