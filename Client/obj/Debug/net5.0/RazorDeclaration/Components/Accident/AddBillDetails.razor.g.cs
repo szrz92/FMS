@@ -217,6 +217,8 @@ using SOS.FMS.Shared.ViewModels.Incident;
     [Parameter]
     public string VehicleNumber { get; set; }
     [Parameter]
+    public string ReferenceNumber { get; set; }
+    [Parameter]
     public bool Visible { get; set; }
     [Parameter]
     public EventCallback<bool> OnVisibilityChanged { get; set; }
@@ -227,7 +229,7 @@ using SOS.FMS.Shared.ViewModels.Incident;
     protected override async Task OnInitializedAsync()
     {
         GetServiceTypes();
-        BillDetail = new BillDetailVM() { CheckPointId = CheckPointId.FMSAccidentalCheckId };
+        BillDetail = new BillDetailVM() { CheckPointId = CheckPointId.FMSAccidentalCheckId, Ref = ReferenceNumber };
         await base.OnInitializedAsync();
     }
 

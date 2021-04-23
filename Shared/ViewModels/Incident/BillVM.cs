@@ -24,6 +24,7 @@ namespace SOS.FMS.Shared.ViewModels.Incident
         public string Subregion { get; set; }
         public string Station { get; set; }
         public string Remarks { get; set; }
+        public string Ref { get; set; }
         public DateTime Timestamp { get; set; }
     }
     public class ServicesList

@@ -543,23 +543,36 @@ namespace SOS.FMS.Server.Controllers
                                             select c).SingleOrDefault();
                 check.MaintenanceStatus = CheckMaintenanceStatus.InProgress;
                 check.Remarks = bill.Remarks;
-                FMSAccidentalCheckComment newComment = new FMSAccidentalCheckComment()
+                if (!await dbContext.FMSAccidentalCheckComments.Where(x => x.FMSAccidentalCheckId == check.Id).AnyAsync())
                 {
-                    Id = Guid.NewGuid(),
-                    FMSAccidentalCheckId = check.Id,
-                    FMSAccidentId = check.FMSAccidentId,
-                    Comment = bill.BillAmount.ToString(),
-                    FMSUserId = new Guid((from u in dbContext.Users where u.Email == User.Identity.Name select u.Id).SingleOrDefault()),
-                    FMSVehicleId = check.FMSVehicleId,
-                    VehicleNumber = check.VehicleNumber,
-                    LastUpdated = DateTime.Now,
-                    Mentions = ""
-                };
+                    FMSAccidentalCheckComment newComment = new FMSAccidentalCheckComment()
+                    {
+                        Id = Guid.NewGuid(),
+                        FMSAccidentalCheckId = check.Id,
+                        FMSAccidentId = check.FMSAccidentId,
+                        Comment = bill.BillAmount.ToString(),
+                        FMSUserId = new Guid((from u in dbContext.Users where u.Email == User.Identity.Name select u.Id).SingleOrDefault()),
+                        FMSVehicleId = check.FMSVehicleId,
+                        VehicleNumber = check.VehicleNumber,
+                        LastUpdated = DateTime.Now,
+                        Mentions = ""
+                    };
 
-                await dbContext.FMSAccidentalCheckComments.AddAsync(newComment);
+                    await dbContext.FMSAccidentalCheckComments.AddAsync(newComment);
+                }
 
-                bill.Id = new Guid();
-                await dbContext.AccidentBills.AddAsync(bill);
+                if (!await dbContext.AccidentBills.Where(x => x.CheckPointId == check.Id).AnyAsync())
+                {
+                    bill.Id = new Guid();
+                    await dbContext.AccidentBills.AddAsync(bill);
+                }
+                else
+                {
+                    AccidentBill accidentBill = await dbContext.AccidentBills.Where(x => x.CheckPointId == check.Id).FirstOrDefaultAsync();
+                    accidentBill.Remarks = bill.Remarks;
+                    accidentBill.Ref = bill.Ref;
+                    accidentBill.BillAmount = bill.BillAmount;
+                }
 
                 check.CommentCount = await (from c in dbContext.FMSAccidentalCheckComments
                                             where c.FMSAccidentalCheckId == bill.CheckPointId
@@ -589,22 +602,58 @@ namespace SOS.FMS.Server.Controllers
 
                 check.MaintenanceStatus = CheckMaintenanceStatus.InProgress;
 
-                AccidentalBillDetail detail = new()
-                {
-                    Id = Guid.NewGuid(),
-                    CheckPointId = billDetail.CheckPointId,
-                    ServiceType = billDetail.ServiceType,
-                    SubServiceType = billDetail.SubServiceType,
-                    Amount = Convert.ToString(billDetail.Amount),
-                    VehicleNumber = check.VehicleNumber,
-                    Odometer = billDetail.Odometer,
-                    DriverName = driver.Name,
-                    Region = driver.Region,
-                    Subregion = driver.SubRegion,
-                    Station = driver.Station
-                };
+                bool accidentBillExists = dbContext.AccidentBills.Where(x => x.CheckPointId == check.Id).Any();
 
-                await dbContext.AccidentalBillDetails.AddAsync(detail);
+                if (accidentBillExists)
+                {
+                    AccidentalBillDetail detail = new()
+                    {
+                        Id = Guid.NewGuid(),
+                        CheckPointId = billDetail.CheckPointId,
+                        ServiceType = billDetail.ServiceType,
+                        SubServiceType = billDetail.SubServiceType,
+                        Amount = Convert.ToString(billDetail.Amount),
+                        VehicleNumber = check.VehicleNumber,
+                        Odometer = billDetail.Odometer,
+                        DriverName = driver.Name,
+                        Region = driver.Region,
+                        Subregion = driver.SubRegion,
+                        Station = driver.Station,
+                        Ref = billDetail.Ref
+                    };
+
+                    await dbContext.AccidentalBillDetails.AddAsync(detail);
+                }
+                else
+                {
+                    AccidentBill accidentBill = new AccidentBill()
+                    {
+                        Id = Guid.NewGuid(),
+                        CheckPointId = check.Id,
+                        Ref = billDetail.Ref,
+                        BillAmount = billDetail.Amount,
+                        Remarks = ""
+                    };
+                    AccidentalBillDetail detail = new()
+                    {
+                        Id = Guid.NewGuid(),
+                        CheckPointId = billDetail.CheckPointId,
+                        ServiceType = billDetail.ServiceType,
+                        SubServiceType = billDetail.SubServiceType,
+                        Amount = Convert.ToString(billDetail.Amount),
+                        VehicleNumber = check.VehicleNumber,
+                        Odometer = billDetail.Odometer,
+                        DriverName = driver.Name,
+                        Region = driver.Region,
+                        Subregion = driver.SubRegion,
+                        Station = driver.Station,
+                        Ref = billDetail.Ref
+                    };
+
+                    await dbContext.AccidentBills.AddAsync(accidentBill);
+                    await dbContext.AccidentalBillDetails.AddAsync(detail);
+                }
+
                 await dbContext.SaveChangesAsync();
 
                 return Ok();

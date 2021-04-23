@@ -126,7 +126,7 @@
     </div>
 </div>
 
-<AddBillDetails CheckPointId="CheckPointId" OnVisibilityChanged="ShowHideAddModal" VehicleNumber="@VehicleNumber" Visible="addVisible"></AddBillDetails>
+<AddBillDetails CheckPointId="CheckPointId" OnVisibilityChanged="ShowHideAddModal" VehicleNumber="@VehicleNumber" ReferenceNumber="@ReferenceNumber" Visible="addVisible"></AddBillDetails>
 @code {
     [Parameter]
     public ApiRequest CheckPointId { get; set; }
@@ -164,6 +164,7 @@
         await LoadData();
         bill.CheckPointId = CheckPointId.FMSEmergencyCheckId;
         bill.BillAmount = BillDetailsList.Sum(x => Convert.ToInt32(x.Amount));
+        bill.Ref = ReferenceNumber;
         BillPostingVM.CheckPointId = CheckPointId.FMSEmergencyCheckId;
         await base.OnAfterRenderAsync(firstRender);
     }

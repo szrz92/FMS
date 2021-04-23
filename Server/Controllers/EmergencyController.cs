@@ -469,6 +469,7 @@ namespace SOS.FMS.Server.Controllers
                                             where c.Id == bill.CheckPointId
                                             select c).SingleOrDefault();
                 check.MaintenanceStatus = CheckMaintenanceStatus.InProgress;
+                check.Remarks = bill.Remarks;
                 if (!await dbContext.FMSEmergencyCheckComments.Where(x => x.FMSEmergencyCheckId == check.Id).AnyAsync())
                 {
                     FMSEmergencyCheckComment newComment = new()
@@ -505,7 +506,7 @@ namespace SOS.FMS.Server.Controllers
                 Emergency emergency = await dbContext.Emergencies.Where(x => x.Id == check.FMSEmergencyId).Select(x => x).SingleOrDefaultAsync();
                 emergency.LastUpdated = PakistanDateTime.Now;
                 check.LastUpdated = PakistanDateTime.Now;
-                await dbContext. SaveChangesAsync();
+                await dbContext.SaveChangesAsync();
 
                 return Ok();
             }
@@ -564,21 +565,57 @@ namespace SOS.FMS.Server.Controllers
 
                 check.MaintenanceStatus = CheckMaintenanceStatus.InProgress;
 
-                EmergencyBillDetail detail = new()
+                bool emergencyBillExists = dbContext.EmergencyBills.Where(x => x.CheckPointId == check.Id).Any();
+
+                if (emergencyBillExists)
                 {
-                    Id = Guid.NewGuid(),
-                    CheckPointId = billDetail.CheckPointId,
-                    ServiceType = billDetail.ServiceType,
-                    SubServiceType = billDetail.SubServiceType,
-                    Amount = Convert.ToString(billDetail.Amount),
-                    VehicleNumber = check.VehicleNumber,
-                    Odometer = billDetail.Odometer,
-                    DriverName = driver.Name,
-                    Region = driver.Region,
-                    Subregion = driver.SubRegion,
-                    Station = driver.Station
-                };
-                await dbContext.EmergencyBillDetails.AddAsync(detail);
+                    EmergencyBillDetail detail = new()
+                    {
+                        Id = Guid.NewGuid(),
+                        CheckPointId = billDetail.CheckPointId,
+                        ServiceType = billDetail.ServiceType,
+                        SubServiceType = billDetail.SubServiceType,
+                        Amount = Convert.ToString(billDetail.Amount),
+                        VehicleNumber = check.VehicleNumber,
+                        Odometer = billDetail.Odometer,
+                        DriverName = driver.Name,
+                        Region = driver.Region,
+                        Subregion = driver.SubRegion,
+                        Station = driver.Station,
+                        Ref = billDetail.Ref
+                    };
+                    await dbContext.EmergencyBillDetails.AddAsync(detail);
+                }
+                else
+                {
+                    EmergencyBill emergencyBill = new EmergencyBill() 
+                    {
+                        Id = Guid.NewGuid(),
+                        CheckPointId = check.Id,
+                        Ref = billDetail.Ref,
+                        BillAmount = billDetail.Amount,
+                        Remarks = ""
+                    };
+
+                    EmergencyBillDetail detail = new()
+                    {
+                        Id = Guid.NewGuid(),
+                        CheckPointId = billDetail.CheckPointId,
+                        ServiceType = billDetail.ServiceType,
+                        SubServiceType = billDetail.SubServiceType,
+                        Amount = Convert.ToString(billDetail.Amount),
+                        VehicleNumber = check.VehicleNumber,
+                        Odometer = billDetail.Odometer,
+                        DriverName = driver.Name,
+                        Region = driver.Region,
+                        Subregion = driver.SubRegion,
+                        Station = driver.Station,
+                        Ref = billDetail.Ref
+                    };
+
+                    await dbContext.EmergencyBills.AddAsync(emergencyBill);
+                    await dbContext.EmergencyBillDetails.AddAsync(detail);
+                }    
                 await dbContext.SaveChangesAsync();
 
                 return Ok();

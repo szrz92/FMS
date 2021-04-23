@@ -254,7 +254,7 @@ function updateMarkers(dotNetObjectReference, data) {
                 // style="margin-left:20%;"
                 + ' <h3>'
                 + '<a class="btn text-white mr-2" style="background-color:#FF6F00" onclick="periodicDotNetFunc(\'' + feature.number.toString() + '\');"> PERIODIC</a>'
-                + '<a class="btn text-white mr-2" style="background-color:#FF6F00" onclick="maintainDotNetFunc(\'' + feature.number.toString() + '\');"> MAINTAIN</a>'
+                + '<a class="btn text-white mr-2" style="background-color:#FF6F00" onclick="maintainDotNetFunc(\'' + feature.number.toString() + '\');"> JOBS CART</a>'
                 + '<a class="btn text-dark mr-2" style="border: 1px solid #adb5bd;" href="javascript:historyDotNetFunc(\'' + feature.number.toString() + '\')">'
                 + '<img style="margin-right: 5px; height:20px;" alt="Pic" src="assets/icons/History1x.png"/>History</a>'
                 + '</h3>'

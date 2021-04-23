@@ -118,77 +118,84 @@ using SOS.FMS.Shared.ViewModels;
 #line hidden
 #nullable disable
 #nullable restore
-#line 22 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
-using Syncfusion.Blazor.Inputs;
+#line 20 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+using SOS.FMS.Shared.ViewModels.Incident;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 23 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
-using Syncfusion.Blazor.Grids;
+using Syncfusion.Blazor.Inputs;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 24 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
-using Syncfusion.Blazor.Spinner;
+using Syncfusion.Blazor.Grids;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 25 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
-using Syncfusion.Blazor.DropDowns;
+using Syncfusion.Blazor.Spinner;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 26 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
-using Syncfusion.Blazor.Popups;
+using Syncfusion.Blazor.DropDowns;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 27 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
-using Syncfusion.Blazor.Navigations;
+using Syncfusion.Blazor.Popups;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 28 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+using Syncfusion.Blazor.Navigations;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 29 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Syncfusion.Blazor.PivotView;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 31 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 32 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Append.Blazor.Notifications;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 34 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 35 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using SOS.FMS.Client.Services;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 35 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 36 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 37 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
+#line 38 "C:\Users\BA Tech\source\repos\sosfms\Client\_Imports.razor"
 using Microsoft.AspNetCore.SignalR.Client;
 
 #line default
@@ -202,7 +209,7 @@ using Microsoft.AspNetCore.SignalR.Client;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 157 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\Checklist.razor"
+#line 158 "C:\Users\BA Tech\source\repos\sosfms\Client\Components\Emergency\Checklist.razor"
       
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -210,6 +217,8 @@ using Microsoft.AspNetCore.SignalR.Client;
     public ClaimsPrincipal CurrentUser { get; set; }
     [Parameter]
     public string VehicleNumber { get; set; }
+    [Parameter]
+    public string ReferenceNumber { get; set; }
     [Parameter]
     public bool Visible { get; set; }
     [Parameter]
@@ -252,17 +261,17 @@ using Microsoft.AspNetCore.SignalR.Client;
         var vehicleResponse = await Http.PostAsJsonAsync("api/Vehicles/FMS/Demo/GetByNumber", new VehicleVM() { VehicleNumber = VehicleNumber });
         var vehicle = Newtonsoft.Json.JsonConvert.DeserializeObject<VehicleVM>(await vehicleResponse.Content.ReadAsStringAsync());
 
-            var getEmergencyCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Emergency/FMS/CheckList", new ApiRequest() { VehicleNumber = VehicleNumber });
+        var getEmergencyCheckListResponse = await Http.PostAsJsonAsync<ApiRequest>("api/Emergency/FMS/CheckList", new ApiRequest() { VehicleNumber = VehicleNumber });
 
-            if (getEmergencyCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                string response = await (getEmergencyCheckListResponse).Content.ReadAsStringAsync();
-                CheckList = JsonConvert.DeserializeObject<List<FMSEmergencyCheckVM>>(response);
-            }
-            else
-            {
-            }
- 
+        if (getEmergencyCheckListResponse.StatusCode == System.Net.HttpStatusCode.OK)
+        {
+            string response = await (getEmergencyCheckListResponse).Content.ReadAsStringAsync();
+            CheckList = JsonConvert.DeserializeObject<List<FMSEmergencyCheckVM>>(response);
+        }
+        else
+        {
+        }
+
         StateHasChanged();
     }
 
