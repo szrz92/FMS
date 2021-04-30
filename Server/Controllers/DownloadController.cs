@@ -20,6 +20,13 @@ namespace SOS.FMS.Server.Controllers
         {
             this.env = env;
         }
+
+        /// <summary>
+        /// file download api
+        /// </summary>
+        /// <param name="folder"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
         [HttpGet, Route("{folder}/{name}")]
         public ActionResult Get(string folder, string name)
         {// Specifying a file 

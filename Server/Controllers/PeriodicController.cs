@@ -22,6 +22,11 @@ namespace SOS.FMS.Server.Controllers
         {
             this.dbContext = dbContext;
         }
+        /// <summary>
+        /// check current periodic status by vehicle number
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("Status")]
         public async Task<IActionResult> GetCurrentStatus(ApiRequest request)
         {
@@ -167,6 +172,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// check last maintennce details by vehicle number
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("Status/Last")]
         public async Task<IActionResult> GetLastStatus(ApiRequest request)
         {
@@ -332,6 +342,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// maintain a periodic due job
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("Maintain")]
         public async Task<IActionResult> Maintain(ApiRequest request)
         {
@@ -363,6 +378,10 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// periodic status of all vehicles
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("Status/AllVehicles")]
         public async Task<IActionResult> GetCurrentStatusAll()
         {
@@ -512,6 +531,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// special maintenance
+        /// </summary>
+        /// <param name="bill"></param>
+        /// <returns></returns>
         [HttpPost("Maintain/Special")]
         public async Task<IActionResult> MaintainSpecial(BillDetailVM bill)
         {
@@ -558,6 +582,10 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest("Maintenance Failed");
             }
         }
+        /// <summary>
+        /// list of special maintainances
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("Special/Get")]
         public async Task<IActionResult> MaintainSpecialGet()
         {

@@ -21,7 +21,10 @@ namespace SOS.FMS.Server.Controllers
         {
             this.dbContext = dbContext;
         }
-
+        /// <summary>
+        /// Syncing Crew Drivers with CIT
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("CrewDrivers/Sync")]
         public async Task<IActionResult> SyncCrewDrivers()
         {
@@ -141,6 +144,12 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest();
             }
         }
+        /// <summary>
+        /// Updating Crew Drivers accoring to CIT
+        /// </summary>
+        /// <param name="Code"></param>
+        /// <param name="VehicleNumber"></param>
+        /// <returns></returns>
         [HttpPut("CrewDrivers/Update")]
         public async Task<IActionResult> UpdateCrewDriver(string Code, string VehicleNumber)
         {
@@ -182,18 +191,6 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest("Driver not updated!");
             }
         }
-        //[HttpGet("Test")]
-        //public async Task<IActionResult> Test()
-        //{
-        //    try
-        //    {
-        //        return Ok(dbContext.Testviews.ToList());
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest();
-        //    }
-        //}
     }
     public class Member
     {

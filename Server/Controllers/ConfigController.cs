@@ -19,6 +19,10 @@ namespace SOS.FMS.Server.Controllers
         {
             this.dbContext = dbContext;
         }
+        /// <summary>
+        /// Get All Vehicle Configurations
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("All")]
         public async Task<IActionResult> GetAll()
         {
@@ -42,6 +46,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// Add New Vehicle Configuration
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
         [HttpPost("Add")]
         public async Task<IActionResult> Post(VehicleConfigurationVM configuration)
         {

@@ -24,7 +24,10 @@ namespace SOS.FMS.Server.Controllers
             this.viewsContext = viewsContext;
             this.dbContext = dbContext;
         }
-
+        /// <summary>
+        /// get all fueling vendors from gbms
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("Fueling")]
         public async Task<IActionResult> GetFuelingVendors()
         {
@@ -45,6 +48,10 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest();
             }
         }
+        /// <summary>
+        /// get all vendors from gbms
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("All")]
         public async Task<IActionResult> GetVendors()
         {
@@ -64,6 +71,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest();
             }
         }
+        /// <summary>
+        /// assign a job to vendor
+        /// </summary>
+        /// <param name="workshopVM"></param>
+        /// <returns></returns>
         [HttpPost("Assign")]
         public async Task<IActionResult> AssignVendors(WorkshopVM workshopVM)
         {
@@ -155,6 +167,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest();
             }
         }
+        /// <summary>
+        /// check assigned workshop
+        /// </summary>
+        /// <param name="workshopVM"></param>
+        /// <returns></returns>
         [HttpPost("CheckAssigned")]
         public async Task<IActionResult> CheckAssignedVendor(WorkshopVM workshopVM)
         {

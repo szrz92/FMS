@@ -24,6 +24,10 @@ namespace SOS.FMS.Server.Controllers
         {
             this.dbContext = dbContext;
         }
+        /// <summary>
+        /// Get or Create and Get Daily Check lists for all vehicles
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("All")]
         public async Task<IActionResult> GetAllCheckLists()
         {
@@ -147,6 +151,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// Get or Create and Get daily check list for a vehicle number
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("FMS/CheckList")]
         public async Task<IActionResult> GetCheckListByVehicleNumber(ApiRequest request)
         {
@@ -261,6 +270,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// Marking check list point ok for current date
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("FMS/CheckList/Point/MarkDone")]
         public IActionResult GetCheckListPointMarkDone(ApiRequest request)
         {
@@ -326,6 +340,12 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+
+        /// <summary>
+        /// Marking check list point not ok for current date
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("FMS/CheckList/Point/MarkNotOk")]
         public IActionResult GetCheckListPointMarkNotOk(ApiRequest request)
         {
@@ -457,6 +477,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// Add remarks to daily check list
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("FMS/CheckList/Remarks/Add")]
         public IActionResult AddRemarks(ApiRequest request)
         {
@@ -474,6 +499,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// Daily Odo meter readings
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("Odometer")]
         public IActionResult DailyOdometerReading(ApiRequest request)
         {

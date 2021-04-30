@@ -20,7 +20,10 @@ namespace SOS.FMS.Server.Controllers
         {
             this.dbContext = dbContext;
         }
-
+        /// <summary>
+        /// all completed jobs
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("All/Completed/SinceLastMonth")]
         public async Task<IActionResult> CompletedSinceLastMonth()
         {
@@ -57,6 +60,10 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// all pending jobs
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("All/Pending/SinceLastMonth")]
         public async Task<IActionResult> PendingSinceLastMonth()
         {
@@ -93,6 +100,10 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// alll pending soon jobs
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("All/PendingSoon")]
         public IActionResult PendingSoon()
         {
@@ -123,6 +134,10 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// all completed jobs
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("All/Completed")]
         public async Task<IActionResult> CompletedJobs()
         {
@@ -224,6 +239,10 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// all pending jobs
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("All/Pending")]
         public async Task<IActionResult> PendingJobs()
         {
@@ -325,6 +344,10 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// all jobs
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("All")]
         public async Task<IActionResult> AllJobs()
         {
@@ -422,6 +445,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// jobs history by vehicle number
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("History")]
         public async Task<IActionResult> HistoryByVehicleNumber(ApiRequest request)
         {

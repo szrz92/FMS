@@ -21,6 +21,10 @@ namespace SOS.FMS.Server.Controllers
         {
             this.dbContext = dbContext;
         }
+        /// <summary>
+        /// get all fms drivers
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("FMS/All")]
         public async Task<IActionResult> GetAllFMS()
         {
@@ -57,6 +61,10 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// get all drivers
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("All")]
         public async Task<IActionResult> GetAll()
         {
@@ -101,6 +109,10 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// get drivers summary
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("Summary")]
         public async Task<IActionResult> GetSummary()
         {

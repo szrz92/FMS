@@ -254,6 +254,7 @@ using SOS.FMS.Shared.ViewModels.Incident;
         //await LoadData();
         bill.CheckPointId = CheckPointId.FMSAccidentalCheckId;
         bill.BillAmount = BillDetailsList.Sum(x => Convert.ToInt32(x.Amount));
+        bill.Ref = ReferenceNumber;
         BillPostingVM.CheckPointId = CheckPointId.FMSAccidentalCheckId;
         await base.OnAfterRenderAsync(firstRender);
     }

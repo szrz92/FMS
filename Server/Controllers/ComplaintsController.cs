@@ -23,7 +23,10 @@ namespace SOS.FMS.Server.Controllers
         {
             this.dbContext = dbContext;
         }
-
+        /// <summary>
+        /// total active complaints count
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("All/Active/Count")]
         public IActionResult AllActiveSinceLastMonthCount()
         {
@@ -53,6 +56,10 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// total active complaints
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("All/Active")]
         public async Task<IActionResult> AllActiveSinceLastMonth()
         {
@@ -114,6 +121,10 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// all jobs
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("All")]
         public async Task<IActionResult> AllSinceLastMonth()
         {
@@ -173,6 +184,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// resolve complaint
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("Resolve")]
         public async Task<IActionResult> Resolve(ApiRequest request)
         {

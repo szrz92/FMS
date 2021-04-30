@@ -20,6 +20,10 @@ namespace SOS.FMS.Server.Controllers
         {
             this.dbContext = dbContext;
         }
+        /// <summary>
+        /// get all subregions
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("All")]
         public async Task<IActionResult> GetAll()
         {
@@ -34,6 +38,10 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// get all sub regions select list
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("SelectList")]
         public async Task<IActionResult> GetSelectList()
         {

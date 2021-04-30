@@ -29,7 +29,11 @@ namespace SOS.FMS.Server.Controllers
             this.logger = logger;
             this.dbContext = dbContext;
         }
-
+        /// <summary>
+        /// get list of files files
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("Files")]
         public IActionResult PostFiles(ApiRequest request)
         {
@@ -45,6 +49,10 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// post/save/upload file
+        /// </summary>
+        /// <param name="UploadFiles"></param>
         [HttpPost("[action]")]
         public void Save(IList<IFormFile> UploadFiles)
         {

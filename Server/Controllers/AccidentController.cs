@@ -28,6 +28,10 @@ namespace SOS.FMS.Server.Controllers
             this.dbContext = dbContext;
             this.hubContext = hubContext;
         }
+        /// <summary>
+        /// List of all accidents
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("All")]
         public async Task<IActionResult> GetAllAccidents()
         {
@@ -96,6 +100,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest();
             }
         }
+        /// <summary>
+        /// report a new accident
+        /// </summary>
+        /// <param name="accident"></param>
+        /// <returns></returns>
         [HttpPost("Report")]
         public async Task<IActionResult> NewAccident(FMSAccidentVM accident)
         {
@@ -183,6 +192,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// Check accidental status of a vehicle number
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
 
         [HttpPost("FMS/checkAccidentalStatus")]
         public async Task<IActionResult> checkAccidentalStatus(ApiRequest request)
@@ -212,6 +226,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// Marking an accidental car as operational
+        /// </summary>
+        /// <param name="vehicle"></param>
+        /// <returns></returns>
 
         [HttpPost("FMS/Demo/CarOperational")]
         public async Task<IActionResult> CarOperational(ApiRequest vehicle)
@@ -268,6 +287,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// Marking an accidental job as closed
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("FMS/Demo/CloseJob")]
         public async Task<IActionResult> CloseJob(ApiRequest request)
         {
@@ -329,6 +353,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// Getting accidental check list by vehicle number 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("FMS/CheckList")]
         public async Task<IActionResult> GetCheckListByVehicleNumber(ApiRequest request)
         {
@@ -362,6 +391,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// Getting check list point details by check point id 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("FMS/CheckList/Point")]
         public async Task<IActionResult> GetCheckListPointDetails(ApiRequest request)
         {
@@ -410,6 +444,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// Mark Check list point as done
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("FMS/CheckList/Point/MarkDone")]
         public async Task<IActionResult> GetCheckListPointMarkDone(ApiRequest request)
         {
@@ -437,6 +476,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// Get all check list point comments
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("FMS/CheckList/Point/Comment/All")]
         public async Task<IActionResult> GetCheckListPointAllComments(ApiRequest request)
         {
@@ -464,6 +508,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// add a new comment to check list point
+        /// </summary>
+        /// <param name="comment"></param>
+        /// <returns></returns>
         [HttpPost("FMS/CheckList/Point/Comment/Add")]
         public async Task<IActionResult> AddCheckListPointComment(FMSAccidentalCheckCommentVM comment)
         {
@@ -529,6 +578,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// posting a bill for accidental maintenance
+        /// </summary>
+        /// <param name="bill"></param>
+        /// <returns></returns>
         [HttpPost("PostBill")]
         public async Task<IActionResult> PostBill(AccidentBill bill)
         {
@@ -589,6 +643,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// post bill details for accidental maintenance
+        /// </summary>
+        /// <param name="billDetail"></param>
+        /// <returns></returns>
         [HttpPost("PostBillDetail")]
         public async Task<IActionResult> PostBillDetail(BillDetailVM billDetail)
         {
@@ -663,6 +722,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// getting accidental bill against check id
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("GetBills")]
         public async Task<IActionResult> GetBills(ApiRequest request)
         {
@@ -698,6 +762,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest();
             }
         }
+        /// <summary>
+        /// get bill details posted 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("GetBillDetails")]
         public async Task<IActionResult> GetBillDetails(ApiRequest request)
         {
@@ -719,6 +788,10 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest();
             }
         }
+        /// <summary>
+        /// get all accidents for reporting
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("AllAccidents")]
         public async Task<IActionResult> GetAllAccidentsReport()
         {

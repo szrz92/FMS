@@ -22,6 +22,11 @@ namespace SOS.FMS.Server.Controllers
         {
             this.dbContext = dbContext;
         }
+        /// <summary>
+        /// Saving new fueling information
+        /// </summary>
+        /// <param name="fuelingInfo"></param>
+        /// <returns></returns>
         [HttpPost("[action]")]
         public async Task<IActionResult> Save(FuelingInfoVM fuelingInfo)
         {
@@ -34,34 +39,44 @@ namespace SOS.FMS.Server.Controllers
                     .OrderByDescending(x => x.Timestamp)
                     .Select(x => Convert.ToDouble(x.Odometer)).FirstOrDefaultAsync();
 
-
-                FuelingInfo info = new FuelingInfo()
+                if (Convert.ToDouble(fuelingInfo.Odometer) > lastOdometer)
                 {
-                    Id = Guid.NewGuid(),
-                    Amount = fuelingInfo.Amount,
-                    DriverName = dbContext.Drivers.Where(x => x.VehicleNumber == fuelingInfo.VehicleNumber).FirstOrDefault().Name,
-                    FillingCity = fuelingInfo.FillingCity,
-                    FillingStation = fuelingInfo.FillingStation,
-                    Litres = fuelingInfo.Litres,
-                    Milage = (Convert.ToDouble(fuelingInfo.Odometer) - lastOdometer).ToString(),
-                    Odometer = fuelingInfo.Odometer,
-                    PreviousOdometer= lastOdometer.ToString(),
-                    PaymentType = fuelingInfo.PaymentType,
-                    Rate = fuelingInfo.Rate,
-                    Region = dbContext.Vehicles.Where(x => x.VehicleNumber == fuelingInfo.VehicleNumber).FirstOrDefault().Region,
-                    Remarks = fuelingInfo.Remarks,
-                    Timestamp = PakistanDateTime.Now,
-                    VehicleNumber = fuelingInfo.VehicleNumber
-                };
-                await dbContext.FuelingInfo.AddAsync(info);
-                await dbContext.SaveChangesAsync();
-                return Ok();
+                    FuelingInfo info = new()
+                    {
+                        Id = Guid.NewGuid(),
+                        Amount = fuelingInfo.Amount,
+                        DriverName = dbContext.Drivers.Where(x => x.VehicleNumber == fuelingInfo.VehicleNumber).FirstOrDefault().Name,
+                        FillingCity = fuelingInfo.FillingCity,
+                        FillingStation = fuelingInfo.FillingStation,
+                        Litres = fuelingInfo.Litres,
+                        Milage = (Convert.ToDouble(fuelingInfo.Odometer) - lastOdometer).ToString(),
+                        Odometer = fuelingInfo.Odometer,
+                        PreviousOdometer = lastOdometer.ToString(),
+                        PaymentType = fuelingInfo.PaymentType,
+                        Rate = fuelingInfo.Rate,
+                        Region = dbContext.Vehicles.Where(x => x.VehicleNumber == fuelingInfo.VehicleNumber).FirstOrDefault().Region,
+                        Remarks = fuelingInfo.Remarks,
+                        Timestamp = PakistanDateTime.Now,
+                        VehicleNumber = fuelingInfo.VehicleNumber
+                    };
+                    await dbContext.FuelingInfo.AddAsync(info);
+                    await dbContext.SaveChangesAsync();
+                    return Ok();
+                }
+                else
+                {
+                    return NotFound();
+                }
             }
             catch (Exception ex)
             {
                 return BadRequest();
             }
         }
+        /// <summary>
+        /// Retrieve all fueling information entered to the system
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("[action]")]
         public async Task<IActionResult> All()
         {

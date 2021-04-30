@@ -28,6 +28,10 @@ namespace SOS.FMS.Server.Controllers
         {
             this.dbContext = dbContext;
         }
+        /// <summary>
+        /// get all gbms vehicles
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("All")]
         public async Task<IActionResult> GetAllGBMS()
         {
@@ -59,6 +63,10 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// get al gbms vehicles select list
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("SelectList")]
         public async Task<IActionResult> GetSelectList()
         {
@@ -111,6 +119,10 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// get all fms vehicles
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("FMS/All")]
         public async Task<IActionResult> GetAllFMS()
         {
@@ -260,6 +272,10 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// get all fms vehicles select list
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("FMS/SelectList")]
         public async Task<IActionResult> GetSelectListFMS()
         {
@@ -278,6 +294,10 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// get all vehicles scorecard
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("FMS/Scorecard/All")]
         public async Task<IActionResult> GetAllScorecards()
         {
@@ -485,6 +505,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// get score card by vehicle id
+        /// </summary>
+        /// <param name="vehicleId"></param>
+        /// <returns></returns>
         [HttpPost("FMS/Scorecard/{vehicleId}")]
         public async Task<IActionResult> GetScorecard(Guid vehicleId)
         {
@@ -509,6 +534,10 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// get all accidents
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("FMS/Accidents/All")]
         public async Task<IActionResult> GetAllAccidents()
         {
@@ -546,6 +575,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// get all accidents by vehicle id
+        /// </summary>
+        /// <param name="vehicleId"></param>
+        /// <returns></returns>
         [HttpGet("FMS/Accidents/{vehicleId}")]
         public async Task<IActionResult> GetAccidents(Guid vehicleId)
         {
@@ -571,7 +605,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
-
+        /// <summary>
+        /// add new vehicle to fms
+        /// </summary>
+        /// <param name="vehicle"></param>
+        /// <returns></returns>
         [HttpPost("Add")]
         public async Task<IActionResult> AddVehicle(VehicleVM vehicle)
         {

@@ -27,6 +27,13 @@ namespace SOS.FMS.Server.Controllers
             _userManager = userManager;
         }
 
+
+        /// <summary>
+        /// Request for all fueling data
+        /// </summary>
+        /// <returns>
+        /// all information about fueling
+        /// </returns>
         [HttpGet("[action]")]
         public async Task<IActionResult> All()
         {
@@ -37,41 +44,41 @@ namespace SOS.FMS.Server.Controllers
 
                 List<DailyFuelReport> fuelingInfoList = await (from f in dbContext.FuelingInfo
                                                                join g in dbContext.GBMSVehicles on f.VehicleNumber equals g.Description
-                                                               //where v.Region==applicationUser.Region
-                                                             select new DailyFuelReport()
-                                                             {
-                                                                 Id = f.Id,
-                                                                 VehicleNumber = f.VehicleNumber,
-                                                                 Region = f.Region,
-                                                                 //VehicleEnrollmentIn="Dummy Enrollment",
-                                                                 VehicleOffRoad=false,
+                                                               where f.Litres != "0" && f.Milage != "0"
+                                                               select new DailyFuelReport()
+                                                               {
+                                                                   Id = f.Id,
+                                                                   VehicleNumber = f.VehicleNumber,
+                                                                   Region = f.Region,
+                                                                   //VehicleEnrollmentIn="Dummy Enrollment",
+                                                                   VehicleOffRoad = false,
 
-                                                                 Odometer = f.Odometer,
-                                                                 PreviousOdometer=f.PreviousOdometer,
-                                                                 Mileage = f.Milage,
-                                                                 Average = (Convert.ToDouble(f.Milage) / Convert.ToDouble(f.Litres)).ToString(),
-                                                                 CC = "Unknown",
-                                                                 ACC = "Unknown",
-                                                                 Driver = f.DriverName,
-                                                                 Guard="Unknown",
+                                                                   Odometer = f.Odometer,
+                                                                   PreviousOdometer = f.PreviousOdometer,
+                                                                   Mileage = f.Milage,
+                                                                   Average = (Convert.ToDouble(f.Milage) / Convert.ToDouble(f.Litres)).ToString(),
+                                                                   CC = "Unknown",
+                                                                   ACC = "Unknown",
+                                                                   Driver = f.DriverName,
+                                                                   Guard = "Unknown",
 
-                                                                 FuelType=g.GasolineType,
-                                                                 Litres = f.Litres,
-                                                                 Rate = f.Rate,
-                                                                 Amount = f.Amount,
-                                                                 PaymentType = f.PaymentType,
-                                                                 CostKm=Convert.ToString(Convert.ToDouble(f.Amount)/ Convert.ToDouble(f.Milage)),
+                                                                   FuelType = g.GasolineType,
+                                                                   Litres = f.Litres,
+                                                                   Rate = f.Rate,
+                                                                   Amount = f.Amount,
+                                                                   PaymentType = f.PaymentType,
+                                                                   CostKm = Convert.ToString(Convert.ToDouble(f.Amount) / Convert.ToDouble(f.Milage)),
 
-                                                                 Timestamp = f.Timestamp,
-                                                                 Purchaser=f.DriverName,
-                                                                 //InvoiceReference= "Unknown",
-                                                                 Vendor= f.FillingStation,
-                                                                 Make=g.Make,
-                                                                 Model=g.Model,
-                                                                 VehicleType=g.VehicleType
-                                                                 //MTOfficer="Unknown",
-                                                                 
-                                                             }).ToListAsync();
+                                                                   Timestamp = f.Timestamp,
+                                                                   Purchaser = f.DriverName,
+                                                                   //InvoiceReference= "Unknown",
+                                                                   Vendor = f.FillingStation,
+                                                                   Make = g.Make,
+                                                                   Model = g.Model,
+                                                                   VehicleType = g.VehicleType
+                                                                   //MTOfficer="Unknown",
+
+                                                               }).ToListAsync();
                 foreach (var item in fuelingInfoList)
                 {
                     Crew crew = await ModelService.getCrewByVehicleNo(dbContext, item.VehicleNumber);
@@ -102,7 +109,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest();
             }
         }
-
+        /// <summary>
+        /// Date wise Fuel Comparison data with respect to each vehicle
+        /// </summary>
+        /// <param name="fuelComparisonReport"></param>
+        /// <returns>Fuel Comparison data</returns>
         [HttpPost("[action]")]
         public async Task<IActionResult> FuelComparisonReport(FuelComparisonReport fuelComparisonReport)
         {
@@ -248,7 +259,10 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest();
             }
         }
-
+        /// <summary>
+        /// All Regions request
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("[action]")]
         public async Task<IActionResult> GetRegions()
         {
@@ -262,7 +276,11 @@ namespace SOS.FMS.Server.Controllers
                 throw;
             }
         }
-
+        /// <summary>
+        /// Filtered vehicles list with repect to the object passed in parameter
+        /// </summary>
+        /// <param name="fuelComparisonReport"></param>
+        /// <returns></returns>
         [HttpPost("[action]")]
         public async Task<IActionResult> GetVehicleList(FuelComparisonReport fuelComparisonReport)
         {
@@ -289,6 +307,11 @@ namespace SOS.FMS.Server.Controllers
                 throw;
             }
         }
+        /// <summary>
+        /// Filtered vehicle types list with repect to the object passed in parameter
+        /// </summary>
+        /// <param name="fuelComparisonReport"></param>
+        /// <returns></returns>
 
         [HttpPost("[action]")]
         public async Task<IActionResult> GetVehicleTypeList(FuelComparisonReport fuelComparisonReport)
@@ -317,6 +340,11 @@ namespace SOS.FMS.Server.Controllers
             }
         }
 
+        /// <summary>
+        /// Filtered vehicle makes list with repect to the object passed in parameter
+        /// </summary>
+        /// <param name="fuelComparisonReport"></param>
+        /// <returns></returns>
 
         [HttpPost("[action]")]
         public async Task<IActionResult> GetMakeList(FuelComparisonReport fuelComparisonReport)
@@ -345,6 +373,11 @@ namespace SOS.FMS.Server.Controllers
             }
         }
 
+        /// <summary>
+        /// Filtered vehicle models list with repect to the object passed in parameter
+        /// </summary>
+        /// <param name="fuelComparisonReport"></param>
+        /// <returns></returns>
         [HttpPost("[action]")]
         public async Task<IActionResult> GetModelList(FuelComparisonReport fuelComparisonReport)
         {
@@ -371,6 +404,12 @@ namespace SOS.FMS.Server.Controllers
                 throw;
             }
         }
+
+        /// <summary>
+        /// Traccar data summary between two dates
+        /// </summary>
+        /// <param name="reportRequest"></param>
+        /// <returns></returns>
         [HttpPost("[action]")]
         public async Task<IActionResult> GetSummaries(ReportRequest reportRequest)
         {
@@ -383,6 +422,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest();
             }
         }
+        /// <summary>
+        /// Traccar stops data summary between two dates
+        /// </summary>
+        /// <param name="reportRequest"></param>
+        /// <returns></returns>
         [HttpPost("[action]")]
         public async Task<IActionResult> GetStops(ReportRequest reportRequest)
         {
@@ -395,6 +439,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest();
             }
         }
+        /// <summary>
+        /// Traccar trips data summary between two dates
+        /// </summary>
+        /// <param name="reportRequest"></param>
+        /// <returns></returns>
         [HttpPost("[action]")]
         public async Task<IActionResult> GetTrips(ReportRequest reportRequest)
         {

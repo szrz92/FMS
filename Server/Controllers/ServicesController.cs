@@ -23,7 +23,10 @@ namespace SOS.FMS.Server.Controllers
             this.dbContext = dbContext;
             this.viewsContext = viewsContext;
         }
-
+        /// <summary>
+        /// get all services types and sub service tyoes
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetTypes()
         {

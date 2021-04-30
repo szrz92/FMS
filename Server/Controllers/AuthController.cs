@@ -26,6 +26,11 @@ namespace SOS.FMS.Server.Controllers
             _signInManager = signInManager;
             this.dbContext = dbContext;
         }
+        /// <summary>
+        /// login api
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Login(LoginRequest request)
         {
@@ -36,6 +41,11 @@ namespace SOS.FMS.Server.Controllers
             await _signInManager.SignInAsync(user, request.RememberMe);
             return Ok();
         }
+        /// <summary>
+        /// register user
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Register(RegisterRequest parameters)
         {
@@ -51,7 +61,11 @@ namespace SOS.FMS.Server.Controllers
                 Password = parameters.Password
             });
         }
-
+        /// <summary>
+        /// register a new user
+        /// </summary>
+        /// <param name="userVM"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> RegisterUser(FMSApplicationUserVM userVM)
@@ -96,6 +110,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// api to update user
+        /// </summary>
+        /// <param name="userVM"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> UpdateUser(FMSApplicationUserVM userVM)
@@ -137,6 +156,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// api to delete a user by user name
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> DeleteUser(ApiRequest request)
@@ -168,6 +192,10 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// logout api
+        /// </summary>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> Logout()
@@ -201,6 +229,11 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// getting a registered user against a user name
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> RegisteredUser(ApiRequest request)
@@ -229,6 +262,10 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// get fms roles
+        /// </summary>
+        /// <returns></returns>
         [Authorize(Roles = "SA")]
         [HttpGet]
         public async Task<IActionResult> FMSRoles()
@@ -247,6 +284,10 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// api to get signed in user as current user
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public CurrentUser CurrentUserInfo()
         {

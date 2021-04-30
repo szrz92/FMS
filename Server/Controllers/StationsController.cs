@@ -19,6 +19,10 @@ namespace SOS.FMS.Server.Controllers
         {
             this.dbContext = dbContext;
         }
+        /// <summary>
+        /// get stations select list
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("SelectList")]
         public async Task<IActionResult> GetSelectList()
         {

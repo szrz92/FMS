@@ -355,6 +355,8 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     public void DialogClose()
     {
+        FuelingInfo = new FuelingInfoVM();
+
         FuelingDialog = false;
         OdometerDialog = false;
 

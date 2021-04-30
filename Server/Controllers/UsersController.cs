@@ -19,6 +19,10 @@ namespace SOS.FMS.Server.Controllers
         {
             this.dbContext = dbContext;
         }
+        /// <summary>
+        /// get all filtered users w.r.t departments
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("GBMS/All")]
         public async Task<IActionResult> GetFilteredUsers()
         {
@@ -55,6 +59,10 @@ namespace SOS.FMS.Server.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /// <summary>
+        /// get all filtered users w.r.t departments
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("FMS/All")]
         public async Task<IActionResult> GetFMSUsers()
         {
